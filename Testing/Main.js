@@ -19,7 +19,6 @@ var L14_ScrollerHare;
         sprite.generateByGrid(txtImage, ƒ.Rectangle.GET(609, 10, 64, 64), 6, new ƒ.Vector2(100, 0), 64, ƒ.ORIGIN2D.BOTTOMCENTER);
         ƒ.RenderManager.initialize(true, false);
         root = new ƒ.Node("Root");
-        let mtxHare;
         let hare;
         hare = new NodeSprite("Hare0", sprite);
         hare.setFrameDirection(-1);

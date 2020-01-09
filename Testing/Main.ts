@@ -14,13 +14,11 @@ namespace L14_ScrollerHare {
     let crc2: CanvasRenderingContext2D = canvas.getContext("2d");
     let txtImage: ƒ.TextureImage = new ƒ.TextureImage();
     txtImage.image = img;
-
     sprite = new Sprite("Char");
     sprite.generateByGrid(txtImage, ƒ.Rectangle.GET(609, 10, 64, 64), 6, new ƒ.Vector2(100, 0), 64, ƒ.ORIGIN2D.BOTTOMCENTER);
 
     ƒ.RenderManager.initialize(true, false);
     root = new ƒ.Node("Root");
-    let mtxHare: ƒ.Matrix4x4;
     let hare: NodeSprite;
 
     hare = new NodeSprite("Hare0", sprite);
@@ -50,9 +48,7 @@ namespace L14_ScrollerHare {
       // ƒ.Debug.log(frame);
       // root.showFrameNext();
       root.broadcastEvent(new CustomEvent("showNext"));
-      
       viewport.draw();
-
       crc2.strokeRect(-1, -1, canvas.width / 2, canvas.height + 2);
       crc2.strokeRect(-1, canvas.height / 2, canvas.width + 2, canvas.height);
     }
