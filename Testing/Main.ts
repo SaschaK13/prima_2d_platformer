@@ -15,7 +15,7 @@ namespace L14_ScrollerHare {
     let txtImage: ƒ.TextureImage = new ƒ.TextureImage();
     txtImage.image = img;
     sprite = new Sprite("Char");
-    sprite.generateByGrid(txtImage, ƒ.Rectangle.GET(609, 10, 64, 64), 6, new ƒ.Vector2(100, 0), 64, ƒ.ORIGIN2D.BOTTOMCENTER);
+    sprite.generateByGrid(txtImage, ƒ.Rectangle.GET(30, 10, 70, 39), 24, new ƒ.Vector2(90, 0), 30, ƒ.ORIGIN2D.BOTTOMCENTER);
 
     ƒ.RenderManager.initialize(true, false);
     root = new ƒ.Node("Root");
