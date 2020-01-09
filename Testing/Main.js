@@ -16,7 +16,7 @@ var L14_ScrollerHare;
         let txtImage = new ƒ.TextureImage();
         txtImage.image = img;
         sprite = new Sprite("Char");
-        sprite.generateByGrid(txtImage, ƒ.Rectangle.GET(2, 104, 68, 64), 6, ƒ.Vector2.ZERO(), 64, ƒ.ORIGIN2D.BOTTOMCENTER);
+        sprite.generateByGrid(txtImage, ƒ.Rectangle.GET(609, 10, 64, 64), 6, new ƒ.Vector2(100, 0), 64, ƒ.ORIGIN2D.BOTTOMCENTER);
         ƒ.RenderManager.initialize(true, false);
         root = new ƒ.Node("Root");
         let mtxHare;
