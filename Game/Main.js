@@ -1,11 +1,9 @@
 "use strict";
-/// <reference path="../L14_ScrollerFoundation/SpriteGenerator.ts"/>
 var Game;
-/// <reference path="../L14_ScrollerFoundation/SpriteGenerator.ts"/>
 (function (Game) {
     var fudge = FudgeCore;
+    var Player = Game.Player;
     window.addEventListener("load", test);
-    let sprite;
     let root;
     function test() {
         let canvas = document.querySelector("canvas");
@@ -16,7 +14,8 @@ var Game;
         cmpCamera.pivot.lookAt(fudge.Vector3.ZERO());
         cmpCamera.backgroundColor = fudge.Color.CSS("aliceblue");
         let material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(1, 0, 1, 1)));
-        let player = new Game.Player("jeff");
+        let player = new Player("test");
+        fudge.Debug.log(player);
         player.addComponent(new fudge.ComponentMaterial(material));
         root.appendChild(player);
         let viewport = new fudge.Viewport();

@@ -1,11 +1,13 @@
 namespace Game {
 
   import fudge = FudgeCore;
+  import Character  = Game.Character;
 
   export class Player extends Character{
-
-    private static mesh: fudge.MeshCube = new fudge.MeshCube();
-    
+  
+  constructor(nodeName: string){
+    super(nodeName);
+  }
 
   }
 

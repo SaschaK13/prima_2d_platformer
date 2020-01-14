@@ -1,10 +1,12 @@
 "use strict";
 var Game;
 (function (Game) {
-    var fudge = FudgeCore;
-    class Player extends Game.Character {
+    var Character = Game.Character;
+    class Player extends Character {
+        constructor(nodeName) {
+            super(nodeName);
+        }
     }
-    Player.mesh = new fudge.MeshCube();
     Game.Player = Player;
 })(Game || (Game = {}));
 //# sourceMappingURL=Player.js.map
