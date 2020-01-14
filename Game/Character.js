@@ -5,11 +5,11 @@ var Game;
     class Character extends fudge.Node {
         constructor(nodeName) {
             super(nodeName);
-            this.mesh = new fudge.MeshQuad;
-            let cmpMesh = new fudge.ComponentMesh(this.mesh);
-            this.addComponent(cmpMesh);
-            let cmpTransform = new fudge.ComponentTransform();
-            this.addComponent(cmpTransform);
+            this.mesh = new fudge.MeshQuad();
+            this.cmpMesh = new fudge.ComponentMesh(this.mesh);
+            this.addComponent(this.cmpMesh);
+            this.cmpTransform = new fudge.ComponentTransform();
+            this.addComponent(this.cmpTransform);
         }
     }
     Game.Character = Character;

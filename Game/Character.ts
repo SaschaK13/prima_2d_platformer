@@ -3,16 +3,19 @@ namespace Game {
   import fudge = FudgeCore;
   
   export class Character extends fudge.Node { 
-      public mesh: fudge.MeshQuad = new fudge.MeshQuad;
-      public materials: fudge.Material;
+      cmpTransform: fudge.ComponentTransform;
+      private mesh: fudge.MeshQuad;
+      private materials: fudge.Material;
+      private cmpMesh: fudge.ComponentMesh;
    
     constructor(nodeName: string) {
       super(nodeName);
-      let cmpMesh: fudge.ComponentMesh = new fudge.ComponentMesh(this.mesh);
-      this.addComponent(cmpMesh);
+      this.mesh = new fudge.MeshQuad();
+      this.cmpMesh  = new fudge.ComponentMesh(this.mesh);
+      this.addComponent(this.cmpMesh);
 
-      let cmpTransform: fudge.ComponentTransform = new fudge.ComponentTransform();
-      this.addComponent(cmpTransform);
+      this.cmpTransform = new fudge.ComponentTransform();
+      this.addComponent(this.cmpTransform);
     }
   }
 }

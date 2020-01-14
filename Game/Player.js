@@ -1,8 +1,7 @@
 "use strict";
 var Game;
 (function (Game) {
-    var Character = Game.Character;
-    class Player extends Character {
+    class Player extends Game.Character {
         constructor(nodeName) {
             super(nodeName);
         }
