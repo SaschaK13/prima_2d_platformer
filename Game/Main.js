@@ -2,7 +2,7 @@
 var Game;
 (function (Game) {
     var fudge = FudgeCore;
-    var Character = Game.Character;
+    var Player = Game.Player;
     window.addEventListener("load", test);
     let root;
     function test() {
@@ -14,11 +14,10 @@ var Game;
         cmpCamera.pivot.lookAt(fudge.Vector3.ZERO());
         cmpCamera.backgroundColor = fudge.Color.CSS("aliceblue");
         let material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(1, 0, 1, 1)));
-        // let player: Player = new Player("test");
-        // fudge.Debug.log(player);
-        //player.addComponent(new fudge.ComponentMaterial(material));
-        let c = new Character("test");
-        root.appendChild(c);
+        let player = new Player("test");
+        fudge.Debug.log(player);
+        player.addComponent(new fudge.ComponentMaterial(material));
+        root.appendChild(player);
         let viewport = new fudge.Viewport();
         viewport.initialize("Viewport", root, cmpCamera, canvas);
         viewport.draw();
