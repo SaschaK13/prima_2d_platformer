@@ -1,11 +1,9 @@
-/// <reference path="../L14_ScrollerFoundation/SpriteGenerator.ts"/>
 namespace Game {
   import fudge = FudgeCore;
-  import Sprite = L14_ScrollerFoundation.Sprite;
-  import NodeSprite = L14_ScrollerFoundation.NodeSprite;
+  import Player = Game.Player;
+
 
   window.addEventListener("load", test);
-  let sprite: Sprite;
   let root: fudge.Node;
 
   function test(): void {
@@ -20,13 +18,12 @@ namespace Game {
 
 
     let material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(1,0,1,1)));
-    let player = new Player("jeff");
+    let player: Player = new Player("test");
+    fudge.Debug.log(player);
     player.addComponent(new fudge.ComponentMaterial(material));
 
     root.appendChild(player);
     
-
-
     let viewport: fudge.Viewport = new fudge.Viewport();
     viewport.initialize("Viewport", root, cmpCamera, canvas);
     viewport.draw();
