@@ -3,8 +3,8 @@ namespace Game {
   import fudge = FudgeCore;
   
   export class Character extends fudge.Node { 
-      cmpTransform: fudge.ComponentTransform;
       private mesh: fudge.MeshQuad;
+      private transcmp: fudge.ComponentTransform;
       private materials: fudge.Material;
       private cmpMesh: fudge.ComponentMesh;
    
@@ -14,8 +14,8 @@ namespace Game {
       this.cmpMesh  = new fudge.ComponentMesh(this.mesh);
       this.addComponent(this.cmpMesh);
 
-      this.cmpTransform = new fudge.ComponentTransform();
-      this.addComponent(this.cmpTransform);
+      this.transcmp = new fudge.ComponentTransform();
+      this.addComponent(this.transcmp);
     }
   }
 }

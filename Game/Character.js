@@ -8,8 +8,8 @@ var Game;
             this.mesh = new fudge.MeshQuad();
             this.cmpMesh = new fudge.ComponentMesh(this.mesh);
             this.addComponent(this.cmpMesh);
-            this.cmpTransform = new fudge.ComponentTransform();
-            this.addComponent(this.cmpTransform);
+            this.transcmp = new fudge.ComponentTransform();
+            this.addComponent(this.transcmp);
         }
     }
     Game.Character = Character;
