@@ -18,9 +18,14 @@ var Game;
         fudge.Debug.log(player);
         player.addComponent(new fudge.ComponentMaterial(material));
         root.appendChild(player);
+        fudge.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, update);
+        fudge.Loop.start(fudge.LOOP_MODE.TIME_GAME, 10);
         let viewport = new fudge.Viewport();
         viewport.initialize("Viewport", root, cmpCamera, canvas);
         viewport.draw();
+        function update(_event) {
+            viewport.draw();
+        }
     }
 })(Game || (Game = {}));
 //# sourceMappingURL=Main.js.map

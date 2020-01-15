@@ -23,11 +23,16 @@ namespace Game {
     player.addComponent(new fudge.ComponentMaterial(material));
 
     root.appendChild(player);
+
+    fudge.Loop.addEventListener(fudge.EVENT.LOOP_FRAME, update);
+    fudge.Loop.start(fudge.LOOP_MODE.TIME_GAME, 10);
     
     let viewport: fudge.Viewport = new fudge.Viewport();
     viewport.initialize("Viewport", root, cmpCamera, canvas);
     viewport.draw();
 
-
+    function update(_event: fudge.Eventƒ): void {
+      viewport.draw();
+    }
   }
 }
