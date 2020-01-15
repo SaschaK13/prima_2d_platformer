@@ -4,8 +4,20 @@ namespace Game {
   
   export class Character extends fudge.Node { 
       private static speedMax: number = 1.5; // units per second
-      public speed: number = 0;
+      public speed: fudge.Vector2 =  new fudge.Vector2(0,0)
       public fallSpeed: fudge.Vector2 = new fudge.Vector2(0, -1);
+      public gravitySpeed: number = 0;
+      public gravity: number = -0.8;
+      
+
+      public falling: boolean = true;
+
+      public positionBevorUpdate: fudge.Vector3;
+      public positionAfterUpdate: fudge.Vector3;
+
+      public isColliding = false;
+      public collissionObject: fudge.Node;
+  
 
       private mesh: fudge.MeshQuad;
       private transcmp: fudge.ComponentTransform;
@@ -35,20 +47,51 @@ namespace Game {
         characterPosition.x + CharacterScaling.x > colissionObjectPosition.x &&
         characterPosition.y < colissionObjectPosition.y + colissionObjectScaling.y &&
         characterPosition.y + CharacterScaling.y > colissionObjectPosition.y) {
+          this.isColliding = true;
+          this.collissionObject = colissionObject;
           return true;
         }else 
         {
+          this.isColliding = false;
           return false;
         }
 
     }
 
+    private stand(a: number, b: number)
+    {
+      let pointA = a;
+      let pointB = b;
+      let distance =pointB - pointA;
+      let middlePoint = distance/2;
+
+      if(distance >= 0.5)
+      {
+        this.cmpTransform.local.translation = new fudge.Vector3(this.cmpTransform.local.translation.x, middlePoint, 0);
+        if(this.collideWith(this.collissionObject))
+        {
+          pointB = middlePoint;
+        }else{
+          pointA = middlePoint;
+        }
+        this.stand(pointA,pointB);
+      }
+    }
+    
     private update = (_event: fudge.Eventƒ): void => {
-      let timeFrame: number = fudge.Loop.timeFrameGame / 1000;
-      this.cmpTransform.local.translate(new fudge.Vector3(this.fallSpeed.x, this.fallSpeed.y * timeFrame, 0));
-      //fudge.Debug.log(this.fallSpeed);
-      this.cmpTransform.local.translateX(this.speed * timeFrame);
-      this.broadcastEvent(new CustomEvent("showNext"));
+
+      this.positionBevorUpdate = this.cmpTransform.local.translation;
+      if(this.falling){
+        let timeFrame: number = fudge.Loop.timeFrameGame / 1000;
+        this.gravitySpeed += this.gravity;
+        this.cmpTransform.local.translateY((this.speed.y + this.gravitySpeed) * timeFrame)    
+      }
+      this.positionAfterUpdate = this.cmpTransform.local.translation;
+      if(this.isColliding)
+      {
+        this.gravitySpeed = 0;
+        this.stand(this.positionBevorUpdate.y, this.positionAfterUpdate.y);
+      }
     }
 
 
