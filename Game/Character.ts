@@ -24,14 +24,6 @@ namespace Game {
       fudge.Loop.addEventListener(fudge.EVENT.LOOP_FRAME, this.update);
     }
 
-    private update = (_event: fudge.Eventƒ): void => {
-      let timeFrame: number = fudge.Loop.timeFrameGame / 1000;
-      this.cmpTransform.local.translate(new fudge.Vector3(this.fallSpeed.x, this.fallSpeed.y * timeFrame, 0));
-      //fudge.Debug.log(this.fallSpeed);
-      this.cmpTransform.local.translateX(this.speed * timeFrame);
-      this.broadcastEvent(new CustomEvent("showNext"));
-    }
-
     public collideWith(colissionObject: fudge.Node): boolean {
       let colissionObjectPosition = colissionObject.cmpTransform.local.translation;
       let colissionObjectScaling = (colissionObject.getComponent(fudge.ComponentMesh) as fudge.ComponentMesh).pivot.scaling;
@@ -49,6 +41,14 @@ namespace Game {
           return false;
         }
 
+    }
+
+    private update = (_event: fudge.Eventƒ): void => {
+      let timeFrame: number = fudge.Loop.timeFrameGame / 1000;
+      this.cmpTransform.local.translate(new fudge.Vector3(this.fallSpeed.x, this.fallSpeed.y * timeFrame, 0));
+      //fudge.Debug.log(this.fallSpeed);
+      this.cmpTransform.local.translateX(this.speed * timeFrame);
+      this.broadcastEvent(new CustomEvent("showNext"));
     }
 
 
