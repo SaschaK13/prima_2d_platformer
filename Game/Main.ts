@@ -1,7 +1,6 @@
+
 namespace Game {
   import fudge = FudgeCore;
-  import Player = Game.Player;
-
 
   window.addEventListener("load", test);
   let root: fudge.Node;
@@ -18,14 +17,25 @@ namespace Game {
 
 
     let material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(1,0,1,1)));
+    let material2 = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(0,1,1,1)));
+
     let player: Player = new Player("test");
-    fudge.Debug.log(player);
+    let plattform: Platform = new Platform("boden1");
+
     player.addComponent(new fudge.ComponentMaterial(material));
+    plattform.addComponent(new fudge.ComponentMaterial(material2));
+
+    plattform.cmpTransform.local.translateY(-0.8);
 
     root.appendChild(player);
 
     fudge.Loop.addEventListener(fudge.EVENT.LOOP_FRAME, update);
     fudge.Loop.start(fudge.LOOP_MODE.TIME_GAME, 10);
+    root.appendChild(plattform);
+
+
+    fudge.Debug.log(player.collideWith(plattform));
+   
     
     let viewport: fudge.Viewport = new fudge.Viewport();
     viewport.initialize("Viewport", root, cmpCamera, canvas);
