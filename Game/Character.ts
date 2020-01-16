@@ -62,10 +62,10 @@ namespace Game {
     {
       let pointA = a;
       let pointB = b;
-      let distance =pointB - pointA;
+      let distance =pointA - pointB;
       let middlePoint = distance/2;
 
-      if(distance >= 0.5)
+      if(distance >= 0.05)
       {
         this.cmpTransform.local.translation = new fudge.Vector3(this.cmpTransform.local.translation.x, middlePoint, 0);
         if(this.collideWith(this.collissionObject))
@@ -75,6 +75,8 @@ namespace Game {
           pointA = middlePoint;
         }
         this.stand(pointA,pointB);
+      }else{
+        //this.cmpTransform.local.translateY(-(this.cmpTransform.local.scaling.y)/2)
       }
     }
     
