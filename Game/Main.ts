@@ -32,17 +32,13 @@ namespace Game {
     root.appendChild(player);
 
     fudge.Loop.addEventListener(fudge.EVENT.LOOP_FRAME, update);
-    fudge.Loop.start(fudge.LOOP_MODE.TIME_GAME, 10);
+    fudge.Loop.start(fudge.LOOP_MODE.TIME_GAME, 60);
     root.appendChild(plattform);
-
-
-   
-    
-
 
     function update(_event: fudge.Eventƒ): void {
       viewport.draw();
-      fudge.Debug.log(player.collideWith(plattform))
+      player.handlePhysics();
+      fudge.Debug.log(player.collideWith(plattform));
     }
   }
 }

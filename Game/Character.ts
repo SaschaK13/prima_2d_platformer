@@ -4,7 +4,7 @@ namespace Game {
   
   export class Character extends fudge.Node { 
       private static speedMax: number = 1.5; // units per second
-      public speed: fudge.Vector2 =  new fudge.Vector2(0,0)
+      public speed: fudge.Vector2 =  new fudge.Vector2(0,0);
       public fallSpeed: fudge.Vector2 = new fudge.Vector2(0, -1);
       public gravitySpeed: number = 0;
       public gravity: number = -0.8;
@@ -33,7 +33,7 @@ namespace Game {
       this.transcmp = new fudge.ComponentTransform();
       this.addComponent(this.transcmp);
 
-      fudge.Loop.addEventListener(fudge.EVENT.LOOP_FRAME, this.update);
+      //fudge.Loop.addEventListener(fudge.EVENT.LOOP_FRAME, this.update);
     }
 
     public collideWith(colissionObject: fudge.Node): boolean {
@@ -58,14 +58,35 @@ namespace Game {
 
     }
 
+    public handlePhysics()
+    {
+      if(this.isColliding)
+      {
+        this.gravitySpeed = 0;
+        this.falling = false;
+       // this.stand(this.positionBevorUpdate.y, this.positionAfterUpdate.y);
+       this.cheatStand();
+      }else
+      {
+        this.falling = true;
+      }
+      //this.positionBevorUpdate = this.cmpTransform.local.translation;
+      if(this.falling){
+        let timeFrame: number = fudge.Loop.timeFrameGame / 1000;
+        this.gravitySpeed += this.gravity;
+        this.cmpTransform.local.translateY((this.speed.y + this.gravitySpeed) * timeFrame);    
+      }
+      //this.positionAfterUpdate = this.cmpTransform.local.translation;
+    }
+
     private stand(a: number, b: number)
     {
       let pointA = a;
       let pointB = b;
       let distance =pointA - pointB;
       let middlePoint = distance/2;
-
-      if(distance >= 0.05)
+      fudge.Debug.log(distance);
+      if(distance >= 0.005)
       {
         this.cmpTransform.local.translation = new fudge.Vector3(this.cmpTransform.local.translation.x, middlePoint, 0);
         if(this.collideWith(this.collissionObject))
@@ -74,9 +95,18 @@ namespace Game {
         }else{
           pointA = middlePoint;
         }
-        this.stand(pointA,pointB);
+        this.stand(pointA, pointB);
       }else{
-        //this.cmpTransform.local.translateY(-(this.cmpTransform.local.scaling.y)/2)
+        this.cmpTransform.local.translation = new fudge.Vector3(this.cmpTransform.local.translation.x, middlePoint , 0);
+
+      }
+    }
+
+    private cheatStand()
+    {
+      if(this.collideWith(this.collissionObject)){
+        this.cmpTransform.local.translation = new fudge.Vector3(this.cmpTransform.local.translation.x, this.collissionObject.cmpTransform.local.translation.y, 0 );
+        this.cmpTransform.local.translateY((this.collissionObject.cmpTransform.local.scaling.y/2 + this.cmpTransform.local.scaling.y/2))
       }
     }
     
@@ -86,16 +116,20 @@ namespace Game {
       if(this.falling){
         let timeFrame: number = fudge.Loop.timeFrameGame / 1000;
         this.gravitySpeed += this.gravity;
-        this.cmpTransform.local.translateY((this.speed.y + this.gravitySpeed) * timeFrame)    
+        this.cmpTransform.local.translateY((this.speed.y + this.gravitySpeed) * timeFrame);    
       }
       this.positionAfterUpdate = this.cmpTransform.local.translation;
       if(this.isColliding)
       {
         this.gravitySpeed = 0;
-        this.stand(this.positionBevorUpdate.y, this.positionAfterUpdate.y);
+        this.falling = false;
+       // this.stand(this.positionBevorUpdate.y, this.positionAfterUpdate.y);
+       this.cheatStand();
+      }else
+      {
+        this.falling = true;
       }
     }
-
 
  
   }

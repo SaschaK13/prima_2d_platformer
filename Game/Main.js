@@ -24,10 +24,11 @@ var Game;
         player.cmpTransform.local.translateY(2);
         root.appendChild(player);
         fudge.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, update);
-        fudge.Loop.start(fudge.LOOP_MODE.TIME_GAME, 10);
+        fudge.Loop.start(fudge.LOOP_MODE.TIME_GAME, 60);
         root.appendChild(plattform);
         function update(_event) {
             viewport.draw();
+            player.handlePhysics();
             fudge.Debug.log(player.collideWith(plattform));
         }
     }
