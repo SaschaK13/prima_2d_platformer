@@ -18,8 +18,8 @@ namespace Game {
     viewport.initialize("Viewport", root, cmpCamera, canvas);
 
 
-    let material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(1,0,1,1)));
-    let material2 = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(0,1,1,1)));
+    let material: fudge.Material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(1, 0, 1, 1)));
+    let material2: fudge.Material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(0, 1, 1, 1)));
 
     let player: Player = new Player("test");
     let plattform: Platform = new Platform("boden1");

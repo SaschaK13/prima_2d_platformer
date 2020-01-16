@@ -6,6 +6,7 @@ var Game;
         constructor(nodeName) {
             super(nodeName);
             this.speed = new fudge.Vector2(0, 0);
+            //private static speedMax: number = 1.5; // units per second
             this.fallSpeed = new fudge.Vector2(0, -1);
             this.gravitySpeed = 0;
             this.gravity = -0.8;
@@ -40,11 +41,11 @@ var Game;
             let colissionObjectPosition = colissionObject.cmpTransform.local.translation;
             let colissionObjectScaling = colissionObject.getComponent(fudge.ComponentMesh).pivot.scaling;
             let characterPosition = this.cmpTransform.local.translation;
-            let CharacterScaling = this.getComponent(fudge.ComponentMesh).pivot.scaling;
+            let characterScaling = this.getComponent(fudge.ComponentMesh).pivot.scaling;
             if (characterPosition.x < colissionObjectPosition.x + colissionObjectScaling.x &&
-                characterPosition.x + CharacterScaling.x > colissionObjectPosition.x &&
+                characterPosition.x + characterScaling.x > colissionObjectPosition.x &&
                 characterPosition.y < colissionObjectPosition.y + colissionObjectScaling.y &&
-                characterPosition.y + CharacterScaling.y > colissionObjectPosition.y) {
+                characterPosition.y + characterScaling.y > colissionObjectPosition.y) {
                 this.isColliding = true;
                 this.collissionObject = colissionObject;
                 return true;
@@ -64,21 +65,20 @@ var Game;
             else {
                 this.falling = true;
             }
-            this.positionBevorUpdate = this.cmpTransform.local.translation;
+            //this.positionBevorUpdate = this.cmpTransform.local.translation;
             if (this.falling) {
                 let timeFrame = fudge.Loop.timeFrameGame / 1000;
                 this.gravitySpeed += this.gravity;
                 this.cmpTransform.local.translateY((this.speed.y + this.gravitySpeed) * timeFrame);
             }
-            this.positionAfterUpdate = this.cmpTransform.local.translation;
+            //this.positionAfterUpdate = this.cmpTransform.local.translation;
         }
         stand(a, b) {
             let pointA = a;
             let pointB = b;
             let distance = pointA - pointB;
             let middlePoint = distance / 2;
-            fudge.Debug.log(distance);
-            if (distance >= 0.005) {
+            if (distance >= 0.05) {
                 this.cmpTransform.local.translation = new fudge.Vector3(this.cmpTransform.local.translation.x, middlePoint, 0);
                 if (this.collideWith(this.collissionObject)) {
                     pointB = middlePoint;
@@ -96,6 +96,9 @@ var Game;
             if (this.collideWith(this.collissionObject)) {
                 this.cmpTransform.local.translation = new fudge.Vector3(this.cmpTransform.local.translation.x, this.collissionObject.cmpTransform.local.translation.y, 0);
                 this.cmpTransform.local.translateY((this.collissionObject.cmpTransform.local.scaling.y / 2 + this.cmpTransform.local.scaling.y / 2));
+            }
+            else {
+                //this.cmpTransform.local.translateY(-(this.cmpTransform.local.scaling.y)/2)
             }
         }
     }

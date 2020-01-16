@@ -2,9 +2,9 @@ namespace Game {
 
   import fudge = FudgeCore;
 
-  export class Environment extends fudge.Node{
+  export class Environment extends fudge.Node {
     private static mesh: fudge.MeshQuad = new fudge.MeshQuad;
-    private static materials: fudge.Material;
+    //private static materials: fudge.Material;
 
     constructor(nodeName: string) {
       super(nodeName);
