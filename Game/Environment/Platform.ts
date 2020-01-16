@@ -1,13 +1,10 @@
 namespace Game {
 
-import fudge = FudgeCore;
+  import fudge = FudgeCore;
 
-export class Platform extends Environment{
-
-  constructor(nodeName: string){
-    super(nodeName);
-    
+  export class Platform extends Environment {
+    constructor(nodeName: string) {
+      super(nodeName);
+    }
   }
-}
-
 }

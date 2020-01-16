@@ -5,6 +5,7 @@ var Game;
     class Character extends fudge.Node {
         constructor(nodeName) {
             super(nodeName);
+            //private static speedMax: number = 1.5; // units per second
             this.speed = new fudge.Vector2(0, 0);
             this.fallSpeed = new fudge.Vector2(0, -1);
             this.gravitySpeed = 0;
@@ -69,7 +70,6 @@ var Game;
             }
         }
     }
-    Character.speedMax = 1.5; // units per second
     Game.Character = Character;
 })(Game || (Game = {}));
 //# sourceMappingURL=Character.js.map

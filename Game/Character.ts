@@ -3,25 +3,20 @@ namespace Game {
   import fudge = FudgeCore;
   
   export class Character extends fudge.Node { 
-      private static speedMax: number = 1.5; // units per second
+      //private static speedMax: number = 1.5; // units per second
       public speed: fudge.Vector2 =  new fudge.Vector2(0, 0);
       public fallSpeed: fudge.Vector2 = new fudge.Vector2(0, -1);
       public gravitySpeed: number = 0;
       public gravity: number = -0.8;
-      
-
       public falling: boolean = true;
-
       public positionBevorUpdate: fudge.Vector3;
       public positionAfterUpdate: fudge.Vector3;
-
       public isColliding: boolean = false;
       public collissionObject: fudge.Node;
-  
 
       private mesh: fudge.MeshQuad;
       private transcmp: fudge.ComponentTransform;
-      private materials: fudge.Material;
+      //private materials: fudge.Material;
       private cmpMesh: fudge.ComponentMesh;
    
     constructor(nodeName: string) {
@@ -81,7 +76,7 @@ namespace Game {
       if (this.falling) {
         let timeFrame: number = fudge.Loop.timeFrameGame / 1000;
         this.gravitySpeed += this.gravity;
-        this.cmpTransform.local.translateY((this.speed.y + this.gravitySpeed) * timeFrame)    
+        this.cmpTransform.local.translateY((this.speed.y + this.gravitySpeed) * timeFrame);    
       }
       this.positionAfterUpdate = this.cmpTransform.local.translation;
       if (this.isColliding) {
