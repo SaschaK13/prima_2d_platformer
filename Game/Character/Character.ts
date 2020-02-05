@@ -1,24 +1,42 @@
 namespace Game {
 
   import fudge = FudgeCore;
+
+
+  export enum CHARACTERSTATE {
+    IDLE = "idle",
+    WALK = "walk",
+    JUMP = "jump"
+
+  }
+
+  export enum DIRECTIONENUM {
+    RIGHT = "right",
+    LEFT = "left"
+  }
+
+  export interface spriteName {
+  [type: string]: string;
+  }
   
   export class Character extends fudge.Node { 
-      private static speedMax: number = 1.5; // units per second
-      public speed: fudge.Vector2 =  new fudge.Vector2(0,0);
-      //private static speedMax: number = 1.5; // units per second
-      public fallSpeed: fudge.Vector2 = new fudge.Vector2(0, -1);
-      public gravitySpeed: number = 0;
-      public gravity: number = -0.8;
-      public falling: boolean = true;
-      public positionBevorUpdate: fudge.Vector3;
-      public positionAfterUpdate: fudge.Vector3;
-      public isColliding: boolean = false;
-      public collissionObject: fudge.Node;
+
+      private speed: fudge.Vector2 =  new fudge.Vector2(0,0);
+      private gravitySpeed: number = 0;
+      private gravity: number = -0.8;
+
+      private isColliding: boolean = false;
+      private collissionObject: fudge.Node;
 
       private mesh: fudge.MeshQuad;
-      private transcmp: fudge.ComponentTransform;
-      //private materials: fudge.Material;
+      private cmpTrans: fudge.ComponentTransform;
       private cmpMesh: fudge.ComponentMesh;
+
+      private state: CHARACTERSTATE;
+      private direction: DIRECTIONENUM;
+
+      private sprites: Sprite[];
+      private spriteNameMap: spriteName = {};   
    
     constructor(nodeName: string) {
       super(nodeName);
@@ -26,10 +44,8 @@ namespace Game {
       this.cmpMesh  = new fudge.ComponentMesh(this.mesh);
       this.addComponent(this.cmpMesh);
 
-      this.transcmp = new fudge.ComponentTransform();
-      this.addComponent(this.transcmp);
-
-      //fudge.Loop.addEventListener(fudge.EVENT.LOOP_FRAME, this.update);
+      this.cmpTrans = new fudge.ComponentTransform();
+      this.addComponent(this.cmpTrans);
     }
 
     public collideWith(colissionObject: fudge.Node): boolean {
@@ -55,45 +71,13 @@ namespace Game {
 
     public handlePhysics()
     {
-      if(this.isColliding)
-      {
-        this.gravitySpeed = 0;
-        this.falling = false;
-       // this.stand(this.positionBevorUpdate.y, this.positionAfterUpdate.y);
-       this.cheatStand();
-      }else
-      {
-        this.falling = true;
-      }
-      //this.positionBevorUpdate = this.cmpTransform.local.translation;
-      if(this.falling){
-        let timeFrame: number = fudge.Loop.timeFrameGame / 1000;
-        this.gravitySpeed += this.gravity;
-        this.cmpTransform.local.translateY((this.speed.y + this.gravitySpeed) * timeFrame);    
-      }
-      //this.positionAfterUpdate = this.cmpTransform.local.translation;
+
     }
 
+    public generateSprites() {
+
+    }
     
-    private stand(a: number, b: number): void {
-      let pointA: number = a;
-      let pointB: number = b;
-      let distance: number = pointA - pointB;
-      let middlePoint: number = distance / 2;
-
-      if (distance >= 0.05) {
-        this.cmpTransform.local.translation = new fudge.Vector3(this.cmpTransform.local.translation.x, middlePoint, 0);
-        if (this.collideWith(this.collissionObject)) {
-          pointB = middlePoint;
-        } else {
-          pointA = middlePoint;
-        }
-        this.stand(pointA, pointB);
-      }else{
-        this.cmpTransform.local.translation = new fudge.Vector3(this.cmpTransform.local.translation.x, middlePoint , 0);
-
-      }
-    }
     private cheatStand()
     {
       if(this.collideWith(this.collissionObject)){
@@ -105,13 +89,11 @@ namespace Game {
     }
     
     private update = (_event: fudge.Eventƒ): void => {
-      this.positionBevorUpdate = this.cmpTransform.local.translation;
       if (this.falling) {
         let timeFrame: number = fudge.Loop.timeFrameGame / 1000;
         this.gravitySpeed += this.gravity;
         this.cmpTransform.local.translateY((this.speed.y + this.gravitySpeed) * timeFrame);    
       }
-      this.positionAfterUpdate = this.cmpTransform.local.translation;
       if (this.isColliding) {
         this.gravitySpeed = 0;
         this.falling = false;
@@ -124,6 +106,14 @@ namespace Game {
       }
     }
 
+    private jump() {
+
+
+    }
+
+    private walk() {
+
+    }
  
   }
 }
