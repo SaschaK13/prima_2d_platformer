@@ -80,40 +80,30 @@ namespace Game {
     
     private cheatStand()
     {
-      if(this.collideWith(this.collissionObject)){
+      if(this.collideWith(this.collissionObject) && this.collissionObject.name == "Platform") {
+
         this.cmpTransform.local.translation = new fudge.Vector3(this.cmpTransform.local.translation.x, this.collissionObject.cmpTransform.local.translation.y, 0 );
         this.cmpTransform.local.translateY((this.collissionObject.cmpTransform.local.scaling.y/2 + this.cmpTransform.local.scaling.y/2))
       } else {
         //this.cmpTransform.local.translateY(-(this.cmpTransform.local.scaling.y)/2)
       }
     }
-    
-    private update = (_event: fudge.Eventƒ): void => {
-      if (this.falling) {
-        let timeFrame: number = fudge.Loop.timeFrameGame / 1000;
-        this.gravitySpeed += this.gravity;
-        this.cmpTransform.local.translateY((this.speed.y + this.gravitySpeed) * timeFrame);    
-      }
-      if (this.isColliding) {
-        this.gravitySpeed = 0;
-        this.falling = false;
-       // this.stand(this.positionBevorUpdate.y, this.positionAfterUpdate.y);
-       this.cheatStand();
-      }else
-      {
-        this.falling = true;
-        //test
-      }
-    }
 
     private jump() {
 
-//lol
     }
 
     private walk() {
 
     }
- 
+    
+    private update = (_event: fudge.Eventƒ): void => {
+  
+        let timeFrame: number = fudge.Loop.timeFrameGame / 1000;
+        this.gravitySpeed += this.gravity;
+        this.cmpTransform.local.translateY((this.speed.y + this.gravitySpeed) * timeFrame);    
+      
+    }
+    
   }
 }
