@@ -94,7 +94,6 @@ namespace Game {
 
       }
     }
-
     private cheatStand()
     {
       if(this.collideWith(this.collissionObject)){
@@ -121,6 +120,7 @@ namespace Game {
       }else
       {
         this.falling = true;
+        //test
       }
     }
 
