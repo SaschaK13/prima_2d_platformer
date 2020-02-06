@@ -16,14 +16,12 @@ var Game;
     class Character extends fudge.Node {
         constructor(nodeName) {
             super(nodeName);
-            this.speed = new fudge.Vector2(0, 0);
-            this.gravitySpeed = 0;
-            this.gravity = -0.8;
-            this.isColliding = false;
+            this.gravity = -8;
+            this.velocity = new fudge.Vector2(0, 0);
             this.spriteNameMap = {};
             this.update = (_event) => {
-                fudge.Debug.log("Character Update");
                 this.collider.handleCollsion();
+                this.handlePhysics();
             };
             this.mesh = new fudge.MeshQuad();
             this.cmpMesh = new fudge.ComponentMesh(this.mesh);
@@ -34,6 +32,28 @@ var Game;
             fudge.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, this.update);
         }
         handlePhysics() {
+            this.handleGravity();
+            this.handleStaying();
+        }
+        handleGravity() {
+            let timeFrame = fudge.Loop.timeFrameGame / 1000;
+            this.velocity.y += this.gravity * timeFrame;
+            this.cmpTransform.local.translateY(this.velocity.y * timeFrame);
+        }
+        handleStaying() {
+            let collisionObjects = this.collider.getCollisionObjects();
+            for (var i = 0; i < collisionObjects.length; i++) {
+                let collisionObject = collisionObjects[i];
+                fudge.Debug.log(collisionObject.name);
+                if (collisionObject.name == "boden1") {
+                    fudge.Debug.log("detected plattform");
+                    let translation = this.cmpTransform.local.translation;
+                    let newYPosition = collisionObject.cmpTransform.local.translation.y + (collisionObject.cmpTransform.local.scaling.y / 2) + (this.cmpTransform.local.scaling.y / 2);
+                    translation.y = newYPosition;
+                    this.cmpTransform.local.translation = translation;
+                    this.velocity.y = 0;
+                }
+            }
         }
         generateSprites() {
         }

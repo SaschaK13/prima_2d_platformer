@@ -31,7 +31,7 @@ namespace Game {
     player.addComponent(new fudge.ComponentMaterial(material));
     plattform.addComponent(new fudge.ComponentMaterial(material2));
 
-   // plattform.cmpTransform.local.translateY(-0.8);
+    plattform.cmpTransform.local.translateY(-1);
     player.cmpTransform.local.translateY(0.5);
     collidableNode.appendChild(player);
 
@@ -46,7 +46,6 @@ namespace Game {
 
     function update(_event: fudge.Eventƒ): void {
       viewport.draw();
-      fudge.Debug.log("Main update");
      // fudge.Debug.log(player.collideWith(plattform));
     }
   }

@@ -29,6 +29,12 @@ public handleCollsion() {
 
 }
 
+public getCollisionObjects(): fudge.Node[]
+{
+  
+  return this.collissionObjects;
+}
+
 private collideWith(colissionObject: fudge.Node) {
   let colissionObjectPosition: fudge.Vector3 = colissionObject.cmpTransform.local.translation;
   let colissionObjectScaling: fudge.Vector3 = (colissionObject.getComponent(fudge.ComponentMesh) as fudge.ComponentMesh).pivot.scaling;

@@ -11,12 +11,13 @@ var Game;
             this.collissionObjects = [];
             for (var i = 0; i < objects.length; i++) {
                 let node = objects[i];
-                fudge.Debug.log(node);
                 if (node.name != this.object.name) {
                     this.collideWith(node);
                 }
             }
-            fudge.Debug.log(this.collissionObjects);
+        }
+        getCollisionObjects() {
+            return this.collissionObjects;
         }
         collideWith(colissionObject) {
             let colissionObjectPosition = colissionObject.cmpTransform.local.translation;
@@ -29,7 +30,6 @@ var Game;
                 characterPosition.y + characterScaling.y > colissionObjectPosition.y) {
                 this.isColliding = true;
                 this.collissionObjects.push(colissionObject);
-                fudge.Debug.log("collision!!");
             }
             else {
                 this.isColliding = false;

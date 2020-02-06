@@ -1,3 +1,4 @@
+
 namespace Game {
 
   import fudge = FudgeCore;
@@ -21,12 +22,8 @@ namespace Game {
   
   export class Character extends fudge.Node { 
 
-      private speed: fudge.Vector2 =  new fudge.Vector2(0,0);
-      private gravitySpeed: number = 0;
-      private gravity: number = -0.8;
-
-      private isColliding: boolean = false;
-      private collissionObjects: fudge.Node[];
+      private gravity: number = -8;
+      private velocity: fudge.Vector2 = new fudge.Vector2(0, 0);
 
       private mesh: fudge.MeshQuad;
       private cmpTrans: fudge.ComponentTransform;
@@ -38,7 +35,7 @@ namespace Game {
       private sprites: Sprite[];
       private spriteNameMap: spriteName = {}; 
       
-      private collider: Collider;
+      private  collider: Collider;
    
     constructor(nodeName: string) {
       super(nodeName);
@@ -56,6 +53,35 @@ namespace Game {
 
     public handlePhysics()
     {
+      this.handleGravity();
+      this.handleStaying();
+    }
+
+    public handleGravity(): void {
+      let timeFrame = fudge.Loop.timeFrameGame / 1000;
+      this.velocity.y += this.gravity * timeFrame;
+      this.cmpTransform.local.translateY(this.velocity.y * timeFrame);
+    }
+
+    public handleStaying()
+    {
+      let collisionObjects: fudge.Node[] = this.collider.getCollisionObjects();
+
+      for(var i= 0; i < collisionObjects.length; i++) {
+
+        let collisionObject = collisionObjects[i];
+        fudge.Debug.log(collisionObject.name)
+        if(collisionObject.name == "boden1") {
+
+          fudge.Debug.log("detected plattform")
+          let translation = this.cmpTransform.local.translation;
+          let newYPosition = collisionObject.cmpTransform.local.translation.y + (collisionObject.cmpTransform.local.scaling.y / 2) + (this.cmpTransform.local.scaling.y/2);
+          translation.y = newYPosition;
+          this.cmpTransform.local.translation = translation;
+          this.velocity.y = 0;
+        }
+      }
+
 
     }
 
@@ -86,8 +112,8 @@ namespace Game {
     
     private update = (_event: fudge.Eventƒ): void => {
       
-      fudge.Debug.log("Character Update");
       this.collider.handleCollsion();
+      this.handlePhysics();
       
       
 

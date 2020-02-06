@@ -23,7 +23,7 @@ var Game;
         let plattform = new Game.Platform("boden1");
         player.addComponent(new fudge.ComponentMaterial(material));
         plattform.addComponent(new fudge.ComponentMaterial(material2));
-        // plattform.cmpTransform.local.translateY(-0.8);
+        plattform.cmpTransform.local.translateY(-1);
         player.cmpTransform.local.translateY(0.5);
         collidableNode.appendChild(player);
         fudge.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, update);
@@ -34,7 +34,6 @@ var Game;
         util.setCollidableObjects(collidableNode.getChildren());
         function update(_event) {
             viewport.draw();
-            fudge.Debug.log("Main update");
             // fudge.Debug.log(player.collideWith(plattform));
         }
     }
