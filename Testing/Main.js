@@ -12,8 +12,10 @@ var Game;
         txtImage.image = img;
         fudge.RenderManager.initialize(true, false);
         root = new fudge.Node("Root");
-        let lg = new Game.LevelGenerator();
-        lg.loadFile();
+        let levelGenerator = new Game.LevelGenerator();
+        let data = levelGenerator.getDataFromFile();
+        levelGenerator.generateLevel();
+        //let platform1 = new Platform()
         let cmpCamera = new fudge.ComponentCamera();
         cmpCamera.pivot.translateZ(5);
         cmpCamera.pivot.lookAt(fudge.Vector3.ZERO());

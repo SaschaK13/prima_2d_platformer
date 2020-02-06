@@ -4,8 +4,15 @@ namespace Game {
 
   export class Platform extends Environment {
     name: string;
-    constructor(nodeName: string) {
-      super(nodeName);
+    type: string;
+
+    constructor() {
+      super(name);
+    }
+
+    //TODO platform data objekt
+    public instantiatePlatform() {
+      this.cmpTransform.local.scaleY(2);
     }
   }
 }

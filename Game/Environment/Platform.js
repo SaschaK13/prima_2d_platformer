@@ -2,8 +2,12 @@
 var Game;
 (function (Game) {
     class Platform extends Game.Environment {
-        constructor(nodeName) {
-            super(nodeName);
+        constructor() {
+            super(name);
+        }
+        //TODO platform data objekt
+        instantiatePlatform() {
+            this.cmpTransform.local.scaleY(2);
         }
     }
     Game.Platform = Platform;

@@ -3,11 +3,17 @@ var Game;
 (function (Game) {
     var fudge = FudgeCore;
     class LevelGenerator {
-        async loadFile() {
+        async getDataFromFile() {
             let response = await fetch("../Game/Assets/test.json");
             let offer = await response.text();
-            let data = JSON.parse(offer);
-            fudge.Debug.log(data);
+            this.level = JSON.parse(offer);
+            fudge.Debug.log(this.level.platformArray[0].name);
+        }
+        generateLevel() {
+            let platformArray = this.level.platformArray;
+            for (var i = 0; i < platformArray.length; i++) {
+                platformArray[i].instantiatePlatform();
+            }
         }
     }
     Game.LevelGenerator = LevelGenerator;

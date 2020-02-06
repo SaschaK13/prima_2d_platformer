@@ -1,3 +1,6 @@
 {
-  "name": "Platform1"
+  "platformArray": [
+    {"name": "Platform1", "typ": "platform"},
+    {"name": "Platform2", "typ": "platform"}
+  ]
 }

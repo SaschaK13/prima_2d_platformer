@@ -4,12 +4,21 @@ namespace Game {
   
   export class LevelGenerator {
 
-    public async loadFile() {
+    private level: Level;
+
+    public async getDataFromFile() {
       let response: Response = await fetch("../Game/Assets/test.json");
       let offer: string = await response.text();
-      let data: Platform = JSON.parse(offer);
+      this.level = JSON.parse(offer);
+      fudge.Debug.log(this.level.platformArray[0].name);
+    }
 
-      fudge.Debug.log(data);
+    public generateLevel() {
+
+      let platformArray = this.level.platformArray;
+      for (var i = 0; i < platformArray.length; i++) {
+        platformArray[i].instantiatePlatform();
+      }
     }
   }
 }
