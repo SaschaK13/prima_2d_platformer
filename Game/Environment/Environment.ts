@@ -13,7 +13,6 @@ namespace Game {
 
       let cmpTransform: fudge.ComponentTransform = new fudge.ComponentTransform();
       this.addComponent(cmpTransform);
-    }
-
+    } 
   }
 }
