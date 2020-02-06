@@ -10,7 +10,7 @@ var Game;
             let objects = Game.Util.getInstance().getCollidableObjects();
             this.collissionObjects = [];
             for (var i = 0; i < objects.length; i++) {
-                let node = this.collissionObjects[i];
+                let node = objects[i];
                 fudge.Debug.log(node);
                 if (node.name != this.object.name) {
                     this.collideWith(node);

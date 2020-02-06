@@ -19,15 +19,12 @@ public handleCollsion() {
   this.collissionObjects = [];
   for(var i = 0; i < objects.length; i++) {
 
-    let node: fudge.Node = this.collissionObjects[i];
-    fudge.Debug.log(node);
+    let node: fudge.Node = objects[i];
     if( node.name != this.object.name)
     {
       this.collideWith(node);
     }
   }  
-
-  fudge.Debug.log(this.collissionObjects);
 
 
 }
@@ -45,7 +42,6 @@ private collideWith(colissionObject: fudge.Node) {
     characterPosition.y + characterScaling.y > colissionObjectPosition.y) {
       this.isColliding = true;
       this.collissionObjects.push(colissionObject);
-      fudge.Debug.log("collision!!")
     } else {
       this.isColliding = false;
       
