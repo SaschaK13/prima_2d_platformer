@@ -26,7 +26,7 @@ namespace Game {
       private gravity: number = -0.8;
 
       private isColliding: boolean = false;
-      private collissionObject: fudge.Node;
+      private collissionObjects: fudge.Node[];
 
       private mesh: fudge.MeshQuad;
       private cmpTrans: fudge.ComponentTransform;
@@ -36,7 +36,9 @@ namespace Game {
       private direction: DIRECTIONENUM;
 
       private sprites: Sprite[];
-      private spriteNameMap: spriteName = {};   
+      private spriteNameMap: spriteName = {}; 
+      
+      private collider: Collider;
    
     constructor(nodeName: string) {
       super(nodeName);
@@ -46,27 +48,10 @@ namespace Game {
 
       this.cmpTrans = new fudge.ComponentTransform();
       this.addComponent(this.cmpTrans);
-    }
 
-    public collideWith(colissionObject: fudge.Node): boolean {
-      let colissionObjectPosition: fudge.Vector3 = colissionObject.cmpTransform.local.translation;
-      let colissionObjectScaling: fudge.Vector3 = (colissionObject.getComponent(fudge.ComponentMesh) as fudge.ComponentMesh).pivot.scaling;
+      this.collider = new Collider(this);
 
-      let characterPosition: fudge.Vector3 = this.cmpTransform.local.translation;
-      let characterScaling: fudge.Vector3 = (this.getComponent(fudge.ComponentMesh) as fudge.ComponentMesh).pivot.scaling;
-
-      if (characterPosition.x < colissionObjectPosition.x + colissionObjectScaling.x &&
-        characterPosition.x + characterScaling.x > colissionObjectPosition.x &&
-        characterPosition.y < colissionObjectPosition.y + colissionObjectScaling.y &&
-        characterPosition.y + characterScaling.y > colissionObjectPosition.y) {
-          this.isColliding = true;
-          this.collissionObject = colissionObject;
-          return true;
-        } else {
-          this.isColliding = false;
-          return false;
-        }
-
+      fudge.Loop.addEventListener(fudge.EVENT.LOOP_FRAME, this.update);
     }
 
     public handlePhysics()
@@ -78,7 +63,7 @@ namespace Game {
 
     }
     
-    private cheatStand()
+  /*  private cheatStand()
     {
       if(this.collideWith(this.collissionObject) && this.collissionObject.name == "Platform") {
 
@@ -88,6 +73,8 @@ namespace Game {
         //this.cmpTransform.local.translateY(-(this.cmpTransform.local.scaling.y)/2)
       }
     }
+*/
+
 
     private jump() {
 
@@ -98,12 +85,13 @@ namespace Game {
     }
     
     private update = (_event: fudge.Eventƒ): void => {
-  
-        let timeFrame: number = fudge.Loop.timeFrameGame / 1000;
-        this.gravitySpeed += this.gravity;
-        this.cmpTransform.local.translateY((this.speed.y + this.gravitySpeed) * timeFrame);    
       
+      fudge.Debug.log("Character Update");
+      this.collider.handleCollsion();
+      
+      
+
     }
-    
+
   }
 }

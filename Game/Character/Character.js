@@ -22,47 +22,32 @@ var Game;
             this.isColliding = false;
             this.spriteNameMap = {};
             this.update = (_event) => {
-                let timeFrame = fudge.Loop.timeFrameGame / 1000;
-                this.gravitySpeed += this.gravity;
-                this.cmpTransform.local.translateY((this.speed.y + this.gravitySpeed) * timeFrame);
+                fudge.Debug.log("Character Update");
+                this.collider.handleCollsion();
             };
             this.mesh = new fudge.MeshQuad();
             this.cmpMesh = new fudge.ComponentMesh(this.mesh);
             this.addComponent(this.cmpMesh);
             this.cmpTrans = new fudge.ComponentTransform();
             this.addComponent(this.cmpTrans);
-        }
-        collideWith(colissionObject) {
-            let colissionObjectPosition = colissionObject.cmpTransform.local.translation;
-            let colissionObjectScaling = colissionObject.getComponent(fudge.ComponentMesh).pivot.scaling;
-            let characterPosition = this.cmpTransform.local.translation;
-            let characterScaling = this.getComponent(fudge.ComponentMesh).pivot.scaling;
-            if (characterPosition.x < colissionObjectPosition.x + colissionObjectScaling.x &&
-                characterPosition.x + characterScaling.x > colissionObjectPosition.x &&
-                characterPosition.y < colissionObjectPosition.y + colissionObjectScaling.y &&
-                characterPosition.y + characterScaling.y > colissionObjectPosition.y) {
-                this.isColliding = true;
-                this.collissionObject = colissionObject;
-                return true;
-            }
-            else {
-                this.isColliding = false;
-                return false;
-            }
+            this.collider = new Game.Collider(this);
+            fudge.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, this.update);
         }
         handlePhysics() {
         }
         generateSprites() {
         }
-        cheatStand() {
-            if (this.collideWith(this.collissionObject) && this.collissionObject.name == "Platform") {
-                this.cmpTransform.local.translation = new fudge.Vector3(this.cmpTransform.local.translation.x, this.collissionObject.cmpTransform.local.translation.y, 0);
-                this.cmpTransform.local.translateY((this.collissionObject.cmpTransform.local.scaling.y / 2 + this.cmpTransform.local.scaling.y / 2));
+        /*  private cheatStand()
+          {
+            if(this.collideWith(this.collissionObject) && this.collissionObject.name == "Platform") {
+      
+              this.cmpTransform.local.translation = new fudge.Vector3(this.cmpTransform.local.translation.x, this.collissionObject.cmpTransform.local.translation.y, 0 );
+              this.cmpTransform.local.translateY((this.collissionObject.cmpTransform.local.scaling.y/2 + this.cmpTransform.local.scaling.y/2))
+            } else {
+              //this.cmpTransform.local.translateY(-(this.cmpTransform.local.scaling.y)/2)
             }
-            else {
-                //this.cmpTransform.local.translateY(-(this.cmpTransform.local.scaling.y)/2)
-            }
-        }
+          }
+      */
         jump() {
         }
         walk() {
