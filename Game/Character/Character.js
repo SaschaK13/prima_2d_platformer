@@ -32,13 +32,15 @@ var Game;
             fudge.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, this.update);
         }
         handlePhysics() {
-            this.handleGravity();
+            this.handleVelocity();
             this.handleStaying();
         }
-        handleGravity() {
+        handleVelocity() {
             let timeFrame = fudge.Loop.timeFrameGame / 1000;
             this.velocity.y += this.gravity * timeFrame;
+            //ad velocity to position
             this.cmpTransform.local.translateY(this.velocity.y * timeFrame);
+            this.cmpTransform.local.translateX(this.velocity.x * timeFrame);
         }
         handleStaying() {
             let collisionObjects = this.collider.getCollisionObjects();

@@ -53,14 +53,17 @@ namespace Game {
 
     public handlePhysics()
     {
-      this.handleGravity();
+      this.handleVelocity();
       this.handleStaying();
     }
 
-    public handleGravity(): void {
+    public handleVelocity(): void {
       let timeFrame = fudge.Loop.timeFrameGame / 1000;
       this.velocity.y += this.gravity * timeFrame;
+
+      //ad velocity to position
       this.cmpTransform.local.translateY(this.velocity.y * timeFrame);
+      this.cmpTransform.local.translateX(this.velocity.x * timeFrame);
     }
 
     public handleStaying()
@@ -103,7 +106,7 @@ namespace Game {
 
 
     private jump() {
-
+      this.velocity.y -= 5;
     }
 
     private walk() {
