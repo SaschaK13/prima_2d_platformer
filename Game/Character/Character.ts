@@ -110,6 +110,10 @@ namespace Game {
     }
 
     private walk() {
+      
+    }
+
+    private handleCharacterStates() {
 
     }
     
