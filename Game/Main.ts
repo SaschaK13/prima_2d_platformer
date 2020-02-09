@@ -4,11 +4,22 @@ namespace Game {
 
   window.addEventListener("load", test);
   let root: fudge.Node;
+  let collidableNode: fudge.Node;
+
+
+  interface KeyPressed {
+    [code: string]: boolean;
+  }
+
+  let keysPressed: KeyPressed = {};
 
   function test(): void {
     let canvas: HTMLCanvasElement = document.querySelector("canvas");
     fudge.RenderManager.initialize(true, false);
     root = new fudge.Node("Root");
+    collidableNode = new fudge.Node("collidable");
+    root.appendChild(collidableNode);
+
 
     let cmpCamera: fudge.ComponentCamera = new fudge.ComponentCamera();
     cmpCamera.pivot.translateZ(5);
@@ -27,18 +38,52 @@ namespace Game {
     player.addComponent(new fudge.ComponentMaterial(material));
     plattform.addComponent(new fudge.ComponentMaterial(material2));
 
-    plattform.cmpTransform.local.translateY(-0.8);
-    player.cmpTransform.local.translateY(2);
-    root.appendChild(player);
+    plattform.cmpTransform.local.translateY(-1);
+    player.cmpTransform.local.translateY(0.5);
+    collidableNode.appendChild(player);
+
+
+    document.addEventListener("keydown", handleKeyboard )
+    document.addEventListener("keyup", handleKeyboard )
+
 
     fudge.Loop.addEventListener(fudge.EVENT.LOOP_FRAME, update);
     fudge.Loop.start(fudge.LOOP_MODE.TIME_GAME, 60);
-    root.appendChild(plattform);
+    collidableNode.appendChild(plattform);
+
+    //after world gen add collidable objects to Util 
+    let util = Util.getInstance();
+    util.setCollidableObjects(collidableNode.getChildren());
+
+    function handleKeyboard(event: KeyboardEvent): void {
+      keysPressed[event.code] = (event.type == "keydown");
+    }
+
+    function processInput(): void {
+      if(keysPressed[fudge.KEYBOARD_CODE.SPACE]) {
+        player.jump()
+        return;
+      }
+      
+      if(keysPressed[fudge.KEYBOARD_CODE.D])
+      {
+        player.walk(DIRECTION.RIGHT)
+        return;
+      }
+
+      if(keysPressed[fudge.KEYBOARD_CODE.A])
+      {
+        player.walk(DIRECTION.LEFT)
+        return;
+      }
+
+
+    }
 
     function update(_event: fudge.Eventƒ): void {
+      processInput()
       viewport.draw();
-      player.handlePhysics();
-      fudge.Debug.log(player.collideWith(plattform));
+     // fudge.Debug.log(player.collideWith(plattform));
     }
   }
 }

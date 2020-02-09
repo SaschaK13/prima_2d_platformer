@@ -4,10 +4,14 @@ var Game;
     var fudge = FudgeCore;
     window.addEventListener("load", test);
     let root;
+    let collidableNode;
+    let keysPressed = {};
     function test() {
         let canvas = document.querySelector("canvas");
         fudge.RenderManager.initialize(true, false);
         root = new fudge.Node("Root");
+        collidableNode = new fudge.Node("collidable");
+        root.appendChild(collidableNode);
         let cmpCamera = new fudge.ComponentCamera();
         cmpCamera.pivot.translateZ(5);
         cmpCamera.pivot.lookAt(fudge.Vector3.ZERO());
@@ -20,16 +24,38 @@ var Game;
         let plattform = new Game.Platform("boden1");
         player.addComponent(new fudge.ComponentMaterial(material));
         plattform.addComponent(new fudge.ComponentMaterial(material2));
-        plattform.cmpTransform.local.translateY(-0.8);
-        player.cmpTransform.local.translateY(2);
-        root.appendChild(player);
+        plattform.cmpTransform.local.translateY(-1);
+        player.cmpTransform.local.translateY(0.5);
+        collidableNode.appendChild(player);
+        document.addEventListener("keydown", handleKeyboard);
+        document.addEventListener("keyup", handleKeyboard);
         fudge.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, update);
         fudge.Loop.start(fudge.LOOP_MODE.TIME_GAME, 60);
-        root.appendChild(plattform);
+        collidableNode.appendChild(plattform);
+        //after world gen add collidable objects to Util 
+        let util = Game.Util.getInstance();
+        util.setCollidableObjects(collidableNode.getChildren());
+        function handleKeyboard(event) {
+            keysPressed[event.code] = (event.type == "keydown");
+        }
+        function processInput() {
+            if (keysPressed[fudge.KEYBOARD_CODE.SPACE]) {
+                player.jump();
+                return;
+            }
+            if (keysPressed[fudge.KEYBOARD_CODE.D]) {
+                player.walk(Game.DIRECTION.RIGHT);
+                return;
+            }
+            if (keysPressed[fudge.KEYBOARD_CODE.A]) {
+                player.walk(Game.DIRECTION.LEFT);
+                return;
+            }
+        }
         function update(_event) {
+            processInput();
             viewport.draw();
-            player.handlePhysics();
-            fudge.Debug.log(player.collideWith(plattform));
+            // fudge.Debug.log(player.collideWith(plattform));
         }
     }
 })(Game || (Game = {}));

@@ -1,3 +1,4 @@
+
 namespace Game {
 
   import fudge = FudgeCore;
@@ -10,7 +11,7 @@ namespace Game {
 
   }
 
-  export enum DIRECTIONENUM {
+  export enum DIRECTION {
     RIGHT = "right",
     LEFT = "left"
   }
@@ -18,26 +19,29 @@ namespace Game {
   export interface spriteName {
   [type: string]: string;
   }
-  
-  export class Character extends fudge.Node { 
 
-      private speed: fudge.Vector2 =  new fudge.Vector2(0,0);
-      private gravitySpeed: number = 0;
-      private gravity: number = -0.8;
+  export class Character extends fudge.Node {
 
-      private isColliding: boolean = false;
-      private collissionObject: fudge.Node;
+      private JUMP_HEIGHT = 4;
+      private WALK_SPEED = 1;
+
+      private gravity: number = -8;
+      private velocity: fudge.Vector2 = new fudge.Vector2(0, 0);
 
       private mesh: fudge.MeshQuad;
       private cmpTrans: fudge.ComponentTransform;
       private cmpMesh: fudge.ComponentMesh;
 
       private state: CHARACTERSTATE;
-      private direction: DIRECTIONENUM;
+      private direction: DIRECTION;
 
       private sprites: Sprite[];
-      private spriteNameMap: spriteName = {};   
-   
+      private spriteNameMap: spriteName = {};
+
+      private  collider: Collider;
+
+      private isJumping: boolean = false;
+
     constructor(nodeName: string) {
       super(nodeName);
       this.mesh = new fudge.MeshQuad();
@@ -46,74 +50,101 @@ namespace Game {
 
       this.cmpTrans = new fudge.ComponentTransform();
       this.addComponent(this.cmpTrans);
-    }
 
-    public collideWith(colissionObject: fudge.Node): boolean {
-      let colissionObjectPosition: fudge.Vector3 = colissionObject.cmpTransform.local.translation;
-      let colissionObjectScaling: fudge.Vector3 = (colissionObject.getComponent(fudge.ComponentMesh) as fudge.ComponentMesh).pivot.scaling;
+      this.collider = new Collider(this);
 
-      let characterPosition: fudge.Vector3 = this.cmpTransform.local.translation;
-      let characterScaling: fudge.Vector3 = (this.getComponent(fudge.ComponentMesh) as fudge.ComponentMesh).pivot.scaling;
-
-      if (characterPosition.x < colissionObjectPosition.x + colissionObjectScaling.x &&
-        characterPosition.x + characterScaling.x > colissionObjectPosition.x &&
-        characterPosition.y < colissionObjectPosition.y + colissionObjectScaling.y &&
-        characterPosition.y + characterScaling.y > colissionObjectPosition.y) {
-          this.isColliding = true;
-          this.collissionObject = colissionObject;
-          return true;
-        } else {
-          this.isColliding = false;
-          return false;
-        }
-
+      fudge.Loop.addEventListener(fudge.EVENT.LOOP_FRAME, this.update);
     }
 
     public handlePhysics()
     {
+      this.handleVelocity();
+      this.handleStaying();
+    }
+
+    public handleVelocity(): void {
+      let timeFrame = fudge.Loop.timeFrameGame / 1000;
+      this.velocity.y += this.gravity * timeFrame;
+
+      //ad velocity to position
+      this.cmpTransform.local.translateY(this.velocity.y * timeFrame);
+      this.cmpTransform.local.translateX(this.velocity.x * timeFrame);
+    }
+
+    public handleStaying()
+    {
+      let collisionObjects: fudge.Node[] = this.collider.getCollisionObjects();
+
+      for(var i= 0; i < collisionObjects.length; i++) {
+
+        let collisionObject = collisionObjects[i];
+        fudge.Debug.log(collisionObject.name)
+        //TODO nach plattform suchen
+        if(collisionObject.name == "boden1") {
+
+          let translation = this.cmpTransform.local.translation;
+          let newYPosition = collisionObject.cmpTransform.local.translation.y + (collisionObject.cmpTransform.local.scaling.y / 2) + (this.cmpTransform.local.scaling.y/2);
+          translation.y = newYPosition;
+          this.cmpTransform.local.translation = translation;
+          this.velocity.y = 0;
+          this.isJumping = false;
+        }
+      }
+
 
     }
 
     public generateSprites() {
 
     }
-    
-    private cheatStand()
+
+  /*  private cheatStand()
     {
-      if(this.collideWith(this.collissionObject)){
+      if(this.collideWith(this.collissionObject) && this.collissionObject.name == "Platform") {
+
         this.cmpTransform.local.translation = new fudge.Vector3(this.cmpTransform.local.translation.x, this.collissionObject.cmpTransform.local.translation.y, 0 );
         this.cmpTransform.local.translateY((this.collissionObject.cmpTransform.local.scaling.y/2 + this.cmpTransform.local.scaling.y/2))
       } else {
         //this.cmpTransform.local.translateY(-(this.cmpTransform.local.scaling.y)/2)
-      }
+      }B
     }
-    
-    private update = (_event: fudge.Eventƒ): void => {
-      if (this.falling) {
-        let timeFrame: number = fudge.Loop.timeFrameGame / 1000;
-        this.gravitySpeed += this.gravity;
-        this.cmpTransform.local.translateY((this.speed.y + this.gravitySpeed) * timeFrame);    
+*/
+
+
+    public jump() {
+      if(!this.isJumping)
+      {
+        this.isJumping = true;
+        this.velocity.y += this.JUMP_HEIGHT;
       }
-      if (this.isColliding) {
-        this.gravitySpeed = 0;
-        this.falling = false;
-       // this.stand(this.positionBevorUpdate.y, this.positionAfterUpdate.y);
-       this.cheatStand();
+
+    }
+
+    public walk(direction: DIRECTION) {
+      let timeFrame = fudge.Loop.timeFrameGame / 1000;
+
+      if(direction == DIRECTION.RIGHT)
+      {
+        this.cmpTransform.local.translateX(this.WALK_SPEED * timeFrame)
       }else
       {
-        this.falling = true;
-        //test
+        this.cmpTransform.local.translateX(-(this.WALK_SPEED * timeFrame))
+
       }
     }
 
-    private jump() {
-
-      //test
-    }
-
-    private walk() {
+    private handleCharacterStates() {
 
     }
- 
+
+    private update = (_event: fudge.Eventƒ): void => {
+
+      this.collider.handleCollsion();
+      this.handlePhysics();
+
+
+
+    }
+
   }
 }
