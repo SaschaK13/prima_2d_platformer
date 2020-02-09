@@ -5,14 +5,19 @@ namespace Game {
   export class Platform extends Environment {
     name: string;
     type: string;
+    positionX: number;
+    positionY: number;
+    scaleX: number;
+    scaleY: number;
 
-    constructor() {
+    constructor(name: string, type: string, positionX: number, positionY: number, scaleX: number, scaleY: number) {
       super(name);
-    }
-
-    //TODO platform data objekt
-    public instantiatePlatform() {
-      this.cmpTransform.local.scaleY(2);
+      this.name = name;
+      this.type = type;
+      this.cmpTransform.local.translation = new fudge.Vector3(positionX, positionY, 0);
+      this.cmpTransform.local.scaling = new fudge.Vector3(scaleX, scaleY, 0);
+      let material: fudge.Material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(1, 0, 1, 1)));
+      this.addComponent(new fudge.ComponentMaterial(material));
     }
   }
 }

@@ -13,14 +13,9 @@ namespace Game {
    
     fudge.RenderManager.initialize(true, false);
     root = new fudge.Node("Root");
-  
 
-    let levelGenerator = new LevelGenerator();
-    let data = levelGenerator.getDataFromFile();
-    levelGenerator.generateLevel();
-
-    //let platform1 = new Platform()
-
+    let levelGenerator = new LevelGenerator(root);
+    levelGenerator.getDataFromFile();
 
     let cmpCamera: fudge.ComponentCamera = new fudge.ComponentCamera();
     cmpCamera.pivot.translateZ(5);
