@@ -105,12 +105,12 @@ namespace Game {
 */
 
 
-    private jump() {
+    public jump() {
       this.velocity.y -= 5;
     }
 
-    private walk() {
-      
+    public walk() {
+
     }
 
     private handleCharacterStates() {

@@ -6,6 +6,13 @@ namespace Game {
   let root: fudge.Node;
   let collidableNode: fudge.Node;
 
+
+  interface KeyPressed {
+    [code: string]: boolean;
+  }
+
+  let keysPressed: KeyPressed = {};
+
   function test(): void {
     let canvas: HTMLCanvasElement = document.querySelector("canvas");
     fudge.RenderManager.initialize(true, false);
@@ -35,6 +42,11 @@ namespace Game {
     player.cmpTransform.local.translateY(0.5);
     collidableNode.appendChild(player);
 
+
+    document.addEventListener("keydown", handleKeyboard )
+    document.addEventListener("keyup", handleKeyboard )
+
+
     fudge.Loop.addEventListener(fudge.EVENT.LOOP_FRAME, update);
     fudge.Loop.start(fudge.LOOP_MODE.TIME_GAME, 60);
     collidableNode.appendChild(plattform);
@@ -43,8 +55,19 @@ namespace Game {
     let util = Util.getInstance();
     util.setCollidableObjects(collidableNode.getChildren());
 
+    function handleKeyboard(event: KeyboardEvent): void {
+      keysPressed[event.code] = (event.type == "keydown");
+    }
+
+    function processInput(): void {
+      if(keysPressed[fudge.KEYBOARD_CODE.SPACE]) {
+        player.jump()
+        return;
+      }
+    }
 
     function update(_event: fudge.Eventƒ): void {
+      processInput()
       viewport.draw();
      // fudge.Debug.log(player.collideWith(plattform));
     }
