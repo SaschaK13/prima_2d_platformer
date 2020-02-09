@@ -1,0 +1,6 @@
+{
+  "platformArray": [
+    {"name": "Platform1", "type": "platform", "positionX": 0, "positionY": 0, "scaleX": 1, "scaleY": 0.2},
+    {"name": "Platform2", "type": "platform", "positionX": 1.2, "positionY": 1, "scaleX": 1, "scaleY": 0.2}
+  ]
+}

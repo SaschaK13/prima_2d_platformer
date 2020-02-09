@@ -1,39 +1,28 @@
 "use strict";
-/// <reference path="../L14_ScrollerFoundation/SpriteGenerator.ts"/>
-var L14_ScrollerHare;
-/// <reference path="../L14_ScrollerFoundation/SpriteGenerator.ts"/>
-(function (L14_ScrollerHare) {
-    var ƒ = FudgeCore;
-    var Sprite = L14_ScrollerFoundation.Sprite;
-    var NodeSprite = L14_ScrollerFoundation.NodeSprite;
-    window.addEventListener("load", test);
-    let sprite;
+var Game;
+(function (Game) {
+    var fudge = FudgeCore;
     let root;
+    window.addEventListener("load", test);
     function test() {
         let img = document.querySelector("img");
         let canvas = document.querySelector("canvas");
         let crc2 = canvas.getContext("2d");
-        let txtImage = new ƒ.TextureImage();
+        let txtImage = new fudge.TextureImage();
         txtImage.image = img;
-        sprite = new Sprite("Char");
-        sprite.generateByGrid(txtImage, ƒ.Rectangle.GET(30, 10, 70, 39), 24, new ƒ.Vector2(90, 0), 30, ƒ.ORIGIN2D.BOTTOMCENTER);
-        ƒ.RenderManager.initialize(true, false);
-        root = new ƒ.Node("Root");
-        let hare;
-        hare = new NodeSprite("Hare0", sprite);
-        hare.setFrameDirection(-1);
-        root.appendChild(hare);
-        for (let child of root.getChildren())
-            child.addEventListener("showNext", (_event) => { _event.currentTarget.showFrameNext(); }, true);
-        let cmpCamera = new ƒ.ComponentCamera();
+        fudge.RenderManager.initialize(true, false);
+        root = new fudge.Node("Root");
+        let levelGenerator = new Game.LevelGenerator(root);
+        levelGenerator.getDataFromFile();
+        let cmpCamera = new fudge.ComponentCamera();
         cmpCamera.pivot.translateZ(5);
-        cmpCamera.pivot.lookAt(ƒ.Vector3.ZERO());
-        cmpCamera.backgroundColor = ƒ.Color.CSS("aliceblue");
-        let viewport = new ƒ.Viewport();
+        cmpCamera.pivot.lookAt(fudge.Vector3.ZERO());
+        cmpCamera.backgroundColor = fudge.Color.CSS("aliceblue");
+        let viewport = new fudge.Viewport();
         viewport.initialize("Viewport", root, cmpCamera, canvas);
         viewport.draw();
-        ƒ.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, update);
-        ƒ.Loop.start(ƒ.LOOP_MODE.TIME_GAME, 10);
+        fudge.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, update);
+        fudge.Loop.start(fudge.LOOP_MODE.TIME_GAME, 10);
         function update(_event) {
             // ƒ.Debug.log(frame);
             // root.showFrameNext();
@@ -43,5 +32,5 @@ var L14_ScrollerHare;
             crc2.strokeRect(-1, canvas.height / 2, canvas.width + 2, canvas.height);
         }
     }
-})(L14_ScrollerHare || (L14_ScrollerHare = {}));
+})(Game || (Game = {}));
 //# sourceMappingURL=Main.js.map

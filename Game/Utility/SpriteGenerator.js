@@ -68,7 +68,7 @@ var Game;
             coat.name = _name;
             coat.texture = _texture;
             frame.material = new ƒ.Material(_name, ƒ.ShaderTexture, coat);
-            // ƒ.Debug.log(coat.pivot.toString());  
+            // ƒ.Debug.log(coat.pivot.toString());
             return frame;
         }
     }

@@ -66,7 +66,7 @@ var Game;
         /*  private cheatStand()
           {
             if(this.collideWith(this.collissionObject) && this.collissionObject.name == "Platform") {
-      
+
               this.cmpTransform.local.translation = new fudge.Vector3(this.cmpTransform.local.translation.x, this.collissionObject.cmpTransform.local.translation.y, 0 );
               this.cmpTransform.local.translateY((this.collissionObject.cmpTransform.local.scaling.y/2 + this.cmpTransform.local.scaling.y/2))
             } else {
