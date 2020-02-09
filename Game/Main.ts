@@ -64,6 +64,20 @@ namespace Game {
         player.jump()
         return;
       }
+      
+      if(keysPressed[fudge.KEYBOARD_CODE.D])
+      {
+        player.walk(DIRECTION.RIGHT)
+        return;
+      }
+
+      if(keysPressed[fudge.KEYBOARD_CODE.A])
+      {
+        player.walk(DIRECTION.LEFT)
+        return;
+      }
+
+
     }
 
     function update(_event: fudge.Eventƒ): void {

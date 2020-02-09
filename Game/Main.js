@@ -5,6 +5,7 @@ var Game;
     window.addEventListener("load", test);
     let root;
     let collidableNode;
+    let keysPressed = {};
     function test() {
         let canvas = document.querySelector("canvas");
         fudge.RenderManager.initialize(true, false);
@@ -26,13 +27,33 @@ var Game;
         plattform.cmpTransform.local.translateY(-1);
         player.cmpTransform.local.translateY(0.5);
         collidableNode.appendChild(player);
+        document.addEventListener("keydown", handleKeyboard);
+        document.addEventListener("keyup", handleKeyboard);
         fudge.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, update);
         fudge.Loop.start(fudge.LOOP_MODE.TIME_GAME, 60);
         collidableNode.appendChild(plattform);
         //after world gen add collidable objects to Util 
         let util = Game.Util.getInstance();
         util.setCollidableObjects(collidableNode.getChildren());
+        function handleKeyboard(event) {
+            keysPressed[event.code] = (event.type == "keydown");
+        }
+        function processInput() {
+            if (keysPressed[fudge.KEYBOARD_CODE.SPACE]) {
+                player.jump();
+                return;
+            }
+            if (keysPressed[fudge.KEYBOARD_CODE.D]) {
+                player.walk(Game.DIRECTION.RIGHT);
+                return;
+            }
+            if (keysPressed[fudge.KEYBOARD_CODE.A]) {
+                player.walk(Game.DIRECTION.LEFT);
+                return;
+            }
+        }
         function update(_event) {
+            processInput();
             viewport.draw();
             // fudge.Debug.log(player.collideWith(plattform));
         }

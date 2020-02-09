@@ -8,17 +8,20 @@ var Game;
         CHARACTERSTATE["WALK"] = "walk";
         CHARACTERSTATE["JUMP"] = "jump";
     })(CHARACTERSTATE = Game.CHARACTERSTATE || (Game.CHARACTERSTATE = {}));
-    let DIRECTIONENUM;
-    (function (DIRECTIONENUM) {
-        DIRECTIONENUM["RIGHT"] = "right";
-        DIRECTIONENUM["LEFT"] = "left";
-    })(DIRECTIONENUM = Game.DIRECTIONENUM || (Game.DIRECTIONENUM = {}));
+    let DIRECTION;
+    (function (DIRECTION) {
+        DIRECTION["RIGHT"] = "right";
+        DIRECTION["LEFT"] = "left";
+    })(DIRECTION = Game.DIRECTION || (Game.DIRECTION = {}));
     class Character extends fudge.Node {
         constructor(nodeName) {
             super(nodeName);
+            this.JUMP_HEIGHT = 4;
+            this.WALK_SPEED = 1;
             this.gravity = -8;
             this.velocity = new fudge.Vector2(0, 0);
             this.spriteNameMap = {};
+            this.isJumping = false;
             this.update = (_event) => {
                 this.collider.handleCollsion();
                 this.handlePhysics();
@@ -47,13 +50,14 @@ var Game;
             for (var i = 0; i < collisionObjects.length; i++) {
                 let collisionObject = collisionObjects[i];
                 fudge.Debug.log(collisionObject.name);
+                //TODO nach plattform suchen
                 if (collisionObject.name == "boden1") {
-                    fudge.Debug.log("detected plattform");
                     let translation = this.cmpTransform.local.translation;
                     let newYPosition = collisionObject.cmpTransform.local.translation.y + (collisionObject.cmpTransform.local.scaling.y / 2) + (this.cmpTransform.local.scaling.y / 2);
                     translation.y = newYPosition;
                     this.cmpTransform.local.translation = translation;
                     this.velocity.y = 0;
+                    this.isJumping = false;
                 }
             }
         }
@@ -67,12 +71,25 @@ var Game;
               this.cmpTransform.local.translateY((this.collissionObject.cmpTransform.local.scaling.y/2 + this.cmpTransform.local.scaling.y/2))
             } else {
               //this.cmpTransform.local.translateY(-(this.cmpTransform.local.scaling.y)/2)
-            }
+            }B
           }
       */
         jump() {
+            if (!this.isJumping) {
+                this.isJumping = true;
+                this.velocity.y += this.JUMP_HEIGHT;
+            }
         }
-        walk() {
+        walk(direction) {
+            let timeFrame = fudge.Loop.timeFrameGame / 1000;
+            if (direction == DIRECTION.RIGHT) {
+                this.cmpTransform.local.translateX(this.WALK_SPEED * timeFrame);
+            }
+            else {
+                this.cmpTransform.local.translateX(-(this.WALK_SPEED * timeFrame));
+            }
+        }
+        handleCharacterStates() {
         }
     }
     Game.Character = Character;

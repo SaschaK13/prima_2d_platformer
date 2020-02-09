@@ -11,7 +11,7 @@ namespace Game {
 
   }
 
-  export enum DIRECTIONENUM {
+  export enum DIRECTION {
     RIGHT = "right",
     LEFT = "left"
   }
@@ -22,6 +22,9 @@ namespace Game {
   
   export class Character extends fudge.Node { 
 
+      private JUMP_HEIGHT = 4;
+      private WALK_SPEED = 1;
+
       private gravity: number = -8;
       private velocity: fudge.Vector2 = new fudge.Vector2(0, 0);
 
@@ -30,12 +33,14 @@ namespace Game {
       private cmpMesh: fudge.ComponentMesh;
 
       private state: CHARACTERSTATE;
-      private direction: DIRECTIONENUM;
+      private direction: DIRECTION;
 
       private sprites: Sprite[];
       private spriteNameMap: spriteName = {}; 
       
       private  collider: Collider;
+
+      private isJumping: boolean = false;
    
     constructor(nodeName: string) {
       super(nodeName);
@@ -58,7 +63,7 @@ namespace Game {
     }
 
     public handleVelocity(): void {
-      let timeFrame = fudge.Loop.timeFrameGame / 1000;
+      let timeFrame = fudge.Loop.timeFrameGame / 1000;  
       this.velocity.y += this.gravity * timeFrame;
 
       //ad velocity to position
@@ -74,14 +79,15 @@ namespace Game {
 
         let collisionObject = collisionObjects[i];
         fudge.Debug.log(collisionObject.name)
+        //TODO nach plattform suchen
         if(collisionObject.name == "boden1") {
 
-          fudge.Debug.log("detected plattform")
           let translation = this.cmpTransform.local.translation;
           let newYPosition = collisionObject.cmpTransform.local.translation.y + (collisionObject.cmpTransform.local.scaling.y / 2) + (this.cmpTransform.local.scaling.y/2);
           translation.y = newYPosition;
           this.cmpTransform.local.translation = translation;
           this.velocity.y = 0;
+          this.isJumping = false;
         }
       }
 
@@ -100,17 +106,31 @@ namespace Game {
         this.cmpTransform.local.translateY((this.collissionObject.cmpTransform.local.scaling.y/2 + this.cmpTransform.local.scaling.y/2))
       } else {
         //this.cmpTransform.local.translateY(-(this.cmpTransform.local.scaling.y)/2)
-      }
+      }B
     }
 */
 
 
     public jump() {
-      this.velocity.y -= 5;
+      if(!this.isJumping)
+      {
+        this.isJumping = true;
+        this.velocity.y += this.JUMP_HEIGHT;
+      }
+      
     }
 
-    public walk() {
+    public walk(direction: DIRECTION) {
+      let timeFrame = fudge.Loop.timeFrameGame / 1000;      
 
+      if(direction == DIRECTION.RIGHT)
+      {
+        this.cmpTransform.local.translateX(this.WALK_SPEED * timeFrame)
+      }else
+      {
+        this.cmpTransform.local.translateX(-(this.WALK_SPEED * timeFrame))
+
+      }
     }
 
     private handleCharacterStates() {
