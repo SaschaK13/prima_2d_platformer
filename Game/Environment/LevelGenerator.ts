@@ -27,7 +27,9 @@ namespace Game {
         this.levelObject.platformArray.push(platform);
         this.root.appendChild(platform);
       }
-      fudge.Debug.log(this.levelObject);
+      let util = Util.getInstance();
+      util.setCollidableObjects(this.root.getChildren());
+      fudge.Debug.log(this.root.getChildren())
     }
   }
 }

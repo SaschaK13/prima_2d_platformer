@@ -21,20 +21,16 @@ var Game;
         let material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(1, 0, 1, 1)));
         let material2 = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(0, 1, 1, 1)));
         let player = new Game.Player("test");
-        let plattform = new Game.Platform("boden1");
         player.addComponent(new fudge.ComponentMaterial(material));
-        plattform.addComponent(new fudge.ComponentMaterial(material2));
-        plattform.cmpTransform.local.translateY(-1);
         player.cmpTransform.local.translateY(0.5);
         collidableNode.appendChild(player);
+        let lvlGenerator = new Game.LevelGenerator(collidableNode);
+        lvlGenerator.getDataFromFile();
         document.addEventListener("keydown", handleKeyboard);
         document.addEventListener("keyup", handleKeyboard);
         fudge.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, update);
         fudge.Loop.start(fudge.LOOP_MODE.TIME_GAME, 60);
-        collidableNode.appendChild(plattform);
         //after world gen add collidable objects to Util 
-        let util = Game.Util.getInstance();
-        util.setCollidableObjects(collidableNode.getChildren());
         function handleKeyboard(event) {
             keysPressed[event.code] = (event.type == "keydown");
         }

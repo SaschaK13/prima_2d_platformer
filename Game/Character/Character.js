@@ -49,9 +49,8 @@ var Game;
             let collisionObjects = this.collider.getCollisionObjects();
             for (var i = 0; i < collisionObjects.length; i++) {
                 let collisionObject = collisionObjects[i];
-                fudge.Debug.log(collisionObject.name);
-                //TODO nach plattform suchen
-                if (collisionObject.name == "boden1") {
+                fudge.Debug.log(collisionObject);
+                if (collisionObject.type == Game.EnvironmentType.PLATFORM) {
                     let translation = this.cmpTransform.local.translation;
                     let newYPosition = collisionObject.cmpTransform.local.translation.y + (collisionObject.cmpTransform.local.scaling.y / 2) + (this.cmpTransform.local.scaling.y / 2);
                     translation.y = newYPosition;
@@ -66,7 +65,7 @@ var Game;
         /*  private cheatStand()
           {
             if(this.collideWith(this.collissionObject) && this.collissionObject.name == "Platform") {
-
+      
               this.cmpTransform.local.translation = new fudge.Vector3(this.cmpTransform.local.translation.x, this.collissionObject.cmpTransform.local.translation.y, 0 );
               this.cmpTransform.local.translateY((this.collissionObject.cmpTransform.local.scaling.y/2 + this.cmpTransform.local.scaling.y/2))
             } else {

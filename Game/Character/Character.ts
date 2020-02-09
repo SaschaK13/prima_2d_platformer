@@ -77,10 +77,9 @@ namespace Game {
 
       for(var i= 0; i < collisionObjects.length; i++) {
 
-        let collisionObject = collisionObjects[i];
-        fudge.Debug.log(collisionObject.name)
-        //TODO nach plattform suchen
-        if(collisionObject.name == "boden1") {
+        let collisionObject: Platform = collisionObjects[i] as Platform;
+        fudge.Debug.log(collisionObject)
+        if(collisionObject.type == EnvironmentType.PLATFORM) {
 
           let translation = this.cmpTransform.local.translation;
           let newYPosition = collisionObject.cmpTransform.local.translation.y + (collisionObject.cmpTransform.local.scaling.y / 2) + (this.cmpTransform.local.scaling.y/2);

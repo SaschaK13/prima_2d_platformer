@@ -33,15 +33,12 @@ namespace Game {
     let material2: fudge.Material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(0, 1, 1, 1)));
 
     let player: Player = new Player("test");
-    let plattform: Platform = new Platform("boden1");
-
     player.addComponent(new fudge.ComponentMaterial(material));
-    plattform.addComponent(new fudge.ComponentMaterial(material2));
-
-    plattform.cmpTransform.local.translateY(-1);
     player.cmpTransform.local.translateY(0.5);
     collidableNode.appendChild(player);
 
+    let lvlGenerator = new LevelGenerator(collidableNode);
+    lvlGenerator.getDataFromFile()
 
     document.addEventListener("keydown", handleKeyboard )
     document.addEventListener("keyup", handleKeyboard )
@@ -49,11 +46,11 @@ namespace Game {
 
     fudge.Loop.addEventListener(fudge.EVENT.LOOP_FRAME, update);
     fudge.Loop.start(fudge.LOOP_MODE.TIME_GAME, 60);
-    collidableNode.appendChild(plattform);
+
 
     //after world gen add collidable objects to Util 
-    let util = Util.getInstance();
-    util.setCollidableObjects(collidableNode.getChildren());
+
+
 
     function handleKeyboard(event: KeyboardEvent): void {
       keysPressed[event.code] = (event.type == "keydown");
