@@ -61,7 +61,7 @@ namespace Game {
     public handlePhysics()
     {
       this.handleVelocity();
-      this.handleStaying();
+      this.reactToCollison()
     }
 
     public handleVelocity(): void {
@@ -75,15 +75,37 @@ namespace Game {
 
     }
 
-    public handleStaying()
+
+    public reactToCollison()
     {
-      let collisionObjects: CollidedObject[] = this.collider.getCollisionObjects();
+      let collisionObjects: CollidedObject[] = this.collider.getCollisionObjects(); 
 
-      for(var i= 0; i < collisionObjects.length; i++) {
+      for(var i = 0; i < collisionObjects.length; i++)
+      {
+        let collisionObject = collisionObjects[i];
+        switch((collisionObject.object as Environment).type){
+          case EnvironmentType.PLATFORM: {
+            this.handlePlatformColission(collisionObject)
+          }
+        }
+      }
 
-        let collisionObject: Platform = collisionObjects[i].object as Platform;
-        if(collisionObject.type == EnvironmentType.PLATFORM ) {
+    }
 
+    public handlePlatformColission(collidedObject: CollidedObject)
+    {
+      switch(collidedObject.collisionDirecton)
+      {
+        case CollisionDirection.BOTTOM: {
+          this.handleStaying(collidedObject)
+        }
+      }
+    }
+
+    public handleStaying(collidedObject: CollidedObject)
+    {
+        let collisionObject: Platform = collidedObject.object as Platform;
+        if(collisionObject.type == EnvironmentType.PLATFORM && collidedObject.collisionDirecton == CollisionDirection.BOTTOM) {
           let translation = this.cmpTransform.local.translation;
           let newYPosition = collisionObject.cmpTransform.local.translation.y + (collisionObject.cmpTransform.local.scaling.y / 2) + (this.cmpTransform.local.scaling.y/2);
           translation.y = newYPosition;
@@ -91,9 +113,7 @@ namespace Game {
           this.velocity.y = 0;
           this.isJumping = false;
         }
-      }
-
-
+      
     }
 
     public generateSprites() {
