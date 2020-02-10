@@ -42,10 +42,10 @@ private collideWith(colissionObject: fudge.Node) {
   let characterPosition: fudge.Vector3 = this.object.cmpTransform.local.translation;
   let characterScaling: fudge.Vector3 = (this.object.getComponent(fudge.ComponentMesh) as fudge.ComponentMesh).pivot.scaling;
 
-  if (characterPosition.x < colissionObjectPosition.x + colissionObjectScaling.x &&
-    characterPosition.x + characterScaling.x > colissionObjectPosition.x &&
-    characterPosition.y < colissionObjectPosition.y + colissionObjectScaling.y &&
-    characterPosition.y + characterScaling.y > colissionObjectPosition.y) {
+  if (characterPosition.x - (characterScaling.x /2) < colissionObjectPosition.x + (colissionObjectScaling.x / 2) &&
+  characterPosition.x + (characterScaling.x/2) > colissionObjectPosition.x - (colissionObjectScaling.x /2) &&
+  characterPosition.y - (characterScaling.y / 2) < colissionObjectPosition.y + (colissionObjectScaling.y/2) &&
+  characterPosition.y + (characterScaling.y /2) > colissionObjectPosition.y - (colissionObjectScaling.y / 2)) {
       this.isColliding = true;
       this.collissionObjects.push(colissionObject);
     } else {

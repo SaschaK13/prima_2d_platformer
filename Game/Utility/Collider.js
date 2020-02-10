@@ -24,10 +24,10 @@ var Game;
             let colissionObjectScaling = colissionObject.getComponent(fudge.ComponentMesh).pivot.scaling;
             let characterPosition = this.object.cmpTransform.local.translation;
             let characterScaling = this.object.getComponent(fudge.ComponentMesh).pivot.scaling;
-            if (characterPosition.x < colissionObjectPosition.x + colissionObjectScaling.x &&
-                characterPosition.x + characterScaling.x > colissionObjectPosition.x &&
-                characterPosition.y < colissionObjectPosition.y + colissionObjectScaling.y &&
-                characterPosition.y + characterScaling.y > colissionObjectPosition.y) {
+            if (characterPosition.x - (characterScaling.x / 2) < colissionObjectPosition.x + (colissionObjectScaling.x / 2) &&
+                characterPosition.x + (characterScaling.x / 2) > colissionObjectPosition.x - (colissionObjectScaling.x / 2) &&
+                characterPosition.y - (characterScaling.y / 2) < colissionObjectPosition.y + (colissionObjectScaling.y / 2) &&
+                characterPosition.y + (characterScaling.y / 2) > colissionObjectPosition.y - (colissionObjectScaling.y / 2)) {
                 this.isColliding = true;
                 this.collissionObjects.push(colissionObject);
             }
