@@ -22,8 +22,8 @@ namespace Game {
 
   export class Character extends fudge.Node {
 
-      private JUMP_HEIGHT = 4;
-      private WALK_SPEED = 1;
+      private JUMP_HEIGHT = 6;
+      private WALK_SPEED = 2;
 
       private gravity: number = -8;
       private velocity: fudge.Vector2 = new fudge.Vector2(0, 0);
@@ -61,7 +61,7 @@ namespace Game {
     public handlePhysics()
     {
       this.handleVelocity();
-      this.reactToCollison()
+      this.reactToCollison();
     }
 
     public handleVelocity(): void {
@@ -94,27 +94,51 @@ namespace Game {
 
     public handlePlatformColission(collidedObject: CollidedObject)
     {
-      switch(collidedObject.collisionDirecton)
-      {
-        case CollisionDirection.BOTTOM: {
-          this.handleStaying(collidedObject)
-        }
-      }
-    }
 
-    public handleStaying(collidedObject: CollidedObject)
-    {
-        let collisionObject: Platform = collidedObject.object as Platform;
-        if(collisionObject.type == EnvironmentType.PLATFORM && collidedObject.collisionDirecton == CollisionDirection.BOTTOM) {
-          let translation = this.cmpTransform.local.translation;
+      let collisionObject: Platform = collidedObject.object as Platform;
+      let translation = this.cmpTransform.local.translation;
+
+      switch(collidedObject.collisionDirecton){
+        case CollisionDirection.BOTTOM: {
           let newYPosition = collisionObject.cmpTransform.local.translation.y + (collisionObject.cmpTransform.local.scaling.y / 2) + (this.cmpTransform.local.scaling.y/2);
           translation.y = newYPosition;
           this.cmpTransform.local.translation = translation;
           this.velocity.y = 0;
           this.isJumping = false;
+          break;
         }
-      
+        case CollisionDirection.TOP: {
+          let newYPosition = collisionObject.cmpTransform.local.translation.y - (collisionObject.cmpTransform.local.scaling.y / 2) - (this.cmpTransform.local.scaling.y/2);
+          translation.y = newYPosition;
+          this.cmpTransform.local.translation = translation;
+          this.velocity.y = 0;
+          this.isJumping = false;
+          break;
+
+        }
+        case CollisionDirection.LEFT: {
+          let newXPosition = collisionObject.cmpTransform.local.translation.x + (collisionObject.cmpTransform.local.scaling.x / 2) + (this.cmpTransform.local.scaling.x/2);
+          translation.x = newXPosition;
+          this.cmpTransform.local.translation = translation;
+          this.velocity.x = 0;
+          this.isJumping = false;
+          break;
+
+        }
+
+        case CollisionDirection.RIGHT: {
+          let newXPosition = collisionObject.cmpTransform.local.translation.x - (collisionObject.cmpTransform.local.scaling.x / 2) - (this.cmpTransform.local.scaling.x/2);
+          translation.x = newXPosition;
+          this.cmpTransform.local.translation = translation;
+          this.velocity.x = 0;
+          this.isJumping = false;
+          break;
+        }
+      }
+     
     }
+
+  
 
     public generateSprites() {
 

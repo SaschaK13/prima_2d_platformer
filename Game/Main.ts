@@ -22,7 +22,7 @@ namespace Game {
 
 
     let cmpCamera: fudge.ComponentCamera = new fudge.ComponentCamera();
-    cmpCamera.pivot.translateZ(5);
+    cmpCamera.pivot.translateZ(15);
     cmpCamera.pivot.lookAt(fudge.Vector3.ZERO());
     cmpCamera.backgroundColor = fudge.Color.CSS("aliceblue");
     let viewport: fudge.Viewport = new fudge.Viewport();
@@ -35,7 +35,7 @@ namespace Game {
     let player: Player = new Player("test");
     player.addComponent(new fudge.ComponentMaterial(material));
     (player.getComponent(fudge.ComponentMesh) as fudge.ComponentMesh).pivot.scaling = player.cmpTransform.local.scaling
-    player.cmpTransform.local.translateY(0.5);
+    player.cmpTransform.local.translateY(2);
     collidableNode.appendChild(player);
 
     let lvlGenerator = new LevelGenerator(collidableNode);

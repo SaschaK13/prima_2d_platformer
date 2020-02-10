@@ -16,8 +16,8 @@ var Game;
     class Character extends fudge.Node {
         constructor(nodeName) {
             super(nodeName);
-            this.JUMP_HEIGHT = 4;
-            this.WALK_SPEED = 1;
+            this.JUMP_HEIGHT = 6;
+            this.WALK_SPEED = 2;
             this.gravity = -8;
             this.velocity = new fudge.Vector2(0, 0);
             this.spriteNameMap = {};
@@ -58,21 +58,41 @@ var Game;
             }
         }
         handlePlatformColission(collidedObject) {
+            let collisionObject = collidedObject.object;
+            let translation = this.cmpTransform.local.translation;
             switch (collidedObject.collisionDirecton) {
                 case Game.CollisionDirection.BOTTOM: {
-                    this.handleStaying(collidedObject);
+                    let newYPosition = collisionObject.cmpTransform.local.translation.y + (collisionObject.cmpTransform.local.scaling.y / 2) + (this.cmpTransform.local.scaling.y / 2);
+                    translation.y = newYPosition;
+                    this.cmpTransform.local.translation = translation;
+                    this.velocity.y = 0;
+                    this.isJumping = false;
+                    break;
                 }
-            }
-        }
-        handleStaying(collidedObject) {
-            let collisionObject = collidedObject.object;
-            if (collisionObject.type == Game.EnvironmentType.PLATFORM && collidedObject.collisionDirecton == Game.CollisionDirection.BOTTOM) {
-                let translation = this.cmpTransform.local.translation;
-                let newYPosition = collisionObject.cmpTransform.local.translation.y + (collisionObject.cmpTransform.local.scaling.y / 2) + (this.cmpTransform.local.scaling.y / 2);
-                translation.y = newYPosition;
-                this.cmpTransform.local.translation = translation;
-                this.velocity.y = 0;
-                this.isJumping = false;
+                case Game.CollisionDirection.TOP: {
+                    let newYPosition = collisionObject.cmpTransform.local.translation.y - (collisionObject.cmpTransform.local.scaling.y / 2) - (this.cmpTransform.local.scaling.y / 2);
+                    translation.y = newYPosition;
+                    this.cmpTransform.local.translation = translation;
+                    this.velocity.y = 0;
+                    this.isJumping = false;
+                    break;
+                }
+                case Game.CollisionDirection.LEFT: {
+                    let newXPosition = collisionObject.cmpTransform.local.translation.x + (collisionObject.cmpTransform.local.scaling.x / 2) + (this.cmpTransform.local.scaling.x / 2);
+                    translation.x = newXPosition;
+                    this.cmpTransform.local.translation = translation;
+                    this.velocity.x = 0;
+                    this.isJumping = false;
+                    break;
+                }
+                case Game.CollisionDirection.RIGHT: {
+                    let newXPosition = collisionObject.cmpTransform.local.translation.x - (collisionObject.cmpTransform.local.scaling.x / 2) - (this.cmpTransform.local.scaling.x / 2);
+                    translation.x = newXPosition;
+                    this.cmpTransform.local.translation = translation;
+                    this.velocity.x = 0;
+                    this.isJumping = false;
+                    break;
+                }
             }
         }
         generateSprites() {
