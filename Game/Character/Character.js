@@ -39,6 +39,7 @@ var Game;
             this.handleStaying();
         }
         handleVelocity() {
+            this.oldTransform = this.cmpTransform.local.translation;
             let timeFrame = fudge.Loop.timeFrameGame / 1000;
             this.velocity.y += this.gravity * timeFrame;
             //ad velocity to position
@@ -48,8 +49,7 @@ var Game;
         handleStaying() {
             let collisionObjects = this.collider.getCollisionObjects();
             for (var i = 0; i < collisionObjects.length; i++) {
-                let collisionObject = collisionObjects[i];
-                fudge.Debug.log(collisionObject);
+                let collisionObject = collisionObjects[i].object;
                 if (collisionObject.type == Game.EnvironmentType.PLATFORM) {
                     let translation = this.cmpTransform.local.translation;
                     let newYPosition = collisionObject.cmpTransform.local.translation.y + (collisionObject.cmpTransform.local.scaling.y / 2) + (this.cmpTransform.local.scaling.y / 2);

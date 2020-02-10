@@ -29,7 +29,6 @@ namespace Game {
       }
       let util = Util.getInstance();
       util.setCollidableObjects(this.root.getChildren());
-      fudge.Debug.log(this.root.getChildren())
     }
   }
 }

@@ -42,6 +42,8 @@ namespace Game {
 
       private isJumping: boolean = false;
 
+      public oldTransform: fudge.Vector3;
+
     constructor(nodeName: string) {
       super(nodeName);
       this.mesh = new fudge.MeshQuad();
@@ -63,23 +65,24 @@ namespace Game {
     }
 
     public handleVelocity(): void {
+      this.oldTransform = this.cmpTransform.local.translation;
       let timeFrame = fudge.Loop.timeFrameGame / 1000;
       this.velocity.y += this.gravity * timeFrame;
 
       //ad velocity to position
       this.cmpTransform.local.translateY(this.velocity.y * timeFrame);
       this.cmpTransform.local.translateX(this.velocity.x * timeFrame);
+
     }
 
     public handleStaying()
     {
-      let collisionObjects: fudge.Node[] = this.collider.getCollisionObjects();
+      let collisionObjects: CollidedObject[] = this.collider.getCollisionObjects();
 
       for(var i= 0; i < collisionObjects.length; i++) {
 
-        let collisionObject: Platform = collisionObjects[i] as Platform;
-        fudge.Debug.log(collisionObject)
-        if(collisionObject.type == EnvironmentType.PLATFORM) {
+        let collisionObject: Platform = collisionObjects[i].object as Platform;
+        if(collisionObject.type == EnvironmentType.PLATFORM ) {
 
           let translation = this.cmpTransform.local.translation;
           let newYPosition = collisionObject.cmpTransform.local.translation.y + (collisionObject.cmpTransform.local.scaling.y / 2) + (this.cmpTransform.local.scaling.y/2);
@@ -140,6 +143,9 @@ namespace Game {
 
       this.collider.handleCollsion();
       this.handlePhysics();
+
+
+
 
 
 

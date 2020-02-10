@@ -34,6 +34,7 @@ namespace Game {
 
     let player: Player = new Player("test");
     player.addComponent(new fudge.ComponentMaterial(material));
+    (player.getComponent(fudge.ComponentMesh) as fudge.ComponentMesh).pivot.scaling = player.cmpTransform.local.scaling
     player.cmpTransform.local.translateY(0.5);
     collidableNode.appendChild(player);
 
@@ -80,7 +81,7 @@ namespace Game {
     function update(_event: fudge.Eventƒ): void {
       processInput()
       viewport.draw();
-     // fudge.Debug.log(player.collideWith(plattform));
+
     }
   }
 }

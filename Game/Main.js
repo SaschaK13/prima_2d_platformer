@@ -22,6 +22,7 @@ var Game;
         let material2 = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(0, 1, 1, 1)));
         let player = new Game.Player("test");
         player.addComponent(new fudge.ComponentMaterial(material));
+        player.getComponent(fudge.ComponentMesh).pivot.scaling = player.cmpTransform.local.scaling;
         player.cmpTransform.local.translateY(0.5);
         collidableNode.appendChild(player);
         let lvlGenerator = new Game.LevelGenerator(collidableNode);
@@ -51,7 +52,6 @@ var Game;
         function update(_event) {
             processInput();
             viewport.draw();
-            // fudge.Debug.log(player.collideWith(plattform));
         }
     }
 })(Game || (Game = {}));
