@@ -55,10 +55,10 @@ public getCollisionObjects(): CollidedObject[]
 
 
     let colissionObjectPosition: fudge.Vector3 = cObject.cmpTransform.local.translation;
-    let colissionObjectScaling: fudge.Vector3 = (cObject.getComponent(fudge.ComponentMesh) as fudge.ComponentMesh).pivot.scaling;
+    let colissionObjectScaling: fudge.Vector3 = cObject.cmpTransform.local.scaling;
 
     let characterPosition: fudge.Vector3 = this.object.cmpTransform.local.translation;
-    let characterScaling: fudge.Vector3 = (this.object.getComponent(fudge.ComponentMesh) as fudge.ComponentMesh).pivot.scaling;
+    let characterScaling: fudge.Vector3 = this.object.cmpTransform.local.scaling;
 
     if (characterPosition.x - (characterScaling.x / 2) < colissionObjectPosition.x + (colissionObjectScaling.x / 2) &&
     characterPosition.x + (characterScaling.x / 2) > colissionObjectPosition.x - (colissionObjectScaling.x / 2) &&

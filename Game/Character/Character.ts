@@ -33,12 +33,13 @@ namespace Game {
       private cmpMesh: fudge.ComponentMesh;
 
       private state: CHARACTERSTATE;
-      private direction: DIRECTION;
+      public direction: DIRECTION = DIRECTION.RIGHT;
 
       private sprites: Sprite[];
       private spriteNameMap: spriteName = {};
 
       private  collider: Collider;
+      private hitbox: Hitbox;
 
       private isJumping: boolean = false;
 
@@ -54,6 +55,7 @@ namespace Game {
       this.addComponent(this.cmpTrans);
 
       this.collider = new Collider(this);
+      this.hitbox = new Hitbox(nodeName + "_Hitbox", this, new fudge.Vector2 (this.cmpTransform.local.scaling.x/2,this.cmpTransform.local.scaling.y))
 
       fudge.Loop.addEventListener(fudge.EVENT.LOOP_FRAME, this.update);
     }
@@ -172,11 +174,22 @@ namespace Game {
       if(direction == DIRECTION.RIGHT)
       {
         this.cmpTransform.local.translateX(this.WALK_SPEED * timeFrame)
+        if(this.direction != direction)
+        {
+          this.cmpTransform.local.rotation = fudge.Vector3.Z(0)
+        }
+        this.direction = direction;
       }else
       {
         this.cmpTransform.local.translateX(-(this.WALK_SPEED * timeFrame))
-
+        if(this.direction != direction)
+        {
+          this.cmpTransform.local.rotation = fudge.Vector3.Z(180)
+        }
+        this.direction = direction;
       }
+
+      //this.hitbox.positionHitbox(this)
     }
 
     private handleCharacterStates() {
@@ -187,12 +200,6 @@ namespace Game {
 
       this.collider.handleCollsion();
       this.handlePhysics();
-
-
-
-
-
-
     }
 
   }

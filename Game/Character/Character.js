@@ -20,6 +20,7 @@ var Game;
             this.WALK_SPEED = 2;
             this.gravity = -8;
             this.velocity = new fudge.Vector2(0, 0);
+            this.direction = DIRECTION.RIGHT;
             this.spriteNameMap = {};
             this.isJumping = false;
             this.update = (_event) => {
@@ -32,6 +33,7 @@ var Game;
             this.cmpTrans = new fudge.ComponentTransform();
             this.addComponent(this.cmpTrans);
             this.collider = new Game.Collider(this);
+            this.hitbox = new Game.Hitbox(nodeName + "_Hitbox", this, new fudge.Vector2(this.cmpTransform.local.scaling.x / 2, this.cmpTransform.local.scaling.y));
             fudge.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, this.update);
         }
         handlePhysics() {
@@ -118,10 +120,19 @@ var Game;
             let timeFrame = fudge.Loop.timeFrameGame / 1000;
             if (direction == DIRECTION.RIGHT) {
                 this.cmpTransform.local.translateX(this.WALK_SPEED * timeFrame);
+                if (this.direction != direction) {
+                    this.cmpTransform.local.rotation = fudge.Vector3.Z(0);
+                }
+                this.direction = direction;
             }
             else {
                 this.cmpTransform.local.translateX(-(this.WALK_SPEED * timeFrame));
+                if (this.direction != direction) {
+                    this.cmpTransform.local.rotation = fudge.Vector3.Z(180);
+                }
+                this.direction = direction;
             }
+            //this.hitbox.positionHitbox(this)
         }
         handleCharacterStates() {
         }
