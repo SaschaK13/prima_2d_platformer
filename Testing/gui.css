@@ -1,0 +1,37 @@
+
+#health {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  z-index: 10;
+}
+
+#time {
+  position: absolute;
+  right: 20px;
+  top: 1%;
+  z-index: 10;
+}
+
+#speed {
+  position: absolute;
+  right: 20px;
+  top: 8%;
+  z-index: 10;
+}
+
+#jumping {
+  position: absolute;
+  right: 20px;
+  top: 11%;
+  z-index: 10;
+}
+
+
+#healthBar {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  visibility: hidden;
+  z-index: 10px;
+}

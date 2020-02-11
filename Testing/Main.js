@@ -10,6 +10,7 @@ var Game;
         let crc2 = canvas.getContext("2d");
         let txtImage = new fudge.TextureImage();
         txtImage.image = img;
+        let gui = new Game.Gui();
         fudge.RenderManager.initialize(true, false);
         root = new fudge.Node("Root");
         let levelGenerator = new Game.LevelGenerator(root);
@@ -22,7 +23,7 @@ var Game;
         viewport.initialize("Viewport", root, cmpCamera, canvas);
         viewport.draw();
         fudge.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, update);
-        fudge.Loop.start(fudge.LOOP_MODE.TIME_GAME, 10);
+        fudge.Loop.start(fudge.LOOP_MODE.TIME_GAME, 1);
         function update(_event) {
             // ƒ.Debug.log(frame);
             // root.showFrameNext();
@@ -30,6 +31,8 @@ var Game;
             viewport.draw();
             crc2.strokeRect(-1, -1, canvas.width / 2, canvas.height + 2);
             crc2.strokeRect(-1, canvas.height / 2, canvas.width + 2, canvas.height);
+            gui.updateHealth(1);
+            gui.updateWalkSpeed(2);
         }
     }
 })(Game || (Game = {}));
