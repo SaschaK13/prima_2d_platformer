@@ -1,9 +1,11 @@
+
 namespace Game {
   import fudge = FudgeCore;
 
   window.addEventListener("load", test);
   let root: fudge.Node;
   let collidableNode: fudge.Node;
+
 
   interface KeyPressed {
     [code: string]: boolean;
@@ -17,6 +19,7 @@ namespace Game {
     root = new fudge.Node("Root");
     collidableNode = new fudge.Node("collidable");
     root.appendChild(collidableNode);
+
 
     let cmpCamera: fudge.ComponentCamera = new fudge.ComponentCamera();
     cmpCamera.pivot.translateZ(15);
@@ -36,14 +39,14 @@ namespace Game {
     collidableNode.appendChild(player);
 
     let lvlGenerator = new LevelGenerator(collidableNode);
-    lvlGenerator.getDataFromFile();
+    lvlGenerator.getDataFromFile()
 
-    document.addEventListener("keydown", handleKeyboard );
-    document.addEventListener("keyup", handleKeyboard );
+    document.addEventListener("keydown", handleKeyboard )
+    document.addEventListener("keyup", handleKeyboard )
 
 
     fudge.Loop.addEventListener(fudge.EVENT.LOOP_FRAME, update);
-    fudge.Loop.start(fudge.LOOP_MODE.TIME_GAME, 15);
+    fudge.Loop.start(fudge.LOOP_MODE.TIME_GAME, 60);
 
 
     //after world gen add collidable objects to Util 

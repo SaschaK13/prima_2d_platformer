@@ -1,7 +1,6 @@
 "use strict";
 var Game;
 (function (Game) {
-    var fudge = FudgeCore;
     class Util {
         constructor() { }
         static getInstance() {
@@ -15,12 +14,6 @@ var Game;
         }
         setCollidableObjects(array) {
             this.collidableObjects = array;
-        }
-        getTextureImageByName(name) {
-            let img = document.querySelector("#" + name);
-            let texture = new fudge.TextureImage();
-            texture.image = img;
-            return texture;
         }
     }
     Game.Util = Util;

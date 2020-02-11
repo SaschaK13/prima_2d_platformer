@@ -1,6 +1,8 @@
+
 namespace Game {
 
   import fudge = FudgeCore;
+
 
   export enum CHARACTERSTATE {
     IDLE = "idle",
@@ -35,7 +37,6 @@ namespace Game {
 
       private sprites: Sprite[];
       private spriteNameMap: spriteName = {};
-      private textureImage: fudge.TextureImage;
 
       private  collider: Collider;
 
@@ -54,15 +55,11 @@ namespace Game {
 
       this.collider = new Collider(this);
 
-      this.textureImage = Util.getInstance().getTextureImageByName(nodeName);
-      this.generateSprites();
-      this.fillSpriteMap();
-
-      this.show(CHARACTERSTATE.IDLE);
       fudge.Loop.addEventListener(fudge.EVENT.LOOP_FRAME, this.update);
     }
 
-    public handlePhysics(): void {
+    public handlePhysics()
+    {
       this.handleVelocity();
       this.reactToCollison();
     }
@@ -145,8 +142,6 @@ namespace Game {
 
     public generateSprites() {
 
-        this.appendChild(nodeSprite);
-      }
     }
 
   /*  private cheatStand()
@@ -162,39 +157,34 @@ namespace Game {
 */
 
 
-    public jump(): void {
-      if (!this.isJumping) {
+    public jump() {
+      if(!this.isJumping)
+      {
         this.isJumping = true;
         this.velocity.y += this.JUMP_HEIGHT;
-        this.show(CHARACTERSTATE.JUMP);
+      }
+
+    }
+
+    public walk(direction: DIRECTION) {
+      let timeFrame = fudge.Loop.timeFrameGame / 1000;
+
+      if(direction == DIRECTION.RIGHT)
+      {
+        this.cmpTransform.local.translateX(this.WALK_SPEED * timeFrame)
+      }else
+      {
+        this.cmpTransform.local.translateX(-(this.WALK_SPEED * timeFrame))
+
       }
     }
 
-    public walk(direction: DIRECTION): void {
-      let timeFrame: number = fudge.Loop.timeFrameGame / 1000;
-      this.show(CHARACTERSTATE.WALK);
-      if (direction == DIRECTION.RIGHT) {
-        this.cmpTransform.local.translateX(this.WALK_SPEED * timeFrame);
-      } else {
-        this.cmpTransform.local.translateX(-(this.WALK_SPEED * timeFrame));
-      }
-    }
+    private handleCharacterStates() {
 
-    private handleCharacterStates(_characterstate: CHARACTERSTATE, _direction?: DIRECTION): void {
-      switch (_characterstate) {
-        case CHARACTERSTATE.IDLE:
-          break;
-        case CHARACTERSTATE.WALK:
-          break;
-        case CHARACTERSTATE.JUMP:
-          break;
-      }
-      this.show(_characterstate);
     }
 
     private update = (_event: fudge.Eventƒ): void => {
-      this.broadcastEvent(new CustomEvent("showNext"));
-      
+
       this.collider.handleCollsion();
       this.handlePhysics();
 

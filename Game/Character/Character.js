@@ -22,16 +22,16 @@ var Game;
             this.velocity = new fudge.Vector2(0, 0);
             this.spriteNameMap = {};
             this.isJumping = false;
+            this.update = (_event) => {
+                this.collider.handleCollsion();
+                this.handlePhysics();
+            };
             this.mesh = new fudge.MeshQuad();
             this.cmpMesh = new fudge.ComponentMesh(this.mesh);
             this.addComponent(this.cmpMesh);
             this.cmpTrans = new fudge.ComponentTransform();
             this.addComponent(this.cmpTrans);
             this.collider = new Game.Collider(this);
-            this.textureImage = Game.Util.getInstance().getTextureImageByName(nodeName);
-            this.generateSprites();
-            this.fillSpriteMap();
-            this.show(CHARACTERSTATE.IDLE);
             fudge.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, this.update);
         }
         handlePhysics() {
@@ -96,47 +96,36 @@ var Game;
             }
         }
         generateSprites() {
-            this.appendChild(nodeSprite);
+        }
+        /*  private cheatStand()
+          {
+            if(this.collideWith(this.collissionObject) && this.collissionObject.name == "Platform") {
+      
+              this.cmpTransform.local.translation = new fudge.Vector3(this.cmpTransform.local.translation.x, this.collissionObject.cmpTransform.local.translation.y, 0 );
+              this.cmpTransform.local.translateY((this.collissionObject.cmpTransform.local.scaling.y/2 + this.cmpTransform.local.scaling.y/2))
+            } else {
+              //this.cmpTransform.local.translateY(-(this.cmpTransform.local.scaling.y)/2)
+            }B
+          }
+      */
+        jump() {
+            if (!this.isJumping) {
+                this.isJumping = true;
+                this.velocity.y += this.JUMP_HEIGHT;
+            }
+        }
+        walk(direction) {
+            let timeFrame = fudge.Loop.timeFrameGame / 1000;
+            if (direction == DIRECTION.RIGHT) {
+                this.cmpTransform.local.translateX(this.WALK_SPEED * timeFrame);
+            }
+            else {
+                this.cmpTransform.local.translateX(-(this.WALK_SPEED * timeFrame));
+            }
+        }
+        handleCharacterStates() {
         }
     }
     Game.Character = Character;
-    jump();
-    void {
-        : .isJumping
-    };
-    {
-        this.isJumping = true;
-        this.velocity.y += this.JUMP_HEIGHT;
-        this.show(CHARACTERSTATE.JUMP);
-    }
 })(Game || (Game = {}));
-walk(direction, DIRECTION);
-void {
-    let, timeFrame: number = fudge.Loop.timeFrameGame / 1000,
-    this: .show(CHARACTERSTATE.WALK),
-    if(direction) { }
-} == DIRECTION.RIGHT;
-{
-    this.cmpTransform.local.translateX(this.WALK_SPEED * timeFrame);
-}
-{
-    this.cmpTransform.local.translateX(-(this.WALK_SPEED * timeFrame));
-}
-handleCharacterStates(_characterstate, CHARACTERSTATE, _direction ?  : DIRECTION);
-void {
-    switch(_characterstate) {
-    },
-    case: CHARACTERSTATE.IDLE,
-    break: ,
-    case: CHARACTERSTATE.WALK,
-    break: ,
-    case: CHARACTERSTATE.JUMP,
-    break: 
-};
-this.show(_characterstate);
-update = (_event) => {
-    this.broadcastEvent(new CustomEvent("showNext"));
-    this.collider.handleCollsion();
-    this.handlePhysics();
-};
 //# sourceMappingURL=Character.js.map
