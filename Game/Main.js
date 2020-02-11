@@ -19,6 +19,8 @@ var Game;
         let viewport = new fudge.Viewport();
         viewport.initialize("Viewport", root, cmpCamera, canvas);
         let material2 = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(1, 0, 0, 1)));
+        let gui = new Game.Gui(1, 1, 1, 1);
+        Game.Util.getInstance().gui = gui;
         let player = new Game.Player("test");
         player.cmpTransform.local.translateY(2);
         collidableNode.appendChild(player);
@@ -42,6 +44,7 @@ var Game;
         function processInput() {
             if (keysPressed[fudge.KEYBOARD_CODE.SPACE]) {
                 player.jump();
+                player.takeDmg(2);
                 return;
             }
             if (keysPressed[fudge.KEYBOARD_CODE.D]) {

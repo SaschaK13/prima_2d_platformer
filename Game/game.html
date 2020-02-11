@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Game</title>
+  <link rel="stylesheet" href="gui.css">
+  <script src="../Fudge/FudgeCore.js"></script>
+  <script src="Utility/SpriteGenerator.js"></script>
+  <script src="Utility/Collider.js"></script>
+  <script src="Utility/Hitbox.js"></script>
+  <script src="GUI/GUI.js"></script>
+  <script src="Utility/Util.js"></script>
+  <script src="Environment/LevelGenerator.js"></script>
+  <script src="Environment/Environment.js"></script>
+  <script src="Environment/Platform.js"></script>
+  <script src="Environment/Level.js"></script>
+  <script src="Character/Character.js"></script>
+  <script src="Character/Enemy.js"></script>
+  <script src="Character/Player.js"></script>
+  <script src="Main.js"></script>
+</head>
+<body>
+  <canvas> </canvas>
+  <img src="../Game/Assets/herz5.PNG" width="380px" height="70px" id="health">
+  <img id="test" src="../Game/Assets/Spritesheets/test.png" hidden=true>
+
+  <h1 id="time"> Time: 00:00:00 </h1>
+
+  <h2 id="speed"> walk speed: 1 </h2>
+
+  <h2 id="jumping"> jumping power: 1 </h2>
+
+  <h2 id="damage"> damage: 1 </h2>
+
+  <h2 id="attackSpeed"> attack speed: 1 </h2>
+
+  <progress id="healthBar" value="80" max="100"></progress>
+
+</body>
+</html>

@@ -1,5 +1,7 @@
 namespace Game {
 
+  import fudge = FudgeCore;
+
   export class Gui {
 
     initialHealth: number = 5;
@@ -16,8 +18,10 @@ namespace Game {
     }
 
     public updateHealth(damageAndHeal: number): void {
-      this.initialHealth = this.initialHealth + damageAndHeal;
+      fudge.Debug.log("i am in ");
+      this.initialHealth = this.initialHealth - damageAndHeal;
       document.getElementById("health").setAttribute("src", "../Game/Assets/herz" + this.initialHealth + ".png");
+      fudge.Debug.log(this.initialHealth);
     }
     
     public updateWalkSpeed(speedFactor: number): void {

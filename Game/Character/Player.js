@@ -6,6 +6,10 @@ var Game;
         constructor(nodeName) {
             super(nodeName);
         }
+        takeDmg(dmgTaken) {
+            Game.Util.getInstance().gui.updateHealth(dmgTaken);
+            super.takeDmg(dmgTaken);
+        }
         //Cooldown
         attack() {
             if (this.attackCooldown == 0) {

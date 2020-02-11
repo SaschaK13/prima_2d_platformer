@@ -6,18 +6,20 @@ namespace Game {
       super(nodeName);
     }
 
+    takeDmg(dmgTaken: number): void {
+      Util.getInstance().gui.updateHealth(dmgTaken);
+      super.takeDmg(dmgTaken);
+    }
+
     //Cooldown
-    attack()
-    {
-      if(this.attackCooldown == 0)
-      {
+    attack(): void {
+      if (this.attackCooldown == 0) {
         let detectedEnemys: Enemy[] = this.hitbox.detectEnemys();
-        for(var i = 0; i < detectedEnemys.length; i++)
-        {
-          detectedEnemys[i].takeDmg(this.getStats().dmg)
-          fudge.Debug.log(detectedEnemys[i].getStats().hp)
+        for (var i = 0; i < detectedEnemys.length; i++) {
+          detectedEnemys[i].takeDmg(this.getStats().dmg);
+          fudge.Debug.log(detectedEnemys[i].getStats().hp);
         }
-        this.attackCooldown = this.getStats().attackspeed
+        this.attackCooldown = this.getStats().attackspeed;
       }
    
     }

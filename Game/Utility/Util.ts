@@ -12,6 +12,8 @@ namespace Game {
 
     public enemyArray: Enemy[] = [];
 
+    public gui: Gui;
+
     constructor() {}
 
     public static getInstance(): Util {

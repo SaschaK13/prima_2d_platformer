@@ -4,28 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Character</title>
-  <script src="../Fudge/FudgeCore.js"></script>
-  <script src="Utility/SpriteGenerator.js"></script>
-  <script src="Utility/Collider.js"></script>
-  <script src="Utility/Hitbox.js"></script>
-  <script src="Utility/Util.js"></script>
-  <script src="Environment/LevelGenerator.js"></script>
-  <script src="Environment/Environment.js"></script>
-  <script src="Environment/Platform.js"></script>
-  <script src="Environment/Level.js"></script>
-  <script src="Character/Character.js"></script>
-  <script src="Character/Enemy.js"></script>
-  <script src="Character/Player.js"></script>
-  <script src="Main.js"></script>
-  <style>
-    body{
-      background-color: beige;
-    }
-  </style>
+  <title>Game Menu</title>
+  <link rel="stylesheet" href="gui.css">
+  <script src="../FUDGE/FudgeCore.js"></script>
+  <script src="startScreen.js"></script>
 </head>
 <body>
-  <canvas width="800" height="600" style="background-color: aliceblue;"></canvas>
-  <img id="test" src="../Game/Assets/Spritesheets/test.png" hidden= true>
+  
+  <button id="newGame" type="button"> New Game </button>
+  <button id="loadGame" type="button"> Load Game </button>
+
 </body>
 </html>
