@@ -38,6 +38,7 @@ var Game;
         generateByGrid(_texture, _startRect, _frames, _borderSize, _resolutionQuad, _origin) {
             let rect = _startRect.copy;
             let rects = [];
+            ƒ.Debug.log(_texture.image);
             while (_frames--) {
                 rects.push(rect.copy);
                 rect.position.x += _startRect.size.x + _borderSize.x;

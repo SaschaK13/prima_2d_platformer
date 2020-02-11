@@ -26,11 +26,9 @@ namespace Game {
     let viewport: fudge.Viewport = new fudge.Viewport();
     viewport.initialize("Viewport", root, cmpCamera, canvas);
 
-    let material: fudge.Material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(1, 0, 1, 1)));
     let material2: fudge.Material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(1, 0, 0, 1)));
 
     let player: Player = new Player("test");
-    player.addComponent(new fudge.ComponentMaterial(material));
     player.cmpTransform.local.translateY(2);
     collidableNode.appendChild(player);
     Util.getInstance().player = player

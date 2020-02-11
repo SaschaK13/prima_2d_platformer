@@ -16,10 +16,8 @@ export class Hitbox extends fudge.Node
     super(nodeName);
     this.parentNode = parentNode;
     this.scaling = scaling;
-    let material: fudge.Material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(0.3, 1, 1, 1)));
     let cmpMesh = new fudge.ComponentMesh(Hitbox.mesh);
     let cmpTransform: fudge.ComponentTransform = new fudge.ComponentTransform();
-    this.addComponent(new fudge.ComponentMaterial(material))
     this.addComponent(cmpMesh)
     this.addComponent(cmpTransform)
     this.currentDirection = DIRECTION.RIGHT

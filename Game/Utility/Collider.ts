@@ -72,7 +72,6 @@ public getCollisionObjects(): CollidedObject[]
     characterPosition.y + (characterScaling.y / 2) > colissionObjectPosition.y - (colissionObjectScaling.y / 2))  {
         this.isColliding = true;
         let direction = this.getCollisionDirection(cObject)
-        fudge.Debug.log(direction)
         let collisionType = this.getCollisionType(cObject)
         this.collissionObjects.push({object: cObject , collisionDirecton: direction, collisionType: collisionType});
       } else {

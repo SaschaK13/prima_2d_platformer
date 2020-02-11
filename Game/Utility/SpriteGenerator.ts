@@ -50,6 +50,7 @@ namespace Game {
     public generateByGrid(_texture: ƒ.TextureImage, _startRect: ƒ.Rectangle, _frames: number, _borderSize: ƒ.Vector2, _resolutionQuad: number, _origin: ƒ.ORIGIN2D): void {
       let rect: ƒ.Rectangle = _startRect.copy;
       let rects: ƒ.Rectangle[] = [];
+      ƒ.Debug.log(_texture.image)  
       while (_frames--) {
         rects.push(rect.copy);
         rect.position.x += _startRect.size.x + _borderSize.x;

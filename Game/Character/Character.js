@@ -42,8 +42,10 @@ var Game;
             this.collider = new Game.Collider(this);
             this.hitbox = new Game.Hitbox(nodeName + "_Hitbox", this, new fudge.Vector2(this.cmpTransform.local.scaling.x / 2, this.cmpTransform.local.scaling.y));
             this.textureImage = Game.Util.getInstance().getTextureImageByName(nodeName);
-            this.generateSprites();
-            this.fillSpriteMap();
+            if (this.textureImage.image) {
+                this.generateSprites();
+                this.fillSpriteMap();
+            }
             this.show(CHARACTERSTATE.IDLE);
             fudge.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, this.update);
         }

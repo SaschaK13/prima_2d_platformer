@@ -1,7 +1,6 @@
 "use strict";
 var Game;
 (function (Game) {
-    var fudge = FudgeCore;
     let CollisionType;
     (function (CollisionType) {
         CollisionType["ENVIRONMENT"] = "Platform";
@@ -46,7 +45,6 @@ var Game;
                 characterPosition.y + (characterScaling.y / 2) > colissionObjectPosition.y - (colissionObjectScaling.y / 2)) {
                 this.isColliding = true;
                 let direction = this.getCollisionDirection(cObject);
-                fudge.Debug.log(direction);
                 let collisionType = this.getCollisionType(cObject);
                 this.collissionObjects.push({ object: cObject, collisionDirecton: direction, collisionType: collisionType });
             }
