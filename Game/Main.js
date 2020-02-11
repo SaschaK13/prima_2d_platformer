@@ -30,7 +30,7 @@ var Game;
         document.addEventListener("keydown", handleKeyboard);
         document.addEventListener("keyup", handleKeyboard);
         fudge.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, update);
-        fudge.Loop.start(fudge.LOOP_MODE.TIME_GAME, 60);
+        fudge.Loop.start(fudge.LOOP_MODE.TIME_GAME, 15);
         //after world gen add collidable objects to Util 
         function handleKeyboard(event) {
             keysPressed[event.code] = (event.type == "keydown");

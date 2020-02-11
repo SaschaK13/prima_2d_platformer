@@ -39,6 +39,14 @@ namespace Game {
     fudge.RenderManager.initialize(true, false);
     root = new fudge.Node("Root");
 
+    let material: fudge.Material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(1, 0, 1, 1)));
+    let material2: fudge.Material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(0, 1, 1, 1)));
+
+    let player: Player = new Player("test");
+    //player.addComponent(new fudge.ComponentMaterial(material));
+    player.cmpTransform.local.translateY(0.5);
+    root.appendChild(player);
+
     let levelGenerator = new LevelGenerator(root);
     levelGenerator.getDataFromFile();
 
