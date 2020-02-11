@@ -1,0 +1,59 @@
+
+#health {
+  position: absolute;
+  left: 40px;
+  top: 20px;
+  z-index: 10;
+}
+
+#time {
+  position: absolute;
+  right: 40px;
+  top: 1%;
+  z-index: 10;
+}
+
+#speed {
+  position: absolute;
+  right: 40px;
+  top: 8%;
+  z-index: 10;
+}
+
+#jumping {
+  position: absolute;
+  right: 40px;
+  top: 11%;
+  z-index: 10;
+}
+
+#damage {
+  position: absolute;
+  right: 40px;
+  top: 14%;
+  z-index: 10;
+}
+
+#attackSpeed {
+  position: absolute;
+  right: 40px;
+  top: 17%;
+  z-index: 10;
+}
+
+canvas {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    height: 850px;
+    width: 1850px;
+}
+
+#healthBar {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  visibility: hidden;
+}

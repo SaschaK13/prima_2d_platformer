@@ -1,6 +1,7 @@
 namespace Game {
   import fudge = FudgeCore;
 
+
   let root: fudge.Node;
   window.addEventListener("load", test);
 
@@ -35,11 +36,12 @@ namespace Game {
     let collissionObjects: collidedObject[];
     let oldCollisionObjects: collidedObject[];
 
+    let gui: Gui = new Gui();
 
     fudge.RenderManager.initialize(true, false);
     root = new fudge.Node("Root");
 
-    let levelGenerator = new LevelGenerator(root);
+    let levelGenerator: LevelGenerator = new LevelGenerator(root);
     levelGenerator.getDataFromFile();
 
     let material: fudge.Material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(0, 0, 1, 1)));
@@ -74,7 +76,7 @@ namespace Game {
     document.addEventListener("keyup", handleKeyboard)
 
     fudge.Loop.addEventListener(fudge.EVENT.LOOP_FRAME, update);
-    fudge.Loop.start(fudge.LOOP_MODE.TIME_GAME, 10);
+    fudge.Loop.start(fudge.LOOP_MODE.TIME_GAME, 1);
 
     function handleKeyboard(event: KeyboardEvent): void {
       keysPressed[event.code] = (event.type == "keydown");

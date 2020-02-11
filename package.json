@@ -27,6 +27,7 @@
     "electron": "^6.0.2",
     "serve": "^11.3.0",
     "tslint": "^5.20.1",
+    "typescript": "^3.7.5",
     "websocket": "^1.0.29",
     "ws": "^7.1.2"
   }

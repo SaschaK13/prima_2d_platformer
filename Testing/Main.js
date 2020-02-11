@@ -22,6 +22,7 @@ var Game;
         txtImage.image = img;
         let collissionObjects;
         let oldCollisionObjects;
+        let gui = new Game.Gui();
         fudge.RenderManager.initialize(true, false);
         root = new fudge.Node("Root");
         let levelGenerator = new Game.LevelGenerator(root);
@@ -47,7 +48,7 @@ var Game;
         document.addEventListener("keydown", handleKeyboard);
         document.addEventListener("keyup", handleKeyboard);
         fudge.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, update);
-        fudge.Loop.start(fudge.LOOP_MODE.TIME_GAME, 10);
+        fudge.Loop.start(fudge.LOOP_MODE.TIME_GAME, 1);
         function handleKeyboard(event) {
             keysPressed[event.code] = (event.type == "keydown");
         }
