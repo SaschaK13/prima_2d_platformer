@@ -9,12 +9,17 @@ namespace Game {
     //Cooldown
     attack()
     {
-      let detectedEnemys: Enemy[] = this.hitbox.detectEnemys();
-      for(var i = 0; i < detectedEnemys.length; i++)
+      if(this.attackCooldown == 0)
       {
-        detectedEnemys[i].takeDmg(this.getStats().dmg)
-        fudge.Debug.log(detectedEnemys[i].getStats().hp)
+        let detectedEnemys: Enemy[] = this.hitbox.detectEnemys();
+        for(var i = 0; i < detectedEnemys.length; i++)
+        {
+          detectedEnemys[i].takeDmg(this.getStats().dmg)
+          fudge.Debug.log(detectedEnemys[i].getStats().hp)
+        }
+        this.attackCooldown = this.getStats().attackspeed
       }
+   
     }
   }
 }

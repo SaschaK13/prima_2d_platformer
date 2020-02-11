@@ -8,10 +8,13 @@ var Game;
         }
         //Cooldown
         attack() {
-            let detectedEnemys = this.hitbox.detectEnemys();
-            for (var i = 0; i < detectedEnemys.length; i++) {
-                detectedEnemys[i].takeDmg(this.getStats().dmg);
-                fudge.Debug.log(detectedEnemys[i].getStats().hp);
+            if (this.attackCooldown == 0) {
+                let detectedEnemys = this.hitbox.detectEnemys();
+                for (var i = 0; i < detectedEnemys.length; i++) {
+                    detectedEnemys[i].takeDmg(this.getStats().dmg);
+                    fudge.Debug.log(detectedEnemys[i].getStats().hp);
+                }
+                this.attackCooldown = this.getStats().attackspeed;
             }
         }
     }

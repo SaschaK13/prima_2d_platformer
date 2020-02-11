@@ -25,6 +25,7 @@ namespace Game {
     dmg: number
     jump_height: number
     walk_speed: number
+    attackspeed: number
   }
 
   export class Character extends fudge.Node {
@@ -32,7 +33,10 @@ namespace Game {
       private JUMP_HEIGHT = 6;
       private WALK_SPEED = 2;
       private DMG = 1;
-      private HP = 5
+      private HP = 5;
+      private ATTACKSPEED = 100;
+      
+      public attackCooldown = 0;
 
       private gravity: number = -8;
       private velocity: fudge.Vector2 = new fudge.Vector2(0, 0);
@@ -186,6 +190,7 @@ namespace Game {
     public walk(direction: DIRECTION) {
       let timeFrame = fudge.Loop.timeFrameGame / 1000;
 
+
       if(direction == DIRECTION.RIGHT)
       {
         this.cmpTransform.local.translateX(this.WALK_SPEED * timeFrame)
@@ -219,7 +224,7 @@ namespace Game {
 
     public getStats(): characterStats
     {
-      return  {hp: this.HP, dmg: this.DMG, jump_height: this.JUMP_HEIGHT, walk_speed: this.WALK_SPEED}
+      return  {hp: this.HP, dmg: this.DMG, jump_height: this.JUMP_HEIGHT, walk_speed: this.WALK_SPEED, attackspeed: this.ATTACKSPEED}
     }
 
 
@@ -232,6 +237,10 @@ namespace Game {
 
       this.collider.handleCollsion();
       this.handlePhysics();
+      if(this.attackCooldown != 0)
+      {
+        this.attackCooldown -= 1;
+      }
     }
 
   }

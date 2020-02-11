@@ -20,6 +20,8 @@ var Game;
             this.WALK_SPEED = 2;
             this.DMG = 1;
             this.HP = 5;
+            this.ATTACKSPEED = 100;
+            this.attackCooldown = 0;
             this.gravity = -8;
             this.velocity = new fudge.Vector2(0, 0);
             this.direction = DIRECTION.RIGHT;
@@ -28,6 +30,9 @@ var Game;
             this.update = (_event) => {
                 this.collider.handleCollsion();
                 this.handlePhysics();
+                if (this.attackCooldown != 0) {
+                    this.attackCooldown -= 1;
+                }
             };
             this.mesh = new fudge.MeshQuad();
             this.cmpMesh = new fudge.ComponentMesh(this.mesh);
@@ -146,7 +151,7 @@ var Game;
             this.HP -= dmgTaken;
         }
         getStats() {
-            return { hp: this.HP, dmg: this.DMG, jump_height: this.JUMP_HEIGHT, walk_speed: this.WALK_SPEED };
+            return { hp: this.HP, dmg: this.DMG, jump_height: this.JUMP_HEIGHT, walk_speed: this.WALK_SPEED, attackspeed: this.ATTACKSPEED };
         }
         handleCharacterStates() {
         }
