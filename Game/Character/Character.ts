@@ -233,8 +233,18 @@ namespace Game {
 
     }
 
+    public die(){
+
+    }
+
     public takeDmg(dmgTaken: number) {
-      this.HP -= dmgTaken;
+      if(this.HP > 0)
+      {
+        this.HP -= dmgTaken;
+      }else{
+        fudge.Debug.log("dead")
+        this.die()
+      }
     }
 
 

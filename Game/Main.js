@@ -53,6 +53,7 @@ var Game;
         function update(_event) {
             processInput();
             viewport.draw();
+            //fudge.RenderManager.update()
         }
     }
 })(Game || (Game = {}));

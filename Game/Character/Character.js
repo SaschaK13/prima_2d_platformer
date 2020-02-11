@@ -167,8 +167,16 @@ var Game;
         }
         attack() {
         }
+        die() {
+        }
         takeDmg(dmgTaken) {
-            this.HP -= dmgTaken;
+            if (this.HP > 0) {
+                this.HP -= dmgTaken;
+            }
+            else {
+                fudge.Debug.log("dead");
+                this.die();
+            }
         }
         getStats() {
             return { hp: this.HP, dmg: this.DMG, jump_height: this.JUMP_HEIGHT, walk_speed: this.WALK_SPEED, attackspeed: this.ATTACKSPEED };

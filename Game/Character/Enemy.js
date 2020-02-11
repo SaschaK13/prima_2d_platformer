@@ -11,6 +11,10 @@ var Game;
             let material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(0, 0, 1, 1)));
             this.addComponent(new fudge.ComponentMaterial(material));
         }
+        die() {
+            this.getParent().removeChild(this);
+            Game.Util.getInstance().level.deleteEnemy(this);
+        }
     }
     Game.Enemy = Enemy;
 })(Game || (Game = {}));

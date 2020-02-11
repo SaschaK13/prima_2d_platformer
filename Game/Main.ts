@@ -29,7 +29,6 @@ namespace Game {
     let gui: Gui = new Gui(1, 1, 1, 1);
     Util.getInstance().gui = gui;
 
-
     let lvlGenerator: LevelGenerator = new LevelGenerator(collidableNode);
     lvlGenerator.getDataFromFile()
 
@@ -72,6 +71,7 @@ namespace Game {
     function update(_event: fudge.Eventƒ): void {
       processInput();
       viewport.draw();
+      //fudge.RenderManager.update()
     }
   }
 }
