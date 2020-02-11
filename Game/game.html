@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Game</title>
-  <link rel="stylesheet" href="gui.css">
+  <link rel="stylesheet" href="game.css">
   <script src="../Fudge/FudgeCore.js"></script>
   <script src="Utility/SpriteGenerator.js"></script>
   <script src="Utility/Collider.js"></script>
@@ -26,17 +26,13 @@
   <img src="../Game/Assets/herz5.PNG" width="380px" height="70px" id="health">
   <img id="test" src="../Game/Assets/Spritesheets/test.png" hidden=true>
 
-  <h1 id="time"> Time: 00:00:00 </h1>
+  <p id="time"> Time: 00:00:00 </p>
+  <p id="speed"> walk speed: 1 </p>
+  <p id="jumping"> jumping power: 1 </p>
+  <p id="damage"> damage: 1 </p>
+  <p id="attackSpeed"> attack speed: 1 </p>
 
-  <h2 id="speed"> walk speed: 1 </h2>
-
-  <h2 id="jumping"> jumping power: 1 </h2>
-
-  <h2 id="damage"> damage: 1 </h2>
-
-  <h2 id="attackSpeed"> attack speed: 1 </h2>
-
-  <progress id="healthBar" value="80" max="100"></progress>
+  <progress id="healthBar"></progress>
 
 </body>
 </html>

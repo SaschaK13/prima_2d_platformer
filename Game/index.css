@@ -1,0 +1,28 @@
+
+body {
+  background-image: url("./Assets/menu.png");
+  margin-left: 15%;
+  margin-right: 15%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  padding: 1%;
+}
+
+
+#newGame {
+  width: 300px;
+  height: 150px;
+  border-radius: 20px;
+  font-size: x-large;
+  margin: 100px;
+}
+
+
+
+#loadGame {
+  width: 300px;
+  height: 150px;
+  border-radius: 20px;
+  font-size: x-large;
+  margin: 100px;
+}
