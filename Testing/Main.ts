@@ -124,7 +124,7 @@ namespace Game {
       updateCollisionObjects();
       if(collissionObjects[0])
       {
-        fudge.Debug.log(collissionObjects[0].collisionDirectin)
+        //fudge.Debug.log(collissionObjects[0].collisionDirectin)
       }
       viewport.draw();
 
@@ -147,7 +147,7 @@ namespace Game {
         characterPosition.y + (characterScaling.y / 2) > colissionObjectPosition.y - (colissionObjectScaling.y / 2)) {
 
           let direction = getCollisionDirection(colissionObject);
-          fudge.Debug.log("Pushed")
+          //fudge.Debug.log("Pushed")
           collissionObjects.push({object:colissionObject, collisionDirectin: direction })
          
       } else {

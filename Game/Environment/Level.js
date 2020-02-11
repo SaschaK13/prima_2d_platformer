@@ -4,6 +4,7 @@ var Game;
     class Level {
         constructor() {
             this.platformArray = [];
+            this.enemyArray = [];
         }
     }
     Game.Level = Level;

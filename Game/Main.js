@@ -24,11 +24,11 @@ var Game;
         player.addComponent(new fudge.ComponentMaterial(material));
         player.cmpTransform.local.translateY(2);
         collidableNode.appendChild(player);
-        let enemy = new Game.Enemy("enemy");
-        enemy.addComponent(new fudge.ComponentMaterial(material2));
-        enemy.cmpTransform.local.translateY(2);
-        enemy.cmpTransform.local.translateX(2);
-        collidableNode.appendChild(enemy);
+        // let enemy: Enemy = new Enemy("enemy");
+        // enemy.addComponent(new fudge.ComponentMaterial(material2))
+        // enemy.cmpTransform.local.translateY(2);
+        // enemy.cmpTransform.local.translateX(2);
+        // collidableNode.appendChild(enemy);
         let lvlGenerator = new Game.LevelGenerator(collidableNode);
         lvlGenerator.getDataFromFile();
         document.addEventListener("keydown", handleKeyboard);

@@ -27,10 +27,19 @@ namespace Game {
         this.levelObject.platformArray.push(platform);
         this.root.appendChild(platform);
       }
+
+      let enemyArray = this.level["enemyArray"];
+      for (var i: number = 0; i < enemyArray.length; i++) {
+        let current = enemyArray[i];
+        let enemy: Enemy = new Enemy(current.name, current.positionX, current.positionY, current.scaleX, current.scaleY);
+        this.levelObject.enemyArray.push(enemy);
+        this.root.appendChild(enemy);
+      }
+
       let util = Util.getInstance();
       util.setCollidableObjects(this.root.getChildren());
+      util.level.enemyArray = enemyArray;
+      util.level.platformArray = platformArray;
     }
-
-    
   }
 }

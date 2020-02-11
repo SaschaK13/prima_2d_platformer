@@ -55,7 +55,7 @@ namespace Game {
       this.addComponent(this.cmpTrans);
 
       this.collider = new Collider(this);
-      this.hitbox = new Hitbox(nodeName + "_Hitbox", this, new fudge.Vector2 (this.cmpTransform.local.scaling.x/2,this.cmpTransform.local.scaling.y))
+      this.hitbox = new Hitbox(nodeName + "_Hitbox", this, new fudge.Vector2 (this.cmpTransform.local.scaling.x/2,this.cmpTransform.local.scaling.y));
 
       fudge.Loop.addEventListener(fudge.EVENT.LOOP_FRAME, this.update);
     }

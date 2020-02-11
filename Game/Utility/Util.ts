@@ -10,7 +10,7 @@ namespace Game {
 
     public player: Player;
 
-    public enemyArray: Enemy[];
+    public level: Level;
 
     constructor() {}
 
