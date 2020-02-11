@@ -19,12 +19,18 @@ var Game;
         let viewport = new fudge.Viewport();
         viewport.initialize("Viewport", root, cmpCamera, canvas);
         let material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(1, 0, 1, 1)));
-        let material2 = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(0, 1, 1, 1)));
+        let material2 = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(1, 0, 0, 1)));
         let player = new Game.Player("test");
-        //player.addComponent(new fudge.ComponentMaterial(material));
-        player.getComponent(fudge.ComponentMesh).pivot.scaling = player.cmpTransform.local.scaling;
+        player.addComponent(new fudge.ComponentMaterial(material));
         player.cmpTransform.local.translateY(2);
         collidableNode.appendChild(player);
+        Game.Util.getInstance().player = player;
+        let enemy = new Game.Enemy("enemy");
+        enemy.addComponent(new fudge.ComponentMaterial(material2));
+        enemy.cmpTransform.local.translateY(2);
+        enemy.cmpTransform.local.translateX(2);
+        collidableNode.appendChild(enemy);
+        Game.Util.getInstance().enemyArray.push(enemy);
         let lvlGenerator = new Game.LevelGenerator(collidableNode);
         lvlGenerator.getDataFromFile();
         document.addEventListener("keydown", handleKeyboard);
@@ -46,6 +52,10 @@ var Game;
             }
             if (keysPressed[fudge.KEYBOARD_CODE.A]) {
                 player.walk(Game.DIRECTION.LEFT);
+                return;
+            }
+            if (keysPressed[fudge.KEYBOARD_CODE.E]) {
+                player.attack();
                 return;
             }
             player.idle();

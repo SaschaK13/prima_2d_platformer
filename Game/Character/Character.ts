@@ -17,9 +17,23 @@ namespace Game {
   [type: string]: string;
   }
 
+  export interface characterStats {
+    hp: number
+    dmg: number
+    jump_height: number
+    walk_speed: number
+    attackspeed: number
+  }
+
   export class Character extends fudge.Node {
-      private JUMP_HEIGHT: number = 6;
-      private WALK_SPEED: number = 2;
+
+      private JUMP_HEIGHT = 6;
+      private WALK_SPEED = 2;
+      private DMG = 1;
+      private HP = 5;
+      private ATTACKSPEED = 100;
+      
+      public attackCooldown = 0;
 
       private gravity: number = -8;
       private velocity: fudge.Vector2 = new fudge.Vector2(0, 0);
@@ -29,13 +43,14 @@ namespace Game {
       private cmpMesh: fudge.ComponentMesh;
 
       private state: CHARACTERSTATE;
-      private direction: DIRECTION;
+      public direction: DIRECTION = DIRECTION.RIGHT;
 
       private sprites: Sprite[];
       private spriteNameMap: spriteName = {};
       private textureImage: fudge.TextureImage;
 
       private  collider: Collider;
+      public hitbox: Hitbox;
 
       private isJumping: boolean = false;
 
@@ -51,6 +66,7 @@ namespace Game {
       this.addComponent(this.cmpTrans);
 
       this.collider = new Collider(this);
+      this.hitbox = new Hitbox(nodeName + "_Hitbox", this, new fudge.Vector2 (this.cmpTransform.local.scaling.x/2,this.cmpTransform.local.scaling.y))
 
       this.textureImage = Util.getInstance().getTextureImageByName(nodeName);
       this.generateSprites();
@@ -78,22 +94,29 @@ namespace Game {
     public reactToCollison(): void {
       let collisionObjects: CollidedObject[] = this.collider.getCollisionObjects(); 
 
-      for (var i: number = 0; i < collisionObjects.length; i++) {
-        let collisionObject: CollidedObject = collisionObjects[i];
-        switch ((collisionObject.object as Environment).type) {
-          case EnvironmentType.PLATFORM: {
-            this.handlePlatformColission(collisionObject);
+      for(var i = 0; i < collisionObjects.length; i++)
+      {
+        let collisionObject = collisionObjects[i];
+       /* switch(collisionObject.collisionType){
+          case CollisionType.ENVIRONMENT: {
+            if((collisionObject.object as Environment).type == EnvironmentType.PLATFORM)
+            {
+              this.handlePlatformColission(collisionObject)
+            }
           }
-        }
+        }*/
+
+        this.handleSolidColision(collisionObject)
+
       }
     }
 
-    public handlePlatformColission(collidedObject: CollidedObject): void {
-      let collisionObject: Platform = collidedObject.object as Platform;
-      let translation: fudge.Vector3 = this.cmpTransform.local.translation;
+    public handleSolidColision(collidedObject: CollidedObject)
+    {
 
+      let collisionObject: fudge.Node = collidedObject.object as fudge.Node;
+      let translation = this.cmpTransform.local.translation;
       switch (collidedObject.collisionDirecton) {
-
         case CollisionDirection.BOTTOM: {
           let newYPosition: number = collisionObject.cmpTransform.local.translation.y + (collisionObject.cmpTransform.local.scaling.y / 2) + (this.cmpTransform.local.scaling.y / 2);
           translation.y = newYPosition;
@@ -193,24 +216,55 @@ namespace Game {
       }
     }
 
-    public walk(direction: DIRECTION): void {
-      let timeFrame: number = fudge.Loop.timeFrameGame / 1000;
-      if (this.isJumping == false) {
-        this.show(CHARACTERSTATE.WALK);
+    public walk(direction: DIRECTION) {
+      let timeFrame = fudge.Loop.timeFrameGame / 1000;
+
+
+      if(direction == DIRECTION.RIGHT)
+      {
+        this.cmpTransform.local.translateX(this.WALK_SPEED * timeFrame)
+        if(this.direction != direction)
+        {
+          this.cmpTransform.local.rotation = fudge.Vector3.Z(0)
+        }
+        this.direction = direction;
+      }else
+      {
+        this.cmpTransform.local.translateX(-(this.WALK_SPEED * timeFrame))
+        if(this.direction != direction)
+        {
+          this.cmpTransform.local.rotation = fudge.Vector3.Z(180)
+        }
+        this.direction = direction;
       }
-      if (direction == DIRECTION.RIGHT) {
-        this.cmpTransform.local.translateX(this.WALK_SPEED * timeFrame);
-      } else {
-        this.cmpTransform.local.translateX(-(this.WALK_SPEED * timeFrame));
-      }
+
+      //this.hitbox.positionHitbox(this)
     }
 
-    private handleCharacterStates() {}
+    public attack() {
+
+
+    }
+
+    public takeDmg(dmgTaken: number) {
+      this.HP -= dmgTaken;
+    }
+
+
+    public getStats(): characterStats
+    {
+      return  {hp: this.HP, dmg: this.DMG, jump_height: this.JUMP_HEIGHT, walk_speed: this.WALK_SPEED, attackspeed: this.ATTACKSPEED}
+    }
+
 
     private update = (_event: fudge.Eventƒ): void => {
-      this.broadcastEvent(new CustomEvent("showNext"));
+
       this.collider.handleCollsion();
       this.handlePhysics();
+      if(this.attackCooldown != 0)
+      {
+        this.attackCooldown -= 1;
+      }
     }
   }
 }

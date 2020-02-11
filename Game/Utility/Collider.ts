@@ -5,8 +5,14 @@ import fudge = FudgeCore;
 export interface CollidedObject {
     object: fudge.Node;
     collisionDirecton: CollisionDirection
+    collisionType: CollisionType
 }
 
+export enum CollisionType{
+  ENVIRONMENT = "Platform", 
+  CHARACTER = "Character",
+  MISSING = "Missing"
+}
 export enum CollisionDirection {
   RIGHT = "Right",
   LEFT = "Left",
@@ -55,10 +61,10 @@ public getCollisionObjects(): CollidedObject[]
 
 
     let colissionObjectPosition: fudge.Vector3 = cObject.cmpTransform.local.translation;
-    let colissionObjectScaling: fudge.Vector3 = (cObject.getComponent(fudge.ComponentMesh) as fudge.ComponentMesh).pivot.scaling;
+    let colissionObjectScaling: fudge.Vector3 = cObject.cmpTransform.local.scaling;
 
     let characterPosition: fudge.Vector3 = this.object.cmpTransform.local.translation;
-    let characterScaling: fudge.Vector3 = (this.object.getComponent(fudge.ComponentMesh) as fudge.ComponentMesh).pivot.scaling;
+    let characterScaling: fudge.Vector3 = this.object.cmpTransform.local.scaling;
 
     if (characterPosition.x - (characterScaling.x / 2) < colissionObjectPosition.x + (colissionObjectScaling.x / 2) &&
     characterPosition.x + (characterScaling.x / 2) > colissionObjectPosition.x - (colissionObjectScaling.x / 2) &&
@@ -67,12 +73,30 @@ public getCollisionObjects(): CollidedObject[]
         this.isColliding = true;
         let direction = this.getCollisionDirection(cObject)
         fudge.Debug.log(direction)
-        this.collissionObjects.push({object: cObject , collisionDirecton: direction});
+        let collisionType = this.getCollisionType(cObject)
+        this.collissionObjects.push({object: cObject , collisionDirecton: direction, collisionType: collisionType});
       } else {
         this.isColliding = false;
 
       }
 
+
+}
+
+public getCollisionType(colissionObject: fudge.Node): CollisionType
+{
+  
+  
+  if(colissionObject.constructor.name == "Platform")
+  {
+    return CollisionType.ENVIRONMENT
+
+  }else if(colissionObject.constructor.name == "Enemy" || colissionObject.constructor.name == "Player"){
+    return CollisionType.CHARACTER
+  }else
+  {
+    return CollisionType.MISSING
+  }
 
 }
 

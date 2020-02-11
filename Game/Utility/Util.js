@@ -3,7 +3,9 @@ var Game;
 (function (Game) {
     var fudge = FudgeCore;
     class Util {
-        constructor() { }
+        constructor() {
+            this.enemyArray = [];
+        }
         static getInstance() {
             if (!Util.instance) {
                 Util.instance = new Util();

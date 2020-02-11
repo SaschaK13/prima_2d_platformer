@@ -18,14 +18,21 @@ var Game;
             super(nodeName);
             this.JUMP_HEIGHT = 6;
             this.WALK_SPEED = 2;
+            this.DMG = 1;
+            this.HP = 5;
+            this.ATTACKSPEED = 100;
+            this.attackCooldown = 0;
             this.gravity = -8;
             this.velocity = new fudge.Vector2(0, 0);
+            this.direction = DIRECTION.RIGHT;
             this.spriteNameMap = {};
             this.isJumping = false;
             this.update = (_event) => {
-                this.broadcastEvent(new CustomEvent("showNext"));
                 this.collider.handleCollsion();
                 this.handlePhysics();
+                if (this.attackCooldown != 0) {
+                    this.attackCooldown -= 1;
+                }
             };
             this.mesh = new fudge.MeshQuad();
             this.cmpMesh = new fudge.ComponentMesh(this.mesh);
@@ -33,6 +40,7 @@ var Game;
             this.cmpTrans = new fudge.ComponentTransform();
             this.addComponent(this.cmpTrans);
             this.collider = new Game.Collider(this);
+            this.hitbox = new Game.Hitbox(nodeName + "_Hitbox", this, new fudge.Vector2(this.cmpTransform.local.scaling.x / 2, this.cmpTransform.local.scaling.y));
             this.textureImage = Game.Util.getInstance().getTextureImageByName(nodeName);
             this.generateSprites();
             this.fillSpriteMap();
@@ -55,14 +63,18 @@ var Game;
             let collisionObjects = this.collider.getCollisionObjects();
             for (var i = 0; i < collisionObjects.length; i++) {
                 let collisionObject = collisionObjects[i];
-                switch (collisionObject.object.type) {
-                    case Game.EnvironmentType.PLATFORM: {
-                        this.handlePlatformColission(collisionObject);
-                    }
-                }
+                /* switch(collisionObject.collisionType){
+                   case CollisionType.ENVIRONMENT: {
+                     if((collisionObject.object as Environment).type == EnvironmentType.PLATFORM)
+                     {
+                       this.handlePlatformColission(collisionObject)
+                     }
+                   }
+                 }*/
+                this.handleSolidColision(collisionObject);
             }
         }
-        handlePlatformColission(collidedObject) {
+        handleSolidColision(collidedObject) {
             let collisionObject = collidedObject.object;
             let translation = this.cmpTransform.local.translation;
             switch (collidedObject.collisionDirecton) {
@@ -150,17 +162,30 @@ var Game;
         }
         walk(direction) {
             let timeFrame = fudge.Loop.timeFrameGame / 1000;
-            if (this.isJumping == false) {
-                this.show(CHARACTERSTATE.WALK);
-            }
             if (direction == DIRECTION.RIGHT) {
                 this.cmpTransform.local.translateX(this.WALK_SPEED * timeFrame);
+                if (this.direction != direction) {
+                    this.cmpTransform.local.rotation = fudge.Vector3.Z(0);
+                }
+                this.direction = direction;
             }
             else {
                 this.cmpTransform.local.translateX(-(this.WALK_SPEED * timeFrame));
+                if (this.direction != direction) {
+                    this.cmpTransform.local.rotation = fudge.Vector3.Z(180);
+                }
+                this.direction = direction;
             }
+            //this.hitbox.positionHitbox(this)
         }
-        handleCharacterStates() { }
+        attack() {
+        }
+        takeDmg(dmgTaken) {
+            this.HP -= dmgTaken;
+        }
+        getStats() {
+            return { hp: this.HP, dmg: this.DMG, jump_height: this.JUMP_HEIGHT, walk_speed: this.WALK_SPEED, attackspeed: this.ATTACKSPEED };
+        }
     }
     Game.Character = Character;
 })(Game || (Game = {}));

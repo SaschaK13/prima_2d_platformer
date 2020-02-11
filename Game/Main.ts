@@ -27,13 +27,21 @@ namespace Game {
     viewport.initialize("Viewport", root, cmpCamera, canvas);
 
     let material: fudge.Material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(1, 0, 1, 1)));
-    let material2: fudge.Material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(0, 1, 1, 1)));
+    let material2: fudge.Material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(1, 0, 0, 1)));
 
     let player: Player = new Player("test");
-    //player.addComponent(new fudge.ComponentMaterial(material));
-    (player.getComponent(fudge.ComponentMesh) as fudge.ComponentMesh).pivot.scaling = player.cmpTransform.local.scaling
+    player.addComponent(new fudge.ComponentMaterial(material));
     player.cmpTransform.local.translateY(2);
     collidableNode.appendChild(player);
+    Util.getInstance().player = player
+
+    let enemy: Enemy = new Enemy("enemy");
+    enemy.addComponent(new fudge.ComponentMaterial(material2))
+    enemy.cmpTransform.local.translateY(2);
+    enemy.cmpTransform.local.translateX(2);
+    collidableNode.appendChild(enemy);
+    Util.getInstance().enemyArray.push(enemy)
+
 
     let lvlGenerator: LevelGenerator = new LevelGenerator(collidableNode);
     lvlGenerator.getDataFromFile()
@@ -63,7 +71,15 @@ namespace Game {
         player.walk(DIRECTION.LEFT);
         return;
       }
+      if(keysPressed[fudge.KEYBOARD_CODE.E])
+      {
+        player.attack()
+        return;
+      }
       player.idle();
+
+
+
     }
 
     function update(_event: fudge.Eventƒ): void {
