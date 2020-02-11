@@ -181,6 +181,12 @@ var Game;
         getStats() {
             return { hp: this.HP, dmg: this.DMG, jump_height: this.JUMP_HEIGHT, walk_speed: this.WALK_SPEED, attackspeed: this.ATTACKSPEED };
         }
+        setStat(stats) {
+            this.HP = stats.hp;
+            this.DMG = stats.dmg;
+            this.JUMP_HEIGHT = stats.jump_height;
+            this.WALK_SPEED = stats.walk_speed;
+        }
     }
     Game.Character = Character;
 })(Game || (Game = {}));
