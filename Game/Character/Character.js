@@ -28,6 +28,7 @@ var Game;
             this.spriteNameMap = {};
             this.isJumping = false;
             this.update = (_event) => {
+                this.broadcastEvent(new CustomEvent("showNext"));
                 this.collider.handleCollsion();
                 this.handlePhysics();
                 if (this.attackCooldown != 0) {
@@ -167,16 +168,19 @@ var Game;
             if (direction == DIRECTION.RIGHT) {
                 this.cmpTransform.local.translateX(this.WALK_SPEED * timeFrame);
                 if (this.direction != direction) {
-                    this.cmpTransform.local.rotation = fudge.Vector3.Z(0);
+                    this.cmpTransform.local.rotation = fudge.Vector3.Y(0);
                 }
                 this.direction = direction;
             }
             else {
                 this.cmpTransform.local.translateX(-(this.WALK_SPEED * timeFrame));
                 if (this.direction != direction) {
-                    this.cmpTransform.local.rotation = fudge.Vector3.Z(180);
+                    this.cmpTransform.local.rotation = fudge.Vector3.Y(180);
                 }
                 this.direction = direction;
+            }
+            if (!this.isJumping) {
+                this.show(CHARACTERSTATE.WALK);
             }
             //this.hitbox.positionHitbox(this)
         }

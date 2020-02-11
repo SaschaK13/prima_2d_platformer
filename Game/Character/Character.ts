@@ -227,7 +227,7 @@ namespace Game {
         this.cmpTransform.local.translateX(this.WALK_SPEED * timeFrame)
         if(this.direction != direction)
         {
-          this.cmpTransform.local.rotation = fudge.Vector3.Z(0)
+          this.cmpTransform.local.rotation = fudge.Vector3.Y(0)
         }
         this.direction = direction;
       }else
@@ -235,9 +235,15 @@ namespace Game {
         this.cmpTransform.local.translateX(-(this.WALK_SPEED * timeFrame))
         if(this.direction != direction)
         {
-          this.cmpTransform.local.rotation = fudge.Vector3.Z(180)
+          this.cmpTransform.local.rotation = fudge.Vector3.Y(180)
         }
         this.direction = direction;
+      }
+
+      if(!this.isJumping)
+      {
+        this.show(CHARACTERSTATE.WALK)
+
       }
 
       //this.hitbox.positionHitbox(this)
@@ -260,7 +266,7 @@ namespace Game {
 
 
     private update = (_event: fudge.Eventƒ): void => {
-
+      this.broadcastEvent(new CustomEvent("showNext"))
       this.collider.handleCollsion();
       this.handlePhysics();
       if(this.attackCooldown != 0)

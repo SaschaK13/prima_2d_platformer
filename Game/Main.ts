@@ -36,7 +36,7 @@ namespace Game {
     let enemy: Enemy = new Enemy("enemy");
     enemy.addComponent(new fudge.ComponentMaterial(material2))
     enemy.cmpTransform.local.translateY(2);
-    enemy.cmpTransform.local.translateX(2);
+    enemy.cmpTransform.local.translateX(1);
     collidableNode.appendChild(enemy);
     Util.getInstance().enemyArray.push(enemy)
 
@@ -74,6 +74,7 @@ namespace Game {
         player.attack()
         return;
       }
+      
       player.idle();
 
 

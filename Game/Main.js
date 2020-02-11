@@ -26,7 +26,7 @@ var Game;
         let enemy = new Game.Enemy("enemy");
         enemy.addComponent(new fudge.ComponentMaterial(material2));
         enemy.cmpTransform.local.translateY(2);
-        enemy.cmpTransform.local.translateX(2);
+        enemy.cmpTransform.local.translateX(1);
         collidableNode.appendChild(enemy);
         Game.Util.getInstance().enemyArray.push(enemy);
         let lvlGenerator = new Game.LevelGenerator(collidableNode);
