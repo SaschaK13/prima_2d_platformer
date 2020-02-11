@@ -32,7 +32,7 @@ var Game;
             crc2.strokeRect(-1, -1, canvas.width / 2, canvas.height + 2);
             crc2.strokeRect(-1, canvas.height / 2, canvas.width + 2, canvas.height);
             gui.updateHealth(1);
-            gui.updateWalkSpeed(2);
+            gui.updateWalkSpeed(-2);
         }
     }
 })(Game || (Game = {}));

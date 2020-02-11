@@ -17,7 +17,7 @@ namespace Game {
     fudge.RenderManager.initialize(true, false);
     root = new fudge.Node("Root");
 
-    let levelGenerator = new LevelGenerator(root);
+    let levelGenerator: LevelGenerator = new LevelGenerator(root);
     levelGenerator.getDataFromFile();
 
     let cmpCamera: fudge.ComponentCamera = new fudge.ComponentCamera();
@@ -40,7 +40,7 @@ namespace Game {
       crc2.strokeRect(-1, -1, canvas.width / 2, canvas.height + 2);
       crc2.strokeRect(-1, canvas.height / 2, canvas.width + 2, canvas.height);
       gui.updateHealth(1);
-      gui.updateWalkSpeed(2);
+      gui.updateWalkSpeed(-2);
     }
   }
 }

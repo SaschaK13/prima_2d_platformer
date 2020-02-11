@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Character</title>
+  <title>JumpAndRun</title>
   <link rel="stylesheet" href="gui.css">
   <script src="../FUDGE/FudgeCore.js"></script>
   <script src="../Game/Environment/LevelGenerator.js"></script>
@@ -14,23 +15,30 @@
   <script src="../Game/GUI/GUI.js"></script>
   <script src="Main.js"></script>
   <style>
-    body{
+    body {
       background-color: beige;
     }
   </style>
 </head>
+
 <body>
-  <canvas width="800" height="600" style="background-color: aliceblue;"></canvas>
-  <img src="../Character_Sprite_Sheet.png"/>
-  <img src="../Game/Assets/herz5.PNG" width="400px" height="80px" id="health">
-  
+  <canvas>  </canvas>
+  <img src="../Character_Sprite_Sheet.png" />
+  <img src="../Game/Assets/herz5.PNG" width="380px" height="70px" id="health">
+
   <h1 id="time"> Time: 00:00:00 </h1>
-  
+
   <h2 id="speed"> walk speed: 1 </h2>
+  <img src="../Game/Assets/walkSpeedUp.png" id="walkSpeedUp">
 
   <h2 id="jumping"> jumping power: 1 </h2>
-  
+
+  <h2 id="damage"> damage: 1 </h2>
+
+  <h2 id="attackSpeed"> attack speed: 1 </h2>
+
   <progress id="healthBar" value="80" max="100"></progress>
 
 </body>
+
 </html>
