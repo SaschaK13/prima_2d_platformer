@@ -25,6 +25,8 @@ export class Hitbox extends fudge.Node
     this.cmpTransform.local.translation = parentNode.cmpTransform.local.translation;
     this.cmpTransform.local.scaling = this.scaling.toVector3()
     this.cmpTransform.local.translateX((parentNode.cmpTransform.local.scaling.x/2) + (this.cmpTransform.local.scaling.x/2))
+
+    parentNode.appendChild(this)
   }
 
   public detectEnemys(): Character[]
@@ -37,32 +39,30 @@ export class Hitbox extends fudge.Node
     
     let detectedEnemys: Character[] = []
     if(this.parentNode.constructor.name == "Enemy"){
-      if(this.collideWith(Util.getInstance().player))
+      if(this.collideWith(Util.getInstance().level.player))
       {
-        detectedEnemys.push(Util.getInstance().player);
+        detectedEnemys.push(Util.getInstance().level.player);
         return detectedEnemys;
         
       }
     }else if(this.parentNode.constructor.name == "Player") {
 
-      for(var i = 0; i < Util.getInstance().enemyArray.length; i++)
+      for(var i = 0; i < Util.getInstance().level.enemyArray.length; i++)
       {
-        let enemy = Util.getInstance().enemyArray[i];
+        let enemy = Util.getInstance().level.enemyArray[i];
         if(this.collideWith(enemy))
         {
           detectedEnemys.push(enemy)
         }
         return detectedEnemys;
+        fudge.Debug.log(detectedEnemys)
       }
 
     }
 
   }
 
-  
   private collideWith(cObject: Character): boolean {
-
-
     let colissionObjectPosition: fudge.Vector3 = cObject.cmpTransform.local.translation;
     let colissionObjectScaling: fudge.Vector3 = cObject.cmpTransform.local.scaling;
 

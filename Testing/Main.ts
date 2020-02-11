@@ -36,8 +36,6 @@ namespace Game {
     let collissionObjects: collidedObject[];
     let oldCollisionObjects: collidedObject[];
 
-    let gui: Gui = new Gui();
-
     fudge.RenderManager.initialize(true, false);
     root = new fudge.Node("Root");
 

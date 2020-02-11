@@ -6,8 +6,6 @@ namespace Game {
 
     private static instance: Util;
 
-    public player: Player;
-
     public gui: Gui;
     public level: Level;
 

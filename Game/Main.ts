@@ -30,7 +30,6 @@ namespace Game {
     Util.getInstance().gui = gui;
 
 
-
     let lvlGenerator: LevelGenerator = new LevelGenerator(collidableNode);
     lvlGenerator.getDataFromFile()
 
@@ -47,7 +46,7 @@ namespace Game {
     }
 
     function processInput(): void {
-      let player: Player = Util.getInstance().player;
+      let player: Player = Util.getInstance().level.player;
       if (keysPressed[fudge.KEYBOARD_CODE.SPACE]) {
         player.jump();
         return;
@@ -67,8 +66,6 @@ namespace Game {
       }
       
       player.idle();
-
-
 
     }
 

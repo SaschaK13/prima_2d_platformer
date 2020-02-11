@@ -25,19 +25,20 @@ var Game;
             this.rectangle = new fudge.Rectangle(x, y, width, height, fudge.ORIGIN2D.CENTER);
             let detectedEnemys = [];
             if (this.parentNode.constructor.name == "Enemy") {
-                if (this.collideWith(Game.Util.getInstance().player)) {
-                    detectedEnemys.push(Game.Util.getInstance().player);
+                if (this.collideWith(Game.Util.getInstance().level.player)) {
+                    detectedEnemys.push(Game.Util.getInstance().level.player);
                     return detectedEnemys;
                 }
             }
             else if (this.parentNode.constructor.name == "Player") {
-                for (var i = 0; i < Game.Util.getInstance().enemyArray.length; i++) {
-                    let enemy = Game.Util.getInstance().enemyArray[i];
+                for (var i = 0; i < Game.Util.getInstance().level.enemyArray.length; i++) {
+                    let enemy = Game.Util.getInstance().level.enemyArray[i];
                     if (this.collideWith(enemy)) {
                         detectedEnemys.push(enemy);
                     }
+                    return detectedEnemys;
+                    fudge.Debug.log(detectedEnemys);
                 }
-                return detectedEnemys;
             }
         }
         collideWith(cObject) {

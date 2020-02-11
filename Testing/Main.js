@@ -22,7 +22,6 @@ var Game;
         txtImage.image = img;
         let collissionObjects;
         let oldCollisionObjects;
-        let gui = new Game.Gui();
         fudge.RenderManager.initialize(true, false);
         root = new fudge.Node("Root");
         let levelGenerator = new Game.LevelGenerator(root);

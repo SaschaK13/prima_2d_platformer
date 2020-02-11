@@ -31,7 +31,7 @@ var Game;
             keysPressed[event.code] = (event.type == "keydown");
         }
         function processInput() {
-            let player = Game.Util.getInstance().player;
+            let player = Game.Util.getInstance().level.player;
             if (keysPressed[fudge.KEYBOARD_CODE.SPACE]) {
                 player.jump();
                 return;
