@@ -34,7 +34,6 @@ var Game;
             this.addComponent(this.cmpTrans);
             this.collider = new Game.Collider(this);
             this.textureImage = Game.Util.getInstance().getTextureImageByName(nodeName);
-            fudge.Debug.log(this.textureImage);
             this.generateSprites();
             this.fillSpriteMap();
             this.show(CHARACTERSTATE.IDLE);
@@ -113,7 +112,6 @@ var Game;
             this.sprites.push(sprite);
             sprite = new Game.Sprite(CHARACTERSTATE.IDLE);
             sprite.generateByGrid(this.textureImage, fudge.Rectangle.GET(8, 20, 45, 80), 4, fudge.Vector2.ZERO(), 64, fudge.ORIGIN2D.CENTER);
-            fudge.Debug.log(this.cmpTransform.local.scaling.x);
             this.sprites.push(sprite);
             sprite = new Game.Sprite(CHARACTERSTATE.JUMP);
             sprite.generateByGrid(this.textureImage, fudge.Rectangle.GET(204, 183, 45, 72), 4, fudge.Vector2.ZERO(), 64, fudge.ORIGIN2D.CENTER);
@@ -138,6 +136,11 @@ var Game;
             }B
           }
       */
+        idle() {
+            if (!this.isJumping) {
+                this.show(CHARACTERSTATE.IDLE);
+            }
+        }
         jump() {
             if (!this.isJumping) {
                 this.isJumping = true;
@@ -147,7 +150,9 @@ var Game;
         }
         walk(direction) {
             let timeFrame = fudge.Loop.timeFrameGame / 1000;
-            this.show(CHARACTERSTATE.WALK);
+            if (this.isJumping == false) {
+                this.show(CHARACTERSTATE.WALK);
+            }
             if (direction == DIRECTION.RIGHT) {
                 this.cmpTransform.local.translateX(this.WALK_SPEED * timeFrame);
             }

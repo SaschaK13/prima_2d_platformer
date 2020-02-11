@@ -48,6 +48,7 @@ var Game;
                 player.walk(Game.DIRECTION.LEFT);
                 return;
             }
+            player.idle();
         }
         function update(_event) {
             processInput();

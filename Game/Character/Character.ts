@@ -18,8 +18,8 @@ namespace Game {
   }
 
   export class Character extends fudge.Node {
-      private JUMP_HEIGHT = 6;
-      private WALK_SPEED = 2;
+      private JUMP_HEIGHT: number = 6;
+      private WALK_SPEED: number = 2;
 
       private gravity: number = -8;
       private velocity: fudge.Vector2 = new fudge.Vector2(0, 0);
@@ -53,7 +53,6 @@ namespace Game {
       this.collider = new Collider(this);
 
       this.textureImage = Util.getInstance().getTextureImageByName(nodeName);
-      fudge.Debug.log(this.textureImage);
       this.generateSprites();
       this.fillSpriteMap();
 
@@ -70,7 +69,7 @@ namespace Game {
       this.oldTransform = this.cmpTransform.local.translation;
       let timeFrame: number = fudge.Loop.timeFrameGame / 1000;
       this.velocity.y += this.gravity * timeFrame;
-
+      
       //ad velocity to position
       this.cmpTransform.local.translateY(this.velocity.y * timeFrame);
       this.cmpTransform.local.translateX(this.velocity.x * timeFrame);
@@ -147,7 +146,6 @@ namespace Game {
 
       sprite = new Sprite(CHARACTERSTATE.IDLE);
       sprite.generateByGrid(this.textureImage, fudge.Rectangle.GET(8, 20, 45, 80), 4, fudge.Vector2.ZERO(), 64, fudge.ORIGIN2D.CENTER);
-      fudge.Debug.log(this.cmpTransform.local.scaling.x);
       this.sprites.push(sprite);
 
       sprite = new Sprite(CHARACTERSTATE.JUMP);
@@ -181,6 +179,12 @@ namespace Game {
     }
 */
 
+    public idle(): void {
+      if (!this.isJumping) {
+        this.show(CHARACTERSTATE.IDLE);
+      }
+    }
+
     public jump(): void {
       if (!this.isJumping) {
         this.isJumping = true;
@@ -191,7 +195,9 @@ namespace Game {
 
     public walk(direction: DIRECTION): void {
       let timeFrame: number = fudge.Loop.timeFrameGame / 1000;
-      this.show(CHARACTERSTATE.WALK);
+      if (this.isJumping == false) {
+        this.show(CHARACTERSTATE.WALK);
+      }
       if (direction == DIRECTION.RIGHT) {
         this.cmpTransform.local.translateX(this.WALK_SPEED * timeFrame);
       } else {
