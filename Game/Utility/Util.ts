@@ -14,7 +14,6 @@ namespace Game {
       if (!Util.instance) {
         Util.instance = new Util();
       }
-
       return Util.instance;
     }
 
@@ -26,12 +25,12 @@ namespace Game {
       this.collidableObjects = array;
     }
 
-    
-
-
-  
-
-
+    public getTextureImageByName(name: string): fudge.TextureImage {
+      let img: HTMLImageElement = document.querySelector("#" + name);
+      let texture: fudge.TextureImage = new fudge.TextureImage();
+      texture.image = img;
+      return texture;
+    }
   }
 
 

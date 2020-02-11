@@ -1,14 +1,11 @@
-
 namespace Game {
 
   import fudge = FudgeCore;
-
 
   export enum CHARACTERSTATE {
     IDLE = "idle",
     WALK = "walk",
     JUMP = "jump"
-
   }
 
   export enum DIRECTION {
@@ -21,7 +18,6 @@ namespace Game {
   }
 
   export class Character extends fudge.Node {
-
       private JUMP_HEIGHT = 6;
       private WALK_SPEED = 2;
 
@@ -37,6 +33,7 @@ namespace Game {
 
       private sprites: Sprite[];
       private spriteNameMap: spriteName = {};
+      private textureImage: fudge.TextureImage;
 
       private  collider: Collider;
 
@@ -55,79 +52,78 @@ namespace Game {
 
       this.collider = new Collider(this);
 
+      this.textureImage = Util.getInstance().getTextureImageByName(nodeName);
+      fudge.Debug.log(this.textureImage);
+      this.generateSprites();
+      this.fillSpriteMap();
+
+      this.show(CHARACTERSTATE.IDLE);
       fudge.Loop.addEventListener(fudge.EVENT.LOOP_FRAME, this.update);
     }
 
-    public handlePhysics()
-    {
+    public handlePhysics(): void {
       this.handleVelocity();
       this.reactToCollison();
     }
 
     public handleVelocity(): void {
       this.oldTransform = this.cmpTransform.local.translation;
-      let timeFrame = fudge.Loop.timeFrameGame / 1000;
+      let timeFrame: number = fudge.Loop.timeFrameGame / 1000;
       this.velocity.y += this.gravity * timeFrame;
 
       //ad velocity to position
       this.cmpTransform.local.translateY(this.velocity.y * timeFrame);
       this.cmpTransform.local.translateX(this.velocity.x * timeFrame);
-
     }
 
-
-    public reactToCollison()
-    {
+    public reactToCollison(): void {
       let collisionObjects: CollidedObject[] = this.collider.getCollisionObjects(); 
 
-      for(var i = 0; i < collisionObjects.length; i++)
-      {
-        let collisionObject = collisionObjects[i];
-        switch((collisionObject.object as Environment).type){
+      for (var i: number = 0; i < collisionObjects.length; i++) {
+        let collisionObject: CollidedObject = collisionObjects[i];
+        switch ((collisionObject.object as Environment).type) {
           case EnvironmentType.PLATFORM: {
-            this.handlePlatformColission(collisionObject)
+            this.handlePlatformColission(collisionObject);
           }
         }
       }
-
     }
 
-    public handlePlatformColission(collidedObject: CollidedObject)
-    {
-
+    public handlePlatformColission(collidedObject: CollidedObject): void {
       let collisionObject: Platform = collidedObject.object as Platform;
-      let translation = this.cmpTransform.local.translation;
+      let translation: fudge.Vector3 = this.cmpTransform.local.translation;
 
-      switch(collidedObject.collisionDirecton){
+      switch (collidedObject.collisionDirecton) {
+
         case CollisionDirection.BOTTOM: {
-          let newYPosition = collisionObject.cmpTransform.local.translation.y + (collisionObject.cmpTransform.local.scaling.y / 2) + (this.cmpTransform.local.scaling.y/2);
+          let newYPosition: number = collisionObject.cmpTransform.local.translation.y + (collisionObject.cmpTransform.local.scaling.y / 2) + (this.cmpTransform.local.scaling.y / 2);
           translation.y = newYPosition;
           this.cmpTransform.local.translation = translation;
           this.velocity.y = 0;
           this.isJumping = false;
           break;
         }
-        case CollisionDirection.TOP: {
-          let newYPosition = collisionObject.cmpTransform.local.translation.y - (collisionObject.cmpTransform.local.scaling.y / 2) - (this.cmpTransform.local.scaling.y/2);
-          translation.y = newYPosition;
-          this.cmpTransform.local.translation = translation;
-          this.velocity.y = 0;
-          this.isJumping = false;
-          break;
 
+        case CollisionDirection.TOP: {
+          let newYPosition: number = collisionObject.cmpTransform.local.translation.y - (collisionObject.cmpTransform.local.scaling.y / 2) - (this.cmpTransform.local.scaling.y/2);
+          translation.y = newYPosition;
+          this.cmpTransform.local.translation = translation;
+          this.velocity.y = 0;
+          this.isJumping = false;
+          break;
         }
+
         case CollisionDirection.LEFT: {
-          let newXPosition = collisionObject.cmpTransform.local.translation.x + (collisionObject.cmpTransform.local.scaling.x / 2) + (this.cmpTransform.local.scaling.x/2);
+          let newXPosition: number = collisionObject.cmpTransform.local.translation.x + (collisionObject.cmpTransform.local.scaling.x / 2) + (this.cmpTransform.local.scaling.x/2);
           translation.x = newXPosition;
           this.cmpTransform.local.translation = translation;
           this.velocity.x = 0;
           this.isJumping = false;
           break;
-
         }
 
         case CollisionDirection.RIGHT: {
-          let newXPosition = collisionObject.cmpTransform.local.translation.x - (collisionObject.cmpTransform.local.scaling.x / 2) - (this.cmpTransform.local.scaling.x/2);
+          let newXPosition: number = collisionObject.cmpTransform.local.translation.x - (collisionObject.cmpTransform.local.scaling.x / 2) - (this.cmpTransform.local.scaling.x/2);
           translation.x = newXPosition;
           this.cmpTransform.local.translation = translation;
           this.velocity.x = 0;
@@ -135,13 +131,42 @@ namespace Game {
           break;
         }
       }
-     
     }
 
-  
+    public show(_characterstate: CHARACTERSTATE): void {
+      for (let child of this.getChildren()) {
+        child.activate(child.name == _characterstate);
+      }
+    }
 
-    public generateSprites() {
+    public generateSprites(): void {
+      this.sprites = [];
+      let sprite: Sprite = new Sprite(CHARACTERSTATE.WALK);
+      sprite.generateByGrid(this.textureImage, fudge.Rectangle.GET(2, 104, 68, 64), 6, fudge.Vector2.ZERO(), 64, fudge.ORIGIN2D.CENTER);
+      this.sprites.push(sprite);
 
+      sprite = new Sprite(CHARACTERSTATE.IDLE);
+      sprite.generateByGrid(this.textureImage, fudge.Rectangle.GET(8, 20, 45, 80), 4, fudge.Vector2.ZERO(), 64, fudge.ORIGIN2D.CENTER);
+      fudge.Debug.log(this.cmpTransform.local.scaling.x);
+      this.sprites.push(sprite);
+
+      sprite = new Sprite(CHARACTERSTATE.JUMP);
+      sprite.generateByGrid(this.textureImage, fudge.Rectangle.GET(204, 183, 45, 72), 4, fudge.Vector2.ZERO(), 64, fudge.ORIGIN2D.CENTER);
+      this.sprites.push(sprite);
+    }
+
+    public fillSpriteMap(): void {
+      for (let sprite of this.sprites) {
+        let nodeSprite: NodeSprite = new NodeSprite(sprite.name, sprite);
+        nodeSprite.activate(false);
+
+        nodeSprite.addEventListener(
+          "showNext",
+          (_event: Event) => { (<NodeSprite>_event.currentTarget).showFrameNext(); },
+          true
+        );
+        this.appendChild(nodeSprite);
+      }
     }
 
   /*  private cheatStand()
@@ -156,44 +181,30 @@ namespace Game {
     }
 */
 
-
-    public jump() {
-      if(!this.isJumping)
-      {
+    public jump(): void {
+      if (!this.isJumping) {
         this.isJumping = true;
         this.velocity.y += this.JUMP_HEIGHT;
-      }
-
-    }
-
-    public walk(direction: DIRECTION) {
-      let timeFrame = fudge.Loop.timeFrameGame / 1000;
-
-      if(direction == DIRECTION.RIGHT)
-      {
-        this.cmpTransform.local.translateX(this.WALK_SPEED * timeFrame)
-      }else
-      {
-        this.cmpTransform.local.translateX(-(this.WALK_SPEED * timeFrame))
-
+        this.show(CHARACTERSTATE.JUMP);
       }
     }
 
-    private handleCharacterStates() {
-
+    public walk(direction: DIRECTION): void {
+      let timeFrame: number = fudge.Loop.timeFrameGame / 1000;
+      this.show(CHARACTERSTATE.WALK);
+      if (direction == DIRECTION.RIGHT) {
+        this.cmpTransform.local.translateX(this.WALK_SPEED * timeFrame);
+      } else {
+        this.cmpTransform.local.translateX(-(this.WALK_SPEED * timeFrame));
+      }
     }
+
+    private handleCharacterStates() {}
 
     private update = (_event: fudge.Eventƒ): void => {
-
+      this.broadcastEvent(new CustomEvent("showNext"));
       this.collider.handleCollsion();
       this.handlePhysics();
-
-
-
-
-
-
     }
-
   }
 }

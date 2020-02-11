@@ -21,7 +21,7 @@ var Game;
         let material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(1, 0, 1, 1)));
         let material2 = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(0, 1, 1, 1)));
         let player = new Game.Player("test");
-        player.addComponent(new fudge.ComponentMaterial(material));
+        //player.addComponent(new fudge.ComponentMaterial(material));
         player.getComponent(fudge.ComponentMesh).pivot.scaling = player.cmpTransform.local.scaling;
         player.cmpTransform.local.translateY(2);
         collidableNode.appendChild(player);
