@@ -1,11 +1,9 @@
-
 namespace Game {
   import fudge = FudgeCore;
 
   window.addEventListener("load", test);
   let root: fudge.Node;
   let collidableNode: fudge.Node;
-
 
   interface KeyPressed {
     [code: string]: boolean;
@@ -20,9 +18,8 @@ namespace Game {
     collidableNode = new fudge.Node("collidable");
     root.appendChild(collidableNode);
 
-
     let cmpCamera: fudge.ComponentCamera = new fudge.ComponentCamera();
-    cmpCamera.pivot.translateZ(5);
+    cmpCamera.pivot.translateZ(10);
     cmpCamera.pivot.lookAt(fudge.Vector3.ZERO());
     cmpCamera.backgroundColor = fudge.Color.CSS("aliceblue");
     let viewport: fudge.Viewport = new fudge.Viewport();
@@ -33,19 +30,19 @@ namespace Game {
     let material2: fudge.Material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(0, 1, 1, 1)));
 
     let player: Player = new Player("test");
-    player.addComponent(new fudge.ComponentMaterial(material));
-    player.cmpTransform.local.translateY(0.5);
+    //player.addComponent(new fudge.ComponentMaterial(material2));
+    player.cmpTransform.local.translateY(1);
     collidableNode.appendChild(player);
 
     let lvlGenerator = new LevelGenerator(collidableNode);
-    lvlGenerator.getDataFromFile()
+    lvlGenerator.getDataFromFile();
 
-    document.addEventListener("keydown", handleKeyboard )
-    document.addEventListener("keyup", handleKeyboard )
+    document.addEventListener("keydown", handleKeyboard );
+    document.addEventListener("keyup", handleKeyboard );
 
 
     fudge.Loop.addEventListener(fudge.EVENT.LOOP_FRAME, update);
-    fudge.Loop.start(fudge.LOOP_MODE.TIME_GAME, 60);
+    fudge.Loop.start(fudge.LOOP_MODE.TIME_GAME, 15);
 
 
     //after world gen add collidable objects to Util 

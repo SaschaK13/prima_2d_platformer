@@ -1,8 +1,6 @@
-
 namespace Game {
 
   import fudge = FudgeCore;
-
 
   export enum CHARACTERSTATE {
     IDLE = "idle",
@@ -37,6 +35,7 @@ namespace Game {
 
       private sprites: Sprite[];
       private spriteNameMap: spriteName = {};
+      private textureImage: fudge.TextureImage;
 
       private  collider: Collider;
 
@@ -53,11 +52,15 @@ namespace Game {
 
       this.collider = new Collider(this);
 
+      this.textureImage = Util.getInstance().getTextureImageByName(nodeName);
+      this.generateSprites();
+      this.fillSpriteMap();
+
+      this.show(CHARACTERSTATE.IDLE);
       fudge.Loop.addEventListener(fudge.EVENT.LOOP_FRAME, this.update);
     }
 
-    public handlePhysics()
-    {
+    public handlePhysics(): void {
       this.handleVelocity();
       this.handleStaying();
     }
@@ -78,7 +81,7 @@ namespace Game {
       for(var i= 0; i < collisionObjects.length; i++) {
 
         let collisionObject: Platform = collisionObjects[i] as Platform;
-        fudge.Debug.log(collisionObject)
+        //fudge.Debug.log(collisionObject)
         if(collisionObject.type == EnvironmentType.PLATFORM) {
 
           let translation = this.cmpTransform.local.translation;
@@ -89,12 +92,43 @@ namespace Game {
           this.isJumping = false;
         }
       }
-
-
     }
 
-    public generateSprites() {
+    public show(_characterstate: CHARACTERSTATE): void {
+      for (let child of this.getChildren()) {
+        child.activate(child.name == _characterstate);
+      }
+    }
 
+    public generateSprites(): void {
+      this.sprites = [];
+      let sprite: Sprite = new Sprite(CHARACTERSTATE.WALK);
+      sprite.generateByGrid(this.textureImage, fudge.Rectangle.GET(2, 104, 68, 64), 6, fudge.Vector2.ZERO(), 64, fudge.ORIGIN2D.CENTER);
+      this.sprites.push(sprite);
+
+      sprite = new Sprite(CHARACTERSTATE.IDLE);
+      sprite.generateByGrid(this.textureImage, fudge.Rectangle.GET(8, 20, 45, 80), 4, fudge.Vector2.ZERO(), 64, fudge.ORIGIN2D.CENTER);
+      fudge.Debug.log(this.cmpTransform.local.scaling.x);
+      this.sprites.push(sprite);
+
+      sprite = new Sprite(CHARACTERSTATE.JUMP);
+      sprite.generateByGrid(this.textureImage, fudge.Rectangle.GET(204, 183, 45, 72), 4, fudge.Vector2.ZERO(), 64, fudge.ORIGIN2D.CENTER);
+      this.sprites.push(sprite);
+    }
+
+    public fillSpriteMap(): void {
+      for (let sprite of this.sprites) {
+        let nodeSprite: NodeSprite = new NodeSprite(sprite.name, sprite);
+        nodeSprite.activate(false);
+
+        nodeSprite.addEventListener(
+          "showNext",
+          (_event: Event) => { (<NodeSprite>_event.currentTarget).showFrameNext(); },
+          true
+        );
+
+        this.appendChild(nodeSprite);
+      }
     }
 
   /*  private cheatStand()
@@ -110,34 +144,39 @@ namespace Game {
 */
 
 
-    public jump() {
-      if(!this.isJumping)
-      {
+    public jump(): void {
+      if (!this.isJumping) {
         this.isJumping = true;
         this.velocity.y += this.JUMP_HEIGHT;
-      }
-
-    }
-
-    public walk(direction: DIRECTION) {
-      let timeFrame = fudge.Loop.timeFrameGame / 1000;
-
-      if(direction == DIRECTION.RIGHT)
-      {
-        this.cmpTransform.local.translateX(this.WALK_SPEED * timeFrame)
-      }else
-      {
-        this.cmpTransform.local.translateX(-(this.WALK_SPEED * timeFrame))
-
+        this.show(CHARACTERSTATE.JUMP);
       }
     }
 
-    private handleCharacterStates() {
+    public walk(direction: DIRECTION): void {
+      let timeFrame: number = fudge.Loop.timeFrameGame / 1000;
+      this.show(CHARACTERSTATE.WALK);
+      if (direction == DIRECTION.RIGHT) {
+        this.cmpTransform.local.translateX(this.WALK_SPEED * timeFrame);
+      } else {
+        this.cmpTransform.local.translateX(-(this.WALK_SPEED * timeFrame));
+      }
+    }
 
+    private handleCharacterStates(_characterstate: CHARACTERSTATE, _direction?: DIRECTION): void {
+      switch (_characterstate) {
+        case CHARACTERSTATE.IDLE:
+          break;
+        case CHARACTERSTATE.WALK:
+          break;
+        case CHARACTERSTATE.JUMP:
+          break;
+      }
+      this.show(_characterstate);
     }
 
     private update = (_event: fudge.Eventƒ): void => {
-
+      this.broadcastEvent(new CustomEvent("showNext"));
+      
       this.collider.handleCollsion();
       this.handlePhysics();
 
