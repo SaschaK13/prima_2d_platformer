@@ -9,7 +9,6 @@ namespace Game {
     public gui: Gui;
     public level: Level;
 
-    private collidableObjects: fudge.Node[];
 
     constructor() {}
 
@@ -19,15 +18,7 @@ namespace Game {
       }
       return Util.instance;
     }
-
-    public getCollidableObjects(): fudge.Node[] {
-      return this.collidableObjects;
-    }
-
-    public setCollidableObjects(array: fudge.Node[]): void  {
-      this.collidableObjects = array;
-    }
-
+    
     public getTextureImageByName(name: string): fudge.TextureImage {
       let img: HTMLImageElement = document.querySelector("#" + name);
       let texture: fudge.TextureImage = new fudge.TextureImage();

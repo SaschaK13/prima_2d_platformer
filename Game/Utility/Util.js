@@ -10,12 +10,6 @@ var Game;
             }
             return Util.instance;
         }
-        getCollidableObjects() {
-            return this.collidableObjects;
-        }
-        setCollidableObjects(array) {
-            this.collidableObjects = array;
-        }
         getTextureImageByName(name) {
             let img = document.querySelector("#" + name);
             let texture = new fudge.TextureImage();

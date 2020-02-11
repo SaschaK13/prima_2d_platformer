@@ -13,15 +13,17 @@ var Game;
                     newEnemyArray.push(this.enemyArray[i]);
                 }
             }
-            let colldableArray = Game.Util.getInstance().getCollidableObjects();
-            let newCollidableArray = [];
-            for (var i = 0; i < colldableArray.length; i++) {
-                if (!(colldableArray[i].name == enemy.name)) {
-                    newCollidableArray.push(colldableArray[i]);
-                }
-            }
-            Game.Util.getInstance().setCollidableObjects(newCollidableArray);
             Game.Util.getInstance().level.enemyArray = newEnemyArray;
+        }
+        getCollidableObjects() {
+            let collidableNodes = [];
+            for (var i = 0; i < this.platformArray.length; i++) {
+                collidableNodes.push(this.platformArray[i]);
+            }
+            for (var i = 0; i < this.enemyArray.length; i++) {
+                collidableNodes.push(this.enemyArray[i]);
+            }
+            return collidableNodes;
         }
     }
     Game.Level = Level;

@@ -45,7 +45,6 @@ namespace Game {
       }
 
       let util = Util.getInstance();
-      util.setCollidableObjects(this.root.getChildren());      
       util.level = this.levelObject
     }
   }

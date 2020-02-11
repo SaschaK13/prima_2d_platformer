@@ -36,7 +36,7 @@ constructor(node: Character) {
 
 public handleCollsion() {
 
-  let objects: fudge.Node[] = Util.getInstance().getCollidableObjects();
+  let objects: fudge.Node[] = Util.getInstance().level.getCollidableObjects();
   this.oldCollisionObjects = this.collissionObjects;
   this.collissionObjects = []
       for (var i = 0; i < objects.length; i++) {

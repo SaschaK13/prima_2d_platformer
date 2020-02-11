@@ -6,6 +6,8 @@ namespace Game {
     public platformArray: Platform[] = [];
     public enemyArray: Enemy[] = [];
 
+
+
     public deleteEnemy(enemy: Enemy){
       let newEnemyArray: Enemy[] = []
 
@@ -17,20 +19,26 @@ namespace Game {
         }
       }
 
-      let colldableArray: fudge.Node[] = Util.getInstance().getCollidableObjects()
-      let newCollidableArray: fudge.Node[] = []
-
-      for(var i = 0; i < colldableArray.length; i++)
-      {
-        if(!(colldableArray[i].name == enemy.name))
-        {
-          newCollidableArray.push(colldableArray[i])
-        }
-      }
-
-      Util.getInstance().setCollidableObjects(newCollidableArray);
       Util.getInstance().level.enemyArray = newEnemyArray;
 
+    }
+
+    public getCollidableObjects(): fudge.Node[] {
+      
+      let collidableNodes: fudge.Node[] = []
+
+      for(var i = 0; i < this.platformArray.length; i++)
+      {
+        collidableNodes.push(this.platformArray[i])
+      }
+
+      for(var i = 0; i < this.enemyArray.length; i++)
+      {
+        collidableNodes.push(this.enemyArray[i])
+      }
+
+
+      return collidableNodes
     }
   }
 

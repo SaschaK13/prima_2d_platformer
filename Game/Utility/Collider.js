@@ -20,7 +20,7 @@ var Game;
             this.object = node;
         }
         handleCollsion() {
-            let objects = Game.Util.getInstance().getCollidableObjects();
+            let objects = Game.Util.getInstance().level.getCollidableObjects();
             this.oldCollisionObjects = this.collissionObjects;
             this.collissionObjects = [];
             for (var i = 0; i < objects.length; i++) {

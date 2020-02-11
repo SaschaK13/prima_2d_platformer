@@ -32,7 +32,6 @@ var Game;
                 this.levelObject.enemyArray.push(enemy);
             }
             let util = Game.Util.getInstance();
-            util.setCollidableObjects(this.root.getChildren());
             util.level = this.levelObject;
         }
     }
