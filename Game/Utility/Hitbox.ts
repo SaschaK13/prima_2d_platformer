@@ -25,8 +25,6 @@ export class Hitbox extends fudge.Node
     this.cmpTransform.local.translation = parentNode.cmpTransform.local.translation;
     this.cmpTransform.local.scaling = this.scaling.toVector3()
     this.cmpTransform.local.translateX((parentNode.cmpTransform.local.scaling.x/2) + (this.cmpTransform.local.scaling.x/2))
-
-    parentNode.appendChild(this)
   }
 
   public detectEnemys(): Character[]
@@ -54,9 +52,9 @@ export class Hitbox extends fudge.Node
         {
           detectedEnemys.push(enemy)
         }
+        return detectedEnemys;
       }
 
-      return detectedEnemys;
     }
 
   }
