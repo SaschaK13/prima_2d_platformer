@@ -20,14 +20,14 @@ var Game;
             parentNode.appendChild(this);
         }
         detectEnemys() {
-            let x = this.cmpTransform.local.translation.x;
-            let y = this.cmpTransform.local.translation.y;
+            let x = this.mtxWorld.translation.x;
+            let y = this.mtxWorld.translation.y;
             let width = this.cmpTransform.local.scaling.x;
             let height = this.cmpTransform.local.scaling.y;
             this.rectangle = new fudge.Rectangle(x, y, width, height, fudge.ORIGIN2D.CENTER);
             let detectedEnemys = [];
             if (this.parentNode.constructor.name == "Enemy") {
-                if (this.rectangle.isInside(Game.Util.getInstance().player.cmpTransform.local.translation.toVector2())) {
+                if (this.collideWith(Game.Util.getInstance().player)) {
                     detectedEnemys.push(Game.Util.getInstance().player);
                     return detectedEnemys;
                 }
@@ -35,11 +35,26 @@ var Game;
             else if (this.parentNode.constructor.name == "Player") {
                 for (var i = 0; i < Game.Util.getInstance().enemyArray.length; i++) {
                     let enemy = Game.Util.getInstance().enemyArray[i];
-                    if (this.rectangle.isInside(enemy.cmpTransform.local.translation.toVector2())) {
+                    if (this.collideWith(enemy)) {
                         detectedEnemys.push(enemy);
                     }
                 }
                 return detectedEnemys;
+            }
+        }
+        collideWith(cObject) {
+            let colissionObjectPosition = cObject.cmpTransform.local.translation;
+            let colissionObjectScaling = cObject.cmpTransform.local.scaling;
+            let characterPosition = this.mtxWorld.translation;
+            let characterScaling = this.cmpTransform.local.scaling;
+            if (characterPosition.x - (characterScaling.x / 2) < colissionObjectPosition.x + (colissionObjectScaling.x / 2) &&
+                characterPosition.x + (characterScaling.x / 2) > colissionObjectPosition.x - (colissionObjectScaling.x / 2) &&
+                characterPosition.y - (characterScaling.y / 2) < colissionObjectPosition.y + (colissionObjectScaling.y / 2) &&
+                characterPosition.y + (characterScaling.y / 2) > colissionObjectPosition.y - (colissionObjectScaling.y / 2)) {
+                return true;
+            }
+            else {
+                return false;
             }
         }
     }

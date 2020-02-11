@@ -2,7 +2,9 @@
 var Game;
 (function (Game) {
     class Util {
-        constructor() { }
+        constructor() {
+            this.enemyArray = [];
+        }
         static getInstance() {
             if (!Util.instance) {
                 Util.instance = new Util();

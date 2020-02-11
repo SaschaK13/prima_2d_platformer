@@ -18,6 +18,8 @@ var Game;
             super(nodeName);
             this.JUMP_HEIGHT = 6;
             this.WALK_SPEED = 2;
+            this.DMG = 1;
+            this.HP = 5;
             this.gravity = -8;
             this.velocity = new fudge.Vector2(0, 0);
             this.direction = DIRECTION.RIGHT;
@@ -139,6 +141,12 @@ var Game;
             //this.hitbox.positionHitbox(this)
         }
         attack() {
+        }
+        takeDmg(dmgTaken) {
+            this.HP -= dmgTaken;
+        }
+        getStats() {
+            return { hp: this.HP, dmg: this.DMG, jump_height: this.JUMP_HEIGHT, walk_speed: this.WALK_SPEED };
         }
         handleCharacterStates() {
         }

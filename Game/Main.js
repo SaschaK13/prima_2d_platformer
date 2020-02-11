@@ -24,11 +24,13 @@ var Game;
         player.addComponent(new fudge.ComponentMaterial(material));
         player.cmpTransform.local.translateY(2);
         collidableNode.appendChild(player);
+        Game.Util.getInstance().player = player;
         let enemy = new Game.Enemy("enemy");
         enemy.addComponent(new fudge.ComponentMaterial(material2));
         enemy.cmpTransform.local.translateY(2);
         enemy.cmpTransform.local.translateX(2);
         collidableNode.appendChild(enemy);
+        Game.Util.getInstance().enemyArray.push(enemy);
         let lvlGenerator = new Game.LevelGenerator(collidableNode);
         lvlGenerator.getDataFromFile();
         document.addEventListener("keydown", handleKeyboard);
@@ -50,6 +52,10 @@ var Game;
             }
             if (keysPressed[fudge.KEYBOARD_CODE.A]) {
                 player.walk(Game.DIRECTION.LEFT);
+                return;
+            }
+            if (keysPressed[fudge.KEYBOARD_CODE.E]) {
+                player.attack();
                 return;
             }
         }

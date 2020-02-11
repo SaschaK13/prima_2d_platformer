@@ -20,10 +20,19 @@ namespace Game {
   [type: string]: string;
   }
 
+  export interface characterStats {
+    hp: number
+    dmg: number
+    jump_height: number
+    walk_speed: number
+  }
+
   export class Character extends fudge.Node {
 
       private JUMP_HEIGHT = 6;
       private WALK_SPEED = 2;
+      private DMG = 1;
+      private HP = 5
 
       private gravity: number = -8;
       private velocity: fudge.Vector2 = new fudge.Vector2(0, 0);
@@ -39,7 +48,7 @@ namespace Game {
       private spriteNameMap: spriteName = {};
 
       private  collider: Collider;
-      private hitbox: Hitbox;
+      public hitbox: Hitbox;
 
       private isJumping: boolean = false;
 
@@ -199,9 +208,21 @@ namespace Game {
     }
 
     public attack() {
-      
+
 
     }
+
+    public takeDmg(dmgTaken: number) {
+      this.HP -= dmgTaken;
+    }
+
+
+    public getStats(): characterStats
+    {
+      return  {hp: this.HP, dmg: this.DMG, jump_height: this.JUMP_HEIGHT, walk_speed: this.WALK_SPEED}
+    }
+
+
 
     private handleCharacterStates() {
 

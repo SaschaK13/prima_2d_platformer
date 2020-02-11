@@ -36,13 +36,14 @@ namespace Game {
     player.addComponent(new fudge.ComponentMaterial(material));
     player.cmpTransform.local.translateY(2);
     collidableNode.appendChild(player);
-
+    Util.getInstance().player = player
 
     let enemy: Enemy = new Enemy("enemy");
     enemy.addComponent(new fudge.ComponentMaterial(material2))
     enemy.cmpTransform.local.translateY(2);
     enemy.cmpTransform.local.translateX(2);
     collidableNode.appendChild(enemy);
+    Util.getInstance().enemyArray.push(enemy)
 
 
     let lvlGenerator = new LevelGenerator(collidableNode);
@@ -79,6 +80,12 @@ namespace Game {
       if(keysPressed[fudge.KEYBOARD_CODE.A])
       {
         player.walk(DIRECTION.LEFT)
+        return;
+      }
+
+      if(keysPressed[fudge.KEYBOARD_CODE.E])
+      {
+        player.attack()
         return;
       }
 
