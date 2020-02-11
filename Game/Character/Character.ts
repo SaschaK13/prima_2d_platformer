@@ -99,15 +99,6 @@ namespace Game {
       for(var i = 0; i < collisionObjects.length; i++)
       {
         let collisionObject = collisionObjects[i];
-       /* switch(collisionObject.collisionType){
-          case CollisionType.ENVIRONMENT: {
-            if((collisionObject.object as Environment).type == EnvironmentType.PLATFORM)
-            {
-              this.handlePlatformColission(collisionObject)
-            }
-          }
-        }*/
-
         this.handleSolidColision(collisionObject)
 
       }
@@ -192,17 +183,6 @@ namespace Game {
       }
     }
 
-  /*  private cheatStand()
-    {
-      if(this.collideWith(this.collissionObject) && this.collissionObject.name == "Platform") {
-
-        this.cmpTransform.local.translation = new fudge.Vector3(this.cmpTransform.local.translation.x, this.collissionObject.cmpTransform.local.translation.y, 0 );
-        this.cmpTransform.local.translateY((this.collissionObject.cmpTransform.local.scaling.y/2 + this.cmpTransform.local.scaling.y/2))
-      } else {
-        //this.cmpTransform.local.translateY(-(this.cmpTransform.local.scaling.y)/2)
-      }B
-    }
-*/
 
     public idle(): void {
       if (!this.isJumping) {
@@ -246,7 +226,6 @@ namespace Game {
 
       }
 
-      //this.hitbox.positionHitbox(this)
     }
 
     public attack() {

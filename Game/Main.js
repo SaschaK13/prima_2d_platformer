@@ -44,7 +44,6 @@ var Game;
         function processInput() {
             if (keysPressed[fudge.KEYBOARD_CODE.SPACE]) {
                 player.jump();
-                player.takeDmg(2);
                 return;
             }
             if (keysPressed[fudge.KEYBOARD_CODE.D]) {
