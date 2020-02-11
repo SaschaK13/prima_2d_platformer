@@ -1,7 +1,6 @@
 "use strict";
 var Game;
 (function (Game) {
-    var fudge = FudgeCore;
     class LevelGenerator {
         constructor(root) {
             this.levelObject = new Game.Level();
@@ -34,9 +33,7 @@ var Game;
             }
             let util = Game.Util.getInstance();
             util.setCollidableObjects(this.root.getChildren());
-            fudge.Debug.log(this.levelObject);
             util.level = this.levelObject;
-            fudge.Debug.log("lebels set");
         }
     }
     Game.LevelGenerator = LevelGenerator;

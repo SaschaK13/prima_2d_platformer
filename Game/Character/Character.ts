@@ -68,9 +68,10 @@ namespace Game {
       this.collider = new Collider(this);
       this.hitbox = new Hitbox(nodeName + "_Hitbox", this, new fudge.Vector2 (this.cmpTransform.local.scaling.x/2,this.cmpTransform.local.scaling.y));
 
+      //Sprites
       this.textureImage = Util.getInstance().getTextureImageByName(nodeName);
-      if(this.textureImage.image)
-      {
+      
+      if (this.textureImage.image) {
         this.generateSprites();
         this.fillSpriteMap();
       }
@@ -182,7 +183,6 @@ namespace Game {
         this.appendChild(nodeSprite);
       }
     }
-
 
     public idle(): void {
       if (!this.isJumping) {

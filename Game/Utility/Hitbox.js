@@ -37,7 +37,6 @@ var Game;
                         detectedEnemys.push(enemy);
                     }
                     return detectedEnemys;
-                    fudge.Debug.log(detectedEnemys);
                 }
             }
         }

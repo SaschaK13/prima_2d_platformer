@@ -31,7 +31,7 @@ namespace Game {
     public getTextureImageByName(name: string): fudge.TextureImage {
       let img: HTMLImageElement = document.querySelector("#" + name);
       let texture: fudge.TextureImage = new fudge.TextureImage();
-      texture.image = img;
+      texture.image = img;     
       return texture;
     }
   }

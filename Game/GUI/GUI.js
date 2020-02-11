@@ -1,7 +1,6 @@
 "use strict";
 var Game;
 (function (Game) {
-    var fudge = FudgeCore;
     class Gui {
         constructor(initialWalkSpeed, initialJumpingPower, initialDamage, initialAttackSpeed) {
             this.initialHealth = 5;
@@ -11,10 +10,8 @@ var Game;
             this.initialAttackSpeed = initialAttackSpeed;
         }
         updateHealth(damageAndHeal) {
-            fudge.Debug.log("i am in ");
             this.initialHealth = this.initialHealth - damageAndHeal;
             document.getElementById("health").setAttribute("src", "../Game/Assets/herz" + this.initialHealth + ".png");
-            fudge.Debug.log(this.initialHealth);
         }
         updateWalkSpeed(speedFactor) {
             this.initialWalkSpeed = this.initialWalkSpeed + speedFactor;

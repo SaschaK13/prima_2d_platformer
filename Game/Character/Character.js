@@ -42,6 +42,7 @@ var Game;
             this.addComponent(this.cmpTrans);
             this.collider = new Game.Collider(this);
             this.hitbox = new Game.Hitbox(nodeName + "_Hitbox", this, new fudge.Vector2(this.cmpTransform.local.scaling.x / 2, this.cmpTransform.local.scaling.y));
+            //Sprites
             this.textureImage = Game.Util.getInstance().getTextureImageByName(nodeName);
             if (this.textureImage.image) {
                 this.generateSprites();

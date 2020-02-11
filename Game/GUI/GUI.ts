@@ -17,11 +17,9 @@ namespace Game {
       this.initialAttackSpeed = initialAttackSpeed;
     }
 
-    public updateHealth(damageAndHeal: number): void {
-      fudge.Debug.log("i am in ");
+    public updateHealth(damageAndHeal: number): void {      
       this.initialHealth = this.initialHealth - damageAndHeal;
-      document.getElementById("health").setAttribute("src", "../Game/Assets/herz" + this.initialHealth + ".png");
-      fudge.Debug.log(this.initialHealth);
+      document.getElementById("health").setAttribute("src", "../Game/Assets/herz" + this.initialHealth + ".png");      
     }
     
     public updateWalkSpeed(speedFactor: number): void {

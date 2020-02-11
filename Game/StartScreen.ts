@@ -11,13 +11,12 @@ namespace Game {
     newGame.addEventListener("click", start);
     loadGame.addEventListener("click", load);
 
-    function start(): void {
-      fudge.Debug.log("start");
+    function start(): void {      
       window.open("game.html");
     }
 
     function load(): void {
-      fudge.Debug.log("load");
+     
     }
   }
 }

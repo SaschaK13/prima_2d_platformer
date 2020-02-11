@@ -45,14 +45,8 @@ namespace Game {
       }
 
       let util = Util.getInstance();
-      util.setCollidableObjects(this.root.getChildren());
-      fudge.Debug.log(this.levelObject)
+      util.setCollidableObjects(this.root.getChildren());      
       util.level = this.levelObject
-      fudge.Debug.log("lebels set")
-
-
-    
-
     }
   }
 }
