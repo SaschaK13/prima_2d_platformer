@@ -33,11 +33,12 @@ var Game;
             else if (this.parentNode.constructor.name == "Player") {
                 for (var i = 0; i < Game.Util.getInstance().level.enemyArray.length; i++) {
                     let enemy = Game.Util.getInstance().level.enemyArray[i];
+                    fudge.Debug.log(enemy.name);
                     if (this.collideWith(enemy)) {
                         detectedEnemys.push(enemy);
                     }
-                    return detectedEnemys;
                 }
+                return detectedEnemys;
             }
         }
         collideWith(cObject) {

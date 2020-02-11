@@ -9,7 +9,6 @@ namespace Game {
     private currentDirection: DIRECTION;
     private static mesh: fudge.MeshQuad = new fudge.MeshQuad;
 
-
     constructor(nodeName: string, parentNode: Character, scaling: fudge.Vector2) {
       super(nodeName);
       this.parentNode = parentNode;
@@ -42,15 +41,14 @@ namespace Game {
 
         }
       } else if (this.parentNode.constructor.name == "Player") {
-
         for (var i = 0; i < Util.getInstance().level.enemyArray.length; i++) {
           let enemy = Util.getInstance().level.enemyArray[i];
+          fudge.Debug.log(enemy.name)
           if (this.collideWith(enemy)) {
             detectedEnemys.push(enemy)
           }
-          return detectedEnemys;
         }
-
+        return detectedEnemys;
       }
 
     }

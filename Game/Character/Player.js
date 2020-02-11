@@ -13,7 +13,6 @@ var Game;
             Game.Util.getInstance().gui.updateHealth(dmgTaken);
             super.takeDmg(dmgTaken);
         }
-        //Cooldown
         attack() {
             if (this.attackCooldown == 0) {
                 let detectedEnemys = this.hitbox.detectEnemys();

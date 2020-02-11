@@ -20,13 +20,11 @@ namespace Game {
       super.takeDmg(dmgTaken);
     }
 
-    //Cooldown
     attack(): void {
       if (this.attackCooldown == 0) {
         let detectedEnemys: Enemy[] = this.hitbox.detectEnemys() as Enemy[];
         for (var i = 0; i < detectedEnemys.length; i++) {
           detectedEnemys[i].takeDmg(this.getStats().dmg);   
-          fudge.Debug.log(detectedEnemys[i].getStats().hp);       
         }
         this.attackCooldown = this.getStats().attackspeed;
       }
