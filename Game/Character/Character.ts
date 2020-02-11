@@ -85,19 +85,25 @@ namespace Game {
       for(var i = 0; i < collisionObjects.length; i++)
       {
         let collisionObject = collisionObjects[i];
-        switch((collisionObject.object as Environment).type){
-          case EnvironmentType.PLATFORM: {
-            this.handlePlatformColission(collisionObject)
+       /* switch(collisionObject.collisionType){
+          case CollisionType.ENVIRONMENT: {
+            if((collisionObject.object as Environment).type == EnvironmentType.PLATFORM)
+            {
+              this.handlePlatformColission(collisionObject)
+            }
           }
-        }
+        }*/
+
+        this.handleSolidColision(collisionObject)
+
       }
 
     }
 
-    public handlePlatformColission(collidedObject: CollidedObject)
+    public handleSolidColision(collidedObject: CollidedObject)
     {
 
-      let collisionObject: Platform = collidedObject.object as Platform;
+      let collisionObject: fudge.Node = collidedObject.object as fudge.Node;
       let translation = this.cmpTransform.local.translation;
 
       switch(collidedObject.collisionDirecton){

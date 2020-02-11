@@ -2,6 +2,12 @@
 var Game;
 (function (Game) {
     var fudge = FudgeCore;
+    let CollisionType;
+    (function (CollisionType) {
+        CollisionType["ENVIRONMENT"] = "Platform";
+        CollisionType["CHARACTER"] = "Character";
+        CollisionType["MISSING"] = "Missing";
+    })(CollisionType = Game.CollisionType || (Game.CollisionType = {}));
     let CollisionDirection;
     (function (CollisionDirection) {
         CollisionDirection["RIGHT"] = "Right";
@@ -41,10 +47,22 @@ var Game;
                 this.isColliding = true;
                 let direction = this.getCollisionDirection(cObject);
                 fudge.Debug.log(direction);
-                this.collissionObjects.push({ object: cObject, collisionDirecton: direction });
+                let collisionType = this.getCollisionType(cObject);
+                this.collissionObjects.push({ object: cObject, collisionDirecton: direction, collisionType: collisionType });
             }
             else {
                 this.isColliding = false;
+            }
+        }
+        getCollisionType(colissionObject) {
+            if (colissionObject.constructor.name == "Platform") {
+                return CollisionType.ENVIRONMENT;
+            }
+            else if (colissionObject.constructor.name == "Enemy" || colissionObject.constructor.name == "Player") {
+                return CollisionType.CHARACTER;
+            }
+            else {
+                return CollisionType.MISSING;
             }
         }
         getCollisionDirection(colissionObject) {

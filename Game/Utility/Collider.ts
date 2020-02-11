@@ -5,8 +5,14 @@ import fudge = FudgeCore;
 export interface CollidedObject {
     object: fudge.Node;
     collisionDirecton: CollisionDirection
+    collisionType: CollisionType
 }
 
+export enum CollisionType{
+  ENVIRONMENT = "Platform", 
+  CHARACTER = "Character",
+  MISSING = "Missing"
+}
 export enum CollisionDirection {
   RIGHT = "Right",
   LEFT = "Left",
@@ -67,12 +73,30 @@ public getCollisionObjects(): CollidedObject[]
         this.isColliding = true;
         let direction = this.getCollisionDirection(cObject)
         fudge.Debug.log(direction)
-        this.collissionObjects.push({object: cObject , collisionDirecton: direction});
+        let collisionType = this.getCollisionType(cObject)
+        this.collissionObjects.push({object: cObject , collisionDirecton: direction, collisionType: collisionType});
       } else {
         this.isColliding = false;
 
       }
 
+
+}
+
+public getCollisionType(colissionObject: fudge.Node): CollisionType
+{
+  
+  
+  if(colissionObject.constructor.name == "Platform")
+  {
+    return CollisionType.ENVIRONMENT
+
+  }else if(colissionObject.constructor.name == "Enemy" || colissionObject.constructor.name == "Player"){
+    return CollisionType.CHARACTER
+  }else
+  {
+    return CollisionType.MISSING
+  }
 
 }
 

@@ -52,14 +52,18 @@ var Game;
             let collisionObjects = this.collider.getCollisionObjects();
             for (var i = 0; i < collisionObjects.length; i++) {
                 let collisionObject = collisionObjects[i];
-                switch (collisionObject.object.type) {
-                    case Game.EnvironmentType.PLATFORM: {
-                        this.handlePlatformColission(collisionObject);
-                    }
-                }
+                /* switch(collisionObject.collisionType){
+                   case CollisionType.ENVIRONMENT: {
+                     if((collisionObject.object as Environment).type == EnvironmentType.PLATFORM)
+                     {
+                       this.handlePlatformColission(collisionObject)
+                     }
+                   }
+                 }*/
+                this.handleSolidColision(collisionObject);
             }
         }
-        handlePlatformColission(collidedObject) {
+        handleSolidColision(collidedObject) {
             let collisionObject = collidedObject.object;
             let translation = this.cmpTransform.local.translation;
             switch (collidedObject.collisionDirecton) {
