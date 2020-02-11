@@ -6,11 +6,11 @@ namespace Game {
 
     private static instance: Util;
 
-    private collidableObjects: fudge.Node[];
-
     public player: Player;
 
     public level: Level;
+
+    private collidableObjects: fudge.Node[];
 
     constructor() {}
 

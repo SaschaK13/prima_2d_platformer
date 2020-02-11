@@ -13,6 +13,10 @@ var Game;
             this.generateLevel();
         }
         generateLevel() {
+            let value = this.level["player"];
+            let player = new Game.Player(value.name, value.positionX, value.positionY, value.scaleX, value.scaleY);
+            this.levelObject.player = player;
+            this.root.appendChild(player);
             let platformArray = this.level["platformArray"];
             for (var i = 0; i < platformArray.length; i++) {
                 let current = platformArray[i];
@@ -29,6 +33,7 @@ var Game;
             }
             let util = Game.Util.getInstance();
             util.setCollidableObjects(this.root.getChildren());
+            util.level.player = player;
             util.level.enemyArray = enemyArray;
             util.level.platformArray = platformArray;
         }

@@ -1,15 +1,13 @@
 {
+  "player": {"name": "player", "positionX": 0, "positionY": 2, "scaleX": 1, "scaleY": 1},
+
   "platformArray": [
     {"name": "Platform1", "type": "Platform", "positionX": 0, "positionY": 0, "scaleX": 5, "scaleY": 1},
     {"name": "Platform1", "type": "Platform", "positionX": 0, "positionY": 0, "scaleX": 5, "scaleY": 1}
-<<<<<<< Updated upstream
-    {"name": "Platform1", "type": "Platform", "positionX": 0, "positionY": 0, "scaleX": 5, "scaleY": 1}
-
-=======
   ],
+
   "enemyArray": [
     {"name": "Enemy1", "positionX": 2, "positionY": 3, "scaleX": 1, "scaleY": 1},
     {"name": "Enemy2", "positionX": -2, "positionY": 3, "scaleX": 1.5, "scaleY": 1.5}
->>>>>>> Stashed changes
   ]
 }

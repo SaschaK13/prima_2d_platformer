@@ -20,10 +20,10 @@ var Game;
         viewport.initialize("Viewport", root, cmpCamera, canvas);
         let material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(1, 0, 1, 1)));
         let material2 = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(1, 0, 0, 1)));
-        let player = new Game.Player("test");
-        player.addComponent(new fudge.ComponentMaterial(material));
-        player.cmpTransform.local.translateY(2);
-        collidableNode.appendChild(player);
+        // let player: Player = new Player("test");
+        // player.addComponent(new fudge.ComponentMaterial(material));
+        // player.cmpTransform.local.translateY(2);
+        // collidableNode.appendChild(player);
         // let enemy: Enemy = new Enemy("enemy");
         // enemy.addComponent(new fudge.ComponentMaterial(material2))
         // enemy.cmpTransform.local.translateY(2);
@@ -40,6 +40,7 @@ var Game;
             keysPressed[event.code] = (event.type == "keydown");
         }
         function processInput() {
+            let player = Game.Util.getInstance().player;
             if (keysPressed[fudge.KEYBOARD_CODE.SPACE]) {
                 player.jump();
                 return;

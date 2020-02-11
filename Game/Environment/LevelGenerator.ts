@@ -20,6 +20,12 @@ namespace Game {
     }
 
     public generateLevel(): void {
+
+      let value = this.level["player"];
+      let player: Player = new Player(value.name, value.positionX, value.positionY, value.scaleX, value.scaleY);
+      this.levelObject.player = player;
+      this.root.appendChild(player);
+
       let platformArray = this.level["platformArray"];
       for (var i: number = 0; i < platformArray.length; i++) {
         let current = platformArray[i];
@@ -38,6 +44,7 @@ namespace Game {
 
       let util = Util.getInstance();
       util.setCollidableObjects(this.root.getChildren());
+      util.level.player = player;
       util.level.enemyArray = enemyArray;
       util.level.platformArray = platformArray;
     }

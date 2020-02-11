@@ -3,6 +3,7 @@ namespace Game {
   
 
   export class Level { 
+    public player: Player;
     public platformArray: Platform[] = [];
     public enemyArray: Enemy[] = [];
   }
