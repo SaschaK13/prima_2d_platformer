@@ -6,7 +6,12 @@ namespace Game {
       super(nodeName);
     }
 
-    
+    attack()
+    {
+      
+
+
+    }
 
   }
 }

@@ -138,6 +138,8 @@ var Game;
             }
             //this.hitbox.positionHitbox(this)
         }
+        attack() {
+        }
         handleCharacterStates() {
         }
     }

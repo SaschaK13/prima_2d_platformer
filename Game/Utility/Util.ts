@@ -8,6 +8,10 @@ namespace Game {
 
     private collidableObjects: fudge.Node[];
 
+    public player: Player;
+
+    public enemyArray: Enemy[];
+
     constructor() {}
 
     public static getInstance(): Util {

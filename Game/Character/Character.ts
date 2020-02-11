@@ -198,6 +198,11 @@ namespace Game {
       //this.hitbox.positionHitbox(this)
     }
 
+    public attack() {
+      
+
+    }
+
     private handleCharacterStates() {
 
     }

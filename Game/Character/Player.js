@@ -5,6 +5,8 @@ var Game;
         constructor(nodeName) {
             super(nodeName);
         }
+        attack() {
+        }
     }
     Game.Player = Player;
 })(Game || (Game = {}));

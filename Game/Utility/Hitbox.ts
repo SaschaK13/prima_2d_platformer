@@ -31,8 +31,34 @@ export class Hitbox extends fudge.Node
     parentNode.appendChild(this)
   }
 
-  public detectHit()
+  public detectEnemys(): Character[]
   {
+    let x = this.cmpTransform.local.translation.x
+    let y = this.cmpTransform.local.translation.y
+    let width = this.cmpTransform.local.scaling.x
+    let height = this.cmpTransform.local.scaling.y
+    this.rectangle = new fudge.Rectangle(x,y,width,height,fudge.ORIGIN2D.CENTER)
+    let detectedEnemys: Character[] = []
+    if(this.parentNode.constructor.name == "Enemy"){
+      if(this.rectangle.isInside(Util.getInstance().player.cmpTransform.local.translation.toVector2()))
+      {
+        detectedEnemys.push(Util.getInstance().player):
+        return detectedEnemys:
+        
+      }
+    }else if(this.parentNode.constructor.name == "Player") {
+
+      for(var i = 0; i < Util.getInstance().enemyArray.length; i++)
+      {
+        let enemy = Util.getInstance().enemyArray[i];
+        if(this.rectangle.isInside(enemy.cmpTransform.local.translation.toVector2()))
+        {
+          detectedEnemys.push(enemy)
+        }
+      }
+
+      return detectedEnemys;
+    }
 
   }
 
