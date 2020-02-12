@@ -31,8 +31,7 @@ var Game;
             for (var i = 0; i < collisionObjects.length; i++) {
                 let collisionObject = collisionObjects[i];
                 switch (collisionObject.collisionType) {
-                    case Game.CollisionType.CHARACTER: {
-                        fudge.Debug.log("U took dmg");
+                    case Game.CollisionType.ENEMY: {
                         this.takeDmg(1);
                         super.handleSolidColision(collisionObject);
                     }

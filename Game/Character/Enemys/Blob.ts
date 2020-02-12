@@ -47,6 +47,34 @@ namespace Game {
       }
     }
 
+    public reactToCollison(): void {
+      let collisionObjects: CollidedObject[] = this.collider.getCollisionObjects(); 
+      fudge.Debug.log(this.name)
+      fudge.Debug.log(collisionObjects)
+
+      for (var i: number = 0; i < collisionObjects.length; i++) {
+        let collisionObject: CollidedObject = collisionObjects[i];
+        
+        switch (collisionObject.collisionType) {
+          case CollisionType.ENEMY: {
+          
+            break;
+          }
+
+          case CollisionType.ENVIRONMENT: {
+            this.handleSolidColision(collisionObject);
+            break;
+          }
+
+          case CollisionType.PLAYER: {
+           fudge.Debug.log( this.name + "Collided with palyer")
+           this.handleSolidColision(collisionObject)
+           break;
+          }
+        }
+      }
+    }
+
     private behavior = (_event: fudge.Eventƒ): void => {
       this.ki();
     }

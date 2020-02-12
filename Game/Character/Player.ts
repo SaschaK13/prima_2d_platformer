@@ -26,7 +26,7 @@ namespace Game {
 
     attack(): void {
       if (this.attackCooldown == 0) {
-        let detectedEnemys: Enemy[] = this.hitbox.detectEnemys() as Enemy[];
+        let detectedEnemys: Character[] = this.hitbox.detectEnemys() as Character[];
         for (var i: number = 0; i < detectedEnemys.length; i++) {
           detectedEnemys[i].takeDmg(this.getStats().dmg);   
         }
@@ -41,8 +41,7 @@ namespace Game {
         let collisionObject: CollidedObject = collisionObjects[i];
         
         switch (collisionObject.collisionType) {
-          case CollisionType.CHARACTER: {
-            fudge.Debug.log("U took dmg");
+          case CollisionType.ENEMY: {
             this.takeDmg(1);
             super.handleSolidColision(collisionObject);
           }
