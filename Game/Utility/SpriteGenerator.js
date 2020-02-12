@@ -105,12 +105,14 @@ var Game;
     }
     Game.NodeSprite = NodeSprite;
     let spriteNames = [
-        "player"
+        "player",
+        "goblin"
     ];
     let states = [
         "idle",
         "walk",
-        "jump"
+        "jump",
+        "attack"
     ];
     function loadSprites() {
         let textureImage;
@@ -124,6 +126,7 @@ var Game;
                 }
             }
             spritesMap.set(spriteNames[i], spriteArray);
+            fudge.Debug.log(spritesMap);
         }
         let util = Game.Util.getInstance();
         util.spritesMap = spritesMap;
@@ -135,17 +138,32 @@ var Game;
                 switch (stateName) {
                     case Game.CHARACTERSTATE.IDLE: {
                         let sprite = new Sprite(spriteName + "_" + stateName);
-                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(0, 0, 10, 10), 4, fudge.Vector2.ZERO(), 64, fudge.ORIGIN2D.BOTTOMCENTER);
+                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(20, 12, 32, 32), 15, new fudge.Vector2(32, 32), 32, fudge.ORIGIN2D.CENTER);
                         return sprite;
                     }
                     case Game.CHARACTERSTATE.WALK: {
                         let sprite = new Sprite(spriteName + "_" + stateName);
-                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(2, 104, 68, 64), 6, fudge.Vector2.ZERO(), 64, fudge.ORIGIN2D.CENTER);
+                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(36, 12, 35, 35), 6, new fudge.Vector2(60, 32), 32, fudge.ORIGIN2D.CENTER);
                         return sprite;
                     }
                     case Game.CHARACTERSTATE.JUMP: {
                         let sprite = new Sprite(spriteName + "_" + stateName);
-                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(204, 183, 45, 72), 4, fudge.Vector2.ZERO(), 64, fudge.ORIGIN2D.CENTER);
+                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(795, 2, 31, 35), 1, new fudge.Vector2(60, 32), 32, fudge.ORIGIN2D.CENTER);
+                        return sprite;
+                    }
+                    case Game.CHARACTERSTATE.ATTACK: {
+                        let sprite = new Sprite(spriteName + "_" + stateName);
+                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(630, 12, 45, 35), 3, new fudge.Vector2(90, 0), 32, fudge.ORIGIN2D.CENTER);
+                        return sprite;
+                    }
+                }
+            }
+            case "goblin": {
+                switch (stateName) {
+                    case Game.CHARACTERSTATE.IDLE: {
+                        let sprite = new Sprite(spriteName + "_" + stateName);
+                        fudge.Debug.log(sprite);
+                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(50, 60, 50, 50), 2, new fudge.Vector2(100, 0), 32, fudge.ORIGIN2D.CENTER);
                         return sprite;
                     }
                 }

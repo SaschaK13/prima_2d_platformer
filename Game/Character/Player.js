@@ -11,7 +11,7 @@ var Game;
              this.addComponent(new fudge.ComponentMaterial(material))*/
             this.cmpTransform.local.translation = new fudge.Vector3(positionX, positionY, 0);
             this.cmpTransform.local.scaling = new fudge.Vector3(scaleX, scaleY, 0);
-            super.fillSpriteMap();
+            super.addSpriteListener();
         }
         takeDmg(dmgTaken) {
             Game.Util.getInstance().gui.updateHealth(dmgTaken);
@@ -25,6 +25,8 @@ var Game;
                 }
                 this.attackCooldown = this.getStats().attackspeed;
             }
+            this.show(Game.CHARACTERSTATE.ATTACK);
+            // fudge.Debug.log("attack");
         }
     }
     Game.Player = Player;

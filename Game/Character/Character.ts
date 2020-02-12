@@ -5,7 +5,8 @@ namespace Game {
   export enum CHARACTERSTATE {
     IDLE = "idle",
     WALK = "walk",
-    JUMP = "jump"
+    JUMP = "jump",
+    ATTACK = "attack"
   }
 
   export enum DIRECTION {
@@ -44,6 +45,8 @@ namespace Game {
 
       private sprites: Sprite[];
       public spriteName: string;
+      private currentSpriteCooldown: number = 0;
+      private ANIMATION_COOLDOWN: number = 4;
 
       private state: CHARACTERSTATE;
       public direction: DIRECTION = DIRECTION.RIGHT;
@@ -144,7 +147,7 @@ namespace Game {
 
     public show(_characterstate: CHARACTERSTATE): void {
       for (let child of this.getChildren()) {
-        child.activate(child.name == (this.name + "_" + _characterstate));
+        child.activate(child.name == (this.spriteName + "_" + _characterstate));
       }
     }
 
@@ -192,32 +195,24 @@ namespace Game {
 
     }
 
-    public attack() {
+    public attack(): void {}
 
-
-    }
-
-    public die(){
-
-    }
+    public die(): void {}
 
     public takeDmg(dmgTaken: number) {
       if(this.HP > 0)
       {
         this.HP -= dmgTaken;
       }else{
-        //fudge.Debug.log("dead")
         this.die()
       }
     }
 
-    public fillSpriteMap(): void {
+    public addSpriteListener(): void {
       for (let key of Util.getInstance().spritesMap.get(this.spriteName).keys()) {
         let sprite: Sprite = Util.getInstance().spritesMap.get(this.spriteName).get(key);
         let nodeSprite: NodeSprite = new NodeSprite(sprite.name, sprite);
-        nodeSprite.activate(false);
-        fudge.Debug.log(nodeSprite);
-        
+        nodeSprite.activate(false);        
   
         nodeSprite.addEventListener(
           "showNext",
@@ -226,23 +221,28 @@ namespace Game {
         );
         this.appendChild(nodeSprite);
       }
-      fudge.Debug.log(this.name + " filled");
       this.show(CHARACTERSTATE.IDLE);
     }
 
-    public getStats(): characterStats
-    {
+    public getStats(): characterStats {
       return  {hp: this.HP, dmg: this.DMG, jump_height: this.JUMP_HEIGHT, walk_speed: this.WALK_SPEED, attackspeed: this.ATTACKSPEED}
     }
 
-
     private update = (_event: fudge.Eventƒ): void => {
-      this.broadcastEvent(new CustomEvent("showNext"))
+      this.updateSprites();
       this.collider.handleCollsion();
       this.handlePhysics();
-      if(this.attackCooldown != 0)
-      {
+      if (this.attackCooldown != 0) {
         this.attackCooldown -= 1;
+      }
+    }
+
+    private updateSprites(): void {
+      if (this.currentSpriteCooldown != 0) {
+        this.currentSpriteCooldown --;
+      } else {
+        this.broadcastEvent(new CustomEvent("showNext"));
+        this.currentSpriteCooldown = this.ANIMATION_COOLDOWN;
       }
     }
   }

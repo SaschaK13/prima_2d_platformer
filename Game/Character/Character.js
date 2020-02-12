@@ -7,6 +7,7 @@ var Game;
         CHARACTERSTATE["IDLE"] = "idle";
         CHARACTERSTATE["WALK"] = "walk";
         CHARACTERSTATE["JUMP"] = "jump";
+        CHARACTERSTATE["ATTACK"] = "attack";
     })(CHARACTERSTATE = Game.CHARACTERSTATE || (Game.CHARACTERSTATE = {}));
     let DIRECTION;
     (function (DIRECTION) {
@@ -24,10 +25,12 @@ var Game;
             this.attackCooldown = 0;
             this.gravity = -8;
             this.velocity = new fudge.Vector2(0, 0);
+            this.currentSpriteCooldown = 0;
+            this.ANIMATION_COOLDOWN = 4;
             this.direction = DIRECTION.RIGHT;
             this.isJumping = false;
             this.update = (_event) => {
-                this.broadcastEvent(new CustomEvent("showNext"));
+                this.updateSprites();
                 this.collider.handleCollsion();
                 this.handlePhysics();
                 if (this.attackCooldown != 0) {
@@ -103,7 +106,7 @@ var Game;
         }
         show(_characterstate) {
             for (let child of this.getChildren()) {
-                child.activate(child.name == (this.name + "_" + _characterstate));
+                child.activate(child.name == (this.spriteName + "_" + _characterstate));
             }
         }
         idle() {
@@ -138,33 +141,37 @@ var Game;
                 this.show(CHARACTERSTATE.WALK);
             }
         }
-        attack() {
-        }
-        die() {
-        }
+        attack() { }
+        die() { }
         takeDmg(dmgTaken) {
             if (this.HP > 0) {
                 this.HP -= dmgTaken;
             }
             else {
-                //fudge.Debug.log("dead")
                 this.die();
             }
         }
-        fillSpriteMap() {
+        addSpriteListener() {
             for (let key of Game.Util.getInstance().spritesMap.get(this.spriteName).keys()) {
                 let sprite = Game.Util.getInstance().spritesMap.get(this.spriteName).get(key);
                 let nodeSprite = new Game.NodeSprite(sprite.name, sprite);
                 nodeSprite.activate(false);
-                fudge.Debug.log(nodeSprite);
                 nodeSprite.addEventListener("showNext", (_event) => { _event.currentTarget.showFrameNext(); }, true);
                 this.appendChild(nodeSprite);
             }
-            fudge.Debug.log(this.name + " filled");
             this.show(CHARACTERSTATE.IDLE);
         }
         getStats() {
             return { hp: this.HP, dmg: this.DMG, jump_height: this.JUMP_HEIGHT, walk_speed: this.WALK_SPEED, attackspeed: this.ATTACKSPEED };
+        }
+        updateSprites() {
+            if (this.currentSpriteCooldown != 0) {
+                this.currentSpriteCooldown--;
+            }
+            else {
+                this.broadcastEvent(new CustomEvent("showNext"));
+                this.currentSpriteCooldown = this.ANIMATION_COOLDOWN;
+            }
         }
     }
     Game.Character = Character;
