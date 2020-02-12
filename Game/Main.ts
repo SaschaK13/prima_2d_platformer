@@ -35,9 +35,6 @@ namespace Game {
     let lvlGenerator: LevelGenerator = new LevelGenerator(collidableNode);
     lvlGenerator.getDataFromFile();
 
-    let item = new Item("test", {hp: 10, dmg: -5})
-
-    root.appendChild(item)
 
     document.addEventListener("keydown", handleKeyboard);
     document.addEventListener("keyup", handleKeyboard);

@@ -27,9 +27,13 @@ var Game;
             let enemyArray = this.data["enemyArray"];
             for (var i = 0; i < enemyArray.length; i++) {
                 let current = enemyArray[i];
-                let enemy = new Game.Enemy(current.name, current.spriteName, current.positionX, current.positionY, current.scaleX, current.scaleY);
-                this.root.appendChild(enemy);
-                this.levelObject.enemyArray.push(enemy);
+                switch (current.enemyType) {
+                    case Game.enemyType.BLOB: {
+                        let enemy = new Game.Blob(current.name, current.spriteName, current.positionX, current.positionY, current.scaleX, current.scaleY);
+                        this.root.appendChild(enemy);
+                        this.levelObject.enemyArray.push(enemy);
+                    }
+                }
             }
             let util = Game.Util.getInstance();
             util.level = this.levelObject;
