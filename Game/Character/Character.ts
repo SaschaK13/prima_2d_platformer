@@ -48,7 +48,7 @@ namespace Game {
       private state: CHARACTERSTATE;
       public direction: DIRECTION = DIRECTION.RIGHT;
 
-      private  collider: Collider;
+      public  collider: Collider;
       public hitbox: Hitbox;
 
       private isJumping: boolean = false;

@@ -1,3 +1,4 @@
+
 namespace Game {
 
   import fudge = FudgeCore;
@@ -34,6 +35,27 @@ namespace Game {
         this.attackCooldown = this.getStats().attackspeed;
       }
    
+    }
+
+    public reactToCollison(): void {
+      let collisionObjects: CollidedObject[] = this.collider.getCollisionObjects(); 
+
+      for(var i = 0; i < collisionObjects.length; i++)
+      {
+        let collisionObject = collisionObjects[i];
+        
+        switch(collisionObject.collisionType) {
+          case CollisionType.CHARACTER: {
+            this.takeDmg(1);
+            super.handleSolidColision(collisionObject)
+          }
+
+          case CollisionType.ENVIRONMENT: {
+            super.handleSolidColision(collisionObject)
+          }
+        }
+
+      }
     }
   }
 }
