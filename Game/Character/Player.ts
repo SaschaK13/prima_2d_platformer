@@ -38,17 +38,23 @@ namespace Game {
 
     public reactToCollison(): void {
       let collisionObjects: CollidedObject[] = this.collider.getCollisionObjects(); 
-
       for (var i: number = 0; i < collisionObjects.length; i++) {
         let collisionObject: CollidedObject = collisionObjects[i];
         
         switch (collisionObject.collisionType) {
           case CollisionType.ENEMY: {
-            this.takeDmg(1);
+            if(collisionObject.object.constructor.name == "Blob")
+            {
+              this.takeDmg(1);
+            }
             super.handleSolidColision(collisionObject);
           }
 
           case CollisionType.ENVIRONMENT: {
+            if(collisionObject.object.constructor.name == "Platform")
+            {
+              this.currentPlatform = collisionObject.object as Platform;
+            }
             super.handleSolidColision(collisionObject);
           }
         }

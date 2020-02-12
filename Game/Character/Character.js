@@ -34,6 +34,22 @@ var Game;
             this.attackAnimationCounter = 0;
             this.direction = DIRECTION.RIGHT;
             this.isJumping = false;
+            /*public getCurrentPlatform(): Platform {
+        
+              let collisionObjects = this.collider.getCollisionObjects();
+              for(var i = 0; i < collisionObjects.length; i++ )
+              {
+                let collisionObject: CollidedObject = collisionObjects[i];
+        
+                if(collisionObject.object.constructor.name == "Platform")
+                {
+                  return collisionObject.object as Platform;
+                }
+              }
+        
+              return null;
+            }
+            */
             this.update = (_event) => {
                 this.updateSprites();
                 this.collider.handleCollsion();
@@ -187,8 +203,8 @@ var Game;
         }
         setStat(stats) {
             this.HP = stats.hp;
-            this.DMG = stats.dmg;
             this.JUMP_HEIGHT = stats.jump_height;
+            this.DMG = stats.dmg;
             this.WALK_SPEED = stats.walk_speed;
         }
         updateSprites() {

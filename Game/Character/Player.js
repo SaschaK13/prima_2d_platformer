@@ -33,10 +33,15 @@ var Game;
                 let collisionObject = collisionObjects[i];
                 switch (collisionObject.collisionType) {
                     case Game.CollisionType.ENEMY: {
-                        this.takeDmg(1);
+                        if (collisionObject.object.constructor.name == "Blob") {
+                            this.takeDmg(1);
+                        }
                         super.handleSolidColision(collisionObject);
                     }
                     case Game.CollisionType.ENVIRONMENT: {
+                        if (collisionObject.object.constructor.name == "Platform") {
+                            this.currentPlatform = collisionObject.object;
+                        }
                         super.handleSolidColision(collisionObject);
                     }
                 }

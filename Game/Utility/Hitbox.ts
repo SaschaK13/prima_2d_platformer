@@ -18,7 +18,6 @@ namespace Game {
       this.addComponent(cmpMesh)
       this.addComponent(cmpTransform)
       this.currentDirection = DIRECTION.RIGHT
-
       this.cmpTransform.local.translation = parentNode.cmpTransform.local.translation;
       this.cmpTransform.local.scaling = this.scaling.toVector3()
       this.cmpTransform.local.translateX((parentNode.cmpTransform.local.scaling.x / 2) + (this.cmpTransform.local.scaling.x / 2))
@@ -34,7 +33,7 @@ namespace Game {
       this.rectangle = new fudge.Rectangle(x, y, width, height, fudge.ORIGIN2D.CENTER)
 
       let detectedEnemys: Character[] = []
-      if (this.constructor.name == "Blob") {
+      if (this.constructor.name == "Goblin") {
         if (this.collideWith(Util.getInstance().level.player)) {
           detectedEnemys.push(Util.getInstance().level.player);
           return detectedEnemys;

@@ -43,6 +43,9 @@ var Game;
                 case "Blob": {
                     return CollisionType.ENEMY;
                 }
+                case "Goblin": {
+                    return CollisionType.ENEMY;
+                }
                 case "Player": {
                     return CollisionType.PLAYER;
                 }

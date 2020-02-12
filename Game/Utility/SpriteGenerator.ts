@@ -203,6 +203,11 @@ namespace Game {
             sprite.generateByGrid(textureImage, fudge.Rectangle.GET(50, 60, 50, 50), 2, new fudge.Vector2(100, 0), 32, fudge.ORIGIN2D.CENTER);
             return sprite;
           }
+          case CHARACTERSTATE.WALK: { 
+            let sprite: Sprite = new Sprite(spriteName + "_" + stateName);
+            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(50, 60, 50, 50), 2, new fudge.Vector2(100, 0), 32, fudge.ORIGIN2D.CENTER);
+            return sprite;
+          }
         }
       }
       case "blob": {

@@ -63,7 +63,13 @@ public getCollisionType(colissionObject: fudge.Node): CollisionType {
       return CollisionType.ENVIRONMENT;
     }
 
-    case "Blob": {
+    case"Blob": {
+     
+      return CollisionType.ENEMY;
+    }
+
+    case"Goblin": {
+     
       return CollisionType.ENEMY;
     }
  

@@ -45,6 +45,12 @@ namespace Game {
             this.levelObject.enemyArray.push(enemy);
           } 
 
+          case "goblin": {
+            let enemy: Goblin = new Goblin(current.name, current.spriteName, current.positionX, current.positionY, current.scaleX, current.scaleX);
+            this.root.appendChild(enemy)
+            this.levelObject.enemyArray.push(enemy);
+          }
+
       }
     }
       let util = Util.getInstance();
