@@ -14,8 +14,8 @@ var Game;
             super.fillSpriteMap();
         }
         takeDmg(dmgTaken) {
-            Game.Util.getInstance().gui.updateHealth(dmgTaken);
             super.takeDmg(dmgTaken);
+            Game.Util.getInstance().gui.updateHealth(this);
         }
         attack() {
             if (this.attackCooldown == 0) {
@@ -32,6 +32,7 @@ var Game;
                 let collisionObject = collisionObjects[i];
                 switch (collisionObject.collisionType) {
                     case Game.CollisionType.CHARACTER: {
+                        fudge.Debug.log("U took dmg");
                         this.takeDmg(1);
                         super.handleSolidColision(collisionObject);
                     }

@@ -17,7 +17,7 @@ namespace Game {
   [type: string]: string;
   }
 
-  export interface characterStats {
+  export interface CharacterStats {
     hp?: number;
     dmg?: number;
     jump_height?: number
@@ -32,7 +32,10 @@ namespace Game {
       private DMG: number = 1;
       private HP: number = 5;
       private ATTACKSPEED: number = 100;
-      
+
+
+      private dmgCooldown = 50
+      public currentDmgCooldown = 0;
       public attackCooldown = 0;
 
       private gravity: number = -8;
@@ -202,13 +205,20 @@ namespace Game {
     }
 
     public takeDmg(dmgTaken: number) {
-      if(this.HP > 0)
+      if(this.currentDmgCooldown == 0)
       {
-        this.HP -= dmgTaken;
-      }else{
-        //fudge.Debug.log("dead")
-        this.die()
+        if(this.HP > 0)
+        {
+          if((this.HP - dmgTaken) >= 0)
+          {
+            this.HP -= dmgTaken;
+          }
+        }else{
+          this.die()
+        }
+        this.currentDmgCooldown = this.dmgCooldown
       }
+
     }
 
     public fillSpriteMap(): void {
@@ -234,7 +244,7 @@ namespace Game {
       return  {hp: this.HP, dmg: this.DMG, jump_height: this.JUMP_HEIGHT, walk_speed: this.WALK_SPEED, attackspeed: this.ATTACKSPEED}
     }
 
-    public setStat(stats: characterStats)
+    public setStat(stats: CharacterStats)
     {
       this.HP = stats.hp
       this.DMG = stats.dmg
@@ -250,6 +260,9 @@ namespace Game {
       this.handlePhysics();
       if (this.attackCooldown != 0) {
         this.attackCooldown -= 1;
+      }
+      if (this.currentDmgCooldown != 0) {
+        this.currentDmgCooldown -= 1;
       }
     }
   }

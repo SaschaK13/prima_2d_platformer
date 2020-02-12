@@ -21,9 +21,9 @@ namespace Game {
 
     }
 
-    takeDmg(dmgTaken: number): void {
-      Util.getInstance().gui.updateHealth(dmgTaken);
+    takeDmg(dmgTaken: number): void {      
       super.takeDmg(dmgTaken);
+      Util.getInstance().gui.updateHealth(this);
     }
 
     attack(): void {
@@ -46,6 +46,7 @@ namespace Game {
         
         switch(collisionObject.collisionType) {
           case CollisionType.CHARACTER: {
+            fudge.Debug.log("U took dmg");
             this.takeDmg(1);
             super.handleSolidColision(collisionObject)
           }

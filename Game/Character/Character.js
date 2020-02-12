@@ -21,6 +21,8 @@ var Game;
             this.DMG = 1;
             this.HP = 5;
             this.ATTACKSPEED = 100;
+            this.dmgCooldown = 50;
+            this.currentDmgCooldown = 0;
             this.attackCooldown = 0;
             this.gravity = -8;
             this.velocity = new fudge.Vector2(0, 0);
@@ -32,6 +34,9 @@ var Game;
                 this.handlePhysics();
                 if (this.attackCooldown != 0) {
                     this.attackCooldown -= 1;
+                }
+                if (this.currentDmgCooldown != 0) {
+                    this.currentDmgCooldown -= 1;
                 }
             };
             this.mesh = new fudge.MeshQuad();
@@ -143,12 +148,16 @@ var Game;
         die() {
         }
         takeDmg(dmgTaken) {
-            if (this.HP > 0) {
-                this.HP -= dmgTaken;
-            }
-            else {
-                //fudge.Debug.log("dead")
-                this.die();
+            if (this.currentDmgCooldown == 0) {
+                if (this.HP > 0) {
+                    if ((this.HP - dmgTaken) >= 0) {
+                        this.HP -= dmgTaken;
+                    }
+                }
+                else {
+                    this.die();
+                }
+                this.currentDmgCooldown = this.dmgCooldown;
             }
         }
         fillSpriteMap() {

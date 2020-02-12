@@ -24,7 +24,7 @@ var Game;
         Game.Util.getInstance().gui = gui;
         let lvlGenerator = new Game.LevelGenerator(collidableNode);
         lvlGenerator.getDataFromFile();
-        let item = new Game.Item("test", { hp: 10 });
+        let item = new Game.Item("test", { hp: 10, dmg: -5 });
         root.appendChild(item);
         document.addEventListener("keydown", handleKeyboard);
         document.addEventListener("keyup", handleKeyboard);

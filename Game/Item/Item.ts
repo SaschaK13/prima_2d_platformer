@@ -6,9 +6,9 @@ namespace Game {
 
     private static mesh: fudge.MeshQuad = new fudge.MeshQuad;
 
-    private stats: characterStats
+    private stats: CharacterStats
 
-    constructor(nodeName: string, stats: characterStats) {
+    constructor(nodeName: string, stats: CharacterStats) {
       super(nodeName)
       let material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(1,0,1,1)))
       this.addComponent(new fudge.ComponentMaterial(material))
