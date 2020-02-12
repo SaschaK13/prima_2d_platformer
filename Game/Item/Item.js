@@ -14,6 +14,9 @@ var Game;
             this.cmpTransform.local.translateY(+1.5);
             this.stats = stats;
         }
+        getStats() {
+            return this.stats;
+        }
     }
     Item.mesh = new fudge.MeshQuad;
     Game.Item = Item;

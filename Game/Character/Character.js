@@ -16,15 +16,15 @@ var Game;
     class Character extends fudge.Node {
         constructor(nodeName) {
             super(nodeName);
+            this.attackCooldown = 0;
+            this.direction = DIRECTION.RIGHT;
             this.JUMP_HEIGHT = 6;
             this.WALK_SPEED = 2;
             this.DMG = 1;
             this.HP = 5;
             this.ATTACKSPEED = 100;
-            this.attackCooldown = 0;
             this.gravity = -8;
             this.velocity = new fudge.Vector2(0, 0);
-            this.direction = DIRECTION.RIGHT;
             this.isJumping = false;
             this.update = (_event) => {
                 this.broadcastEvent(new CustomEvent("showNext"));
@@ -138,10 +138,8 @@ var Game;
                 this.show(CHARACTERSTATE.WALK);
             }
         }
-        attack() {
-        }
-        die() {
-        }
+        attack() { }
+        die() { }
         takeDmg(dmgTaken) {
             if (this.HP > 0) {
                 this.HP -= dmgTaken;
@@ -166,11 +164,18 @@ var Game;
         getStats() {
             return { hp: this.HP, dmg: this.DMG, jump_height: this.JUMP_HEIGHT, walk_speed: this.WALK_SPEED, attackspeed: this.ATTACKSPEED };
         }
-        setStat(stats) {
+        setStats(stats) {
             this.HP = stats.hp;
             this.DMG = stats.dmg;
             this.JUMP_HEIGHT = stats.jump_height;
             this.WALK_SPEED = stats.walk_speed;
+        }
+        updateStats(stats) {
+            this.JUMP_HEIGHT += stats.jump_height;
+            this.WALK_SPEED += stats.walk_speed;
+            this.DMG += stats.dmg;
+            this.HP += stats.hp;
+            this.ATTACKSPEED += stats.attackspeed;
         }
     }
     Game.Character = Character;

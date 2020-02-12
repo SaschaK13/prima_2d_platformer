@@ -46,6 +46,7 @@ namespace Game {
 
       let util = Util.getInstance();
       util.level = this.levelObject
+      
     }
   }
 }

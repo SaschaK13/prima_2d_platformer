@@ -34,9 +34,20 @@ var Game;
                     case Game.CollisionType.CHARACTER: {
                         this.takeDmg(1);
                         super.handleSolidColision(collisionObject);
+                        break;
                     }
                     case Game.CollisionType.ENVIRONMENT: {
                         super.handleSolidColision(collisionObject);
+                        break;
+                    }
+                    case Game.CollisionType.ITEM: {
+                        fudge.Debug.log("I collide");
+                        let item = collisionObject.object;
+                        fudge.Debug.log(this);
+                        this.updateStats(item.getStats());
+                        Game.Util.getInstance().level.deleteItem(item);
+                        this.getParent().removeChild(item);
+                        break;
                     }
                 }
             }
