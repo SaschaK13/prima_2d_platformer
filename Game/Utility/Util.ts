@@ -20,12 +20,15 @@ namespace Game {
       return Util.instance;
     }
     
-
     public getTextureImageBy(name: string, state: string): fudge.TextureImage {
       let img: HTMLImageElement = document.querySelector("#" + name + "_" + state);
       let texture: fudge.TextureImage = new fudge.TextureImage();
       texture.image = img;     
       return texture;
+    }
+
+    public getRandomRange(min: number , max: number): number {
+      return Math.floor(Math.random() * (max - min) + min)
     }
   }
 }

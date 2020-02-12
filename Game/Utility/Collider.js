@@ -56,7 +56,7 @@ var Game;
             if (colissionObject.constructor.name == "Platform") {
                 return CollisionType.ENVIRONMENT;
             }
-            else if (colissionObject.constructor.name == "Enemy" || colissionObject.constructor.name == "Player") {
+            else if (colissionObject.constructor.name == "Blob" || colissionObject.constructor.name == "Player") {
                 return CollisionType.CHARACTER;
             }
             else {

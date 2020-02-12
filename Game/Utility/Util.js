@@ -16,6 +16,9 @@ var Game;
             texture.image = img;
             return texture;
         }
+        getRandomRange(min, max) {
+            return Math.floor(Math.random() * (max - min) + min);
+        }
     }
     Game.Util = Util;
 })(Game || (Game = {}));

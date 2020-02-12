@@ -15,11 +15,11 @@ namespace Game {
   function test(): void {
     let canvas: HTMLCanvasElement = document.querySelector("canvas");
     fudge.RenderManager.initialize(true, false);
+    
     root = new fudge.Node("Root");
     collidableNode = new fudge.Node("collidable");
     root.appendChild(collidableNode);
 
-    loadSprites();
     //fudge.Debug.log(Util.getInstance().spritesMap);
 
     let cmpCamera: fudge.ComponentCamera = new fudge.ComponentCamera();
@@ -29,16 +29,11 @@ namespace Game {
     let viewport: fudge.Viewport = new fudge.Viewport();
     viewport.initialize("Viewport", root, cmpCamera, canvas);
 
-    let gui: Gui = new Gui(1, 1, 1, 1);
-    Util.getInstance().gui = gui;
+   
 
-    let lvlGenerator: LevelGenerator = new LevelGenerator(collidableNode);
-    lvlGenerator.getDataFromFile();
 
-    let item = new Item("test", {hp: 10, dmg: -5})
-
-    root.appendChild(item)
-
+    loadGame()
+   
     document.addEventListener("keydown", handleKeyboard);
     document.addEventListener("keyup", handleKeyboard);
 
@@ -79,6 +74,19 @@ namespace Game {
       processInput();
       viewport.draw();
       //fudge.RenderManager.update()
+    }
+
+
+    function loadGame()
+    {
+ 
+      loadSprites();
+
+      let gui: Gui = new Gui(1, 1, 1, 1);
+      Util.getInstance().gui = gui;
+
+      let lvlGenerator: LevelGenerator = new LevelGenerator(collidableNode);
+      lvlGenerator.getDataFromFile();
     }
   }
 }

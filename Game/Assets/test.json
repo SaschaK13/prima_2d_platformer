@@ -2,12 +2,11 @@
   "player": {"name": "player", "spriteName": "player", "positionX": 0, "positionY": 2, "scaleX": 1, "scaleY": 1},
 
   "platformArray": [
-    {"name": "Platform1", "spriteName": "player", "type": "Platform", "positionX": 0, "positionY": 0, "scaleX": 5, "scaleY": 1},
-    {"name": "Platform1", "spriteName": "player", "type": "Platform", "positionX": 0, "positionY": 0, "scaleX": 5, "scaleY": 1}
+    {"name": "Platform1", "spriteName": "player", "type": "Platform", "positionX": 0, "positionY": 0, "scaleX": 20, "scaleY": 1}
   ],
 
   "enemyArray": [
-    {"name": "enemy1", "spriteName": "goblin", "positionX": 1, "positionY": 3, "scaleX": 1, "scaleY": 1},
-    {"name": "Enemy2", "spriteName": "goblin", "positionX": -2, "positionY": 3, "scaleX": 1.5, "scaleY": 1.5}
+    {"name": "Enemy1", "spriteName": "blob",  "positionX": 1, "positionY": 3, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy2", "spriteName": "blob",  "positionX": -2, "positionY": 3, "scaleX": 1, "scaleY": 1}
   ]
 }
