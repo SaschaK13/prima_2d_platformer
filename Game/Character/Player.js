@@ -25,8 +25,6 @@ var Game;
                 }
                 this.attackCooldown = this.getStats().attackspeed;
             }
-            this.show(Game.CHARACTERSTATE.ATTACK);
-            // fudge.Debug.log("attack");
         }
         reactToCollison() {
             let collisionObjects = this.collider.getCollisionObjects();

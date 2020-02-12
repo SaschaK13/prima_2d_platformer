@@ -4,6 +4,7 @@ var Game;
     var fudge = FudgeCore;
     let CHARACTERSTATE;
     (function (CHARACTERSTATE) {
+        CHARACTERSTATE["DEFAULT"] = "default";
         CHARACTERSTATE["IDLE"] = "idle";
         CHARACTERSTATE["WALK"] = "walk";
         CHARACTERSTATE["JUMP"] = "jump";

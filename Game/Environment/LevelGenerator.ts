@@ -29,7 +29,7 @@ namespace Game {
       let platformArray = this.data["platformArray"];
       for (var i: number = 0; i < platformArray.length; i++) {
         let current = platformArray[i];
-        let platform: Platform = new Platform(current.name, current.type, current.positionX, current.positionY, current.scaleX, current.scaleY);
+        let platform: Platform = new Platform(current.name, current.type, current.spriteName, current.positionX, current.positionY, current.scaleX, current.scaleY);
         this.root.appendChild(platform);
         this.levelObject.platformArray.push(platform);
 

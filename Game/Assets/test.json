@@ -2,12 +2,13 @@
   "player": {"name": "player", "spriteName": "player", "positionX": 0, "positionY": 2, "scaleX": 1, "scaleY": 1},
 
   "platformArray": [
-    {"name": "Platform1", "spriteName": "player", "type": "Platform", "positionX": 0, "positionY": 0, "scaleX": 5, "scaleY": 1},
-    {"name": "Platform1", "spriteName": "player", "type": "Platform", "positionX": 0, "positionY": 0, "scaleX": 5, "scaleY": 1}
+    {"name": "platform1", "type": "Platform", "spriteName": "dirt", "positionX": 0, "positionY": 0, "scaleX": 1, "scaleY": 1},
+    {"name": "platform2", "type": "Platform", "spriteName": "dirt", "positionX": 4, "positionY": 0, "scaleX": 2, "scaleY": 1},
+    {"name": "platform3", "type": "Platform", "spriteName": "stone", "positionX": -4, "positionY": 0, "scaleX": 1, "scaleY": 1}
   ],
 
   "enemyArray": [
-    {"name": "enemy1", "spriteName": "goblin", "positionX": 1, "positionY": 3, "scaleX": 1, "scaleY": 1},
-    {"name": "Enemy2", "spriteName": "goblin", "positionX": -2, "positionY": 3, "scaleX": 1.5, "scaleY": 1.5}
+    {"name": "enemy1", "spriteName": "goblin", "positionX": 4, "positionY": 1, "scaleX": 0.5, "scaleY": 0.5},
+    {"name": "enemy2", "spriteName": "goblin", "positionX": -4, "positionY": 1, "scaleX": 0.5, "scaleY": 0.5}
   ]
 }
