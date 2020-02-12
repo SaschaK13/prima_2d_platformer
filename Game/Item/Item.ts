@@ -24,5 +24,9 @@ namespace Game {
       this.stats = stats;
     }
 
+    public getStats(): CharacterStats {
+      return this.stats;
+    }
+
   }
 }

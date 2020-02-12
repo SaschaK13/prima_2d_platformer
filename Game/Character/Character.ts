@@ -20,14 +20,23 @@ namespace Game {
   }
 
   export interface CharacterStats {
-    hp?: number;
-    dmg?: number;
-    jump_height?: number
-    walk_speed?: number
-    attackspeed?: number
+    hp: number;
+    dmg: number;
+    jump_height: number;
+    walk_speed: number;
+    attackspeed: number;
   }
 
   export class Character extends fudge.Node {
+      
+      public attackCooldown = 0;
+      public spriteName: string;
+      public direction: DIRECTION = DIRECTION.RIGHT;
+
+      public  collider: Collider;
+      public hitbox: Hitbox;
+
+      public oldTransform: fudge.Vector3;
 
     private JUMP_HEIGHT: number = 6;
     private WALK_SPEED: number = 2;
@@ -65,7 +74,6 @@ namespace Game {
     scaleX: number;
     positionY: number;
 
-
     constructor(nodeName: string) {
       super(nodeName);
       this.mesh = new fudge.MeshQuad();
@@ -102,15 +110,15 @@ namespace Game {
 
       for (var i: number = 0; i < collisionObjects.length; i++) {
         let collisionObject = collisionObjects[i];
-        this.handleSolidColision(collisionObject)
+        this.handleSolidColision(collisionObject);
 
       }
     }
 
-    public handleSolidColision(collidedObject: CollidedObject) {
+    public handleSolidColision(collidedObject: CollidedObject): void {
 
       let collisionObject: fudge.Node = collidedObject.object as fudge.Node;
-      let translation = this.cmpTransform.local.translation;
+      let translation: fudge.Vector3 = this.cmpTransform.local.translation;
       switch (collidedObject.collisionDirecton) {
         case CollisionDirection.BOTTOM: {
           let newYPosition: number = collisionObject.cmpTransform.local.translation.y + (collisionObject.cmpTransform.local.scaling.y / 2) + (this.cmpTransform.local.scaling.y / 2);
@@ -185,8 +193,7 @@ namespace Game {
       }
 
       if (!this.isJumping) {
-        this.show(CHARACTERSTATE.WALK)
-
+        this.show(CHARACTERSTATE.WALK);
       }
 
     }
@@ -230,12 +237,20 @@ namespace Game {
       return { hp: this.HP, dmg: this.DMG, jump_height: this.JUMP_HEIGHT, walk_speed: this.WALK_SPEED, attackspeed: this.ATTACKSPEED }
     }
 
-    public setStat(stats: CharacterStats) {
+    public setStats(stats: CharacterStats)
+    {
       this.HP = stats.hp
       this.DMG = stats.dmg
       this.JUMP_HEIGHT = stats.jump_height
       this.WALK_SPEED = stats.walk_speed
+    }
 
+    public updateStats(stats: CharacterStats): void {
+      this.JUMP_HEIGHT += stats.jump_height;
+      this.WALK_SPEED += stats.walk_speed;
+      this.DMG += stats.dmg;
+      this.HP += stats.hp;
+      this.ATTACKSPEED += stats.attackspeed;
     }
 
     private update = (_event: fudge.Eventƒ): void => {

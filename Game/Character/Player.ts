@@ -44,11 +44,23 @@ namespace Game {
           case CollisionType.CHARACTER: {
             fudge.Debug.log("U took dmg");
             this.takeDmg(1);
-            super.handleSolidColision(collisionObject);
+            super.handleSolidColision(collisionObject)
+            break;
           }
 
           case CollisionType.ENVIRONMENT: {
-            super.handleSolidColision(collisionObject);
+            super.handleSolidColision(collisionObject)
+            break;
+          }
+
+          case CollisionType.ITEM: {
+            fudge.Debug.log("I collide");
+            let item = collisionObject.object as Item;
+            fudge.Debug.log(this);
+            this.updateStats(item.getStats());
+            Util.getInstance().level.deleteItem(item);
+            this.getParent().removeChild(item)
+            break;
           }
         }
       }
