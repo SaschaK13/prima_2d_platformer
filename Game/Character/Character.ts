@@ -14,7 +14,7 @@ namespace Game {
   }
 
   export interface SpriteName {
-  [type: string]: string;
+    [type: string]: string;
   }
 
   export interface CharacterStats {
@@ -27,49 +27,52 @@ namespace Game {
 
   export class Character extends fudge.Node {
 
-      private JUMP_HEIGHT: number = 6;
-      private WALK_SPEED: number = 2;
-      private DMG: number = 1;
-      private HP: number = 5;
-      private ATTACKSPEED: number = 100;
+    private JUMP_HEIGHT: number = 6;
+    private WALK_SPEED: number = 2;
+    private DMG: number = 1;
+    private HP: number = 5;
+    private ATTACKSPEED: number = 100;
 
 
-      private dmgCooldown = 50
-      public currentDmgCooldown = 0;
-      public attackCooldown = 0;
+    private dmgCooldown = 50
+    public currentDmgCooldown = 0;
+    public attackCooldown = 0;
 
-      private gravity: number = -8;
-      private velocity: fudge.Vector2 = new fudge.Vector2(0, 0);
+    private gravity: number = -8;
+    private velocity: fudge.Vector2 = new fudge.Vector2(0, 0);
 
-      private mesh: fudge.MeshQuad;
-      private cmpTrans: fudge.ComponentTransform;
-      private cmpMesh: fudge.ComponentMesh;
+    private mesh: fudge.MeshQuad;
+    private cmpTrans: fudge.ComponentTransform;
+    private cmpMesh: fudge.ComponentMesh;
 
-      private sprites: Sprite[];
-      public spriteName: string;
+    private sprites: Sprite[];
+    public spriteName: string;
 
-      private state: CHARACTERSTATE;
-      public direction: DIRECTION = DIRECTION.RIGHT;
+    private state: CHARACTERSTATE;
+    public direction: DIRECTION = DIRECTION.RIGHT;
 
-      public  collider: Collider;
-      public hitbox: Hitbox;
+    public collider: Collider;
+    public hitbox: Hitbox;
 
-      private isJumping: boolean = false;
+    private isJumping: boolean = false;
 
-      public oldTransform: fudge.Vector3;
+    public oldTransform: fudge.Vector3;
+    positionX: number;
+    scaleX: number;
+    positionY: number;
+
 
     constructor(nodeName: string) {
       super(nodeName);
       this.mesh = new fudge.MeshQuad();
-      this.cmpMesh  = new fudge.ComponentMesh(this.mesh);
+      this.cmpMesh = new fudge.ComponentMesh(this.mesh);
       this.addComponent(this.cmpMesh);
 
       this.cmpTrans = new fudge.ComponentTransform();
       this.addComponent(this.cmpTrans);
 
       this.collider = new Collider(this);
-      this.hitbox = new Hitbox(nodeName + "_Hitbox", this, new fudge.Vector2 (this.cmpTransform.local.scaling.x/2,this.cmpTransform.local.scaling.y));
-     
+      this.hitbox = new Hitbox(nodeName + "_Hitbox", this, new fudge.Vector2(this.cmpTransform.local.scaling.x / 2, this.cmpTransform.local.scaling.y));
 
       // this.show(CHARACTERSTATE.IDLE);
       fudge.Loop.addEventListener(fudge.EVENT.LOOP_FRAME, this.update);
@@ -84,25 +87,23 @@ namespace Game {
       this.oldTransform = this.cmpTransform.local.translation;
       let timeFrame: number = fudge.Loop.timeFrameGame / 1000;
       this.velocity.y += this.gravity * timeFrame;
-      
+
       //ad velocity to position
       this.cmpTransform.local.translateY(this.velocity.y * timeFrame);
       this.cmpTransform.local.translateX(this.velocity.x * timeFrame);
     }
 
     public reactToCollison(): void {
-      let collisionObjects: CollidedObject[] = this.collider.getCollisionObjects(); 
+      let collisionObjects: CollidedObject[] = this.collider.getCollisionObjects();
 
-      for(var i: number = 0; i < collisionObjects.length; i++)
-      {
+      for (var i: number = 0; i < collisionObjects.length; i++) {
         let collisionObject = collisionObjects[i];
         this.handleSolidColision(collisionObject)
 
       }
     }
 
-    public handleSolidColision(collidedObject: CollidedObject)
-    {
+    public handleSolidColision(collidedObject: CollidedObject) {
 
       let collisionObject: fudge.Node = collidedObject.object as fudge.Node;
       let translation = this.cmpTransform.local.translation;
@@ -117,7 +118,7 @@ namespace Game {
         }
 
         case CollisionDirection.TOP: {
-          let newYPosition: number = collisionObject.cmpTransform.local.translation.y - (collisionObject.cmpTransform.local.scaling.y / 2) - (this.cmpTransform.local.scaling.y/2);
+          let newYPosition: number = collisionObject.cmpTransform.local.translation.y - (collisionObject.cmpTransform.local.scaling.y / 2) - (this.cmpTransform.local.scaling.y / 2);
           translation.y = newYPosition;
           this.cmpTransform.local.translation = translation;
           this.velocity.y = 0;
@@ -125,7 +126,7 @@ namespace Game {
         }
 
         case CollisionDirection.LEFT: {
-          let newXPosition: number = collisionObject.cmpTransform.local.translation.x + (collisionObject.cmpTransform.local.scaling.x / 2) + (this.cmpTransform.local.scaling.x/2);
+          let newXPosition: number = collisionObject.cmpTransform.local.translation.x + (collisionObject.cmpTransform.local.scaling.x / 2) + (this.cmpTransform.local.scaling.x / 2);
           translation.x = newXPosition;
           this.cmpTransform.local.translation = translation;
           this.velocity.x = 0;
@@ -133,7 +134,7 @@ namespace Game {
         }
 
         case CollisionDirection.RIGHT: {
-          let newXPosition: number = collisionObject.cmpTransform.local.translation.x - (collisionObject.cmpTransform.local.scaling.x / 2) - (this.cmpTransform.local.scaling.x/2);
+          let newXPosition: number = collisionObject.cmpTransform.local.translation.x - (collisionObject.cmpTransform.local.scaling.x / 2) - (this.cmpTransform.local.scaling.x / 2);
           translation.x = newXPosition;
           this.cmpTransform.local.translation = translation;
           this.velocity.x = 0;
@@ -165,27 +166,21 @@ namespace Game {
     public walk(direction: DIRECTION) {
       let timeFrame = fudge.Loop.timeFrameGame / 1000;
 
-
-      if(direction == DIRECTION.RIGHT)
-      {
+      if (direction == DIRECTION.RIGHT) {
         this.cmpTransform.local.translateX(this.WALK_SPEED * timeFrame)
-        if(this.direction != direction)
-        {
+        if (this.direction != direction) {
           this.cmpTransform.local.rotation = fudge.Vector3.Y(0)
         }
         this.direction = direction;
-      }else
-      {
+      } else {
         this.cmpTransform.local.translateX(-(this.WALK_SPEED * timeFrame))
-        if(this.direction != direction)
-        {
+        if (this.direction != direction) {
           this.cmpTransform.local.rotation = fudge.Vector3.Y(180)
         }
         this.direction = direction;
       }
 
-      if(!this.isJumping)
-      {
+      if (!this.isJumping) {
         this.show(CHARACTERSTATE.WALK)
 
       }
@@ -197,20 +192,17 @@ namespace Game {
 
     }
 
-    public die(){
+    public die() {
 
     }
 
     public takeDmg(dmgTaken: number) {
-      if(this.currentDmgCooldown == 0)
-      {
-        if(this.HP > 0)
-        {
-          if((this.HP - dmgTaken) >= 0)
-          {
+      if (this.currentDmgCooldown == 0) {
+        if (this.HP > 0) {
+          if ((this.HP - dmgTaken) >= 0) {
             this.HP -= dmgTaken;
           }
-        }else{
+        } else {
           this.die()
         }
         this.currentDmgCooldown = this.dmgCooldown
@@ -224,8 +216,8 @@ namespace Game {
         let nodeSprite: NodeSprite = new NodeSprite(sprite.name, sprite);
         nodeSprite.activate(false);
         fudge.Debug.log(nodeSprite);
-        
-  
+
+
         nodeSprite.addEventListener(
           "showNext",
           (_event: Event) => { (<NodeSprite>_event.currentTarget).showFrameNext(); },
@@ -238,11 +230,10 @@ namespace Game {
     }
 
     public getStats(): CharacterStats {
-      return  {hp: this.HP, dmg: this.DMG, jump_height: this.JUMP_HEIGHT, walk_speed: this.WALK_SPEED, attackspeed: this.ATTACKSPEED}
+      return { hp: this.HP, dmg: this.DMG, jump_height: this.JUMP_HEIGHT, walk_speed: this.WALK_SPEED, attackspeed: this.ATTACKSPEED }
     }
 
-    public setStat(stats: CharacterStats)
-    {
+    public setStat(stats: CharacterStats) {
       this.HP = stats.hp
       this.DMG = stats.dmg
       this.JUMP_HEIGHT = stats.jump_height
@@ -250,17 +241,22 @@ namespace Game {
 
     }
 
+    // tslint:disable-next-line: typedef
+    public setBehavior(f: any): void {
+    this.behavior = f;
+     }
+
 
     private update = (_event: fudge.Eventƒ): void => {
-      this.broadcastEvent(new CustomEvent("showNext"));
-      this.collider.handleCollsion();
-      this.handlePhysics();
-      if (this.attackCooldown != 0) {
-        this.attackCooldown -= 1;
-      }
-      if (this.currentDmgCooldown != 0) {
-        this.currentDmgCooldown -= 1;
-      }
+    this.broadcastEvent(new CustomEvent("showNext"));
+    this.collider.handleCollsion();
+    this.handlePhysics();
+    if (this.attackCooldown != 0) {
+      this.attackCooldown -= 1;
+    }
+    if (this.currentDmgCooldown != 0) {
+      this.currentDmgCooldown -= 1;
     }
   }
+}
 }

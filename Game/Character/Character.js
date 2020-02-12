@@ -178,6 +178,10 @@ var Game;
             this.JUMP_HEIGHT = stats.jump_height;
             this.WALK_SPEED = stats.walk_speed;
         }
+        // tslint:disable-next-line: typedef
+        setBehavior(f) {
+            this.behavior = f;
+        }
     }
     Game.Character = Character;
 })(Game || (Game = {}));

@@ -82,12 +82,10 @@ public getCollisionObjects(): CollidedObject[]
 
 }
 
-public getCollisionType(colissionObject: fudge.Node): CollisionType
-{
+public getCollisionType(colissionObject: fudge.Node): CollisionType {
   
   
-  if(colissionObject.constructor.name == "Platform")
-  {
+  if(colissionObject.constructor.name == "Platform") {
     return CollisionType.ENVIRONMENT
 
   }else if(colissionObject.constructor.name == "Blob" || colissionObject.constructor.name == "Player"){

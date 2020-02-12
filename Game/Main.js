@@ -12,7 +12,6 @@ var Game;
         root = new fudge.Node("Root");
         collidableNode = new fudge.Node("collidable");
         root.appendChild(collidableNode);
-        Game.loadSprites();
         //fudge.Debug.log(Util.getInstance().spritesMap);
         let cmpCamera = new fudge.ComponentCamera();
         cmpCamera.pivot.translateZ(15);
@@ -20,10 +19,7 @@ var Game;
         cmpCamera.backgroundColor = fudge.Color.CSS("aliceblue");
         let viewport = new fudge.Viewport();
         viewport.initialize("Viewport", root, cmpCamera, canvas);
-        let gui = new Game.Gui(1, 1, 1, 1);
-        Game.Util.getInstance().gui = gui;
-        let lvlGenerator = new Game.LevelGenerator(collidableNode);
-        lvlGenerator.getDataFromFile();
+        loadGame();
         document.addEventListener("keydown", handleKeyboard);
         document.addEventListener("keyup", handleKeyboard);
         fudge.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, update);
@@ -56,6 +52,13 @@ var Game;
             processInput();
             viewport.draw();
             //fudge.RenderManager.update()
+        }
+        function loadGame() {
+            Game.loadSprites();
+            let gui = new Game.Gui(1, 1, 1, 1);
+            Game.Util.getInstance().gui = gui;
+            let lvlGenerator = new Game.LevelGenerator(collidableNode);
+            lvlGenerator.getDataFromFile();
         }
     }
 })(Game || (Game = {}));

@@ -27,9 +27,9 @@ var Game;
             let enemyArray = this.data["enemyArray"];
             for (var i = 0; i < enemyArray.length; i++) {
                 let current = enemyArray[i];
-                switch (current.enemyType) {
-                    case Game.enemyType.BLOB: {
-                        let enemy = new Game.Blob(current.name, current.spriteName, current.positionX, current.positionY, current.scaleX, current.scaleY);
+                switch (current.spriteName) {
+                    case "blob": {
+                        let enemy = new Game.Blob(current.name, current.spriteName, current.positionX, current.positionY, current.scaleX, current.scaleX);
                         this.root.appendChild(enemy);
                         this.levelObject.enemyArray.push(enemy);
                     }

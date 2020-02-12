@@ -38,10 +38,9 @@ namespace Game {
       let enemyArray = this.data["enemyArray"];
       for (var i: number = 0; i < enemyArray.length; i++) {
         let current = enemyArray[i];
-
-        switch(current.enemyType) {
-          case enemyType.BLOB: {
-            let enemy: Blob = new Blob(current.name, current.spriteName, current.positionX, current.positionY, current.scaleX, current.scaleY);
+        switch(current.spriteName) {
+          case "blob": {
+            let enemy: Blob = new Blob(current.name, current.spriteName, current.positionX, current.positionY, current.scaleX, current.scaleX);
             this.root.appendChild(enemy);
             this.levelObject.enemyArray.push(enemy);
           } 

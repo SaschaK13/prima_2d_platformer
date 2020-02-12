@@ -4,12 +4,12 @@ namespace Game {
   export class Level { 
     public player: Player;
     public platformArray: Platform[] = [];
-    public enemyArray: Enemy[] = [];
+    public enemyArray: Character[] = [];
 
 
 
-    public deleteEnemy(enemy: Enemy){
-      let newEnemyArray: Enemy[] = []
+    public deleteEnemy(enemy: Character){
+      let newEnemyArray: Character[] = []
 
       for(var i = 0; i < this.enemyArray.length; i++)
       {
@@ -36,7 +36,6 @@ namespace Game {
       {
         collidableNodes.push(this.enemyArray[i])
       }
-
 
       return collidableNodes
     }

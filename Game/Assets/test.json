@@ -6,6 +6,7 @@
   ],
 
   "enemyArray": [
-    {"name": "Enemy1", "spriteName": "player","enemyType": "blob",  "positionX": 1, "positionY": 3, "scaleX": 1, "scaleY": 1}
+    {"name": "Enemy1", "spriteName": "blob",  "positionX": 1, "positionY": 3, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy2", "spriteName": "blob",  "positionX": -2, "positionY": 3, "scaleX": 1, "scaleY": 1}
   ]
 }
