@@ -33,10 +33,10 @@ namespace Game {
     private WALK_SPEED: number = 2;
     private DMG: number = 1;
     private HP: number = 5;
-    private ATTACKSPEED: number = 100;
+    private ATTACKSPEED: number = 50;
 
 
-    private dmgCooldown = 50
+    private dmgCooldown: number = 50;
     public currentDmgCooldown = 0;
     public attackCooldown = 0;
 

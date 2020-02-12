@@ -22,7 +22,7 @@ var Game;
             this.WALK_SPEED = 2;
             this.DMG = 1;
             this.HP = 5;
-            this.ATTACKSPEED = 100;
+            this.ATTACKSPEED = 50;
             this.dmgCooldown = 50;
             this.currentDmgCooldown = 0;
             this.attackCooldown = 0;
