@@ -42,12 +42,11 @@ namespace Game {
       private cmpTrans: fudge.ComponentTransform;
       private cmpMesh: fudge.ComponentMesh;
 
+      private sprites: Sprite[];
+      public spriteName: string;
+
       private state: CHARACTERSTATE;
       public direction: DIRECTION = DIRECTION.RIGHT;
-
-      private sprites: Sprite[];
-      private spriteNameMap: spriteName = {};
-      private textureImage: fudge.TextureImage;
 
       private  collider: Collider;
       public hitbox: Hitbox;
@@ -67,15 +66,9 @@ namespace Game {
 
       this.collider = new Collider(this);
       this.hitbox = new Hitbox(nodeName + "_Hitbox", this, new fudge.Vector2 (this.cmpTransform.local.scaling.x/2,this.cmpTransform.local.scaling.y));
+     
 
-      //Sprites
-      this.textureImage = Util.getInstance().getTextureImageByName(nodeName);
-      
-      if (this.textureImage.image) {
-        this.generateSprites();
-        this.fillSpriteMap();
-      }
-      this.show(CHARACTERSTATE.IDLE);
+      // this.show(CHARACTERSTATE.IDLE);
       fudge.Loop.addEventListener(fudge.EVENT.LOOP_FRAME, this.update);
     }
 
@@ -151,36 +144,7 @@ namespace Game {
 
     public show(_characterstate: CHARACTERSTATE): void {
       for (let child of this.getChildren()) {
-        child.activate(child.name == _characterstate);
-      }
-    }
-
-    public generateSprites(): void {
-      this.sprites = [];
-      let sprite: Sprite = new Sprite(CHARACTERSTATE.WALK);
-      sprite.generateByGrid(this.textureImage, fudge.Rectangle.GET(2, 104, 68, 64), 6, fudge.Vector2.ZERO(), 64, fudge.ORIGIN2D.CENTER);
-      this.sprites.push(sprite);
-
-      sprite = new Sprite(CHARACTERSTATE.IDLE);
-      sprite.generateByGrid(this.textureImage, fudge.Rectangle.GET(8, 20, 45, 80), 4, fudge.Vector2.ZERO(), 64, fudge.ORIGIN2D.CENTER);
-      this.sprites.push(sprite);
-
-      sprite = new Sprite(CHARACTERSTATE.JUMP);
-      sprite.generateByGrid(this.textureImage, fudge.Rectangle.GET(204, 183, 45, 72), 4, fudge.Vector2.ZERO(), 64, fudge.ORIGIN2D.CENTER);
-      this.sprites.push(sprite);
-    }
-
-    public fillSpriteMap(): void {
-      for (let sprite of this.sprites) {
-        let nodeSprite: NodeSprite = new NodeSprite(sprite.name, sprite);
-        nodeSprite.activate(false);
-
-        nodeSprite.addEventListener(
-          "showNext",
-          (_event: Event) => { (<NodeSprite>_event.currentTarget).showFrameNext(); },
-          true
-        );
-        this.appendChild(nodeSprite);
+        child.activate(child.name == (this.name + "_" + _characterstate));
       }
     }
 
@@ -242,11 +206,29 @@ namespace Game {
       {
         this.HP -= dmgTaken;
       }else{
-        fudge.Debug.log("dead")
+        //fudge.Debug.log("dead")
         this.die()
       }
     }
 
+    public fillSpriteMap(): void {
+      for (let key of Util.getInstance().spritesMap.get(this.spriteName).keys()) {
+        let sprite: Sprite = Util.getInstance().spritesMap.get(this.spriteName).get(key);
+        let nodeSprite: NodeSprite = new NodeSprite(sprite.name, sprite);
+        nodeSprite.activate(false);
+        fudge.Debug.log(nodeSprite);
+        
+  
+        nodeSprite.addEventListener(
+          "showNext",
+          (_event: Event) => { (<NodeSprite>_event.currentTarget).showFrameNext(); },
+          true
+        );
+        this.appendChild(nodeSprite);
+      }
+      fudge.Debug.log(this.name + " filled");
+      this.show(CHARACTERSTATE.IDLE);
+    }
 
     public getStats(): characterStats
     {

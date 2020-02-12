@@ -22,7 +22,7 @@ namespace Game {
     public generateLevel(): void {
 
       let value = this.data["player"];
-      let player: Player = new Player(value.name, value.positionX, value.positionY, value.scaleX, value.scaleY);
+      let player: Player = new Player(value.name, value.spriteName, value.positionX, value.positionY, value.scaleX, value.scaleY);
       this.levelObject.player = player;
       this.root.appendChild(player);
 
@@ -38,7 +38,7 @@ namespace Game {
       let enemyArray = this.data["enemyArray"];
       for (var i: number = 0; i < enemyArray.length; i++) {
         let current = enemyArray[i];
-        let enemy: Enemy = new Enemy(current.name, current.positionX, current.positionY, current.scaleX, current.scaleY);
+        let enemy: Enemy = new Enemy(current.name, current.spriteName, current.positionX, current.positionY, current.scaleX, current.scaleY);
         this.root.appendChild(enemy);
         this.levelObject.enemyArray.push(enemy);
 
@@ -46,7 +46,8 @@ namespace Game {
 
       let util = Util.getInstance();
       util.setCollidableObjects(this.root.getChildren());      
-      util.level = this.levelObject
+      util.level = this.levelObject;
+      //fudge.Debug.log(this.levelObject.player);
     }
   }
 }

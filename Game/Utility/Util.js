@@ -16,8 +16,8 @@ var Game;
         setCollidableObjects(array) {
             this.collidableObjects = array;
         }
-        getTextureImageByName(name) {
-            let img = document.querySelector("#" + name);
+        getTextureImageBy(name, state) {
+            let img = document.querySelector("#" + name + "_" + state);
             let texture = new fudge.TextureImage();
             texture.image = img;
             return texture;

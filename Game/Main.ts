@@ -19,6 +19,9 @@ namespace Game {
     collidableNode = new fudge.Node("collidable");
     root.appendChild(collidableNode);
 
+    loadSprites();
+    //fudge.Debug.log(Util.getInstance().spritesMap);
+
     let cmpCamera: fudge.ComponentCamera = new fudge.ComponentCamera();
     cmpCamera.pivot.translateZ(15);
     cmpCamera.pivot.lookAt(fudge.Vector3.ZERO());
@@ -30,7 +33,7 @@ namespace Game {
     Util.getInstance().gui = gui;
 
     let lvlGenerator: LevelGenerator = new LevelGenerator(collidableNode);
-    lvlGenerator.getDataFromFile()
+    lvlGenerator.getDataFromFile();
 
     document.addEventListener("keydown", handleKeyboard);
     document.addEventListener("keyup", handleKeyboard);

@@ -8,6 +8,7 @@ namespace Game {
 
     public gui: Gui;
     public level: Level;
+    public spritesMap: Map<string, Map<string, Sprite>>;
 
     private collidableObjects: fudge.Node[];
 
@@ -28,14 +29,11 @@ namespace Game {
       this.collidableObjects = array;
     }
 
-    public getTextureImageByName(name: string): fudge.TextureImage {
-      let img: HTMLImageElement = document.querySelector("#" + name);
+    public getTextureImageBy(name: string, state: string): fudge.TextureImage {
+      let img: HTMLImageElement = document.querySelector("#" + name + "_" + state);
       let texture: fudge.TextureImage = new fudge.TextureImage();
       texture.image = img;     
       return texture;
     }
   }
-
-
-
 }

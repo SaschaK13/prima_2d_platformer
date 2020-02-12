@@ -25,7 +25,6 @@ var Game;
             this.gravity = -8;
             this.velocity = new fudge.Vector2(0, 0);
             this.direction = DIRECTION.RIGHT;
-            this.spriteNameMap = {};
             this.isJumping = false;
             this.update = (_event) => {
                 this.broadcastEvent(new CustomEvent("showNext"));
@@ -42,13 +41,7 @@ var Game;
             this.addComponent(this.cmpTrans);
             this.collider = new Game.Collider(this);
             this.hitbox = new Game.Hitbox(nodeName + "_Hitbox", this, new fudge.Vector2(this.cmpTransform.local.scaling.x / 2, this.cmpTransform.local.scaling.y));
-            //Sprites
-            this.textureImage = Game.Util.getInstance().getTextureImageByName(nodeName);
-            if (this.textureImage.image) {
-                this.generateSprites();
-                this.fillSpriteMap();
-            }
-            this.show(CHARACTERSTATE.IDLE);
+            // this.show(CHARACTERSTATE.IDLE);
             fudge.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, this.update);
         }
         handlePhysics() {
@@ -110,27 +103,7 @@ var Game;
         }
         show(_characterstate) {
             for (let child of this.getChildren()) {
-                child.activate(child.name == _characterstate);
-            }
-        }
-        generateSprites() {
-            this.sprites = [];
-            let sprite = new Game.Sprite(CHARACTERSTATE.WALK);
-            sprite.generateByGrid(this.textureImage, fudge.Rectangle.GET(2, 104, 68, 64), 6, fudge.Vector2.ZERO(), 64, fudge.ORIGIN2D.CENTER);
-            this.sprites.push(sprite);
-            sprite = new Game.Sprite(CHARACTERSTATE.IDLE);
-            sprite.generateByGrid(this.textureImage, fudge.Rectangle.GET(8, 20, 45, 80), 4, fudge.Vector2.ZERO(), 64, fudge.ORIGIN2D.CENTER);
-            this.sprites.push(sprite);
-            sprite = new Game.Sprite(CHARACTERSTATE.JUMP);
-            sprite.generateByGrid(this.textureImage, fudge.Rectangle.GET(204, 183, 45, 72), 4, fudge.Vector2.ZERO(), 64, fudge.ORIGIN2D.CENTER);
-            this.sprites.push(sprite);
-        }
-        fillSpriteMap() {
-            for (let sprite of this.sprites) {
-                let nodeSprite = new Game.NodeSprite(sprite.name, sprite);
-                nodeSprite.activate(false);
-                nodeSprite.addEventListener("showNext", (_event) => { _event.currentTarget.showFrameNext(); }, true);
-                this.appendChild(nodeSprite);
+                child.activate(child.name == (this.name + "_" + _characterstate));
             }
         }
         idle() {
@@ -174,9 +147,21 @@ var Game;
                 this.HP -= dmgTaken;
             }
             else {
-                fudge.Debug.log("dead");
+                //fudge.Debug.log("dead")
                 this.die();
             }
+        }
+        fillSpriteMap() {
+            for (let key of Game.Util.getInstance().spritesMap.get(this.spriteName).keys()) {
+                let sprite = Game.Util.getInstance().spritesMap.get(this.spriteName).get(key);
+                let nodeSprite = new Game.NodeSprite(sprite.name, sprite);
+                nodeSprite.activate(false);
+                fudge.Debug.log(nodeSprite);
+                nodeSprite.addEventListener("showNext", (_event) => { _event.currentTarget.showFrameNext(); }, true);
+                this.appendChild(nodeSprite);
+            }
+            fudge.Debug.log(this.name + " filled");
+            this.show(CHARACTERSTATE.IDLE);
         }
         getStats() {
             return { hp: this.HP, dmg: this.DMG, jump_height: this.JUMP_HEIGHT, walk_speed: this.WALK_SPEED, attackspeed: this.ATTACKSPEED };
