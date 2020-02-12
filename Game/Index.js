@@ -17,4 +17,4 @@ var Game;
         }
     }
 })(Game || (Game = {}));
-//# sourceMappingURL=StartScreen.js.map
+//# sourceMappingURL=Index.js.map

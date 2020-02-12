@@ -1,10 +1,15 @@
 :root {
   --width: 100%;
+  --height: 50%;
   --borderLeft: 16%;
   --borderright: 16%;
   --borderTop: 6%;
 }
 
+
+html {
+  background-image: url("./Assets/menu.png");
+}
 
 #health {
   position: absolute;
@@ -20,40 +25,95 @@
   position: absolute;
   top: var(--borderTop);
   z-index: 10;
+  width: 10%;
+  right: var(--borderright);
+  font-size: x-large;
 }
 
 #speed {
   position: absolute;
   top: 10%;
   z-index: 10;
+  width: 10%;
+  right: var(--borderright);
+  font-size: x-large;
+}
+
+#walkSpeedIcon {
+  position: absolute;
+  top: 10%;
+  z-index: 10;
+  height: 35px;
+  width: 35px;
+  right: var(--borderright);
+  margin: 1%;
 }
 
 #jumping {
   position: absolute;
-  top: 13%;
+  top: 15%;
   z-index: 10;
+  width: 10%;
+  right: var(--borderright);
+  font-size: x-large;
+}
+
+#jumpingUpIcon {
+  position: absolute;
+  top: 15%;
+  z-index: 10;
+  height: 35px;
+  width: 35px;
+  right: var(--borderright);
+  margin: 1%;
 }
 
 #damage {
   position: absolute;
-  top: 16%;
+  top: 20%;
   z-index: 10;
+  width: 10%;
+  right: var(--borderright);
+  font-size: x-large;
+}
+
+#attackDamageIcon {
+  position: absolute;
+  top: 20%;
+  z-index: 10;
+  height: 35px;
+  width: 35px;
+  right: var(--borderright);
+  margin: 1%;
 }
 
 #attackSpeed {
   position: absolute;
-  top: 19%;
+  top: 25%;
   z-index: 10;
+  width: 10%;
+  right: var(--borderright);
+  font-size: x-large;
+}
+
+#attackSpeedIcon {
+  position: absolute;
+  top: 25%;
+  z-index: 10;
+  height: 35px;
+  width: 35px;
+  right: var(--borderright);
+  margin: 1%;
 }
 
 canvas {
-    padding-left: 0;
-    padding-right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    height: 600px;
-    width: var(--width);
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  height: var(--height);
+  width: var(--width);
 }
 
 #healthBar {
@@ -65,15 +125,43 @@ canvas {
 
 body {
   border: 5px solid black;
+  background-color: white;
   margin-left: 15%;
   margin-right: 15%;
   margin-top: 2%;
   margin-bottom: 2%;
   padding: 1%;
+  overflow: hidden;
 }
 
-p {
-  width: 10%;
-  right: var(--borderright);
+#gameOver {
+  position: absolute;
+  text-align: center;
+  border: 5px solid black;
+  border-radius: 8px;
+  background-color: white;
+  top: 25%;
+  left: 35%;
+  height: 25%;
+  width: 30%;
+  padding: 1%;
+  margin-left: auto;
+  margin-right: auto;
   font-size: x-large;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+#restart, #backToMenu {
+  border-radius: 8px;
+  font-size: x-large;
+  margin: 8px;
+  padding: 5px;
+  border: grey;
+  color: white;
+  background-color: grey;
+}
+
+#restart:hover, #backToMenu:hover {
+  background-color:rgb(180, 180, 180);
 }

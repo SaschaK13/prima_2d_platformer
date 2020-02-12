@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Game</title>
   <link rel="stylesheet" href="game.css">
@@ -19,18 +19,31 @@
   <script src="Character/Character.js"></script>
   <script src="Character/Enemy.js"></script>
   <script src="Character/Player.js"></script>
+  <script src="Game.js"></script>
   <script src="Main.js"></script>
 </head>
 <body>
   <canvas> </canvas>
-  <img src="../Game/Assets/herz5.PNG" width="380px" height="70px" id="health">
+  <img src="../Game/Assets/health/heart5.png" width="380px" height="70px" id="health">
   <img id="test" src="../Game/Assets/Spritesheets/test.png" hidden=true>
 
   <p id="time"> Time: 00:00:00 </p>
-  <p id="speed"> walk speed: 1 </p>
-  <p id="jumping"> jumping power: 1 </p>
-  <p id="damage"> damage: 1 </p>
-  <p id="attackSpeed"> attack speed: 1 </p>
+
+  <img src="./Assets/icons/walkSpeedUp.png" id="walkSpeedIcon">
+  <p id="speed"> 1 </p>
+  <img src="./Assets/icons/jumpingPowerUp.png" id="jumpingUpIcon">
+  <p id="jumping"> 1 </p>
+  <img src="./Assets/icons/attackDamageUp.png" id="attackDamageIcon">
+  <p id="damage"> 1 </p>
+  <img src="./Assets/icons/attackSpeedUp.png" id="attackSpeedIcon">
+  <p><p id="attackSpeed"> 1 </p></p>
+
+  <span id="gameOver">
+    <h1> Game Over! </h1>
+    <button id="restart"> Restart </button>
+    <br>
+    <button id="backToMenu"> Back to menu </button>
+  </span>
 
   <progress id="healthBar"></progress>
 
