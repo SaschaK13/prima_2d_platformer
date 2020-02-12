@@ -12,6 +12,8 @@ var Game;
         root = new fudge.Node("Root");
         collidableNode = new fudge.Node("collidable");
         root.appendChild(collidableNode);
+        Game.loadSprites();
+        //fudge.Debug.log(Util.getInstance().spritesMap);
         let cmpCamera = new fudge.ComponentCamera();
         cmpCamera.pivot.translateZ(15);
         cmpCamera.pivot.lookAt(fudge.Vector3.ZERO());

@@ -1,7 +1,7 @@
 "use strict";
 var Game;
 (function (Game) {
-    var ƒ = FudgeCore;
+    var fudge = FudgeCore;
     class SpriteFrame {
     }
     Game.SpriteFrame = SpriteFrame;
@@ -22,7 +22,7 @@ var Game;
          */
         generate(_texture, _rects, _resolutionQuad, _origin) {
             this.frames = [];
-            let framing = new ƒ.FramingScaled();
+            let framing = new fudge.FramingScaled();
             framing.setScale(1 / _texture.image.width, 1 / _texture.image.height);
             let count = 0;
             for (let rect of _rects) {
@@ -38,7 +38,7 @@ var Game;
         generateByGrid(_texture, _startRect, _frames, _borderSize, _resolutionQuad, _origin) {
             let rect = _startRect.copy;
             let rects = [];
-            ƒ.Debug.log(_texture.image);
+            fudge.Debug.log(_texture.image);
             while (_frames--) {
                 rects.push(rect.copy);
                 rect.position.x += _startRect.size.x + _borderSize.x;
@@ -49,50 +49,50 @@ var Game;
                 if (rect.bottom > _texture.image.height)
                     break;
             }
-            rects.forEach((_rect) => ƒ.Debug.log(_rect.toString()));
+            rects.forEach((_rect) => fudge.Debug.log(_rect.toString()));
             this.generate(_texture, rects, _resolutionQuad, _origin);
         }
         createFrame(_name, _texture, _framing, _rect, _resolutionQuad, _origin) {
-            let rectTexture = new ƒ.Rectangle(0, 0, _texture.image.width, _texture.image.height);
+            let rectTexture = new fudge.Rectangle(0, 0, _texture.image.width, _texture.image.height);
             let frame = new SpriteFrame();
             frame.rectTexture = _framing.getRect(_rect);
             frame.rectTexture.position = _framing.getPoint(_rect.position, rectTexture);
-            let rectQuad = new ƒ.Rectangle(0, 0, _rect.width / _resolutionQuad, _rect.height / _resolutionQuad, _origin);
-            frame.pivot = ƒ.Matrix4x4.IDENTITY;
-            frame.pivot.translate(new ƒ.Vector3(rectQuad.position.x + rectQuad.size.x / 2, -rectQuad.position.y - rectQuad.size.y / 2, 0));
+            let rectQuad = new fudge.Rectangle(0, 0, _rect.width / _resolutionQuad, _rect.height / _resolutionQuad, _origin);
+            frame.pivot = fudge.Matrix4x4.IDENTITY;
+            frame.pivot.translate(new fudge.Vector3(rectQuad.position.x + rectQuad.size.x / 2, -rectQuad.position.y - rectQuad.size.y / 2, 0));
             frame.pivot.scaleX(rectQuad.size.x);
             frame.pivot.scaleY(rectQuad.size.y);
             // ƒ.Debug.log(rectQuad.toString());
-            let coat = new ƒ.CoatTextured();
+            let coat = new fudge.CoatTextured();
             coat.pivot.translate(frame.rectTexture.position);
             coat.pivot.scale(frame.rectTexture.size);
             coat.name = _name;
             coat.texture = _texture;
-            frame.material = new ƒ.Material(_name, ƒ.ShaderTexture, coat);
+            frame.material = new fudge.Material(_name, fudge.ShaderTexture, coat);
             // ƒ.Debug.log(coat.pivot.toString());  
             return frame;
         }
     }
-    Sprite.mesh = new ƒ.MeshSprite();
+    Sprite.mesh = new fudge.MeshSprite();
     Game.Sprite = Sprite;
-    class NodeSprite extends ƒ.Node {
+    class NodeSprite extends fudge.Node {
         constructor(_name, _sprite) {
             super(_name);
             this.frameCurrent = 0;
             this.direction = 1;
             this.sprite = _sprite;
-            this.cmpMesh = new ƒ.ComponentMesh(Sprite.getMesh());
-            this.cmpMaterial = new ƒ.ComponentMaterial();
+            this.cmpMesh = new fudge.ComponentMesh(Sprite.getMesh());
+            this.cmpMaterial = new fudge.ComponentMaterial();
             this.addComponent(this.cmpMesh);
             this.addComponent(this.cmpMaterial);
             this.showFrame(this.frameCurrent);
-            ƒ.Debug.info("NodeSprite constructor", this);
+            fudge.Debug.info("NodeSprite constructor", this);
         }
         showFrame(_index) {
             let spriteFrame = this.sprite.frames[_index];
             this.cmpMesh.pivot = spriteFrame.pivot;
             this.cmpMaterial.material = spriteFrame.material;
-            ƒ.RenderManager.updateNode(this);
+            fudge.RenderManager.updateNode(this);
             this.frameCurrent = _index;
         }
         showFrameNext() {
@@ -104,5 +104,53 @@ var Game;
         }
     }
     Game.NodeSprite = NodeSprite;
+    let spriteNames = [
+        "player"
+    ];
+    let states = [
+        "idle",
+        "walk",
+        "jump"
+    ];
+    function loadSprites() {
+        let textureImage;
+        let spritesMap = new Map;
+        for (let i = 0; i < spriteNames.length; i++) {
+            let spriteArray = new Map;
+            for (let j = 0; j < states.length; j++) {
+                textureImage = Game.Util.getInstance().getTextureImageBy(spriteNames[i], states[j]);
+                if (textureImage.image) {
+                    spriteArray.set(states[j], generateSprites(textureImage, spriteNames[i], states[j]));
+                }
+            }
+            spritesMap.set(spriteNames[i], spriteArray);
+        }
+        let util = Game.Util.getInstance();
+        util.spritesMap = spritesMap;
+    }
+    Game.loadSprites = loadSprites;
+    function generateSprites(textureImage, spriteName, stateName) {
+        switch (spriteName) {
+            case "player": {
+                switch (stateName) {
+                    case Game.CHARACTERSTATE.IDLE: {
+                        let sprite = new Sprite(spriteName + "_" + stateName);
+                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(0, 0, 10, 10), 4, fudge.Vector2.ZERO(), 64, fudge.ORIGIN2D.BOTTOMCENTER);
+                        return sprite;
+                    }
+                    case Game.CHARACTERSTATE.WALK: {
+                        let sprite = new Sprite(spriteName + "_" + stateName);
+                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(2, 104, 68, 64), 6, fudge.Vector2.ZERO(), 64, fudge.ORIGIN2D.CENTER);
+                        return sprite;
+                    }
+                    case Game.CHARACTERSTATE.JUMP: {
+                        let sprite = new Sprite(spriteName + "_" + stateName);
+                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(204, 183, 45, 72), 4, fudge.Vector2.ZERO(), 64, fudge.ORIGIN2D.CENTER);
+                        return sprite;
+                    }
+                }
+            }
+        }
+    }
 })(Game || (Game = {}));
 //# sourceMappingURL=SpriteGenerator.js.map
