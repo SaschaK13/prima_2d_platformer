@@ -38,6 +38,7 @@ var Game;
             this.direction = DIRECTION.RIGHT;
             this.isJumping = false;
             this.isDead = false;
+            this.isAttacking = false;
             /*public getCurrentPlatform(): Platform {
         
               let collisionObjects = this.collider.getCollisionObjects();
@@ -140,7 +141,7 @@ var Game;
             this.show(_characterstate);
         }
         idle() {
-            if (!this.isJumping && !this.isDead) {
+            if (!this.isJumping && !this.isDead && !this.isAttacking) {
                 this.show(CHARACTERSTATE.IDLE);
             }
         }
@@ -234,6 +235,7 @@ var Game;
                 else if (this.attackAnimationCounter == this.attackSpriteLength) {
                     this.attackAnimationCounter = 0;
                     this.showAttackAnimation = false;
+                    this.isAttacking = false;
                 }
                 if (this.showDeathAnimation && this.deathAnimationCounter != this.deathSpriteLength) {
                     this.broadcastEvent(new CustomEvent("showNextDeath"));

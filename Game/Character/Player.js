@@ -21,6 +21,8 @@ var Game;
                 for (var i = 0; i < detectedEnemys.length; i++) {
                     detectedEnemys[i].takeDmg(this.getStats().dmg);
                 }
+                fudge.Debug.log("test");
+                this.isAttacking = true;
                 this.showOneTime(Game.CHARACTERSTATE.ATTACK);
                 this.attackCooldown = this.getStats().attackspeed;
             }
