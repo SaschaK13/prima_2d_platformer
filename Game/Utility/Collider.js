@@ -4,7 +4,8 @@ var Game;
     let CollisionType;
     (function (CollisionType) {
         CollisionType["ENVIRONMENT"] = "Platform";
-        CollisionType["CHARACTER"] = "Character";
+        CollisionType["ENEMY"] = "Enemy";
+        CollisionType["PLAYER"] = "Player";
         CollisionType["MISSING"] = "Missing";
     })(CollisionType = Game.CollisionType || (Game.CollisionType = {}));
     let CollisionDirection;
@@ -34,33 +35,17 @@ var Game;
         getCollisionObjects() {
             return this.collissionObjects;
         }
-        collideWith(cObject) {
-            let colissionObjectPosition = cObject.cmpTransform.local.translation;
-            let colissionObjectScaling = cObject.cmpTransform.local.scaling;
-            let characterPosition = this.object.cmpTransform.local.translation;
-            let characterScaling = this.object.cmpTransform.local.scaling;
-            if (characterPosition.x - (characterScaling.x / 2) < colissionObjectPosition.x + (colissionObjectScaling.x / 2) &&
-                characterPosition.x + (characterScaling.x / 2) > colissionObjectPosition.x - (colissionObjectScaling.x / 2) &&
-                characterPosition.y - (characterScaling.y / 2) < colissionObjectPosition.y + (colissionObjectScaling.y / 2) &&
-                characterPosition.y + (characterScaling.y / 2) > colissionObjectPosition.y - (colissionObjectScaling.y / 2)) {
-                this.isColliding = true;
-                let direction = this.getCollisionDirection(cObject);
-                let collisionType = this.getCollisionType(cObject);
-                this.collissionObjects.push({ object: cObject, collisionDirecton: direction, collisionType: collisionType });
-            }
-            else {
-                this.isColliding = false;
-            }
-        }
         getCollisionType(colissionObject) {
-            if (colissionObject.constructor.name == "Platform") {
-                return CollisionType.ENVIRONMENT;
-            }
-            else if (colissionObject.constructor.name == "Blob" || colissionObject.constructor.name == "Player") {
-                return CollisionType.CHARACTER;
-            }
-            else {
-                return CollisionType.MISSING;
+            switch (colissionObject.constructor.name) {
+                case "Platform": {
+                    return CollisionType.ENVIRONMENT;
+                }
+                case "Blob": {
+                    return CollisionType.ENEMY;
+                }
+                case "Player": {
+                    return CollisionType.PLAYER;
+                }
             }
         }
         getCollisionDirection(colissionObject) {
@@ -85,6 +70,24 @@ var Game;
             if (objectOldLeft >= collissionObjectRight && objectLeft <= collissionObjectRight)
                 return CollisionDirection.LEFT;
             return CollisionDirection.ERROR;
+        }
+        collideWith(cObject) {
+            let colissionObjectPosition = cObject.cmpTransform.local.translation;
+            let colissionObjectScaling = cObject.cmpTransform.local.scaling;
+            let characterPosition = this.object.cmpTransform.local.translation;
+            let characterScaling = this.object.cmpTransform.local.scaling;
+            if (characterPosition.x - (characterScaling.x / 2) < colissionObjectPosition.x + (colissionObjectScaling.x / 2) &&
+                characterPosition.x + (characterScaling.x / 2) > colissionObjectPosition.x - (colissionObjectScaling.x / 2) &&
+                characterPosition.y - (characterScaling.y / 2) < colissionObjectPosition.y + (colissionObjectScaling.y / 2) &&
+                characterPosition.y + (characterScaling.y / 2) > colissionObjectPosition.y - (colissionObjectScaling.y / 2)) {
+                this.isColliding = true;
+                let direction = this.getCollisionDirection(cObject);
+                let collisionType = this.getCollisionType(cObject);
+                this.collissionObjects.push({ object: cObject, collisionDirecton: direction, collisionType: collisionType });
+            }
+            else {
+                this.isColliding = false;
+            }
         }
         updateCollisionObjects() {
             for (var i = 0; i < this.oldCollisionObjects.length; i++) {

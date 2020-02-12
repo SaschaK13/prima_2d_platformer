@@ -36,6 +36,28 @@ var Game;
                 this.currentMovmentDuration = 0;
             }
         }
+        reactToCollison() {
+            let collisionObjects = this.collider.getCollisionObjects();
+            fudge.Debug.log(this.name);
+            fudge.Debug.log(collisionObjects);
+            for (var i = 0; i < collisionObjects.length; i++) {
+                let collisionObject = collisionObjects[i];
+                switch (collisionObject.collisionType) {
+                    case Game.CollisionType.ENEMY: {
+                        break;
+                    }
+                    case Game.CollisionType.ENVIRONMENT: {
+                        this.handleSolidColision(collisionObject);
+                        break;
+                    }
+                    case Game.CollisionType.PLAYER: {
+                        fudge.Debug.log(this.name + "Collided with palyer");
+                        this.handleSolidColision(collisionObject);
+                        break;
+                    }
+                }
+            }
+        }
         randomDirection() {
             let randomnum = Game.Util.getInstance().getRandomRange(1, 3);
             if (randomnum == 1) {

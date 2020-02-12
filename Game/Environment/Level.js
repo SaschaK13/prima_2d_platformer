@@ -23,6 +23,7 @@ var Game;
             for (var i = 0; i < this.enemyArray.length; i++) {
                 collidableNodes.push(this.enemyArray[i]);
             }
+            collidableNodes.push(this.player);
             return collidableNodes;
         }
     }
