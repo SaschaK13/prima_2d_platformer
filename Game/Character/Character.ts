@@ -17,12 +17,12 @@ namespace Game {
   [type: string]: string;
   }
 
-  export interface CharacterStats {
-    hp: number;
-    dmg: number;
-    jump_height: number;
-    walk_speed: number;
-    attackspeed: number;
+  export interface characterStats {
+    hp?: number;
+    dmg?: number;
+    jump_height?: number
+    walk_speed?: number
+    attackspeed?: number
   }
 
   export class Character extends fudge.Node {
@@ -232,6 +232,15 @@ namespace Game {
 
     public getStats(): CharacterStats {
       return  {hp: this.HP, dmg: this.DMG, jump_height: this.JUMP_HEIGHT, walk_speed: this.WALK_SPEED, attackspeed: this.ATTACKSPEED}
+    }
+
+    public setStat(stats: characterStats)
+    {
+      this.HP = stats.hp
+      this.DMG = stats.dmg
+      this.JUMP_HEIGHT = stats.jump_height
+      this.WALK_SPEED = stats.walk_speed
+
     }
 
 
