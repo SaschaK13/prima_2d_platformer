@@ -5,6 +5,9 @@ var Game;
     class Goblin extends Game.Character {
         constructor(name, spriteName, positionX, positionY, scaleX, scaleY) {
             super(name);
+            this.lookAroundCooldown = 50;
+            this.currentLookAroundCooldown = 0;
+            this.moveDirection = Game.DIRECTION.RIGHT;
             this.behavior = (_event) => {
                 this.ki();
             };
@@ -12,8 +15,6 @@ var Game;
             this.spriteName = spriteName;
             this.cmpTransform.local.translation = new fudge.Vector3(positionX, positionY, 0);
             this.cmpTransform.local.scaling = new fudge.Vector3(scaleX, scaleY, 0);
-            let material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(0, 1, 0, 1)));
-            this.addComponent(new fudge.ComponentMaterial(material));
             this.setStat({ hp: 3, dmg: 0, walk_speed: 2, jump_height: 0, attackspeed: 0 });
             //this.movementDuration = Util.getInstance().getRandomRange(2, 3);
             //this.randomDirection();
@@ -46,9 +47,17 @@ var Game;
                 }
             }
             else {
-                fudge.Debug.log(playerTrans.y);
-                fudge.Debug.log(goblinTrans.y);
-                fudge.Debug.log("Not same height");
+                this.lookAround();
+            }
+        }
+        lookAround() {
+            if (this.currentLookAroundCooldown == this.lookAroundCooldown) {
+                this.randomDirection();
+                this.walk(this.moveDirection);
+                this.currentLookAroundCooldown = 0;
+            }
+            else {
+                this.currentLookAroundCooldown++;
             }
         }
         reactToCollison() {
@@ -71,6 +80,15 @@ var Game;
                         break;
                     }
                 }
+            }
+        }
+        randomDirection() {
+            let randomnum = Game.Util.getInstance().getRandomRange(1, 3);
+            if (randomnum == 1) {
+                this.moveDirection = Game.DIRECTION.RIGHT;
+            }
+            else {
+                this.moveDirection = Game.DIRECTION.LEFT;
             }
         }
     }

@@ -55,6 +55,7 @@ var Game;
             //fudge.RenderManager.update()
         }
         function loadGame() {
+            fudge.Debug.log("Game loaded");
             Game.loadSprites();
             let gui = new Game.Gui(1, 1, 1, 1);
             Game.Util.getInstance().gui = gui;

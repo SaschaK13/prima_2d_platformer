@@ -32,11 +32,13 @@ var Game;
                         let enemy = new Game.Blob(current.name, current.spriteName, current.positionX, current.positionY, current.scaleX, current.scaleX);
                         this.root.appendChild(enemy);
                         this.levelObject.enemyArray.push(enemy);
+                        break;
                     }
                     case "goblin": {
                         let enemy = new Game.Goblin(current.name, current.spriteName, current.positionX, current.positionY, current.scaleX, current.scaleX);
                         this.root.appendChild(enemy);
                         this.levelObject.enemyArray.push(enemy);
+                        break;
                     }
                 }
             }

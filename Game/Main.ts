@@ -77,6 +77,7 @@ namespace Game {
     function loadGame()
     {
  
+      fudge.Debug.log("Game loaded")
       loadSprites();
 
       let gui: Gui = new Gui(1, 1, 1, 1);

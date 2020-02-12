@@ -43,12 +43,14 @@ namespace Game {
             let enemy: Blob = new Blob(current.name, current.spriteName, current.positionX, current.positionY, current.scaleX, current.scaleX);
             this.root.appendChild(enemy);
             this.levelObject.enemyArray.push(enemy);
+            break;
           } 
 
           case "goblin": {
             let enemy: Goblin = new Goblin(current.name, current.spriteName, current.positionX, current.positionY, current.scaleX, current.scaleX);
             this.root.appendChild(enemy)
             this.levelObject.enemyArray.push(enemy);
+            break;
           }
 
       }
