@@ -28,7 +28,7 @@ namespace Game {
     attack(): void {
       if (this.attackCooldown == 0) {
         let detectedEnemys: Enemy[] = this.hitbox.detectEnemys() as Enemy[];
-        for (var i = 0; i < detectedEnemys.length; i++) {
+        for (var i: number = 0; i < detectedEnemys.length; i++) {
           detectedEnemys[i].takeDmg(this.getStats().dmg);   
         }
         this.attackCooldown = this.getStats().attackspeed;
