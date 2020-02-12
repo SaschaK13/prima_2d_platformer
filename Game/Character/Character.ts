@@ -14,26 +14,29 @@ namespace Game {
     LEFT = "left"
   }
 
-  export interface spriteName {
+  export interface SpriteName {
   [type: string]: string;
   }
 
-  export interface characterStats {
-    hp: number
-    dmg: number
-    jump_height: number
-    walk_speed: number
-    attackspeed: number
+  export interface CharacterStats {
+    hp?: number;
+    dmg?: number;
+    jump_height?: number
+    walk_speed?: number
+    attackspeed?: number
   }
 
   export class Character extends fudge.Node {
 
-      private JUMP_HEIGHT = 6;
-      private WALK_SPEED = 2;
-      private DMG = 1;
-      private HP = 5;
-      private ATTACKSPEED = 100;
-      
+      private JUMP_HEIGHT: number = 6;
+      private WALK_SPEED: number = 2;
+      private DMG: number = 1;
+      private HP: number = 5;
+      private ATTACKSPEED: number = 100;
+
+
+      private dmgCooldown = 50
+      public currentDmgCooldown = 0;
       public attackCooldown = 0;
 
       private gravity: number = -8;
@@ -51,7 +54,7 @@ namespace Game {
       private state: CHARACTERSTATE;
       public direction: DIRECTION = DIRECTION.RIGHT;
 
-      private  collider: Collider;
+      public  collider: Collider;
       public hitbox: Hitbox;
 
       private isJumping: boolean = false;
@@ -93,7 +96,7 @@ namespace Game {
     public reactToCollison(): void {
       let collisionObjects: CollidedObject[] = this.collider.getCollisionObjects(); 
 
-      for(var i = 0; i < collisionObjects.length; i++)
+      for(var i: number = 0; i < collisionObjects.length; i++)
       {
         let collisionObject = collisionObjects[i];
         this.handleSolidColision(collisionObject)
@@ -121,7 +124,6 @@ namespace Game {
           translation.y = newYPosition;
           this.cmpTransform.local.translation = translation;
           this.velocity.y = 0;
-          this.isJumping = false;
           break;
         }
 
@@ -130,7 +132,6 @@ namespace Game {
           translation.x = newXPosition;
           this.cmpTransform.local.translation = translation;
           this.velocity.x = 0;
-          this.isJumping = false;
           break;
         }
 
@@ -139,7 +140,6 @@ namespace Game {
           translation.x = newXPosition;
           this.cmpTransform.local.translation = translation;
           this.velocity.x = 0;
-          this.isJumping = false;
           break;
         }
       }
@@ -200,12 +200,20 @@ namespace Game {
     public die(): void {}
 
     public takeDmg(dmgTaken: number) {
-      if(this.HP > 0)
+      if(this.currentDmgCooldown == 0)
       {
-        this.HP -= dmgTaken;
-      }else{
-        this.die()
+        if(this.HP > 0)
+        {
+          if((this.HP - dmgTaken) >= 0)
+          {
+            this.HP -= dmgTaken;
+          }
+        }else{
+          this.die()
+        }
+        this.currentDmgCooldown = this.dmgCooldown
       }
+
     }
 
     public addSpriteListener(): void {
@@ -224,8 +232,17 @@ namespace Game {
       this.show(CHARACTERSTATE.IDLE);
     }
 
-    public getStats(): characterStats {
+   
+    public getStats(): CharacterStats {
       return  {hp: this.HP, dmg: this.DMG, jump_height: this.JUMP_HEIGHT, walk_speed: this.WALK_SPEED, attackspeed: this.ATTACKSPEED}
+    }
+
+    public setStat(stats: CharacterStats) {
+      this.HP = stats.hp
+      this.DMG = stats.dmg
+      this.JUMP_HEIGHT = stats.jump_height
+      this.WALK_SPEED = stats.walk_speed
+
     }
 
     private update = (_event: fudge.Eventƒ): void => {
@@ -234,6 +251,9 @@ namespace Game {
       this.handlePhysics();
       if (this.attackCooldown != 0) {
         this.attackCooldown -= 1;
+      }
+      if (this.currentDmgCooldown != 0) {
+        this.currentDmgCooldown -= 1;
       }
     }
 

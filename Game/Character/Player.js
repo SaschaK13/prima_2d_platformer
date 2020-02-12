@@ -14,8 +14,8 @@ var Game;
             super.addSpriteListener();
         }
         takeDmg(dmgTaken) {
-            Game.Util.getInstance().gui.updateHealth(dmgTaken);
             super.takeDmg(dmgTaken);
+            Game.Util.getInstance().gui.updateHealth(this);
         }
         attack() {
             if (this.attackCooldown == 0) {
@@ -27,6 +27,22 @@ var Game;
             }
             this.show(Game.CHARACTERSTATE.ATTACK);
             // fudge.Debug.log("attack");
+        }
+        reactToCollison() {
+            let collisionObjects = this.collider.getCollisionObjects();
+            for (var i = 0; i < collisionObjects.length; i++) {
+                let collisionObject = collisionObjects[i];
+                switch (collisionObject.collisionType) {
+                    case Game.CollisionType.CHARACTER: {
+                        fudge.Debug.log("U took dmg");
+                        this.takeDmg(1);
+                        super.handleSolidColision(collisionObject);
+                    }
+                    case Game.CollisionType.ENVIRONMENT: {
+                        super.handleSolidColision(collisionObject);
+                    }
+                }
+            }
         }
     }
     Game.Player = Player;

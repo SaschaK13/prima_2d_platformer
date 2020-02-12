@@ -9,8 +9,8 @@ var Game;
             this.initialDamage = initialDamage;
             this.initialAttackSpeed = initialAttackSpeed;
         }
-        updateHealth(damageAndHeal) {
-            this.initialHealth = this.initialHealth - damageAndHeal;
+        updateHealth(character) {
+            this.initialHealth = character.getStats().hp;
             document.getElementById("health").setAttribute("src", "../Game/Assets/health/heart" + this.initialHealth + ".png");
         }
         updateWalkSpeed(speedFactor) {

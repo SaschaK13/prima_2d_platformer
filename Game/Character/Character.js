@@ -22,6 +22,8 @@ var Game;
             this.DMG = 1;
             this.HP = 5;
             this.ATTACKSPEED = 100;
+            this.dmgCooldown = 50;
+            this.currentDmgCooldown = 0;
             this.attackCooldown = 0;
             this.gravity = -8;
             this.velocity = new fudge.Vector2(0, 0);
@@ -35,6 +37,9 @@ var Game;
                 this.handlePhysics();
                 if (this.attackCooldown != 0) {
                     this.attackCooldown -= 1;
+                }
+                if (this.currentDmgCooldown != 0) {
+                    this.currentDmgCooldown -= 1;
                 }
             };
             this.mesh = new fudge.MeshQuad();
@@ -83,7 +88,6 @@ var Game;
                     translation.y = newYPosition;
                     this.cmpTransform.local.translation = translation;
                     this.velocity.y = 0;
-                    this.isJumping = false;
                     break;
                 }
                 case Game.CollisionDirection.LEFT: {
@@ -91,7 +95,6 @@ var Game;
                     translation.x = newXPosition;
                     this.cmpTransform.local.translation = translation;
                     this.velocity.x = 0;
-                    this.isJumping = false;
                     break;
                 }
                 case Game.CollisionDirection.RIGHT: {
@@ -99,7 +102,6 @@ var Game;
                     translation.x = newXPosition;
                     this.cmpTransform.local.translation = translation;
                     this.velocity.x = 0;
-                    this.isJumping = false;
                     break;
                 }
             }
@@ -144,11 +146,16 @@ var Game;
         attack() { }
         die() { }
         takeDmg(dmgTaken) {
-            if (this.HP > 0) {
-                this.HP -= dmgTaken;
-            }
-            else {
-                this.die();
+            if (this.currentDmgCooldown == 0) {
+                if (this.HP > 0) {
+                    if ((this.HP - dmgTaken) >= 0) {
+                        this.HP -= dmgTaken;
+                    }
+                }
+                else {
+                    this.die();
+                }
+                this.currentDmgCooldown = this.dmgCooldown;
             }
         }
         addSpriteListener() {
@@ -163,6 +170,12 @@ var Game;
         }
         getStats() {
             return { hp: this.HP, dmg: this.DMG, jump_height: this.JUMP_HEIGHT, walk_speed: this.WALK_SPEED, attackspeed: this.ATTACKSPEED };
+        }
+        setStat(stats) {
+            this.HP = stats.hp;
+            this.DMG = stats.dmg;
+            this.JUMP_HEIGHT = stats.jump_height;
+            this.WALK_SPEED = stats.walk_speed;
         }
         updateSprites() {
             if (this.currentSpriteCooldown != 0) {
