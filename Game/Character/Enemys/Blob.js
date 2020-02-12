@@ -38,8 +38,6 @@ var Game;
         }
         reactToCollison() {
             let collisionObjects = this.collider.getCollisionObjects();
-            fudge.Debug.log(this.name);
-            fudge.Debug.log(collisionObjects);
             for (var i = 0; i < collisionObjects.length; i++) {
                 let collisionObject = collisionObjects[i];
                 switch (collisionObject.collisionType) {
@@ -51,7 +49,6 @@ var Game;
                         break;
                     }
                     case Game.CollisionType.PLAYER: {
-                        fudge.Debug.log(this.name + "Collided with palyer");
                         this.handleSolidColision(collisionObject);
                         break;
                     }

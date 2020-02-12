@@ -49,8 +49,6 @@ namespace Game {
 
     public reactToCollison(): void {
       let collisionObjects: CollidedObject[] = this.collider.getCollisionObjects(); 
-      fudge.Debug.log(this.name)
-      fudge.Debug.log(collisionObjects)
 
       for (var i: number = 0; i < collisionObjects.length; i++) {
         let collisionObject: CollidedObject = collisionObjects[i];
@@ -66,9 +64,8 @@ namespace Game {
             break;
           }
 
-          case CollisionType.PLAYER: {
-           fudge.Debug.log( this.name + "Collided with palyer")
-           this.handleSolidColision(collisionObject)
+          case CollisionType.PLAYER: {           
+           this.handleSolidColision(collisionObject);
            break;
           }
         }

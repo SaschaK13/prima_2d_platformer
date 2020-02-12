@@ -38,7 +38,6 @@ var Game;
         generateByGrid(_texture, _startRect, _frames, _borderSize, _resolutionQuad, _origin) {
             let rect = _startRect.copy;
             let rects = [];
-            //fudge.Debug.log(_texture.image);  
             while (_frames--) {
                 rects.push(rect.copy);
                 rect.position.x += _startRect.size.x + _borderSize.x;
@@ -116,7 +115,8 @@ var Game;
         "idle",
         "walk",
         "jump",
-        "attack"
+        "attack",
+        "death"
     ];
     function loadSprites() {
         let textureImage;
@@ -130,7 +130,6 @@ var Game;
                 }
             }
             spritesMap.set(spriteNames[i], spriteArray);
-            //fudge.Debug.log(spritesMap);
         }
         let util = Game.Util.getInstance();
         util.spritesMap = spritesMap;
@@ -158,6 +157,11 @@ var Game;
                     case Game.CHARACTERSTATE.ATTACK: {
                         let sprite = new Sprite(spriteName + "_" + stateName);
                         sprite.generateByGrid(textureImage, fudge.Rectangle.GET(1062, 10, 50, 35), 6, new fudge.Vector2(93, 0), 32, fudge.ORIGIN2D.CENTER);
+                        return sprite;
+                    }
+                    case Game.CHARACTERSTATE.DEATH: {
+                        let sprite = new Sprite(spriteName + "_" + stateName);
+                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(422, 14, 30, 30), 11, new fudge.Vector2(66, 0), 32, fudge.ORIGIN2D.CENTER);
                         return sprite;
                     }
                 }

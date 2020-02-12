@@ -32,7 +32,10 @@ namespace Game {
         this.showOneTime(CHARACTERSTATE.ATTACK);
         this.attackCooldown = this.getStats().attackspeed;
       }
-      
+    }
+
+    die(): void {
+      super.die();
     }
 
     public reactToCollison(): void {

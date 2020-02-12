@@ -25,6 +25,9 @@ var Game;
                 this.attackCooldown = this.getStats().attackspeed;
             }
         }
+        die() {
+            super.die();
+        }
         reactToCollison() {
             let collisionObjects = this.collider.getCollisionObjects();
             for (var i = 0; i < collisionObjects.length; i++) {
