@@ -30,8 +30,10 @@ namespace Game {
         for (var i: number = 0; i < detectedEnemys.length; i++) {
           detectedEnemys[i].takeDmg(this.getStats().dmg);   
         }
+        this.showOneTime(CHARACTERSTATE.ATTACK);
         this.attackCooldown = this.getStats().attackspeed;
       }
+      
     }
 
     public reactToCollison(): void {

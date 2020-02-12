@@ -50,7 +50,7 @@ namespace Game {
     public generateByGrid(_texture: fudge.TextureImage, _startRect: fudge.Rectangle, _frames: number, _borderSize: fudge.Vector2, _resolutionQuad: number, _origin: fudge.ORIGIN2D): void {
       let rect: fudge.Rectangle = _startRect.copy;
       let rects: fudge.Rectangle[] = [];
-      fudge.Debug.log(_texture.image)  
+      //fudge.Debug.log(_texture.image);  
       while (_frames--) {
         rects.push(rect.copy);
         rect.position.x += _startRect.size.x + _borderSize.x;
@@ -64,7 +64,7 @@ namespace Game {
           break;
       }
 
-      rects.forEach((_rect: fudge.Rectangle) => fudge.Debug.log(_rect.toString()));
+      //rects.forEach((_rect: fudge.Rectangle) => fudge.Debug.log(_rect.toString()));
       this.generate(_texture, rects, _resolutionQuad, _origin);
     }
 
@@ -164,7 +164,7 @@ namespace Game {
         }
       }
       spritesMap.set(spriteNames[i], spriteArray);
-      fudge.Debug.log(spritesMap);
+      //fudge.Debug.log(spritesMap);
     }
     let util: Util = Util.getInstance();
     util.spritesMap = spritesMap;

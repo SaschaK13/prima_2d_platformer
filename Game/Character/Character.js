@@ -30,6 +30,8 @@ var Game;
             this.velocity = new fudge.Vector2(0, 0);
             this.currentSpriteCooldown = 0;
             this.ANIMATION_COOLDOWN = 4;
+            this.showAttackAnimation = false;
+            this.attackAnimationCounter = 0;
             this.direction = DIRECTION.RIGHT;
             this.isJumping = false;
             this.update = (_event) => {
@@ -112,6 +114,10 @@ var Game;
                 child.activate(child.name == (this.spriteName + "_" + _characterstate));
             }
         }
+        showOneTime(_characterstate) {
+            this.showAttackAnimation = true;
+            this.show(_characterstate);
+        }
         idle() {
             if (!this.isJumping) {
                 this.show(CHARACTERSTATE.IDLE);
@@ -163,8 +169,15 @@ var Game;
             for (let key of Game.Util.getInstance().spritesMap.get(this.spriteName).keys()) {
                 let sprite = Game.Util.getInstance().spritesMap.get(this.spriteName).get(key);
                 let nodeSprite = new Game.NodeSprite(sprite.name, sprite);
+                if (sprite.name == "player_attack") {
+                    this.attackSpriteLength = sprite.frames.length;
+                    //fudge.Debug.log(this.attackSpriteLength);
+                    nodeSprite.addEventListener("showNextAttack", (_event) => { _event.currentTarget.showFrameNext(); }, true);
+                }
+                else {
+                    nodeSprite.addEventListener("showNext", (_event) => { _event.currentTarget.showFrameNext(); }, true);
+                }
                 nodeSprite.activate(false);
-                nodeSprite.addEventListener("showNext", (_event) => { _event.currentTarget.showFrameNext(); }, true);
                 this.appendChild(nodeSprite);
             }
             this.show(CHARACTERSTATE.IDLE);
@@ -184,6 +197,15 @@ var Game;
             }
             else {
                 this.broadcastEvent(new CustomEvent("showNext"));
+                //fudge.Debug.log(this.attackAnimationCounter + " + " + this.attackSpriteLength);
+                if (this.showAttackAnimation && this.attackAnimationCounter != this.attackSpriteLength) {
+                    this.broadcastEvent(new CustomEvent("showNextAttack"));
+                    this.attackAnimationCounter++;
+                }
+                else if (this.attackAnimationCounter == this.attackSpriteLength) {
+                    this.attackAnimationCounter = 0;
+                    this.showAttackAnimation = false;
+                }
                 this.currentSpriteCooldown = this.ANIMATION_COOLDOWN;
             }
         }

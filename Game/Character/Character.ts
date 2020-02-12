@@ -47,10 +47,13 @@ namespace Game {
     private cmpTrans: fudge.ComponentTransform;
     private cmpMesh: fudge.ComponentMesh;
 
-      private sprites: Sprite[];
-      public spriteName: string;
-      private currentSpriteCooldown: number = 0;
-      private ANIMATION_COOLDOWN: number = 4;
+    private sprites: Sprite[];
+    public spriteName: string;
+    private currentSpriteCooldown: number = 0;
+    private ANIMATION_COOLDOWN: number = 4;
+    private attackSpriteLength: number;
+    private showAttackAnimation: boolean = false;
+    private attackAnimationCounter: number = 0;
 
     private state: CHARACTERSTATE;
     public direction: DIRECTION = DIRECTION.RIGHT;
@@ -153,6 +156,11 @@ namespace Game {
       }
     }
 
+    public showOneTime(_characterstate: CHARACTERSTATE) {
+      this.showAttackAnimation = true;
+      this.show(_characterstate);
+    }
+
     public idle(): void {
       if (!this.isJumping) {
         this.show(CHARACTERSTATE.IDLE);
@@ -210,16 +218,26 @@ namespace Game {
     }
 
     public addSpriteListener(): void {
-      for (let key of Util.getInstance().spritesMap.get(this.spriteName).keys()) {
+      for (let key of Util.getInstance().spritesMap.get(this.spriteName).keys()) {       
         let sprite: Sprite = Util.getInstance().spritesMap.get(this.spriteName).get(key);
         let nodeSprite: NodeSprite = new NodeSprite(sprite.name, sprite);
+        if (sprite.name == "player_attack") {
+          this.attackSpriteLength = sprite.frames.length;
+          //fudge.Debug.log(this.attackSpriteLength);
+          nodeSprite.addEventListener(
+            "showNextAttack",
+            (_event: Event) => { (<NodeSprite>_event.currentTarget).showFrameNext(); },
+            true
+          );
+        } else {
+          nodeSprite.addEventListener(
+            "showNext",
+            (_event: Event) => { (<NodeSprite>_event.currentTarget).showFrameNext(); },
+            true
+          );
+        }
         nodeSprite.activate(false);        
   
-        nodeSprite.addEventListener(
-          "showNext",
-          (_event: Event) => { (<NodeSprite>_event.currentTarget).showFrameNext(); },
-          true
-        );
         this.appendChild(nodeSprite);
       }
       this.show(CHARACTERSTATE.IDLE);
@@ -255,6 +273,14 @@ namespace Game {
         this.currentSpriteCooldown --;
       } else {
         this.broadcastEvent(new CustomEvent("showNext"));
+        //fudge.Debug.log(this.attackAnimationCounter + " + " + this.attackSpriteLength);
+        if (this.showAttackAnimation && this.attackAnimationCounter != this.attackSpriteLength) {
+          this.broadcastEvent(new CustomEvent("showNextAttack"));
+          this.attackAnimationCounter++;
+        } else if (this.attackAnimationCounter == this.attackSpriteLength) {
+          this.attackAnimationCounter = 0;
+          this.showAttackAnimation = false;
+        }
         this.currentSpriteCooldown = this.ANIMATION_COOLDOWN;
       }
     }

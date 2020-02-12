@@ -38,7 +38,7 @@ var Game;
         generateByGrid(_texture, _startRect, _frames, _borderSize, _resolutionQuad, _origin) {
             let rect = _startRect.copy;
             let rects = [];
-            fudge.Debug.log(_texture.image);
+            //fudge.Debug.log(_texture.image);  
             while (_frames--) {
                 rects.push(rect.copy);
                 rect.position.x += _startRect.size.x + _borderSize.x;
@@ -49,7 +49,7 @@ var Game;
                 if (rect.bottom > _texture.image.height)
                     break;
             }
-            rects.forEach((_rect) => fudge.Debug.log(_rect.toString()));
+            //rects.forEach((_rect: fudge.Rectangle) => fudge.Debug.log(_rect.toString()));
             this.generate(_texture, rects, _resolutionQuad, _origin);
         }
         createFrame(_name, _texture, _framing, _rect, _resolutionQuad, _origin) {
@@ -130,7 +130,7 @@ var Game;
                 }
             }
             spritesMap.set(spriteNames[i], spriteArray);
-            fudge.Debug.log(spritesMap);
+            //fudge.Debug.log(spritesMap);
         }
         let util = Game.Util.getInstance();
         util.spritesMap = spritesMap;
