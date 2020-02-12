@@ -85,7 +85,6 @@ var Game;
                     translation.y = newYPosition;
                     this.cmpTransform.local.translation = translation;
                     this.velocity.y = 0;
-                    this.isJumping = false;
                     break;
                 }
                 case Game.CollisionDirection.LEFT: {
@@ -93,7 +92,6 @@ var Game;
                     translation.x = newXPosition;
                     this.cmpTransform.local.translation = translation;
                     this.velocity.x = 0;
-                    this.isJumping = false;
                     break;
                 }
                 case Game.CollisionDirection.RIGHT: {
@@ -101,7 +99,6 @@ var Game;
                     translation.x = newXPosition;
                     this.cmpTransform.local.translation = translation;
                     this.velocity.x = 0;
-                    this.isJumping = false;
                     break;
                 }
             }
