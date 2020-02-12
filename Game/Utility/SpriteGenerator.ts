@@ -136,9 +136,12 @@ namespace Game {
 
   let spriteNames: string[] = [
     "player",
-    "goblin"
+    "goblin",
+    "dirt",
+    "stone"
   ];
   let states: string[] = [
+    "default",
     "idle",
     "walk",
     "jump",
@@ -147,11 +150,14 @@ namespace Game {
 
   export function loadSprites(): void {
     let textureImage: fudge.TextureImage;
-    let spritesMap = new Map;
+    let spritesMap: Map<string, Map<string, Sprite>> = new Map;
+
     for (let i: number = 0; i < spriteNames.length; i++) {
-      let spriteArray = new Map;
+      let spriteArray: Map<string, Sprite> = new Map;
+
       for (let j: number = 0; j < states.length; j++) {
         textureImage = Util.getInstance().getTextureImageBy(spriteNames[i], states[j]);
+
         if (textureImage.image) {
           spriteArray.set(states[j], generateSprites(textureImage, spriteNames[i], states[j]));
         }
@@ -193,12 +199,29 @@ namespace Game {
         switch (stateName) { 
           case CHARACTERSTATE.IDLE: { 
             let sprite: Sprite = new Sprite(spriteName + "_" + stateName);
-            fudge.Debug.log(sprite);
             sprite.generateByGrid(textureImage, fudge.Rectangle.GET(50, 60, 50, 50), 2, new fudge.Vector2(100, 0), 32, fudge.ORIGIN2D.CENTER);
             return sprite;
           }
         }
-      } 
+      }
+      case "dirt": {
+        switch (stateName) { 
+          case CHARACTERSTATE.DEFAULT: { 
+            let sprite: Sprite = new Sprite(spriteName + "_" + stateName);
+            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(20, 16, 40, 30), 1, new fudge.Vector2(0, 0), 32, fudge.ORIGIN2D.CENTER);
+            return sprite;
+          }
+        }
+      }
+      case "stone": {
+        switch (stateName) { 
+          case CHARACTERSTATE.DEFAULT: { 
+            let sprite: Sprite = new Sprite(spriteName + "_" + stateName);
+            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(120, 43, 40, 30), 1, new fudge.Vector2(0, 0), 32, fudge.ORIGIN2D.CENTER);
+            return sprite;
+          }
+        }
+      }   
     }
   }
 }

@@ -3,6 +3,7 @@ namespace Game {
   import fudge = FudgeCore;
 
   export enum CHARACTERSTATE {
+    DEFAULT = "default",
     IDLE = "idle",
     WALK = "walk",
     JUMP = "jump",

@@ -7,7 +7,6 @@ var Game;
         EnvironmentType["PLATFORM"] = "Platform";
     })(EnvironmentType = Game.EnvironmentType || (Game.EnvironmentType = {}));
     class Environment extends fudge.Node {
-        //private static materials: fudge.Material;
         constructor(nodeName, type) {
             super(nodeName);
             this.type = this.parseStringToEnviornmentType(type);
@@ -15,6 +14,16 @@ var Game;
             this.addComponent(cmpMesh);
             let cmpTransform = new fudge.ComponentTransform();
             this.addComponent(cmpTransform);
+        }
+        //TODO adapt to environment
+        addSpriteListener() {
+            for (let key of Game.Util.getInstance().spritesMap.get(this.spriteName).keys()) {
+                let sprite = Game.Util.getInstance().spritesMap.get(this.spriteName).get(key);
+                let nodeSprite = new Game.NodeSprite(sprite.name, sprite);
+                nodeSprite.activate(true);
+                nodeSprite.addEventListener("showNext", (_event) => { _event.currentTarget.showFrameNext(); }, true);
+                this.appendChild(nodeSprite);
+            }
         }
         parseStringToEnviornmentType(s) {
             switch (s) {
