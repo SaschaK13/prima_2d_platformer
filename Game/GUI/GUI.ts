@@ -17,9 +17,9 @@ namespace Game {
       this.initialAttackSpeed = initialAttackSpeed;
     }
 
-    public updateHealth(damageAndHeal: number): void {      
+    public updateHealth(damageAndHeal: number): void {
       this.initialHealth = this.initialHealth - damageAndHeal;
-      document.getElementById("health").setAttribute("src", "../Game/Assets/herz" + this.initialHealth + ".png");      
+      document.getElementById("health").setAttribute("src", "../Game/Assets/health/heart" + this.initialHealth + ".png");
     }
     
     public updateWalkSpeed(speedFactor: number): void {

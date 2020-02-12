@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Game</title>
-  <link rel="stylesheet" href="gui.css">
+  <link rel="stylesheet" href="game.css">
   <script src="../Fudge/FudgeCore.js"></script>
   <script src="Utility/SpriteGenerator.js"></script>
   <script src="Environment/LevelGenerator.js"></script>
@@ -19,6 +19,7 @@
   <script src="Character/Character.js"></script>
   <script src="Character/Enemy.js"></script>
   <script src="Character/Player.js"></script>
+  <script src="Game.js"></script>
   <script src="Main.js"></script>
 </head>
 <body>
@@ -29,18 +30,28 @@
   <img id="player_idle" src="../Game/Assets/Spritesheets/Player/player_idle.png" hidden=true>
   <img id="player_jump" src="../Game/Assets/Spritesheets/Player/player_jump.png" hidden=true>
   <img id="player_walk" src="../Game/Assets/Spritesheets/Player/player_walk.png" hidden=true>
+  <img src="../Game/Assets/health/heart5.png" width="380px" height="70px" id="health">
+  <img id="test" src="../Game/Assets/Spritesheets/test.png" hidden=true>
 
-  <h1 id="time"> Time: 00:00:00 </h1>
+  <p id="time"> Time: 00:00:00 </p>
 
-  <h2 id="speed"> walk speed: 1 </h2>
+  <img src="./Assets/icons/walkSpeedUp.png" id="walkSpeedIcon">
+  <p id="speed"> 1 </p>
+  <img src="./Assets/icons/jumpingPowerUp.png" id="jumpingUpIcon">
+  <p id="jumping"> 1 </p>
+  <img src="./Assets/icons/attackDamageUp.png" id="attackDamageIcon">
+  <p id="damage"> 1 </p>
+  <img src="./Assets/icons/attackSpeedUp.png" id="attackSpeedIcon">
+  <p><p id="attackSpeed"> 1 </p></p>
 
-  <h2 id="jumping"> jumping power: 1 </h2>
+  <span id="gameOver">
+    <h1> Game Over! </h1>
+    <button id="restart"> Restart </button>
+    <br>
+    <button id="backToMenu"> Back to menu </button>
+  </span>
 
-  <h2 id="damage"> damage: 1 </h2>
-
-  <h2 id="attackSpeed"> attack speed: 1 </h2>
-
-  <progress id="healthBar" value="80" max="100"></progress>
+  <progress id="healthBar"></progress>
 
 </body>
 </html>
