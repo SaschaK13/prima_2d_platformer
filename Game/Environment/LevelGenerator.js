@@ -33,7 +33,6 @@ var Game;
             }
             let util = Game.Util.getInstance();
             util.level = this.levelObject;
-            //fudge.Debug.log(this.levelObject.player);
         }
     }
     Game.LevelGenerator = LevelGenerator;
