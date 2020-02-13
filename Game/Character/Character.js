@@ -191,6 +191,18 @@ var Game;
                 this.currentDmgCooldown = this.dmgCooldown;
             }
         }
+        look(direction) {
+            switch (direction) {
+                case DIRECTION.RIGHT: {
+                    this.cmpTransform.local.rotation = fudge.Vector3.Y(0);
+                    break;
+                }
+                case DIRECTION.LEFT: {
+                    this.cmpTransform.local.rotation = fudge.Vector3.Y(180);
+                    break;
+                }
+            }
+        }
         addSpriteListener() {
             for (let key of Game.Util.getInstance().spritesMap.get(this.spriteName).keys()) {
                 let sprite = Game.Util.getInstance().spritesMap.get(this.spriteName).get(key);
