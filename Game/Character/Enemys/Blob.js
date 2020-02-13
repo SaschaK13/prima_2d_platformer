@@ -13,7 +13,7 @@ var Game;
             this.spriteName = spriteName;
             this.cmpTransform.local.translation = new fudge.Vector3(positionX, positionY, 0);
             this.cmpTransform.local.scaling = new fudge.Vector3(scaleX, scaleY, 0);
-            this.setStats({ hp: 1, dmg: 0, walkSpeed: 1, jumpHeight: 0, attackSpeed: 0 });
+            this.setStats({ hp: 3, dmg: 0, walkSpeed: 1, jumpHeight: 0, attackSpeed: 0 });
             this.movementDuration = Game.Util.getInstance().getRandomRange(2, 3);
             this.randomDirection();
             super.addSpriteListener();
@@ -42,6 +42,25 @@ var Game;
             item.cmpTransform.local.translation = this.cmpTransform.local.translation;
             Game.Util.getInstance().level.appendToRoot(item);
             Game.Util.getInstance().level.itemArray.push(item);
+        }
+        reactToCollison() {
+            let collisionObjects = this.collider.getCollisionObjects();
+            for (var i = 0; i < collisionObjects.length; i++) {
+                let collisionObject = collisionObjects[i];
+                switch (collisionObject.collisionType) {
+                    case Game.CollisionType.ENEMY: {
+                        break;
+                    }
+                    case Game.CollisionType.ENVIRONMENT: {
+                        this.handleSolidColision(collisionObject);
+                        break;
+                    }
+                    case Game.CollisionType.PLAYER: {
+                        this.handleSolidColision(collisionObject);
+                        break;
+                    }
+                }
+            }
         }
         randomDirection() {
             let randomnum = Game.Util.getInstance().getRandomRange(1, 3);

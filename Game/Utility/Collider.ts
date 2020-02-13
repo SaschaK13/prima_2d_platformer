@@ -82,6 +82,31 @@ public getCollisionType(colissionObject: fudge.Node): CollisionType {
   
 }
 
+  private collideWith(cObject: fudge.Node) {
+
+
+    let colissionObjectPosition: fudge.Vector3 = cObject.cmpTransform.local.translation;
+    let colissionObjectScaling: fudge.Vector3 = cObject.cmpTransform.local.scaling;
+
+    let characterPosition: fudge.Vector3 = this.object.cmpTransform.local.translation;
+    let characterScaling: fudge.Vector3 = this.object.cmpTransform.local.scaling;
+
+    if (characterPosition.x - (characterScaling.x / 2) < colissionObjectPosition.x + (colissionObjectScaling.x / 2) &&
+      characterPosition.x + (characterScaling.x / 2) > colissionObjectPosition.x - (colissionObjectScaling.x / 2) &&
+      characterPosition.y - (characterScaling.y / 2) < colissionObjectPosition.y + (colissionObjectScaling.y / 2) &&
+      characterPosition.y + (characterScaling.y / 2) > colissionObjectPosition.y - (colissionObjectScaling.y / 2)) {
+      this.isColliding = true;
+      let direction = this.getCollisionDirection(cObject)
+      let collisionType = this.getCollisionType(cObject)
+      this.collissionObjects.push({ object: cObject, collisionDirecton: direction, collisionType: collisionType });
+    } else {
+      this.isColliding = false;
+
+    }
+
+
+  }
+
 public getCollisionDirection(colissionObject: fudge.Node): CollisionDirection {
   let objectLeft = this.object.cmpTransform.local.translation.x - (this.object.cmpTransform.local.scaling.x / 2);
   let objectRight = this.object.cmpTransform.local.translation.x + (this.object.cmpTransform.local.scaling.x / 2);
@@ -108,23 +133,6 @@ public getCollisionDirection(colissionObject: fudge.Node): CollisionDirection {
 }
 
 
-    private collideWith(cObject: fudge.Node) {
-
-  if (colissionObject.constructor.name == "Platform") {
-    return CollisionType.ENVIRONMENT;
-  } 
-  else if (colissionObject.constructor.name == "Blob" || colissionObject.constructor.name == "Player") {
-      return CollisionType.CHARACTER;
-  } 
-  else if (colissionObject.constructor.name == "Item") {
-      return CollisionType.ITEM;
-  } 
-  else {
-      return CollisionType.MISSING;
-  }
-
-}
-
 
 private updateCollisionObjects()
 {
@@ -141,12 +149,4 @@ private updateCollisionObjects()
     }
 
   }
-}
-
-
-
-}
-
-
-
 }

@@ -23,6 +23,9 @@ var Game;
                 for (var i = 0; i < detectedEnemys.length; i++) {
                     detectedEnemys[i].takeDmg(this.getStats().dmg);
                 }
+                fudge.Debug.log("test");
+                this.isAttacking = true;
+                this.showOneTime(Game.CHARACTERSTATE.ATTACK);
                 this.attackCooldown = this.getStats().attackSpeed;
             }
         }
@@ -34,14 +37,17 @@ var Game;
             for (var i = 0; i < collisionObjects.length; i++) {
                 let collisionObject = collisionObjects[i];
                 switch (collisionObject.collisionType) {
-                    case Game.CollisionType.CHARACTER: {
-                        this.takeDmg(1);
+                    case Game.CollisionType.ENEMY: {
+                        if (collisionObject.object.constructor.name == "Blob") {
+                            this.takeDmg(1);
+                        }
                         super.handleSolidColision(collisionObject);
-                        break;
                     }
                     case Game.CollisionType.ENVIRONMENT: {
+                        if (collisionObject.object.constructor.name == "Platform") {
+                            this.currentPlatform = collisionObject.object;
+                        }
                         super.handleSolidColision(collisionObject);
-                        break;
                     }
                     case Game.CollisionType.ITEM: {
                         let item = collisionObject.object;
