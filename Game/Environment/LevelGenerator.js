@@ -21,7 +21,7 @@ var Game;
             for (var i = 0; i < numberOfBackground; i++) {
                 let background = new Game.Background(backgroundValue.name, backgroundValue.type, backgroundValue.spriteName, backgroundValue.length);
                 background.cmpTransform.local.translation = new fudge.Vector3(i * this.backgroundLength, 0, -1);
-                this.root.appendChild(background);
+                //this.root.appendChild(background);
                 this.levelObject.backgroundArray.push(background);
             }
             //background left
@@ -39,7 +39,6 @@ var Game;
             for (var i = 0; i < platformArray.length; i++) {
                 let current = platformArray[i];
                 let platform = new Game.Platform(current.name, current.type, current.spriteName, current.positionX, current.positionY, current.scaleX, current.scaleY);
-                //this.root.appendChild(platform);
                 this.levelObject.platformArray.push(platform);
             }
             let enemyArray = this.data["enemyArray"];
@@ -48,13 +47,11 @@ var Game;
                 switch (current.spriteName) {
                     case "blob": {
                         let enemy = new Game.Blob(current.name, current.spriteName, current.positionX, current.positionY, current.scaleX, current.scaleX);
-                        // this.root.appendChild(enemy);
                         this.levelObject.enemyArray.push(enemy);
                         break;
                     }
                     case "goblin": {
                         let enemy = new Game.Goblin(current.name, current.spriteName, current.positionX, current.positionY, current.scaleX, current.scaleX);
-                        // this.root.appendChild(enemy);
                         this.levelObject.enemyArray.push(enemy);
                         break;
                     }

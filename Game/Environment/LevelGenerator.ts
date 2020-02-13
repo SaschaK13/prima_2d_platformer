@@ -30,7 +30,7 @@ namespace Game {
       for (var i: number = 0; i < numberOfBackground; i++) {
         let background: Background = new Background(backgroundValue.name, backgroundValue.type, backgroundValue.spriteName, backgroundValue.length);
         background.cmpTransform.local.translation = new fudge.Vector3(i * this.backgroundLength, 0, -1);
-        this.root.appendChild(background);
+        //this.root.appendChild(background);
         this.levelObject.backgroundArray.push(background);
       }
       //background left

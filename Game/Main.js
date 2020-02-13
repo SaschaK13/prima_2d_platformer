@@ -56,7 +56,7 @@ var Game;
         function update(_event) {
             processInput();
             viewport.draw();
-            cameraOrbit.cmpTransform.local.translation = Game.Util.getInstance().level.player.cmpTransform.local.translation;
+            cameraOrbit.cmpTransform.local.translation = new fudge.Vector3(Game.Util.getInstance().level.player.cmpTransform.local.translation.x, cameraOrbit.cmpTransform.local.translation.y, cameraOrbit.cmpTransform.local.translation.z);
             updateGameObjects();
             //fudge.RenderManager.update()
         }
@@ -100,9 +100,48 @@ var Game;
                     fudge.Debug.log("Enemy destroyed");
                 }
             }
+            //load Background
+            let backGroundArray = Game.Util.getInstance().level.backgroundArray;
+            for (var i = 0; i < backGroundArray.length; i++) {
+                let backGround = backGroundArray[i];
+                let showed = isBackgroundInViewPort(backGround);
+                if (showed && !backGround.isLoaded) {
+                    fudge.Debug.log("Bacvkground created");
+                    collidableNode.appendChild(backGround);
+                    backGround.isLoaded = true;
+                }
+                else if (!showed && backGround.isLoaded) {
+                    fudge.Debug.log("Bacvkground deleted");
+                    collidableNode.removeChild(backGround);
+                    backGround.isLoaded = false;
+                }
+            }
+            //Check if Player is in ViewPort 
+            let player = Game.Util.getInstance().level.player;
+            let showed = isInViewPort(player);
+            if (!showed && player.isLoaded) {
+                player.die();
+            }
+        }
+        function isBackgroundInViewPort(background) {
+            let camSize = new fudge.Vector2(40, 10);
+            let camPosition = cameraOrbit.cmpTransform.local.translation;
+            let leftBorder = camPosition.x - (camSize.x / 2);
+            let rightBorder = camPosition.x + (camSize.x / 2);
+            let bottom = camPosition.y - (camSize.y / 2);
+            let top = camPosition.y + (camSize.y / 2);
+            let nodePosition = background.cmpTransform.local.translation;
+            let nodeLeftBorder = nodePosition.x - (background.length / 2);
+            let nodeRightBorder = nodePosition.x + (background.length / 2);
+            if (nodeRightBorder >= leftBorder && nodeLeftBorder <= rightBorder) {
+                return true;
+            }
+            else {
+                return false;
+            }
         }
         function isInViewPort(node) {
-            let camSize = new fudge.Vector2(20, 7);
+            let camSize = new fudge.Vector2(20, 10);
             let camPosition = cameraOrbit.cmpTransform.local.translation;
             let leftBorder = camPosition.x - (camSize.x / 2);
             let rightBorder = camPosition.x + (camSize.x / 2);
