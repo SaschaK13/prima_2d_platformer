@@ -20,14 +20,13 @@ var Game;
             super(nodeName);
             this.attackCooldown = 0;
             this.direction = DIRECTION.RIGHT;
-            this.JUMP_HEIGHT = 6;
+            this.JUMP_HEIGHT = 4;
             this.WALK_SPEED = 2;
             this.DMG = 1;
             this.HP = 5;
             this.ATTACKSPEED = 100;
             this.dmgCooldown = 50;
             this.currentDmgCooldown = 0;
-            this.attackCooldown = 0;
             this.gravity = -8;
             this.velocity = new fudge.Vector2(0, 0);
             this.currentSpriteCooldown = 0;
@@ -172,20 +171,26 @@ var Game;
             this.show(CHARACTERSTATE.IDLE);
         }
         getStats() {
-            return { hp: this.HP, dmg: this.DMG, jump_height: this.JUMP_HEIGHT, walk_speed: this.WALK_SPEED, attackspeed: this.ATTACKSPEED };
+            return { hp: this.HP, dmg: this.DMG, jumpHeight: this.JUMP_HEIGHT, walkSpeed: this.WALK_SPEED, attackSpeed: this.ATTACKSPEED };
         }
-        setStat(stats) {
+        setStats(stats) {
             this.HP = stats.hp;
             this.DMG = stats.dmg;
-            this.JUMP_HEIGHT = stats.jump_height;
-            this.WALK_SPEED = stats.walk_speed;
+            this.JUMP_HEIGHT = stats.jumpHeight;
+            this.WALK_SPEED = stats.walkSpeed;
+            this.ATTACKSPEED = stats.attackSpeed;
         }
         updateStats(stats) {
-            this.JUMP_HEIGHT += stats.jump_height;
-            this.WALK_SPEED += stats.walk_speed;
+            let gui = Game.Util.getInstance().gui;
+            this.JUMP_HEIGHT += stats.jumpHeight;
+            this.WALK_SPEED += stats.walkSpeed;
             this.DMG += stats.dmg;
             this.HP += stats.hp;
-            this.ATTACKSPEED += stats.attackspeed;
+            this.ATTACKSPEED += stats.attackSpeed;
+            gui.updateJumpingPower(stats.jumpHeight);
+            gui.updateWalkSpeed(stats.walkSpeed);
+            gui.updateDamage(stats.dmg);
+            gui.updateHealth(this);
         }
         updateSprites() {
             if (this.currentSpriteCooldown != 0) {

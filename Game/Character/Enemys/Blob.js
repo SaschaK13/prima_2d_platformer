@@ -15,13 +15,14 @@ var Game;
             this.cmpTransform.local.scaling = new fudge.Vector3(scaleX, scaleY, 0);
             // let material: fudge.Material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(0, 1, 0, 1)));
             // this.addComponent(new fudge.ComponentMaterial(material));
-            this.setStat({ hp: 3, dmg: 0, walk_speed: 1, jump_height: 0, attackspeed: 0 });
+            this.setStats({ hp: 1, dmg: 0, walkSpeed: 1, jumpHeight: 0, attackSpeed: 0 });
             this.movementDuration = Game.Util.getInstance().getRandomRange(2, 3);
             this.randomDirection();
             super.addSpriteListener();
             fudge.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, this.behavior);
         }
         die() {
+            this.dropItem();
             this.getParent().removeChild(this);
             Game.Util.getInstance().level.deleteEnemy(this);
         }
@@ -35,6 +36,14 @@ var Game;
                 this.randomDirection();
                 this.currentMovmentDuration = 0;
             }
+        }
+        dropItem() {
+            let possibleItemsArray = Game.Util.getInstance().level.possibleItemsArray;
+            let randomItem = Game.Util.getInstance().getRandomRange(0, possibleItemsArray.length);
+            let item = possibleItemsArray[randomItem];
+            item.cmpTransform.local.translation = this.cmpTransform.local.translation;
+            Game.Util.getInstance().level.appendToRoot(item);
+            Game.Util.getInstance().level.itemArray.push(item);
         }
         randomDirection() {
             let randomnum = Game.Util.getInstance().getRandomRange(1, 3);

@@ -22,7 +22,7 @@ namespace Game {
       // let material: fudge.Material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(0, 1, 0, 1)));
       // this.addComponent(new fudge.ComponentMaterial(material));
 
-      this.setStat({ hp: 3, dmg: 0, walk_speed: 1, jump_height: 0, attackspeed: 0 });
+      this.setStats({ hp: 1, dmg: 0, walkSpeed: 1, jumpHeight: 0, attackSpeed: 0 });
       this.movementDuration = Util.getInstance().getRandomRange(2, 3);
       this.randomDirection();
 
@@ -32,6 +32,7 @@ namespace Game {
 
 
     public die(): void {
+      this.dropItem();
       this.getParent().removeChild(this);
       Util.getInstance().level.deleteEnemy(this);
     }
@@ -45,6 +46,15 @@ namespace Game {
         this.randomDirection();
         this.currentMovmentDuration = 0;
       }
+    }
+
+    public dropItem() {
+      let possibleItemsArray: Item[] = Util.getInstance().level.possibleItemsArray;
+      let randomItem: number = Util.getInstance().getRandomRange(0, possibleItemsArray.length);
+      let item: Item = possibleItemsArray[randomItem];
+      item.cmpTransform.local.translation = this.cmpTransform.local.translation;
+      Util.getInstance().level.appendToRoot(item);
+      Util.getInstance().level.itemArray.push(item);
     }
 
     private behavior = (_event: fudge.Eventƒ): void => {

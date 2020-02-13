@@ -32,7 +32,7 @@ var Game;
                 }
             }
             this.updateCollisionObjects();
-            fudge.Debug.log(this.getCollisionObjects);
+            fudge.Debug.log(objects);
         }
         getCollisionObjects() {
             return this.collissionObjects;

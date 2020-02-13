@@ -34,7 +34,7 @@ namespace Game {
       this.rectangle = new fudge.Rectangle(x, y, width, height, fudge.ORIGIN2D.CENTER)
 
       let detectedEnemys: Character[] = []
-      if (this.parentNode.constructor.name == "Enemy") {
+      if (this.constructor.name == "Goblin") {
         if (this.collideWith(Util.getInstance().level.player)) {
           detectedEnemys.push(Util.getInstance().level.player);
           return detectedEnemys;

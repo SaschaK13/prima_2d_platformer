@@ -22,9 +22,9 @@ namespace Game {
   export interface CharacterStats {
     hp: number;
     dmg: number;
-    jump_height: number;
-    walk_speed: number;
-    attackspeed: number;
+    jumpHeight: number;
+    walkSpeed: number;
+    attackSpeed: number;
   }
 
   export class Character extends fudge.Node {
@@ -38,7 +38,7 @@ namespace Game {
 
       public oldTransform: fudge.Vector3;
 
-    private JUMP_HEIGHT: number = 6;
+    private JUMP_HEIGHT: number = 4;
     private WALK_SPEED: number = 2;
     private DMG: number = 1;
     private HP: number = 5;
@@ -47,7 +47,6 @@ namespace Game {
 
     private dmgCooldown = 50
     public currentDmgCooldown = 0;
-    public attackCooldown = 0;
 
     private gravity: number = -8;
     private velocity: fudge.Vector2 = new fudge.Vector2(0, 0);
@@ -234,23 +233,31 @@ namespace Game {
 
    
     public getStats(): CharacterStats {
-      return { hp: this.HP, dmg: this.DMG, jump_height: this.JUMP_HEIGHT, walk_speed: this.WALK_SPEED, attackspeed: this.ATTACKSPEED }
+      return { hp: this.HP, dmg: this.DMG, jumpHeight: this.JUMP_HEIGHT, walkSpeed: this.WALK_SPEED, attackSpeed: this.ATTACKSPEED }
     }
 
     public setStats(stats: CharacterStats)
     {
       this.HP = stats.hp
       this.DMG = stats.dmg
-      this.JUMP_HEIGHT = stats.jump_height
-      this.WALK_SPEED = stats.walk_speed
+      this.JUMP_HEIGHT = stats.jumpHeight
+      this.WALK_SPEED = stats.walkSpeed
+      this.ATTACKSPEED = stats.attackSpeed
     }
 
     public updateStats(stats: CharacterStats): void {
-      this.JUMP_HEIGHT += stats.jump_height;
-      this.WALK_SPEED += stats.walk_speed;
+      let gui = Util.getInstance().gui;
+
+      this.JUMP_HEIGHT += stats.jumpHeight;
+      this.WALK_SPEED += stats.walkSpeed;
       this.DMG += stats.dmg;
       this.HP += stats.hp;
-      this.ATTACKSPEED += stats.attackspeed;
+      this.ATTACKSPEED += stats.attackSpeed;
+
+      gui.updateJumpingPower(stats.jumpHeight);
+      gui.updateWalkSpeed(stats.walkSpeed);
+      gui.updateDamage(stats.dmg);
+      gui.updateHealth(this);
     }
 
     private update = (_event: fudge.Eventƒ): void => {

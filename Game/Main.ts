@@ -29,7 +29,6 @@ namespace Game {
     let viewport: fudge.Viewport = new fudge.Viewport();
     viewport.initialize("Viewport", root, cmpCamera, canvas);
 
-   
 
 
     loadGame()

@@ -23,7 +23,7 @@ var Game;
                 for (var i = 0; i < detectedEnemys.length; i++) {
                     detectedEnemys[i].takeDmg(this.getStats().dmg);
                 }
-                this.attackCooldown = this.getStats().attackspeed;
+                this.attackCooldown = this.getStats().attackSpeed;
             }
         }
         reactToCollison() {
@@ -32,7 +32,6 @@ var Game;
                 let collisionObject = collisionObjects[i];
                 switch (collisionObject.collisionType) {
                     case Game.CollisionType.CHARACTER: {
-                        fudge.Debug.log("U took dmg");
                         this.takeDmg(1);
                         super.handleSolidColision(collisionObject);
                         break;
@@ -42,9 +41,8 @@ var Game;
                         break;
                     }
                     case Game.CollisionType.ITEM: {
-                        fudge.Debug.log("I collide");
                         let item = collisionObject.object;
-                        fudge.Debug.log(this);
+                        fudge.Debug.log(this + " collision with item " + item.getStats);
                         this.updateStats(item.getStats());
                         Game.Util.getInstance().level.deleteItem(item);
                         this.getParent().removeChild(item);

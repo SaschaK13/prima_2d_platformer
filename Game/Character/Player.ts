@@ -26,11 +26,11 @@ namespace Game {
 
     attack(): void {
       if (this.attackCooldown == 0) {
-        let detectedEnemys: Enemy[] = this.hitbox.detectEnemys() as Enemy[];
+        let detectedEnemys: Character[] = this.hitbox.detectEnemys() as Character[];
         for (var i: number = 0; i < detectedEnemys.length; i++) {
           detectedEnemys[i].takeDmg(this.getStats().dmg);   
         }
-        this.attackCooldown = this.getStats().attackspeed;
+        this.attackCooldown = this.getStats().attackSpeed;
       }
     }
 
@@ -42,7 +42,6 @@ namespace Game {
         
         switch (collisionObject.collisionType) {
           case CollisionType.CHARACTER: {
-            fudge.Debug.log("U took dmg");
             this.takeDmg(1);
             super.handleSolidColision(collisionObject)
             break;
@@ -54,12 +53,12 @@ namespace Game {
           }
 
           case CollisionType.ITEM: {
-            fudge.Debug.log("I collide");
             let item = collisionObject.object as Item;
-            fudge.Debug.log(this);
+            fudge.Debug.log(this + " collision with item " + item.getStats);
             this.updateStats(item.getStats());
+
             Util.getInstance().level.deleteItem(item);
-            this.getParent().removeChild(item)
+            this.getParent().removeChild(item);
             break;
           }
         }

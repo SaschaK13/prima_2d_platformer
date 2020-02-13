@@ -50,7 +50,7 @@ public handleCollsion() {
         }
       }
   this.updateCollisionObjects();
-  fudge.Debug.log(this.getCollisionObjects);
+  fudge.Debug.log(objects);
 }
 
 public getCollisionObjects(): CollidedObject[] {
@@ -63,7 +63,7 @@ public getCollisionType(colissionObject: fudge.Node): CollisionType {
   if (colissionObject.constructor.name == "Platform") {
     return CollisionType.ENVIRONMENT;
   } 
-  else if (colissionObject.constructor.name == "Enemy" || colissionObject.constructor.name == "Player") {
+  else if (colissionObject.constructor.name == "Blob" || colissionObject.constructor.name == "Player") {
       return CollisionType.CHARACTER;
   } 
   else if (colissionObject.constructor.name == "Item") {
@@ -86,21 +86,6 @@ public getCollisionDirection(colissionObject: fudge.Node): CollisionDirection {
   let objectOldRight: number = this.object.oldTransform.x + (this.object.cmpTransform.local.scaling.x / 2);
   let objectOldTop: number = this.object.oldTransform.y - (this.object.cmpTransform.local.scaling.y / 2);
   let objectOldBottom: number = this.object.oldTransform.y + (this.object.cmpTransform.local.scaling.y / 2);
-
-}
-
-public getCollisionType(colissionObject: fudge.Node): CollisionType {
-  
-  
-  if(colissionObject.constructor.name == "Platform") {
-    return CollisionType.ENVIRONMENT
-
-  }else if(colissionObject.constructor.name == "Blob" || colissionObject.constructor.name == "Player"){
-    return CollisionType.CHARACTER
-  }else
-  {
-    return CollisionType.MISSING
-  }
 
   let collissionObjectLeft: number = colissionObject.cmpTransform.local.translation.x - (colissionObject.cmpTransform.local.scaling.x / 2);
   let collissionObjectRight: number = colissionObject.cmpTransform.local.translation.x + (colissionObject.cmpTransform.local.scaling.x / 2);

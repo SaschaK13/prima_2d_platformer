@@ -6,8 +6,18 @@ namespace Game {
     public platformArray: Platform[] = [];
     public enemyArray: Character[] = [];
     public itemArray: Item[] = [];
+    public possibleItemsArray: Item[] = [];
+    
 
+    private root: fudge.Node;
 
+    public setRoot(root: fudge.Node) {
+      this.root = root;
+    }
+
+    public appendToRoot(node: fudge.Node) {
+      this.root.appendChild(node);
+    }
 
     public deleteEnemy(enemy: Character) {
       let newEnemyArray: Character[] = [];
@@ -49,6 +59,7 @@ namespace Game {
         collidableNodes.push(this.enemyArray[i]);
       }
 
+      fudge.Debug.log(this.itemArray.length);
       for (var i: number = 0; i < this.itemArray.length; i++) {
         collidableNodes.push(this.itemArray[i]);
       }

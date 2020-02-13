@@ -1,11 +1,19 @@
 "use strict";
 var Game;
 (function (Game) {
+    var fudge = FudgeCore;
     class Level {
         constructor() {
             this.platformArray = [];
             this.enemyArray = [];
             this.itemArray = [];
+            this.possibleItemsArray = [];
+        }
+        setRoot(root) {
+            this.root = root;
+        }
+        appendToRoot(node) {
+            this.root.appendChild(node);
         }
         deleteEnemy(enemy) {
             let newEnemyArray = [];
@@ -33,6 +41,7 @@ var Game;
             for (var i = 0; i < this.enemyArray.length; i++) {
                 collidableNodes.push(this.enemyArray[i]);
             }
+            fudge.Debug.log(this.itemArray.length);
             for (var i = 0; i < this.itemArray.length; i++) {
                 collidableNodes.push(this.itemArray[i]);
             }

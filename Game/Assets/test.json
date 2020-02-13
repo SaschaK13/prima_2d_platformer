@@ -10,5 +10,11 @@
     {"name": "Enemy1", "spriteName": "blob",  "positionX": 1, "positionY": 3, "scaleX": 1, "scaleY": 1},
     {"name": "Enemy2", "spriteName": "blob",  "positionX": -2, "positionY": 3, "scaleX": 1, "scaleY": 1},
     {"name": "Enemy3", "spriteName": "goblin",  "positionX": -4, "positionY": -1, "scaleX": 1, "scaleY": 1}
+  ],
+
+  "itemArray": [
+    {"name": "Item1", "spriteName": "sword",  "hp": -1, "dmg": 4, "jumpHeight": -0.2, "walkSpeed": -0.2, "attackSpeed": 4},
+    {"name": "Item2", "spriteName": "shield",  "hp": 2, "dmg": -0.5, "jumpHeight": -1, "walkSpeed": -1, "attackSpeed": 1},
+    {"name": "Item3", "spriteName": "helmet",  "hp": 1, "dmg": 0.5, "jumpHeight": 1, "walkSpeed": 1, "attackSpeed": 4}
   ]
 }

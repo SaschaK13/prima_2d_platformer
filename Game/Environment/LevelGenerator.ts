@@ -12,6 +12,8 @@ namespace Game {
       this.root = root;
     }
 
+
+
     public async getDataFromFile() {
       let response: Response = await fetch("../Game/Assets/test.json");
       let offer: string = await response.text();
@@ -38,18 +40,29 @@ namespace Game {
       let enemyArray = this.data["enemyArray"];
       for (var i: number = 0; i < enemyArray.length; i++) {
         let current = enemyArray[i];
-        switch(current.spriteName) {
+        switch (current.spriteName) {
           case "blob": {
             let enemy: Blob = new Blob(current.name, current.spriteName, current.positionX, current.positionY, current.scaleX, current.scaleX);
             this.root.appendChild(enemy);
             this.levelObject.enemyArray.push(enemy);
           } 
-
       }
-    }
+
+        let itemArray = this.data["itemArray"];
+        for (var i: number = 0; i < itemArray.length; i++) {
+          let current = itemArray[i];
+          let item: Item = new Item(current.name, current.spriteName, current.hp, current.dmg, current.jumpHeight, current.walkSpeed, current.attackSpeed);
+          this.levelObject.possibleItemsArray.push(item);
+          fudge.Debug.log(this.levelObject.possibleItemsArray);
+          }
+        }
+      this.levelObject.setRoot(this.root);
       let util = Util.getInstance();
-      util.level = this.levelObject
+      util.level = this.levelObject;
+
+    }
+
       
     }
   }
-}
+
