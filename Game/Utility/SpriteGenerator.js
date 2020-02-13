@@ -108,7 +108,8 @@ var Game;
         "goblin",
         "blob",
         "dirt",
-        "stone"
+        "stone",
+        "background"
     ];
     let states = [
         "default",
@@ -209,7 +210,7 @@ var Game;
                 switch (stateName) {
                     case Game.CHARACTERSTATE.DEFAULT: {
                         let sprite = new Sprite(spriteName + "_" + stateName);
-                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(20, 16, 40, 30), 1, new fudge.Vector2(0, 0), 32, fudge.ORIGIN2D.CENTER);
+                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(24, 21, 40, 30), 1, new fudge.Vector2(0, 0), 32, fudge.ORIGIN2D.CENTER);
                         return sprite;
                     }
                 }
@@ -219,6 +220,15 @@ var Game;
                     case Game.CHARACTERSTATE.DEFAULT: {
                         let sprite = new Sprite(spriteName + "_" + stateName);
                         sprite.generateByGrid(textureImage, fudge.Rectangle.GET(120, 43, 40, 30), 1, new fudge.Vector2(0, 0), 32, fudge.ORIGIN2D.CENTER);
+                        return sprite;
+                    }
+                }
+            }
+            case "background": {
+                switch (stateName) {
+                    case Game.CHARACTERSTATE.DEFAULT: {
+                        let sprite = new Sprite(spriteName + "_" + stateName);
+                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(0, 0, 240, 160), 1, new fudge.Vector2(0, 0), 16, fudge.ORIGIN2D.CENTER);
                         return sprite;
                     }
                 }

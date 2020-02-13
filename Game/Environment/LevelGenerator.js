@@ -5,6 +5,7 @@ var Game;
     class LevelGenerator {
         constructor(root) {
             this.levelObject = new Game.Level();
+            this.backgroundLength = 15;
             this.root = root;
         }
         async getDataFromFile() {
@@ -14,8 +15,23 @@ var Game;
             this.generateLevel();
         }
         generateLevel() {
-            let value = this.data["player"];
-            let player = new Game.Player(value.name, value.spriteName, value.positionX, value.positionY, value.scaleX, value.scaleY);
+            let levelLength = this.data["levelLength"];
+            let backgroundValue = this.data["background"];
+            let numberOfBackground = Math.round(levelLength / backgroundValue.length);
+            for (var i = 0; i < numberOfBackground; i++) {
+                let background = new Game.Background(backgroundValue.name, backgroundValue.type, backgroundValue.spriteName, backgroundValue.length);
+                background.cmpTransform.local.translation = new fudge.Vector3(i * this.backgroundLength, 0, -1);
+                this.root.appendChild(background);
+                this.levelObject.backgroundArray.push(background);
+            }
+            //background left
+            let background = new Game.Background(backgroundValue.name, backgroundValue.type, backgroundValue.spriteName, backgroundValue.length);
+            background.cmpTransform.local.translation = new fudge.Vector3(-15, 0, -1);
+            this.root.appendChild(background);
+            this.levelObject.backgroundArray.push(background);
+            fudge.Debug.log(this.levelObject.backgroundArray);
+            let playerValue = this.data["player"];
+            let player = new Game.Player(playerValue.name, playerValue.spriteName, playerValue.positionX, playerValue.positionY, playerValue.scaleX, playerValue.scaleY);
             this.levelObject.player = player;
             player.isLoaded = true;
             this.root.appendChild(player);

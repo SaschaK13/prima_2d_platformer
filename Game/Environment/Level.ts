@@ -4,12 +4,14 @@ namespace Game {
   export class Level { 
     public player: Player;
     public platformArray: Platform[] = [];
+    public background: Background;
+    public backgroundArray: Background[] = [];
     public enemyArray: Character[] = [];
     public itemArray: Item[] = [];
     public possibleItemsArray: Item[] = [];
+    private levelLength: number;
 
     private root: fudge.Node;
-
 
     public setRoot(root: fudge.Node): void {
       this.root = root;
@@ -18,7 +20,6 @@ namespace Game {
     public appendToRoot(node: fudge.Node): void {
       this.root.appendChild(node);
     }
-
 
     public deleteEnemy(enemy: Character){
       let newEnemyArray: Character[] = []

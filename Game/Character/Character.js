@@ -20,7 +20,7 @@ var Game;
     class Character extends fudge.Node {
         constructor(nodeName) {
             super(nodeName);
-            this.JUMP_HEIGHT = 5;
+            this.JUMP_HEIGHT = 6;
             this.WALK_SPEED = 2;
             this.DMG = 1;
             this.HP = 5;

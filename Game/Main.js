@@ -83,6 +83,7 @@ var Game;
                     platform.isLoaded = false;
                 }
             }
+            //Load Enemys
             let enemyArray = Game.Util.getInstance().level.enemyArray;
             for (var i = 0; i < enemyArray.length; i++) {
                 let enemy = enemyArray[i];

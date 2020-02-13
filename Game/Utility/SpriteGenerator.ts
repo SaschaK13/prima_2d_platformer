@@ -138,7 +138,8 @@ namespace Game {
     "goblin",
     "blob",
     "dirt",
-    "stone"
+    "stone",
+    "background"
   ];
   let states: string[] = [
     "default",
@@ -243,7 +244,7 @@ namespace Game {
         switch (stateName) { 
           case CHARACTERSTATE.DEFAULT: { 
             let sprite: Sprite = new Sprite(spriteName + "_" + stateName);
-            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(20, 16, 40, 30), 1, new fudge.Vector2(0, 0), 32, fudge.ORIGIN2D.CENTER);
+            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(24, 21, 40, 30), 1, new fudge.Vector2(0, 0), 32, fudge.ORIGIN2D.CENTER);
             return sprite;
           }
         }
@@ -256,7 +257,16 @@ namespace Game {
             return sprite;
           }
         }
-      }   
+      }
+      case "background": {
+        switch (stateName) { 
+          case CHARACTERSTATE.DEFAULT: { 
+            let sprite: Sprite = new Sprite(spriteName + "_" + stateName);
+            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(0, 0, 240, 160), 1, new fudge.Vector2(0, 0), 16, fudge.ORIGIN2D.CENTER);
+            return sprite;
+          }
+        }
+      }     
     }
   }
 }
