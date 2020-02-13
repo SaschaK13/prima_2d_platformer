@@ -17,12 +17,13 @@ var Game;
             let value = this.data["player"];
             let player = new Game.Player(value.name, value.spriteName, value.positionX, value.positionY, value.scaleX, value.scaleY);
             this.levelObject.player = player;
+            player.isLoaded = true;
             this.root.appendChild(player);
             let platformArray = this.data["platformArray"];
             for (var i = 0; i < platformArray.length; i++) {
                 let current = platformArray[i];
                 let platform = new Game.Platform(current.name, current.type, current.spriteName, current.positionX, current.positionY, current.scaleX, current.scaleY);
-                this.root.appendChild(platform);
+                //this.root.appendChild(platform);
                 this.levelObject.platformArray.push(platform);
             }
             let enemyArray = this.data["enemyArray"];
@@ -31,13 +32,13 @@ var Game;
                 switch (current.spriteName) {
                     case "blob": {
                         let enemy = new Game.Blob(current.name, current.spriteName, current.positionX, current.positionY, current.scaleX, current.scaleX);
-                        this.root.appendChild(enemy);
+                        // this.root.appendChild(enemy);
                         this.levelObject.enemyArray.push(enemy);
                         break;
                     }
                     case "goblin": {
                         let enemy = new Game.Goblin(current.name, current.spriteName, current.positionX, current.positionY, current.scaleX, current.scaleX);
-                        this.root.appendChild(enemy);
+                        // this.root.appendChild(enemy);
                         this.levelObject.enemyArray.push(enemy);
                         break;
                     }

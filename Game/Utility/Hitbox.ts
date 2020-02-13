@@ -39,7 +39,7 @@ namespace Game {
       } else if (this.parentNode.constructor.name == "Player") {
         for (var i = 0; i < Util.getInstance().level.enemyArray.length; i++) {
           let enemy = Util.getInstance().level.enemyArray[i];
-          if (this.collideWith(enemy)) {
+          if (this.collideWith(enemy) && enemy.isLoaded) {
             detectedEnemys.push(enemy);
           }
         }

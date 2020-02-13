@@ -9,6 +9,7 @@ var Game;
     class Environment extends fudge.Node {
         constructor(nodeName, type) {
             super(nodeName);
+            this.isLoaded = false;
             this.type = this.parseStringToEnviornmentType(type);
             let cmpMesh = new fudge.ComponentMesh(Environment.mesh);
             this.addComponent(cmpMesh);

@@ -12,6 +12,8 @@ namespace Game {
     //private static materials: fudge.Material;
 
     public spriteName: string;
+    public isLoaded: boolean = false;
+
 
     constructor(nodeName: string, type: String) {
       super(nodeName);

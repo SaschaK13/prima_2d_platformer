@@ -43,5 +43,20 @@ namespace Game {
     public delay(ms: number) {
       return new Promise( resolve => setTimeout(resolve, ms) );
     }
+
+    public isLoaded(node: fudge.Node, root: fudge.Node): boolean
+    {
+      let children: fudge.Node[] = root.getChildren();
+      for(var i = 0; i < children.length; i++)
+      {
+        let n = children[i];
+        if(n.name == node.name)
+        {
+          return true;
+        }
+      }
+
+      return false;
+    }
   }
 }

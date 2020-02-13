@@ -76,6 +76,8 @@ namespace Game {
     scaleX: number;
     positionY: number;
 
+    public isLoaded: boolean = false;
+
     public currentPlatform: Platform;
 
 

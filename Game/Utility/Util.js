@@ -30,6 +30,16 @@ var Game;
         delay(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
+        isLoaded(node, root) {
+            let children = root.getChildren();
+            for (var i = 0; i < children.length; i++) {
+                let n = children[i];
+                if (n.name == node.name) {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
     Game.Util = Util;
 })(Game || (Game = {}));

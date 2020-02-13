@@ -54,12 +54,16 @@ namespace Game {
 
       for(var i = 0; i < this.platformArray.length; i++)
       {
-        collidableNodes.push(this.platformArray[i])
+        if(this.platformArray[i].isLoaded){
+          collidableNodes.push(this.platformArray[i])
+        }
       }
 
       for(var i = 0; i < this.enemyArray.length; i++)
       {
+        if(this.enemyArray[i].isLoaded){
         collidableNodes.push(this.enemyArray[i])
+        }
       }
 
       for (var i = 0; i < this.itemArray.length; i++) {

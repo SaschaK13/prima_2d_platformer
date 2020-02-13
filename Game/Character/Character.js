@@ -39,6 +39,7 @@ var Game;
             this.isJumping = false;
             this.isDead = false;
             this.isAttacking = false;
+            this.isLoaded = false;
             this.update = (_event) => {
                 this.updateSprites();
                 this.collider.handleCollsion();
