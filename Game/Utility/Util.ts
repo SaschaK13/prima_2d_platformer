@@ -9,6 +9,10 @@ namespace Game {
     public gui: Gui;
     public level: Level;
     public spritesMap: Map<string, Map<string, Sprite>>;
+    private data: Savegame;
+    public currentSavegame: Savegame;
+    public collidableNode: fudge.Node;
+    public lvlGenerator: LevelGenerator;
 
 
     constructor() {}
@@ -44,7 +48,7 @@ namespace Game {
       return new Promise( resolve => setTimeout(resolve, ms) );
     }
 
-    public isLoaded(node: fudge.Node, root: fudge.Node): boolean
+    /*public isLoaded(node: fudge.Node, root: fudge.Node): boolean
     {
       let children: fudge.Node[] = root.getChildren();
       for(var i = 0; i < children.length; i++)
@@ -57,6 +61,19 @@ namespace Game {
       }
 
       return false;
+    }*/
+
+    public save()
+    {
+      let jsonString = this.createSavegame();
+      let map: fudge.MapFilenameToContent = { ["savegame.json"]: jsonString};
+      fudge.FileIoBrowserLocal.save(map);
     }
+
+    private createSavegame() : string {
+      return   " {\"levelName\": \""+ this.level.levelName + "\", \"hp\": "+ this.level.player.getStats().hp +" , \"dmg\": "+ this.level.player.getStats().dmg +", \"jumpHeight\": "+ this.level.player.getStats().jumpHeight +", \"walkSpeed\": "+ this.level.player.getStats().walkSpeed +", \"attackSpeed\":"+ this.level.player.getStats().attackSpeed +" } "
+    }
+
+
   }
 }

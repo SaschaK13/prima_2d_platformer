@@ -30,15 +30,27 @@ var Game;
         delay(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
-        isLoaded(node, root) {
-            let children = root.getChildren();
-            for (var i = 0; i < children.length; i++) {
-                let n = children[i];
-                if (n.name == node.name) {
-                    return true;
-                }
+        /*public isLoaded(node: fudge.Node, root: fudge.Node): boolean
+        {
+          let children: fudge.Node[] = root.getChildren();
+          for(var i = 0; i < children.length; i++)
+          {
+            let n = children[i];
+            if(n.name == node.name)
+            {
+              return true;
             }
-            return false;
+          }
+    
+          return false;
+        }*/
+        save() {
+            let jsonString = this.createSavegame();
+            let map = { ["savegame.json"]: jsonString };
+            fudge.FileIoBrowserLocal.save(map);
+        }
+        createSavegame() {
+            return " {\"levelName\": \"" + this.level.levelName + "\", \"hp\": " + this.level.player.getStats().hp + " , \"dmg\": " + this.level.player.getStats().dmg + ", \"jumpHeight\": " + this.level.player.getStats().jumpHeight + ", \"walkSpeed\": " + this.level.player.getStats().walkSpeed + ", \"attackSpeed\":" + this.level.player.getStats().attackSpeed + " } ";
         }
     }
     Game.Util = Util;
