@@ -12,8 +12,10 @@ var Game;
             super.addSpriteListener();
         }
         takeDmg(dmgTaken) {
+            if (this.getStats().hp >= 0) {
+                Game.Util.getInstance().gui.updateHealth(this);
+            }
             super.takeDmg(dmgTaken);
-            Game.Util.getInstance().gui.updateHealth(this);
         }
         attack() {
             if (this.attackCooldown == 0) {

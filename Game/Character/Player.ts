@@ -18,9 +18,12 @@ namespace Game {
       super.addSpriteListener();
     }
 
-    takeDmg(dmgTaken: number): void {      
+    takeDmg(dmgTaken: number): void {    
+      if(this.getStats().hp >= 0){
+        Util.getInstance().gui.updateHealth(this);  
+      }
       super.takeDmg(dmgTaken);
-      Util.getInstance().gui.updateHealth(this);
+     
     }
 
     attack(): void {
