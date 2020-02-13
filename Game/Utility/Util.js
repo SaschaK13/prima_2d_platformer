@@ -3,9 +3,7 @@ var Game;
 (function (Game) {
     var fudge = FudgeCore;
     class Util {
-        constructor() {
-            this.fetchAudios();
-        }
+        constructor() { }
         static getInstance() {
             if (!Util.instance) {
                 Util.instance = new Util();

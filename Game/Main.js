@@ -61,6 +61,7 @@ var Game;
             //fudge.RenderManager.update()
         }
         function loadGame() {
+            Game.Util.getInstance().fetchAudios();
             fudge.Debug.log("Game loaded");
             Game.loadSprites();
             let gui = new Game.Gui(2, 5, 1, 50);

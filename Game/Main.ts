@@ -85,6 +85,7 @@ namespace Game {
 
     function loadGame() {
 
+      Util.getInstance().fetchAudios();
       fudge.Debug.log("Game loaded")
       loadSprites();
 

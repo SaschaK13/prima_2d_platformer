@@ -17,9 +17,7 @@ namespace Game {
     public hurtSound: HTMLAudioElement;
     public themeSound: HTMLAudioElement;
 
-    constructor() {
-      this.fetchAudios();
-    }
+    constructor() {}
 
     public static getInstance(): Util {
       if (!Util.instance) {
