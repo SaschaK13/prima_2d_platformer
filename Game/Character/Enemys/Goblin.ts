@@ -22,7 +22,7 @@ namespace Game {
       this.cmpTransform.local.scaling = new fudge.Vector3(scaleX, scaleY, 0);
 
 
-      this.setStat({ hp: 3, dmg: 0, walk_speed: 2, jump_height: 0, attackspeed: 0 });
+      this.setStats({ hp: 3, dmg: 0, walkSpeed: 2, jumpHeight: 0, attackSpeed: 50 });
 
       //this.movementDuration = Util.getInstance().getRandomRange(2, 3);
       //this.randomDirection();
@@ -45,7 +45,7 @@ namespace Game {
         Util.getInstance().level.player.takeDmg(1);
         this.isAttacking = true;
         this.showOneTime(CHARACTERSTATE.ATTACK);
-        this.attackCooldown = this.getStats().attackspeed;
+        this.attackCooldown = this.getStats().attackSpeed;
       }
     }
 
