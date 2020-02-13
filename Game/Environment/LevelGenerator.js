@@ -31,12 +31,15 @@ var Game;
             background.cmpTransform.local.translation = new fudge.Vector3(-15, 0, -1);
             this.root.appendChild(background);
             this.levelObject.backgroundArray.push(background);
-            fudge.Debug.log(this.levelObject.backgroundArray);
             let playerValue = this.data["player"];
             let player = new Game.Player(playerValue.name, playerValue.spriteName, playerValue.positionX, playerValue.positionY, playerValue.scaleX, playerValue.scaleY);
             this.levelObject.player = player;
             player.isLoaded = true;
             this.root.appendChild(player);
+            let finish = new Game.Finish("Finish");
+            finish.cmpTransform.local.translateX(10);
+            this.levelObject.finsih = finish;
+            this.root.appendChild(finish);
             let platformArray = this.data["platformArray"];
             for (var i = 0; i < platformArray.length; i++) {
                 let current = platformArray[i];
@@ -64,11 +67,11 @@ var Game;
                 let current = itemArray[i];
                 let item = new Game.Item(current.name, current.spriteName, current.hp, current.dmg, current.jumpHeight, current.walkSpeed, current.attackSpeed);
                 this.levelObject.possibleItemsArray.push(item);
-                fudge.Debug.log(this.levelObject.possibleItemsArray);
             }
             this.levelObject.setRoot(this.root);
             let util = Game.Util.getInstance();
             util.level = this.levelObject;
+            //Util.getInstance().save()
         }
     }
     Game.LevelGenerator = LevelGenerator;

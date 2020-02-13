@@ -15,6 +15,7 @@ namespace Game {
     }
 
     public async getDataFromFile(levelName: string) {
+
       let response: Response = await fetch("../Game/Assets/level/" + levelName + ".json");
       let offer: string = await response.text();
       this.data = JSON.parse(offer);
@@ -40,13 +41,16 @@ namespace Game {
       this.root.appendChild(background);
       this.levelObject.backgroundArray.push(background);
 
-      fudge.Debug.log(this.levelObject.backgroundArray);
-
       let playerValue = this.data["player"];
       let player: Player = new Player(playerValue.name, playerValue.spriteName, playerValue.positionX, playerValue.positionY, playerValue.scaleX, playerValue.scaleY);
       this.levelObject.player = player;
       player.isLoaded= true;
       this.root.appendChild(player);
+
+      let finish: Finish = new Finish("Finish");
+      finish.cmpTransform.local.translateX(10);
+      this.levelObject.finsih = finish;
+      this.root.appendChild(finish);
 
       let platformArray = this.data["platformArray"];
       for (var i: number = 0; i < platformArray.length; i++) {
@@ -73,21 +77,17 @@ namespace Game {
 
       }
     }
-
-      let itemArray = this.data["itemArray"];
+      let itemArray: Item[] = this.data["itemArray"];
       for (var i: number = 0; i < itemArray.length; i++) {
-      let current = itemArray[i];
+      let current: Item = itemArray[i];
       let item: Item = new Item(current.name, current.spriteName, current.hp, current.dmg, current.jumpHeight, current.walkSpeed, current.attackSpeed);
       this.levelObject.possibleItemsArray.push(item);
-      fudge.Debug.log(this.levelObject.possibleItemsArray);
-    }
 
+    }
       this.levelObject.setRoot(this.root);
-      let util = Util.getInstance();
+      let util: Util = Util.getInstance();
       util.level = this.levelObject;
-
+      //Util.getInstance().save()
     }
-
-
   }
 }

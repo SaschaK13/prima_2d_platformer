@@ -83,10 +83,9 @@ namespace Game {
     }
 
 
-    function loadGame() {
+    function loadGame(): void {
 
       Util.getInstance().fetchAudios();
-      fudge.Debug.log("Game loaded")
       loadSprites();
 
       let gui: Gui = new Gui(2, 5, 1, 50);
@@ -94,12 +93,8 @@ namespace Game {
 
       Util.getInstance().collidableNode = collidableNode;
 
-      let lvlGen = new LevelGenerator(collidableNode)
-      lvlGen.getDataFromFile("test");
-
-
-
-
+      let lvlGen: LevelGenerator = new LevelGenerator(collidableNode);
+      lvlGen.getDataFromFile("level2");
     }
 
     function updateGameObjects() {
@@ -127,13 +122,13 @@ namespace Game {
         if (showed && !enemy.isLoaded) {
           collidableNode.appendChild(enemy);
           enemy.cmpTransform.local.translateY(1);
-          fudge.Debug.log("Enemy loaded")
+         
           enemy.isLoaded = true;
 
         } else if (!showed && enemy.isLoaded) {
           collidableNode.removeChild(enemy);
           enemy.isLoaded = false;
-          fudge.Debug.log("Enemy destroyed")
+         
         }
 
       }
@@ -144,12 +139,12 @@ namespace Game {
         let backGround = backGroundArray[i] as Background;
         let showed = isBackgroundInViewPort(backGround);
         if (showed && !backGround.isLoaded) {
-          fudge.Debug.log("Bacvkground created")
+       
           collidableNode.appendChild(backGround);
           backGround.isLoaded = true;
 
         } else if (!showed && backGround.isLoaded) {
-          fudge.Debug.log("Bacvkground deleted")
+         
           collidableNode.removeChild(backGround);
           backGround.isLoaded = false;
         }

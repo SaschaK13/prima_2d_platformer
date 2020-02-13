@@ -5,6 +5,7 @@ var Game;
     class Player extends Game.Character {
         constructor(name, spriteName, positionX, positionY, scaleX, scaleY) {
             super(name);
+            this.finish = false;
             this.name = name;
             super.spriteName = spriteName;
             this.cmpTransform.local.translation = new fudge.Vector3(positionX, positionY, 0);
@@ -23,7 +24,6 @@ var Game;
                 for (var i = 0; i < detectedEnemys.length; i++) {
                     detectedEnemys[i].takeDmg(this.getStats().dmg);
                 }
-                fudge.Debug.log("test");
                 this.isAttacking = true;
                 this.showOneTime(Game.CHARACTERSTATE.ATTACK);
                 this.attackCooldown = this.getStats().attackSpeed;
@@ -39,7 +39,8 @@ var Game;
                 let collisionObject = collisionObjects[i];
                 switch (collisionObject.collisionType) {
                     case Game.CollisionType.ENEMY: {
-                        if (collisionObject.object.constructor.name == "Blob") {
+                        fudge.Debug.log("hitted by enemy");
+                        if (collisionObject.object.constructor.name == "Blob" && !this.finish) {
                             this.takeDmg(1);
                         }
                         super.handleSolidColision(collisionObject);
@@ -52,6 +53,12 @@ var Game;
                         super.handleSolidColision(collisionObject);
                         break;
                     }
+                    case Game.CollisionType.FINISH: {
+                        if (!this.finish) {
+                            this.hittedFinish();
+                        }
+                        break;
+                    }
                     case Game.CollisionType.ITEM: {
                         let item = collisionObject.object;
                         this.updateStats(item.getStats());
@@ -61,6 +68,10 @@ var Game;
                     }
                 }
             }
+        }
+        hittedFinish() {
+            this.finish = true;
+            document.getElementById("safeGame").style.visibility = "visible";
         }
     }
     Game.Player = Player;
