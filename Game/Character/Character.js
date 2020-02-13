@@ -198,10 +198,12 @@ var Game;
             switch (direction) {
                 case DIRECTION.RIGHT: {
                     this.cmpTransform.local.rotation = fudge.Vector3.Y(0);
+                    this.direction = DIRECTION.RIGHT;
                     break;
                 }
                 case DIRECTION.LEFT: {
                     this.cmpTransform.local.rotation = fudge.Vector3.Y(180);
+                    this.direction = DIRECTION.LEFT;
                     break;
                 }
             }

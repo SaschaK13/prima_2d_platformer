@@ -59,6 +59,7 @@ namespace Game {
           }
         }
       } else {
+        this.show(CHARACTERSTATE.IDLE);
         this.lookAround();
       }
     }

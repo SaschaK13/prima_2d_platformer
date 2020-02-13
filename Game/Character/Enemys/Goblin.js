@@ -47,6 +47,7 @@ var Game;
                 }
             }
             else {
+                this.show(Game.CHARACTERSTATE.IDLE);
                 this.lookAround();
             }
         }
