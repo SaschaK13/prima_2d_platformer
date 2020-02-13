@@ -85,14 +85,18 @@ var Game;
             }
         }
         function isInViewPort(node) {
-            let camSize = new fudge.Vector2(20, 12);
+            let camSize = new fudge.Vector2(20, 7);
             let camPosition = cameraOrbit.cmpTransform.local.translation;
             let leftBorder = camPosition.x - (camSize.x / 2);
             let rightBorder = camPosition.x + (camSize.x / 2);
+            let bottom = camPosition.y - (camSize.y / 2);
+            let top = camPosition.y + (camSize.y / 2);
             let nodePosition = node.cmpTransform.local.translation;
             let nodeLeftBorder = nodePosition.x - (node.cmpTransform.local.scaling.x / 2);
             let nodeRightBorder = nodePosition.x + (node.cmpTransform.local.scaling.x / 2);
-            if (nodeRightBorder >= leftBorder && nodeLeftBorder <= rightBorder) {
+            let nodeTop = nodePosition.y + (node.cmpTransform.local.scaling.y / 2);
+            let nodeBottom = nodePosition.y - (node.cmpTransform.local.scaling.y / 2);
+            if (nodeRightBorder >= leftBorder && nodeLeftBorder <= rightBorder && nodeTop >= bottom && nodeBottom <= top) {
                 return true;
             }
             else {
