@@ -116,7 +116,8 @@ var Game;
         "walk",
         "jump",
         "attack",
-        "death"
+        "death",
+        "hit"
     ];
     function loadSprites() {
         let textureImage;
@@ -164,6 +165,11 @@ var Game;
                         sprite.generateByGrid(textureImage, fudge.Rectangle.GET(422, 14, 30, 30), 11, new fudge.Vector2(66, 0), 32, fudge.ORIGIN2D.CENTER);
                         return sprite;
                     }
+                    case Game.CHARACTERSTATE.HIT: {
+                        let sprite = new Sprite(spriteName + "_" + stateName);
+                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(0, 0, 30, 30), 2, new fudge.Vector2(0, 0), 32, fudge.ORIGIN2D.CENTER);
+                        return sprite;
+                    }
                 }
             }
             case "goblin": {
@@ -176,6 +182,11 @@ var Game;
                     case Game.CHARACTERSTATE.WALK: {
                         let sprite = new Sprite(spriteName + "_" + stateName);
                         sprite.generateByGrid(textureImage, fudge.Rectangle.GET(50, 60, 50, 50), 8, new fudge.Vector2(100, 0), 32, fudge.ORIGIN2D.CENTER);
+                        return sprite;
+                    }
+                    case Game.CHARACTERSTATE.HIT: {
+                        let sprite = new Sprite(spriteName + "_" + stateName);
+                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(50, 60, 50, 50), 4, new fudge.Vector2(100, 0), 32, fudge.ORIGIN2D.CENTER);
                         return sprite;
                     }
                 }

@@ -146,7 +146,8 @@ namespace Game {
     "walk",
     "jump",
     "attack",
-    "death"
+    "death",
+    "hit"
   ];
 
   export function loadSprites(): void {
@@ -198,6 +199,11 @@ namespace Game {
             sprite.generateByGrid(textureImage, fudge.Rectangle.GET(422, 14, 30, 30), 11, new fudge.Vector2(66, 0), 32, fudge.ORIGIN2D.CENTER);
             return sprite;
           }
+          case CHARACTERSTATE.HIT: {
+            let sprite: Sprite = new Sprite(spriteName + "_" + stateName);
+            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(0, 0, 30, 30), 2, new fudge.Vector2(0, 0), 32, fudge.ORIGIN2D.CENTER);
+            return sprite;
+          }
         }
       }
       case "goblin": {
@@ -210,6 +216,11 @@ namespace Game {
           case CHARACTERSTATE.WALK: { 
             let sprite: Sprite = new Sprite(spriteName + "_" + stateName);
             sprite.generateByGrid(textureImage, fudge.Rectangle.GET(50, 60, 50, 50), 8, new fudge.Vector2(100, 0), 32, fudge.ORIGIN2D.CENTER);
+            return sprite;
+          }
+          case CHARACTERSTATE.HIT: { 
+            let sprite: Sprite = new Sprite(spriteName + "_" + stateName);
+            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(50, 60, 50, 50), 4, new fudge.Vector2(100, 0), 32, fudge.ORIGIN2D.CENTER);
             return sprite;
           }
         }
