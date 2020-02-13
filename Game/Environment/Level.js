@@ -40,6 +40,9 @@ var Game;
             for (var i = 0; i < this.enemyArray.length; i++) {
                 collidableNodes.push(this.enemyArray[i]);
             }
+            for (var i = 0; i < this.itemArray.length; i++) {
+                collidableNodes.push(this.itemArray[i]);
+            }
             collidableNodes.push(this.player);
             return collidableNodes;
         }

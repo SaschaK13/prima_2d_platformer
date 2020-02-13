@@ -239,6 +239,11 @@ var Game;
             this.ATTACKSPEED = stats.attackSpeed;
         }
         updateStats(stats) {
+            this.HP += stats.hp;
+            this.DMG += stats.dmg;
+            this.JUMP_HEIGHT += stats.jumpHeight;
+            this.WALK_SPEED += stats.walkSpeed;
+            this.ATTACKSPEED += stats.attackSpeed;
         }
         updateSprites() {
             if (this.currentSpriteCooldown != 0) {

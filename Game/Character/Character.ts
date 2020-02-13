@@ -291,7 +291,7 @@ namespace Game {
       return { hp: this.HP, dmg: this.DMG, jumpHeight: this.JUMP_HEIGHT, walkSpeed: this.WALK_SPEED, attackSpeed: this.ATTACKSPEED }
     }
 
-    public setStats(stats: CharacterStats) {
+    public setStats(stats: CharacterStats): void {
       this.HP = stats.hp;
       this.DMG = stats.dmg;
       this.JUMP_HEIGHT = stats.jumpHeight; 
@@ -299,8 +299,12 @@ namespace Game {
       this.ATTACKSPEED = stats.attackSpeed;
     }
 
-    public updateStats(stats: CharacterStats) {
-
+    public updateStats(stats: CharacterStats): void {
+      this.HP += stats.hp;
+      this.DMG += stats.dmg;
+      this.JUMP_HEIGHT += stats.jumpHeight;
+      this.WALK_SPEED += stats.walkSpeed;
+      this.ATTACKSPEED += stats.attackSpeed;
     }
 
     /*public getCurrentPlatform(): Platform {
