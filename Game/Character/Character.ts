@@ -69,6 +69,7 @@ namespace Game {
 
     private isJumping: boolean = false;
     public isDead: boolean = false;
+    public isAttacking = false;
 
     public oldTransform: fudge.Vector3;
     positionX: number;
@@ -172,7 +173,7 @@ namespace Game {
     }
 
     public idle(): void {
-      if (!this.isJumping && !this.isDead) {
+      if (!this.isJumping && !this.isDead && !this.isAttacking) {
         this.show(CHARACTERSTATE.IDLE);
       }
     }
@@ -334,7 +335,9 @@ namespace Game {
         } else if (this.attackAnimationCounter == this.attackSpriteLength) {
           this.attackAnimationCounter = 0;
           this.showAttackAnimation = false;
+          this.isAttacking = false;
         }
+        
 
         if (this.showDeathAnimation && this.deathAnimationCounter != this.deathSpriteLength) {
           this.broadcastEvent(new CustomEvent("showNextDeath"));
