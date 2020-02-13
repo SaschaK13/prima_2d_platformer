@@ -58,6 +58,7 @@ namespace Game {
 
     public attack(): void {
       if (this.attackCooldown == 0 && !Util.getInstance().level.player.finish) {
+        fudge.Debug.log("Goblin attack")
         Util.getInstance().level.player.takeDmg(1);
         this.attacksPlayer = true;
         this.isAttacking = true;
