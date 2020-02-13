@@ -215,6 +215,9 @@ namespace Game {
     public die(): void {
       this.isDead = true;
       this.showOneTime(CHARACTERSTATE.DEATH);
+      
+      let util: Util = Util.getInstance();
+      setTimeout(() => { util.gameOver(); }, 1500);
     }
 
     public takeDmg(dmgTaken: number) {

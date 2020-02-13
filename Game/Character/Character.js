@@ -176,6 +176,8 @@ var Game;
         die() {
             this.isDead = true;
             this.showOneTime(CHARACTERSTATE.DEATH);
+            let util = Game.Util.getInstance();
+            setTimeout(() => { util.gameOver(); }, 1500);
         }
         takeDmg(dmgTaken) {
             if (this.currentDmgCooldown == 0) {

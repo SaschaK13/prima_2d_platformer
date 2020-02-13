@@ -19,6 +19,17 @@ var Game;
         getRandomRange(min, max) {
             return Math.floor(Math.random() * (max - min) + min);
         }
+        gameOver() {
+            let gameOver = document.getElementById("gameOver");
+            gameOver.style.visibility = "visible";
+            let canvas = document.getElementById("canvas");
+            canvas.style.opacity = "0.5";
+            let statBox = document.getElementById("stats");
+            statBox.style.opacity = "0.5";
+        }
+        delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
     }
     Game.Util = Util;
 })(Game || (Game = {}));
