@@ -108,7 +108,8 @@ var Game;
         "goblin",
         "blob",
         "dirt",
-        "stone"
+        "stone",
+        "background"
     ];
     let states = [
         "default",
@@ -184,7 +185,17 @@ var Game;
                         sprite.generateByGrid(textureImage, fudge.Rectangle.GET(50, 60, 50, 50), 8, new fudge.Vector2(100, 0), 32, fudge.ORIGIN2D.CENTER);
                         return sprite;
                     }
+                    case Game.CHARACTERSTATE.ATTACK: {
+                        let sprite = new Sprite(spriteName + "_" + stateName);
+                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(50, 60, 50, 50), 8, new fudge.Vector2(100, 0), 32, fudge.ORIGIN2D.CENTER);
+                        return sprite;
+                    }
                     case Game.CHARACTERSTATE.HIT: {
+                        let sprite = new Sprite(spriteName + "_" + stateName);
+                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(50, 60, 50, 50), 4, new fudge.Vector2(100, 0), 32, fudge.ORIGIN2D.CENTER);
+                        return sprite;
+                    }
+                    case Game.CHARACTERSTATE.DEATH: {
                         let sprite = new Sprite(spriteName + "_" + stateName);
                         sprite.generateByGrid(textureImage, fudge.Rectangle.GET(50, 60, 50, 50), 4, new fudge.Vector2(100, 0), 32, fudge.ORIGIN2D.CENTER);
                         return sprite;
@@ -203,13 +214,23 @@ var Game;
                         sprite.generateByGrid(textureImage, fudge.Rectangle.GET(1, 1, 32, 32), 4, new fudge.Vector2(0, 0), 32, fudge.ORIGIN2D.CENTER);
                         return sprite;
                     }
+                    case Game.CHARACTERSTATE.HIT: {
+                        let sprite = new Sprite(spriteName + "_" + stateName);
+                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(1, 1, 32, 32), 4, new fudge.Vector2(0, 0), 32, fudge.ORIGIN2D.CENTER);
+                        return sprite;
+                    }
+                    case Game.CHARACTERSTATE.DEATH: {
+                        let sprite = new Sprite(spriteName + "_" + stateName);
+                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(1, 1, 32, 32), 5, new fudge.Vector2(0, 0), 32, fudge.ORIGIN2D.CENTER);
+                        return sprite;
+                    }
                 }
             }
             case "dirt": {
                 switch (stateName) {
                     case Game.CHARACTERSTATE.DEFAULT: {
                         let sprite = new Sprite(spriteName + "_" + stateName);
-                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(20, 16, 40, 30), 1, new fudge.Vector2(0, 0), 32, fudge.ORIGIN2D.CENTER);
+                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(24, 21, 40, 30), 1, new fudge.Vector2(0, 0), 32, fudge.ORIGIN2D.CENTER);
                         return sprite;
                     }
                 }
@@ -219,6 +240,15 @@ var Game;
                     case Game.CHARACTERSTATE.DEFAULT: {
                         let sprite = new Sprite(spriteName + "_" + stateName);
                         sprite.generateByGrid(textureImage, fudge.Rectangle.GET(120, 43, 40, 30), 1, new fudge.Vector2(0, 0), 32, fudge.ORIGIN2D.CENTER);
+                        return sprite;
+                    }
+                }
+            }
+            case "background": {
+                switch (stateName) {
+                    case Game.CHARACTERSTATE.DEFAULT: {
+                        let sprite = new Sprite(spriteName + "_" + stateName);
+                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(0, 0, 240, 160), 1, new fudge.Vector2(0, 0), 16, fudge.ORIGIN2D.CENTER);
                         return sprite;
                     }
                 }

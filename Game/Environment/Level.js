@@ -4,6 +4,7 @@ var Game;
     class Level {
         constructor() {
             this.platformArray = [];
+            this.backgroundArray = [];
             this.enemyArray = [];
             this.itemArray = [];
             this.possibleItemsArray = [];
@@ -35,10 +36,14 @@ var Game;
         getCollidableObjects() {
             let collidableNodes = [];
             for (var i = 0; i < this.platformArray.length; i++) {
-                collidableNodes.push(this.platformArray[i]);
+                if (this.platformArray[i].isLoaded) {
+                    collidableNodes.push(this.platformArray[i]);
+                }
             }
             for (var i = 0; i < this.enemyArray.length; i++) {
-                collidableNodes.push(this.enemyArray[i]);
+                if (this.enemyArray[i].isLoaded) {
+                    collidableNodes.push(this.enemyArray[i]);
+                }
             }
             for (var i = 0; i < this.itemArray.length; i++) {
                 collidableNodes.push(this.itemArray[i]);

@@ -17,7 +17,11 @@ var Game;
         cmpCamera.pivot.lookAt(fudge.Vector3.ZERO());
         cmpCamera.backgroundColor = fudge.Color.CSS("aliceblue");
         let viewport = new fudge.Viewport();
-        viewport.initialize("Viewport", root, cmpCamera, canvas);
+        let cameraOrbit = new fudge.Node("CameraOrbit");
+        cameraOrbit.addComponent(new fudge.ComponentTransform());
+        cameraOrbit.addComponent(cmpCamera);
+        root.appendChild(cameraOrbit);
+        viewport.initialize("Viewport", root, cameraOrbit.getComponent(fudge.ComponentCamera), canvas);
         loadGame();
         document.addEventListener("keydown", handleKeyboard);
         document.addEventListener("keyup", handleKeyboard);
@@ -52,6 +56,8 @@ var Game;
         function update(_event) {
             processInput();
             viewport.draw();
+            cameraOrbit.cmpTransform.local.translation = new fudge.Vector3(Game.Util.getInstance().level.player.cmpTransform.local.translation.x, cameraOrbit.cmpTransform.local.translation.y, cameraOrbit.cmpTransform.local.translation.z);
+            updateGameObjects();
             //fudge.RenderManager.update()
         }
         function loadGame() {
@@ -61,6 +67,97 @@ var Game;
             Game.Util.getInstance().gui = gui;
             let lvlGenerator = new Game.LevelGenerator(collidableNode);
             lvlGenerator.getDataFromFile();
+        }
+        function updateGameObjects() {
+            //load platform 
+            let platformArray = Game.Util.getInstance().level.platformArray;
+            for (var i = 0; i < platformArray.length; i++) {
+                let platform = platformArray[i];
+                let showed = isInViewPort(platform);
+                if (showed && !platform.isLoaded) {
+                    collidableNode.appendChild(platform);
+                    platform.isLoaded = true;
+                }
+                else if (!showed && platform.isLoaded) {
+                    collidableNode.removeChild(platform);
+                    platform.isLoaded = false;
+                }
+            }
+            //Load Enemys
+            let enemyArray = Game.Util.getInstance().level.enemyArray;
+            for (var i = 0; i < enemyArray.length; i++) {
+                let enemy = enemyArray[i];
+                let showed = isInViewPort(enemy);
+                if (showed && !enemy.isLoaded) {
+                    collidableNode.appendChild(enemy);
+                    enemy.cmpTransform.local.translateY(1);
+                    fudge.Debug.log("Enemy loaded");
+                    enemy.isLoaded = true;
+                }
+                else if (!showed && enemy.isLoaded) {
+                    collidableNode.removeChild(enemy);
+                    enemy.isLoaded = false;
+                    fudge.Debug.log("Enemy destroyed");
+                }
+            }
+            //load Background
+            let backGroundArray = Game.Util.getInstance().level.backgroundArray;
+            for (var i = 0; i < backGroundArray.length; i++) {
+                let backGround = backGroundArray[i];
+                let showed = isBackgroundInViewPort(backGround);
+                if (showed && !backGround.isLoaded) {
+                    fudge.Debug.log("Bacvkground created");
+                    collidableNode.appendChild(backGround);
+                    backGround.isLoaded = true;
+                }
+                else if (!showed && backGround.isLoaded) {
+                    fudge.Debug.log("Bacvkground deleted");
+                    collidableNode.removeChild(backGround);
+                    backGround.isLoaded = false;
+                }
+            }
+            //Check if Player is in ViewPort 
+            let player = Game.Util.getInstance().level.player;
+            let showed = isInViewPort(player);
+            if (!showed && player.isLoaded) {
+                player.die();
+            }
+        }
+        function isBackgroundInViewPort(background) {
+            let camSize = new fudge.Vector2(40, 10);
+            let camPosition = cameraOrbit.cmpTransform.local.translation;
+            let leftBorder = camPosition.x - (camSize.x / 2);
+            let rightBorder = camPosition.x + (camSize.x / 2);
+            let bottom = camPosition.y - (camSize.y / 2);
+            let top = camPosition.y + (camSize.y / 2);
+            let nodePosition = background.cmpTransform.local.translation;
+            let nodeLeftBorder = nodePosition.x - (background.length / 2);
+            let nodeRightBorder = nodePosition.x + (background.length / 2);
+            if (nodeRightBorder >= leftBorder && nodeLeftBorder <= rightBorder) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        function isInViewPort(node) {
+            let camSize = new fudge.Vector2(20, 10);
+            let camPosition = cameraOrbit.cmpTransform.local.translation;
+            let leftBorder = camPosition.x - (camSize.x / 2);
+            let rightBorder = camPosition.x + (camSize.x / 2);
+            let bottom = camPosition.y - (camSize.y / 2);
+            let top = camPosition.y + (camSize.y / 2);
+            let nodePosition = node.cmpTransform.local.translation;
+            let nodeLeftBorder = nodePosition.x - (node.cmpTransform.local.scaling.x / 2);
+            let nodeRightBorder = nodePosition.x + (node.cmpTransform.local.scaling.x / 2);
+            let nodeTop = nodePosition.y + (node.cmpTransform.local.scaling.y / 2);
+            let nodeBottom = nodePosition.y - (node.cmpTransform.local.scaling.y / 2);
+            if (nodeRightBorder >= leftBorder && nodeLeftBorder <= rightBorder && nodeTop >= bottom && nodeBottom <= top) {
+                return true;
+            }
+            else {
+                return false;
+            }
         }
     }
 })(Game || (Game = {}));

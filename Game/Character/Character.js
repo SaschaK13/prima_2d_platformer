@@ -20,7 +20,7 @@ var Game;
     class Character extends fudge.Node {
         constructor(nodeName) {
             super(nodeName);
-            this.JUMP_HEIGHT = 5;
+            this.JUMP_HEIGHT = 6;
             this.WALK_SPEED = 2;
             this.DMG = 1;
             this.HP = 5;
@@ -41,18 +41,21 @@ var Game;
             this.isJumping = false;
             this.isDead = false;
             this.isAttacking = false;
+            this.isLoaded = false;
             this.update = (_event) => {
-                this.updateSprites();
-                this.collider.handleCollsion();
-                this.handlePhysics();
-                if (this.attackCooldown != 0) {
-                    this.attackCooldown -= 1;
-                }
-                if (this.currentDmgCooldown != 0) {
-                    this.currentDmgCooldown -= 1;
-                }
-                else {
-                    this.isHitted = false;
+                if (this.isLoaded) {
+                    this.updateSprites();
+                    this.collider.handleCollsion();
+                    this.handlePhysics();
+                    if (this.attackCooldown != 0) {
+                        this.attackCooldown -= 1;
+                    }
+                    if (this.currentDmgCooldown != 0) {
+                        this.currentDmgCooldown -= 1;
+                    }
+                    else {
+                        this.isHitted = false;
+                    }
                 }
             };
             this.mesh = new fudge.MeshQuad();

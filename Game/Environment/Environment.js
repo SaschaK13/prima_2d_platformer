@@ -5,10 +5,12 @@ var Game;
     let EnvironmentType;
     (function (EnvironmentType) {
         EnvironmentType["PLATFORM"] = "Platform";
+        EnvironmentType["BACKGROUND"] = "Background";
     })(EnvironmentType = Game.EnvironmentType || (Game.EnvironmentType = {}));
     class Environment extends fudge.Node {
         constructor(nodeName, type) {
             super(nodeName);
+            this.isLoaded = false;
             this.type = this.parseStringToEnviornmentType(type);
             let cmpMesh = new fudge.ComponentMesh(Environment.mesh);
             this.addComponent(cmpMesh);

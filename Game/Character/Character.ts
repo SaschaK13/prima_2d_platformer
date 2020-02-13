@@ -31,7 +31,7 @@ namespace Game {
 
   export class Character extends fudge.Node {
 
-    private JUMP_HEIGHT: number = 5;
+    private JUMP_HEIGHT: number = 6;
     private WALK_SPEED: number = 2;
     private DMG: number = 1;
     private HP: number = 5;
@@ -77,6 +77,8 @@ namespace Game {
     positionX: number;
     scaleX: number;
     positionY: number;
+
+    public isLoaded: boolean = false;
 
     public currentPlatform: Platform;
 
@@ -318,17 +320,21 @@ namespace Game {
     }
 
     private update = (_event: fudge.Eventƒ): void => {
-      this.updateSprites();
-      this.collider.handleCollsion();
-      this.handlePhysics();
-      if (this.attackCooldown != 0) {
-        this.attackCooldown -= 1;
+
+      if(this.isLoaded){
+        this.updateSprites();
+        this.collider.handleCollsion();
+        this.handlePhysics();
+        if (this.attackCooldown != 0) {
+          this.attackCooldown -= 1;
+        }
+        if (this.currentDmgCooldown != 0) {
+          this.currentDmgCooldown -= 1;
+        } else {
+          this.isHitted = false;
+        }
       }
-      if (this.currentDmgCooldown != 0) {
-        this.currentDmgCooldown -= 1;
-      } else {
-        this.isHitted = false;
-      }
+   
     }
 
     private updateSprites(): void {

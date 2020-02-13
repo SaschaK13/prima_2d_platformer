@@ -3,7 +3,8 @@ namespace Game {
   import fudge = FudgeCore;
 
   export enum EnvironmentType {
-  PLATFORM = "Platform"
+    PLATFORM = "Platform",
+    BACKGROUND = "Background"
   }  
 
   export class Environment extends fudge.Node {
@@ -12,6 +13,8 @@ namespace Game {
     //private static materials: fudge.Material;
 
     public spriteName: string;
+    public isLoaded: boolean = false;
+
 
     constructor(nodeName: string, type: String) {
       super(nodeName);
