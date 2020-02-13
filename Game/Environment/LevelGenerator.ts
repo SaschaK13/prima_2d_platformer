@@ -85,7 +85,6 @@ namespace Game {
       this.levelObject.setRoot(this.root);
       let util = Util.getInstance();
       util.level = this.levelObject;
-      Util.getInstance().save()
 
     }
 

@@ -56,9 +56,9 @@ namespace Game {
       return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    public save() {
+    public async  save(fileName: string): Promise<void> {
       let jsonString = this.createSavegame();
-      let map: fudge.MapFilenameToContent = { ["savegame.json"]: jsonString };
+      let map: fudge.MapFilenameToContent = { [fileName]: jsonString };
       fudge.FileIoBrowserLocal.save(map);
     }
     
@@ -93,6 +93,8 @@ namespace Game {
     private createSavegame(): string {
       return " {\"levelName\": \"" + this.level.levelName + "\", \"hp\": " + this.level.player.getStats().hp + " , \"dmg\": " + this.level.player.getStats().dmg + ", \"jumpHeight\": " + this.level.player.getStats().jumpHeight + ", \"walkSpeed\": " + this.level.player.getStats().walkSpeed + ", \"attackSpeed\":" + this.level.player.getStats().attackSpeed + " } "
     }
+
+  
 
 
   }
