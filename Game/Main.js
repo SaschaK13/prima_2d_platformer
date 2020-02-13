@@ -52,6 +52,7 @@ var Game;
         function update(_event) {
             processInput();
             viewport.draw();
+            //cmpCamera.pivot.lookAt(Util.getInstance().level.player.cmpTransform.local.translation);
             //fudge.RenderManager.update()
         }
         function loadGame() {

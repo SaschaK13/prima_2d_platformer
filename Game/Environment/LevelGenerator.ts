@@ -8,6 +8,8 @@ namespace Game {
     private data: Level;
     private levelObject: Level = new Level();
 
+    private backgroundLength: number = 15;
+
     constructor(root: fudge.Node) {
       this.root = root;
     }
@@ -21,8 +23,26 @@ namespace Game {
 
     public generateLevel(): void {
 
-      let value = this.data["player"];
-      let player: Player = new Player(value.name, value.spriteName, value.positionX, value.positionY, value.scaleX, value.scaleY);
+      let levelLength: number = this.data["levelLength"];
+      let backgroundValue: Background = this.data["background"];
+      let numberOfBackground: number = Math.round(levelLength / backgroundValue.length);
+
+      for (var i: number = 0; i < numberOfBackground; i++) {
+        let background: Background = new Background(backgroundValue.name, backgroundValue.type, backgroundValue.spriteName, backgroundValue.length);
+        background.cmpTransform.local.translation = new fudge.Vector3(i * this.backgroundLength, 0, -1);
+        this.root.appendChild(background);
+        this.levelObject.backgroundArray.push(background);
+      }
+      //background left
+      let background: Background = new Background(backgroundValue.name, backgroundValue.type, backgroundValue.spriteName, backgroundValue.length);
+      background.cmpTransform.local.translation = new fudge.Vector3(-15, 0, -1);
+      this.root.appendChild(background);
+      this.levelObject.backgroundArray.push(background);
+
+      fudge.Debug.log(this.levelObject.backgroundArray);
+
+      let playerValue = this.data["player"];
+      let player: Player = new Player(playerValue.name, playerValue.spriteName, playerValue.positionX, playerValue.positionY, playerValue.scaleX, playerValue.scaleY);
       this.levelObject.player = player;
       this.root.appendChild(player);
 
@@ -32,14 +52,6 @@ namespace Game {
         let platform: Platform = new Platform(current.name, current.type, current.spriteName, current.positionX, current.positionY, current.scaleX, current.scaleY);
         this.root.appendChild(platform);
         this.levelObject.platformArray.push(platform);
-      }
-
-      let backgroundArray = this.data["backgroundArray"];
-      for (var i: number = 0; i < backgroundArray.length; i++) {
-        let current = backgroundArray[i];
-        let background: Background = new Background(current.name, current.type, current.spriteName);
-        this.root.appendChild(background);
-        this.levelObject.backgroundArray.push(background);
       }
 
       let enemyArray = this.data["enemyArray"];

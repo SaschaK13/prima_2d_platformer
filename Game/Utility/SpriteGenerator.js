@@ -109,10 +109,7 @@ var Game;
         "blob",
         "dirt",
         "stone",
-        "layer0",
-        "layer1",
-        "layer2",
-        "layer3"
+        "background"
     ];
     let states = [
         "default",
@@ -227,34 +224,7 @@ var Game;
                     }
                 }
             }
-            case "layer0": {
-                switch (stateName) {
-                    case Game.CHARACTERSTATE.DEFAULT: {
-                        let sprite = new Sprite(spriteName + "_" + stateName);
-                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(0, 0, 240, 160), 1, new fudge.Vector2(0, 0), 16, fudge.ORIGIN2D.CENTER);
-                        return sprite;
-                    }
-                }
-            }
-            case "layer1": {
-                switch (stateName) {
-                    case Game.CHARACTERSTATE.DEFAULT: {
-                        let sprite = new Sprite(spriteName + "_" + stateName);
-                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(0, 0, 240, 160), 1, new fudge.Vector2(0, 0), 16, fudge.ORIGIN2D.CENTER);
-                        return sprite;
-                    }
-                }
-            }
-            case "layer2": {
-                switch (stateName) {
-                    case Game.CHARACTERSTATE.DEFAULT: {
-                        let sprite = new Sprite(spriteName + "_" + stateName);
-                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(0, 0, 240, 160), 1, new fudge.Vector2(0, 0), 16, fudge.ORIGIN2D.CENTER);
-                        return sprite;
-                    }
-                }
-            }
-            case "layer3": {
+            case "background": {
                 switch (stateName) {
                     case Game.CHARACTERSTATE.DEFAULT: {
                         let sprite = new Sprite(spriteName + "_" + stateName);

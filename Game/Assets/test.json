@@ -1,4 +1,6 @@
 {
+  "levelLength": 100,
+
   "player": {"name": "player", "spriteName": "player", "positionX": -6, "positionY": 3, "scaleX": 1, "scaleY": 1},
 
   "platformArray": [
@@ -6,15 +8,11 @@
     {"name": "Platform2", "spriteName": "dirt", "type": "Platform", "positionX": -3, "positionY": -3, "scaleX": 2, "scaleY": 1},
     {"name": "Platform3", "spriteName": "dirt", "type": "Platform", "positionX": 1, "positionY": -1.5, "scaleX": 2, "scaleY": 1},
     {"name": "Platform4", "spriteName": "dirt", "type": "Platform", "positionX": 5, "positionY": 0, "scaleX": 2, "scaleY": 1},
-    {"name": "Platform5", "spriteName": "dirt", "type": "Platform", "positionX": -3.5, "positionY": 0, "scaleX": 2, "scaleY": 1}
+    {"name": "Platform5", "spriteName": "dirt", "type": "Platform", "positionX": -3.5, "positionY": 0, "scaleX": 2, "scaleY": 1},
+    {"name": "Platform5", "spriteName": "dirt", "type": "Platform", "positionX": 7, "positionY": 0, "scaleX": 10, "scaleY": 1}
   ],
 
-  "backgroundArray": [
-    {"name": "Background4", "spriteName": "layer3", "type": "Background"},
-    {"name": "Background3", "spriteName": "layer2", "type": "Background"},
-    {"name": "Background2", "spriteName": "layer1", "type": "Background"},
-    {"name": "Background1", "spriteName": "layer0", "type": "Background"}
-  ],
+  "background": {"name": "background", "spriteName": "background", "type": "Background", "length": 20},
 
   "enemyArray": [
   ],

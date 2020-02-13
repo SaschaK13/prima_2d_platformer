@@ -70,6 +70,7 @@ namespace Game {
     function update(_event: fudge.Eventƒ): void {
       processInput();
       viewport.draw();
+      //cmpCamera.pivot.lookAt(Util.getInstance().level.player.cmpTransform.local.translation);
       //fudge.RenderManager.update()
     }
 
