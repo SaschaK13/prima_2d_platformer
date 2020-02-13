@@ -33,8 +33,20 @@ namespace Game {
 
 
     public die(): void {
+      if (Math.random() < 0.4) {
+        this.dropItem();
+      }
       this.getParent().removeChild(this);
       Util.getInstance().level.deleteEnemy(this);
+    }
+
+    public dropItem(): void {
+      let possibleItemsArray: Item[] = Util.getInstance().level.possibleItemsArray;
+      let randomItem: number = Util.getInstance().getRandomRange(0, possibleItemsArray.length);
+      let item: Item = possibleItemsArray[randomItem];
+      item.cmpTransform.local.translation = this.cmpTransform.local.translation;
+      Util.getInstance().level.appendToRoot(item);
+      Util.getInstance().level.itemArray.push(item);
     }
 
     public attack()

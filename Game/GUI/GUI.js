@@ -4,6 +4,10 @@ var Game;
     class Gui {
         constructor(initialWalkSpeed, initialJumpingPower, initialDamage, initialAttackSpeed) {
             this.initialHealth = 5;
+            this.initialWalkSpeed = 2;
+            this.initialJumpingPower = 5;
+            this.initialDamage = 1;
+            this.initialAttackSpeed = 50;
             this.initialWalkSpeed = initialWalkSpeed;
             this.initialJumpingPower = initialJumpingPower;
             this.initialDamage = initialDamage;

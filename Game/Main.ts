@@ -80,7 +80,7 @@ namespace Game {
       fudge.Debug.log("Game loaded")
       loadSprites();
 
-      let gui: Gui = new Gui(1, 1, 1, 1);
+      let gui: Gui = new Gui(2, 5, 1, 50);
       Util.getInstance().gui = gui;
 
       let lvlGenerator: LevelGenerator = new LevelGenerator(collidableNode);

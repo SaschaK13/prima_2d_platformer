@@ -31,7 +31,9 @@ namespace Game {
 
 
     public die(): void {
-      this.dropItem();
+      if (Math.random() < 0.4) {
+        this.dropItem();
+      }
       this.getParent().removeChild(this);
       Util.getInstance().level.deleteEnemy(this);
     }

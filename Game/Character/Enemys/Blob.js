@@ -20,7 +20,9 @@ var Game;
             fudge.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, this.behavior);
         }
         die() {
-            this.dropItem();
+            if (Math.random() < 0.4) {
+                this.dropItem();
+            }
             this.getParent().removeChild(this);
             Game.Util.getInstance().level.deleteEnemy(this);
         }
