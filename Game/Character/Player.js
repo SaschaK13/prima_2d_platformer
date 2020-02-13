@@ -13,8 +13,9 @@ var Game;
             super.addSpriteListener();
         }
         takeDmg(dmgTaken) {
+            fudge.Debug.log("Get dmg");
             if (this.getStats().hp >= 0) {
-                Game.Util.getInstance().gui.updateHealth(this);
+                Game.Util.getInstance().gui.updateHealth();
             }
             super.takeDmg(dmgTaken);
         }

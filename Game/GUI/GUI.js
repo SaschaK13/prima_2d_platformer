@@ -3,14 +3,14 @@ var Game;
 (function (Game) {
     class Gui {
         constructor(initialWalkSpeed, initialJumpingPower, initialDamage, initialAttackSpeed) {
-            this.initialHealth = 5;
+            this.initialHealth = 10;
             this.initialWalkSpeed = initialWalkSpeed;
             this.initialJumpingPower = initialJumpingPower;
             this.initialDamage = initialDamage;
             this.initialAttackSpeed = initialAttackSpeed;
         }
-        updateHealth(character) {
-            this.initialHealth = character.getStats().hp;
+        updateHealth() {
+            this.initialHealth = Game.Util.getInstance().level.player.getStats().hp;
             document.getElementById("health").setAttribute("src", "../Game/Assets/health/heart" + this.initialHealth + ".png");
         }
         updateWalkSpeed(speedFactor) {

@@ -4,14 +4,11 @@ var Game;
     var fudge = FudgeCore;
     window.addEventListener("load", test);
     let root;
-    let collidableNode;
     let keysPressed = {};
     function test() {
         let canvas = document.querySelector("canvas");
         fudge.RenderManager.initialize(true, false);
         root = new fudge.Node("Root");
-        collidableNode = new fudge.Node("collidable");
-        root.appendChild(collidableNode);
         let cmpCamera = new fudge.ComponentCamera();
         cmpCamera.pivot.translateZ(15);
         cmpCamera.pivot.lookAt(fudge.Vector3.ZERO());
@@ -61,13 +58,15 @@ var Game;
             //fudge.RenderManager.update()
         }
         function loadGame() {
+            Game.Util.getInstance().collidableNode = new fudge.Node("collidable");
+            Game.Util.getInstance().rootNode = root;
+            root.appendChild(Game.Util.getInstance().collidableNode);
             Game.Util.getInstance().fetchAudios();
             Game.loadSprites();
             let gui = new Game.Gui(2, 5, 1, 50);
             Game.Util.getInstance().gui = gui;
-            Game.Util.getInstance().collidableNode = collidableNode;
-            let lvlGen = new Game.LevelGenerator(collidableNode);
-            lvlGen.getDataFromFile("level2");
+            Game.Util.getInstance().lvlGenerator = new Game.LevelGenerator(Game.Util.getInstance().collidableNode);
+            Game.Util.getInstance().lvlGenerator.getDataFromFile("test");
         }
         function updateGameObjects() {
             //load platform 
@@ -76,11 +75,11 @@ var Game;
                 let platform = platformArray[i];
                 let showed = isInViewPort(platform);
                 if (showed && !platform.isLoaded) {
-                    collidableNode.appendChild(platform);
+                    Game.Util.getInstance().collidableNode.appendChild(platform);
                     platform.isLoaded = true;
                 }
                 else if (!showed && platform.isLoaded) {
-                    collidableNode.removeChild(platform);
+                    Game.Util.getInstance().collidableNode.removeChild(platform);
                     platform.isLoaded = false;
                 }
             }
@@ -90,12 +89,12 @@ var Game;
                 let enemy = enemyArray[i];
                 let showed = isInViewPort(enemy);
                 if (showed && !enemy.isLoaded) {
-                    collidableNode.appendChild(enemy);
+                    Game.Util.getInstance().collidableNode.appendChild(enemy);
                     enemy.cmpTransform.local.translateY(1);
                     enemy.isLoaded = true;
                 }
                 else if (!showed && enemy.isLoaded) {
-                    collidableNode.removeChild(enemy);
+                    Game.Util.getInstance().collidableNode.removeChild(enemy);
                     enemy.isLoaded = false;
                 }
             }
@@ -105,11 +104,11 @@ var Game;
                 let backGround = backGroundArray[i];
                 let showed = isBackgroundInViewPort(backGround);
                 if (showed && !backGround.isLoaded) {
-                    collidableNode.appendChild(backGround);
+                    Game.Util.getInstance().collidableNode.appendChild(backGround);
                     backGround.isLoaded = true;
                 }
                 else if (!showed && backGround.isLoaded) {
-                    collidableNode.removeChild(backGround);
+                    Game.Util.getInstance().collidableNode.removeChild(backGround);
                     backGround.isLoaded = false;
                 }
             }

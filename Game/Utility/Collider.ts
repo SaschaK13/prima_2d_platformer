@@ -26,7 +26,6 @@ export enum CollisionDirection {
 export class Collider{
 
 private object: Character;
-private isColliding: boolean;
 private collissionObjects: CollidedObject[];
 private oldCollisionObjects: CollidedObject[];
 
@@ -125,12 +124,10 @@ public getCollisionDirection(colissionObject: fudge.Node): CollisionDirection {
     characterPosition.x + (characterScaling.x / 2) > colissionObjectPosition.x - (colissionObjectScaling.x / 2) &&
     characterPosition.y - (characterScaling.y / 2) < colissionObjectPosition.y + (colissionObjectScaling.y / 2) &&
     characterPosition.y + (characterScaling.y / 2) > colissionObjectPosition.y - (colissionObjectScaling.y / 2))  {
-        this.isColliding = true;
         let direction = this.getCollisionDirection(cObject)
         let collisionType = this.getCollisionType(cObject)
         this.collissionObjects.push({object: cObject , collisionDirecton: direction, collisionType: collisionType});
       } else {
-        this.isColliding = false;
 
       }
 }

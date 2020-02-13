@@ -46,6 +46,7 @@ var Game;
         }
         attack() {
             if (this.attackCooldown == 0 && !Game.Util.getInstance().level.player.finish) {
+                fudge.Debug.log("Goblin attack");
                 Game.Util.getInstance().level.player.takeDmg(1);
                 this.attacksPlayer = true;
                 this.isAttacking = true;

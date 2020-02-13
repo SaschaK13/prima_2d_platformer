@@ -12,7 +12,7 @@ namespace Game {
     public currentSavegame: Savegame;
     public collidableNode: fudge.Node;
     public lvlGenerator: LevelGenerator;
-
+    public rootNode : fudge.Node;
     public attackSound: HTMLAudioElement;
     public selectSound: HTMLAudioElement;
     public pickUpSound: HTMLAudioElement;
@@ -93,8 +93,12 @@ namespace Game {
     public loadNextLevel()
     {
       this.deleteAllNodes()
+      this.collidableNode = new fudge.Node("Colidable")
       this.lvlGenerator = new LevelGenerator(this.collidableNode)
-      this.lvlGenerator.getDataFromFile("test");
+      this.rootNode.appendChild (this.collidableNode);
+
+      this.lvlGenerator.getDataFromFile("level2");
+      this.gui.updateHealth()
 
     }
 
@@ -111,13 +115,21 @@ namespace Game {
         this.collidableNode.removeChild(childs[i]);
       }
 
-    
-      
-      this.level.enemyArray = []
-      this.level.platformArray; = []
-      this.level.player = null;
+      this.collidableNode.getParent().removeChild(this.collidableNode);
 
+      for(var i = 0; i < this.level.enemyArray.length ; i++)
+      {
+        let enemy =  this.level.enemyArray[i];
+        for(var j = 0; j < enemy.getChildren().length; j++)
+        {
+          let child = enemy.getChildren()[j];
+          enemy.removeChild(child)
+        }
+      }
+
+      this.lvlGenerator = null;
       this.level = null;
+     
 
 
     }

@@ -4,7 +4,6 @@ namespace Game {
 
   window.addEventListener("load", test);
   let root: fudge.Node;
-  let collidableNode: fudge.Node;
 
   interface KeyPressed {
     [code: string]: boolean;
@@ -17,8 +16,7 @@ namespace Game {
     fudge.RenderManager.initialize(true, false);
 
     root = new fudge.Node("Root");
-    collidableNode = new fudge.Node("collidable");
-    root.appendChild(collidableNode);
+   
 
     let cmpCamera: fudge.ComponentCamera = new fudge.ComponentCamera();
     cmpCamera.pivot.translateZ(15);
@@ -84,6 +82,9 @@ namespace Game {
 
 
     function loadGame(): void {
+      Util.getInstance().collidableNode = new fudge.Node("collidable"); 
+      Util.getInstance().rootNode = root;
+      root.appendChild(Util.getInstance().collidableNode);
 
       Util.getInstance().fetchAudios();
       loadSprites();
@@ -91,10 +92,8 @@ namespace Game {
       let gui: Gui = new Gui(2, 5, 1, 50);
       Util.getInstance().gui = gui;
 
-      Util.getInstance().collidableNode = collidableNode;
-
-      let lvlGen: LevelGenerator = new LevelGenerator(collidableNode);
-      lvlGen.getDataFromFile("level2");
+      Util.getInstance().lvlGenerator = new LevelGenerator(Util.getInstance().collidableNode);
+      Util.getInstance().lvlGenerator.getDataFromFile("test");
     }
 
     function updateGameObjects() {
@@ -105,10 +104,10 @@ namespace Game {
         let platform = platformArray[i];
         let showed = isInViewPort(platform);
         if (showed && !platform.isLoaded) {
-          collidableNode.appendChild(platform);
+          Util.getInstance().collidableNode.appendChild(platform);
           platform.isLoaded = true;
         } else if (!showed && platform.isLoaded) {
-          collidableNode.removeChild(platform);
+          Util.getInstance().collidableNode.removeChild(platform);
           platform.isLoaded = false;
         }
 
@@ -120,13 +119,13 @@ namespace Game {
         let enemy = enemyArray[i] as Character;
         let showed = isInViewPort(enemy);
         if (showed && !enemy.isLoaded) {
-          collidableNode.appendChild(enemy);
+          Util.getInstance().collidableNode.appendChild(enemy);
           enemy.cmpTransform.local.translateY(1);
          
           enemy.isLoaded = true;
 
         } else if (!showed && enemy.isLoaded) {
-          collidableNode.removeChild(enemy);
+          Util.getInstance().collidableNode.removeChild(enemy);
           enemy.isLoaded = false;
          
         }
@@ -140,12 +139,12 @@ namespace Game {
         let showed = isBackgroundInViewPort(backGround);
         if (showed && !backGround.isLoaded) {
        
-          collidableNode.appendChild(backGround);
+          Util.getInstance().collidableNode.appendChild(backGround);
           backGround.isLoaded = true;
 
         } else if (!showed && backGround.isLoaded) {
          
-          collidableNode.removeChild(backGround);
+          Util.getInstance().collidableNode.removeChild(backGround);
           backGround.isLoaded = false;
         }
 

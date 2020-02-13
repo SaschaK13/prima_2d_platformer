@@ -20,8 +20,9 @@ namespace Game {
     }
 
     takeDmg(dmgTaken: number): void {
+      fudge.Debug.log("Get dmg")
       if (this.getStats().hp >= 0) {
-        Util.getInstance().gui.updateHealth(this);
+        Util.getInstance().gui.updateHealth();
       }
       super.takeDmg(dmgTaken);
 
