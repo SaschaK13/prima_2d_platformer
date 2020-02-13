@@ -5,6 +5,7 @@ var Game;
     class Blob extends Game.Character {
         constructor(name, spriteName, positionX, positionY, scaleX, scaleY) {
             super(name);
+            this.dropChance = 0.2;
             this.currentMovmentDuration = 0;
             this.behavior = (_event) => {
                 this.ki();
@@ -20,7 +21,7 @@ var Game;
             fudge.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, this.behavior);
         }
         die() {
-            if (Math.random() < 0.4) {
+            if (Math.random() < this.dropChance) {
                 this.dropItem();
             }
             this.getParent().removeChild(this);

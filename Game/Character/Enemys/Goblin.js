@@ -5,6 +5,7 @@ var Game;
     class Goblin extends Game.Character {
         constructor(name, spriteName, positionX, positionY, scaleX, scaleY) {
             super(name);
+            this.dropChance = 0.4;
             this.lookAroundCooldown = 50;
             this.currentLookAroundCooldown = 0;
             this.moveDirection = Game.DIRECTION.RIGHT;
@@ -22,7 +23,7 @@ var Game;
             fudge.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, this.behavior);
         }
         die() {
-            if (Math.random() < 0.4) {
+            if (Math.random() < this.dropChance) {
                 this.dropItem();
             }
             this.getParent().removeChild(this);

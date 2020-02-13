@@ -8,6 +8,7 @@ namespace Game {
     positionY: number;
     scaleX: number;
     scaleY: number;
+    dropChance: number = 0.4;
 
     lookAroundCooldown = 50;
     currentLookAroundCooldown = 0;
@@ -33,7 +34,7 @@ namespace Game {
 
 
     public die(): void {
-      if (Math.random() < 0.4) {
+      if (Math.random() < this.dropChance) {
         this.dropItem();
       }
       this.getParent().removeChild(this);

@@ -8,6 +8,7 @@ namespace Game {
     positionY: number;
     scaleX: number;
     scaleY: number;
+    dropChance: number = 0.2;
 
     private movementDuration: number;
     private currentMovmentDuration: number = 0;
@@ -31,7 +32,7 @@ namespace Game {
 
 
     public die(): void {
-      if (Math.random() < 0.4) {
+      if (Math.random() < this.dropChance) {
         this.dropItem();
       }
       this.getParent().removeChild(this);
