@@ -5,7 +5,7 @@ var Game;
     class Blob extends Game.Character {
         constructor(name, spriteName, positionX, positionY, scaleX, scaleY) {
             super(name);
-            this.dropChance = 0.2;
+            this.dropChance = 1;
             this.currentMovmentDuration = 0;
             this.behavior = (_event) => {
                 this.ki();

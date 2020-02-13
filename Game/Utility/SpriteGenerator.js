@@ -109,7 +109,10 @@ var Game;
         "blob",
         "dirt",
         "stone",
-        "background"
+        "background",
+        "healpotion",
+        "sword",
+        "boots"
     ];
     let states = [
         "default",
@@ -135,6 +138,7 @@ var Game;
         }
         let util = Game.Util.getInstance();
         util.spritesMap = spritesMap;
+        fudge.Debug.log(spritesMap);
     }
     Game.loadSprites = loadSprites;
     function generateSprites(textureImage, spriteName, stateName) {
@@ -249,6 +253,34 @@ var Game;
                     case Game.CHARACTERSTATE.DEFAULT: {
                         let sprite = new Sprite(spriteName + "_" + stateName);
                         sprite.generateByGrid(textureImage, fudge.Rectangle.GET(0, 0, 240, 160), 1, new fudge.Vector2(0, 0), 16, fudge.ORIGIN2D.CENTER);
+                        return sprite;
+                    }
+                }
+            }
+            case "sword": {
+                switch (stateName) {
+                    case Game.CHARACTERSTATE.DEFAULT: {
+                        let sprite = new Sprite(spriteName + "_" + stateName);
+                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(0, 0, 30, 30), 1, new fudge.Vector2(0, 0), 32, fudge.ORIGIN2D.CENTER);
+                        fudge.Debug.log(textureImage);
+                        return sprite;
+                    }
+                }
+            }
+            case "boots": {
+                switch (stateName) {
+                    case Game.CHARACTERSTATE.DEFAULT: {
+                        let sprite = new Sprite(spriteName + "_" + stateName);
+                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(0, 0, 30, 30), 1, new fudge.Vector2(0, 0), 32, fudge.ORIGIN2D.CENTER);
+                        return sprite;
+                    }
+                }
+            }
+            case "healpotion": {
+                switch (stateName) {
+                    case Game.CHARACTERSTATE.DEFAULT: {
+                        let sprite = new Sprite(spriteName + "_" + stateName);
+                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(0, 0, 30, 30), 1, new fudge.Vector2(0, 0), 32, fudge.ORIGIN2D.CENTER);
                         return sprite;
                     }
                 }

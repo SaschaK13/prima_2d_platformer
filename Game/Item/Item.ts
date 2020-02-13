@@ -23,8 +23,8 @@ namespace Game {
       this.walkSpeed = walkSpeed;
       this.attackSpeed = attackSpeed;
 
-      let material: fudge.Material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(1, 0, 1, 1)))
-      this.addComponent(new fudge.ComponentMaterial(material));
+      // let material: fudge.Material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(1, 0, 1, 1)))
+      // this.addComponent(new fudge.ComponentMaterial(material));
 
       let cmpMesh: fudge.ComponentMesh = new fudge.ComponentMesh(Item.mesh);
       this.addComponent(cmpMesh);
@@ -40,6 +40,23 @@ namespace Game {
       this.stats.walkSpeed = this.walkSpeed;
       this.stats.attackSpeed = this.attackSpeed;
 
+      this.addSpriteListener();
+    }
+
+    public addSpriteListener(): void {
+      for (let key of Util.getInstance().spritesMap.get(this.spriteName).keys()) {
+        let sprite: Sprite = Util.getInstance().spritesMap.get(this.spriteName).get(key);
+        let nodeSprite: NodeSprite = new NodeSprite(sprite.name, sprite);
+        
+        nodeSprite.activate(true);        
+  
+        nodeSprite.addEventListener(
+          "showNext",
+          (_event: Event) => { (<NodeSprite>_event.currentTarget).showFrameNext(); },
+          true
+        );
+        this.appendChild(nodeSprite);
+      }
     }
 
     public getStats(): CharacterStats {
