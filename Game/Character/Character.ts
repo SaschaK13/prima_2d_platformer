@@ -8,7 +8,8 @@ namespace Game {
     WALK = "walk",
     JUMP = "jump",
     ATTACK = "attack",
-    DEATH = "death"
+    DEATH = "death",
+    HIT = "hit"
   }
 
   export enum DIRECTION {
@@ -67,6 +68,7 @@ namespace Game {
     public collider: Collider;
     public hitbox: Hitbox;
 
+    public isHitted: boolean = false;
     private isJumping: boolean = false;
     public isDead: boolean = false;
     public isAttacking = false;
@@ -173,7 +175,7 @@ namespace Game {
     }
 
     public idle(): void {
-      if (!this.isJumping && !this.isDead && !this.isAttacking) {
+      if (!this.isJumping && !this.isDead && !this.isAttacking && !this.isHitted) {
         this.show(CHARACTERSTATE.IDLE);
       }
     }
@@ -203,11 +205,9 @@ namespace Game {
         this.direction = direction;
       }
 
-      if (!this.isJumping) {
-        this.show(CHARACTERSTATE.WALK)
-
+      if (!this.isJumping && !this.isHitted) {
+        this.show(CHARACTERSTATE.WALK);
       }
-
     }
 
     public attack(): void {}
@@ -225,6 +225,8 @@ namespace Game {
         if (this.HP > 0) {
           if ((this.HP - dmgTaken) >= 0) {
             this.HP -= dmgTaken;
+            this.isHitted = true;
+            this.show(CHARACTERSTATE.HIT);
           }
         } else {
           if (!this.isDead) {
@@ -341,6 +343,8 @@ namespace Game {
       }
       if (this.currentDmgCooldown != 0) {
         this.currentDmgCooldown -= 1;
+      } else {
+        this.isHitted = false;
       }
     }
 

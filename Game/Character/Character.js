@@ -10,6 +10,7 @@ var Game;
         CHARACTERSTATE["JUMP"] = "jump";
         CHARACTERSTATE["ATTACK"] = "attack";
         CHARACTERSTATE["DEATH"] = "death";
+        CHARACTERSTATE["HIT"] = "hit";
     })(CHARACTERSTATE = Game.CHARACTERSTATE || (Game.CHARACTERSTATE = {}));
     let DIRECTION;
     (function (DIRECTION) {
@@ -36,6 +37,7 @@ var Game;
             this.showDeathAnimation = false;
             this.deathAnimationCounter = 0;
             this.direction = DIRECTION.RIGHT;
+            this.isHitted = false;
             this.isJumping = false;
             this.isDead = false;
             this.isAttacking = false;
@@ -64,6 +66,9 @@ var Game;
                 }
                 if (this.currentDmgCooldown != 0) {
                     this.currentDmgCooldown -= 1;
+                }
+                else {
+                    this.isHitted = false;
                 }
             };
             this.mesh = new fudge.MeshQuad();
@@ -141,7 +146,7 @@ var Game;
             this.show(_characterstate);
         }
         idle() {
-            if (!this.isJumping && !this.isDead && !this.isAttacking) {
+            if (!this.isJumping && !this.isDead && !this.isAttacking && !this.isHitted) {
                 this.show(CHARACTERSTATE.IDLE);
             }
         }
@@ -168,7 +173,7 @@ var Game;
                 }
                 this.direction = direction;
             }
-            if (!this.isJumping) {
+            if (!this.isJumping && !this.isHitted) {
                 this.show(CHARACTERSTATE.WALK);
             }
         }
@@ -184,6 +189,8 @@ var Game;
                 if (this.HP > 0) {
                     if ((this.HP - dmgTaken) >= 0) {
                         this.HP -= dmgTaken;
+                        this.isHitted = true;
+                        this.show(CHARACTERSTATE.HIT);
                     }
                 }
                 else {
