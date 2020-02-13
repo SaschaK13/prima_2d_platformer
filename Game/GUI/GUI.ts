@@ -4,7 +4,7 @@ namespace Game {
 
   export class Gui {
 
-    initialHealth: number = 5;
+    initialHealth: number = 10;
     initialWalkSpeed: number;
     initialJumpingPower: number;
     initialDamage: number;
