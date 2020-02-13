@@ -39,22 +39,6 @@ var Game;
             this.isJumping = false;
             this.isDead = false;
             this.isAttacking = false;
-            /*public getCurrentPlatform(): Platform {
-        
-              let collisionObjects = this.collider.getCollisionObjects();
-              for(var i = 0; i < collisionObjects.length; i++ )
-              {
-                let collisionObject: CollidedObject = collisionObjects[i];
-        
-                if(collisionObject.object.constructor.name == "Platform")
-                {
-                  return collisionObject.object as Platform;
-                }
-              }
-        
-              return null;
-            }
-            */
             this.update = (_event) => {
                 this.updateSprites();
                 this.collider.handleCollsion();
