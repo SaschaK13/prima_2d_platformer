@@ -134,7 +134,7 @@ body {
   overflow: hidden;
 }
 
-#gameOver {
+#gameOver, #safeGame {
   position: absolute;
   text-align: center;
   border: 5px solid black;
