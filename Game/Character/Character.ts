@@ -315,23 +315,6 @@ namespace Game {
       gui.updatAttackSpeed(stats.attackSpeed);
     }
 
-    /*public getCurrentPlatform(): Platform {
-
-      let collisionObjects = this.collider.getCollisionObjects();
-      for(var i = 0; i < collisionObjects.length; i++ )
-      {
-        let collisionObject: CollidedObject = collisionObjects[i];
-
-        if(collisionObject.object.constructor.name == "Platform")
-        {
-          return collisionObject.object as Platform;
-        }
-      }
-
-      return null;
-    }
-    */
-
     private update = (_event: fudge.Eventƒ): void => {
       this.updateSprites();
       this.collider.handleCollsion();
