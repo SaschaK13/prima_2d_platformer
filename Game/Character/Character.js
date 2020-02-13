@@ -19,7 +19,7 @@ var Game;
     class Character extends fudge.Node {
         constructor(nodeName) {
             super(nodeName);
-            this.JUMP_HEIGHT = 6;
+            this.JUMP_HEIGHT = 5;
             this.WALK_SPEED = 2;
             this.DMG = 1;
             this.HP = 5;
@@ -229,13 +229,16 @@ var Game;
             this.show(CHARACTERSTATE.IDLE);
         }
         getStats() {
-            return { hp: this.HP, dmg: this.DMG, jump_height: this.JUMP_HEIGHT, walk_speed: this.WALK_SPEED, attackspeed: this.ATTACKSPEED };
+            return { hp: this.HP, dmg: this.DMG, jumpHeight: this.JUMP_HEIGHT, walkSpeed: this.WALK_SPEED, attackSpeed: this.ATTACKSPEED };
         }
-        setStat(stats) {
+        setStats(stats) {
             this.HP = stats.hp;
-            this.JUMP_HEIGHT = stats.jump_height;
             this.DMG = stats.dmg;
-            this.WALK_SPEED = stats.walk_speed;
+            this.JUMP_HEIGHT = stats.jumpHeight;
+            this.WALK_SPEED = stats.walkSpeed;
+            this.ATTACKSPEED = stats.attackSpeed;
+        }
+        updateStats(stats) {
         }
         updateSprites() {
             if (this.currentSpriteCooldown != 0) {

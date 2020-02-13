@@ -35,7 +35,7 @@ namespace Game {
         fudge.Debug.log("test");
         this.isAttacking = true;
         this.showOneTime(CHARACTERSTATE.ATTACK);
-        this.attackCooldown = this.getStats().attackspeed;
+        this.attackCooldown = this.getStats().attackSpeed;
       }
     }
 

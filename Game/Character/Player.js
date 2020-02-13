@@ -26,7 +26,7 @@ var Game;
                 fudge.Debug.log("test");
                 this.isAttacking = true;
                 this.showOneTime(Game.CHARACTERSTATE.ATTACK);
-                this.attackCooldown = this.getStats().attackspeed;
+                this.attackCooldown = this.getStats().attackSpeed;
             }
         }
         die() {

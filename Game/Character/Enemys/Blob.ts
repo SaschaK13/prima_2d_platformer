@@ -21,7 +21,7 @@ namespace Game {
       this.cmpTransform.local.scaling = new fudge.Vector3(scaleX, scaleY, 0);
       
 
-      this.setStat({ hp: 3, dmg: 0, walk_speed: 1, jump_height: 0, attackspeed: 0 });
+      this.setStats({ hp: 3, dmg: 0, walkSpeed: 1, jumpHeight: 0, attackSpeed: 0 });
       this.movementDuration = Util.getInstance().getRandomRange(2, 3);
       this.randomDirection();
 
