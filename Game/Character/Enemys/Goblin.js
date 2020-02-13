@@ -30,7 +30,7 @@ var Game;
             let player = Game.Util.getInstance().level.player;
             let playerTrans = Game.Util.getInstance().level.player.cmpTransform.local.translation;
             let goblinTrans = this.cmpTransform.local.translation;
-            if (goblinTrans.y <= playerTrans.y + 0.7 && goblinTrans.y >= playerTrans.y - 0.7) {
+            if (goblinTrans.y <= playerTrans.y + 1 && goblinTrans.y >= playerTrans.y - 1) {
                 //Same height
                 if (this.currentPlatform && player.currentPlatform) {
                     if (this.currentPlatform.name == player.currentPlatform.name) {

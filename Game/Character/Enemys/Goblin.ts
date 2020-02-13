@@ -43,7 +43,7 @@ namespace Game {
       let playerTrans = Util.getInstance().level.player.cmpTransform.local.translation;
       let goblinTrans = this.cmpTransform.local.translation;
 
-      if (goblinTrans.y <= playerTrans.y + 0.7 && goblinTrans.y >= playerTrans.y - 0.7) {
+      if (goblinTrans.y <= playerTrans.y + 1 && goblinTrans.y >= playerTrans.y - 1) {
         //Same height
         if (this.currentPlatform && player.currentPlatform) {
 
