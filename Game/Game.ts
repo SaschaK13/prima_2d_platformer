@@ -27,11 +27,10 @@ namespace Game {
 
     function safeGame(): void {
       var safeName: string = window.prompt("Enter your safe game name: ");
-      alert("Your name is " + safeName);
     }
 
     function next(): void {
-
+      
     }
 
   }

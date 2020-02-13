@@ -69,7 +69,6 @@ var Game;
             this.levelObject.setRoot(this.root);
             let util = Game.Util.getInstance();
             util.level = this.levelObject;
-            Game.Util.getInstance().save();
         }
     }
     Game.LevelGenerator = LevelGenerator;

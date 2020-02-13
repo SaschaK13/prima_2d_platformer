@@ -152,7 +152,7 @@ body {
   visibility: hidden;
 }
 
-#restart, #backToMenu {
+#restart, #backToMenu, #safe, #nextLevel {
   border-radius: 8px;
   font-size: x-large;
   margin: 8px;
@@ -162,6 +162,6 @@ body {
   background-color: grey;
 }
 
-#restart:hover, #backToMenu:hover {
+#restart:hover, #backToMenu:hover,  #safe:hover, #nextLevel:hover {
   background-color:rgb(180, 180, 180);
 }
