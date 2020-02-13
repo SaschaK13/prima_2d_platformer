@@ -3,6 +3,7 @@ namespace Game {
   import fudge = FudgeCore;
 
   export class Goblin extends Character {
+    public attacksPlayer: boolean = false;
     name: string;
     positionX: number;
     positionY: number;
@@ -22,7 +23,7 @@ namespace Game {
       this.cmpTransform.local.scaling = new fudge.Vector3(scaleX, scaleY, 0);
 
 
-      this.setStats({ hp: 3, dmg: 0, walkSpeed: 2, jumpHeight: 0, attackSpeed: 50 });
+      this.setStats({ hp: 3, dmg: 0, walkSpeed: 2, jumpHeight: 0, attackSpeed: 100 });
 
       //this.movementDuration = Util.getInstance().getRandomRange(2, 3);
       //this.randomDirection();
@@ -50,41 +51,42 @@ namespace Game {
       Util.getInstance().level.itemArray.push(item);
     }
 
-    public attack()
-    {
+    public attack(): void {
       if (this.attackCooldown == 0) {
-
         fudge.Debug.log("Attacked");
         Util.getInstance().level.player.takeDmg(1);
+        this.attacksPlayer = true;
         this.isAttacking = true;
         this.showOneTime(CHARACTERSTATE.ATTACK);
         this.attackCooldown = this.getStats().attackSpeed;
-      }
+      } 
     }
 
     public ki() {
       //Check if player is on same height
+      fudge.Debug.log(this.isAttacking);
       let player = Util.getInstance().level.player;
       let playerTrans = Util.getInstance().level.player.cmpTransform.local.translation;
       let goblinTrans = this.cmpTransform.local.translation;
       let collisionObjects: Character[] = this.hitbox.detectEnemys() as Character[];
-      if(collisionObjects.length != 0)
-      {
-        this.attack()
+      if (collisionObjects.length != 0) {
+        this.attack();
+      } else {
+        this.attacksPlayer = false;
       }
 
       if (goblinTrans.y <= playerTrans.y + 0.7 && goblinTrans.y >= playerTrans.y - 0.7) {
         //Same height
         if (this.currentPlatform && player.currentPlatform) {
 
-          if (this.currentPlatform.name == player.currentPlatform.name) {
+          if (this.currentPlatform.name == player.currentPlatform.name && !this.attacksPlayer) {
             //Same platform
             if (playerTrans.x < goblinTrans.x) {
               //Player is LeftB
-              this.walk(DIRECTION.LEFT)
+              this.walk(DIRECTION.LEFT);
             } else {
               //Player is Right
-              this.walk(DIRECTION.RIGHT)
+              this.walk(DIRECTION.RIGHT);
             }
           }
         }
