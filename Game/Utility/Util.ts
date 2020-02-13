@@ -10,6 +10,11 @@ namespace Game {
     public level: Level;
     public spritesMap: Map<string, Map<string, Sprite>>;
 
+    public attackSound: HTMLAudioElement;
+    public selectSound: HTMLAudioElement;
+    public pickUpSound: HTMLAudioElement;
+    public jumpSound: HTMLAudioElement;
+    public hurtSound: HTMLAudioElement;
 
     constructor() {}
 
