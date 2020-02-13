@@ -2,7 +2,7 @@
   "levelName": "test",
   "levelLength": 100,
 
-  "player": {"name": "player", "spriteName": "player", "positionX": 0, "positionY": 1, "scaleX": 1, "scaleY": 1},
+  "player": {"name": "player", "spriteName": "player", "positionX": 3, "positionY": 2, "scaleX": 1, "scaleY": 1},
 
   "platformArray": [
     {"name": "Platform1", "spriteName": "dirt", "type": "Platform", "positionX": -5, "positionY": -3, "scaleX": 2, "scaleY": 0.7},
@@ -12,12 +12,11 @@
     {"name": "Platform5", "spriteName": "dirt", "type": "Platform", "positionX": 7, "positionY": 0, "scaleX": 10, "scaleY": 0.7}
   ],
 
-  "background": {"name": "background", "spriteName": "background", "type": "Background", "length": 20},
+  "background": {"name": "background", "spriteName": "background", "type": "Background", "length": 15},
 
   "enemyArray": [
     {"name": "Enemy1", "spriteName": "blob",  "positionX":1, "positionY": 1, "scaleX": 1, "scaleY": 1},
-    {"name": "Enemy2", "spriteName": "blob",  "positionX":5, "positionY": 1, "scaleX": 1, "scaleY": 1},
-    {"name": "Enemy3", "spriteName": "goblin",  "positionX":7, "positionY": 1, "scaleX": 1, "scaleY": 1}
+    {"name": "Enemy2", "spriteName": "blob",  "positionX":5, "positionY": 1, "scaleX": 1, "scaleY": 1}
   ],
 
   "itemArray": [

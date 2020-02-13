@@ -3,7 +3,9 @@ var Game;
 (function (Game) {
     var fudge = FudgeCore;
     class Util {
-        constructor() { }
+        constructor() {
+            this.fetchAudios();
+        }
         static getInstance() {
             if (!Util.instance) {
                 Util.instance = new Util();
@@ -30,24 +32,30 @@ var Game;
         delay(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
-        /*public isLoaded(node: fudge.Node, root: fudge.Node): boolean
-        {
-          let children: fudge.Node[] = root.getChildren();
-          for(var i = 0; i < children.length; i++)
-          {
-            let n = children[i];
-            if(n.name == node.name)
-            {
-              return true;
-            }
-          }
-    
-          return false;
-        }*/
         save() {
             let jsonString = this.createSavegame();
             let map = { ["savegame.json"]: jsonString };
             fudge.FileIoBrowserLocal.save(map);
+        }
+        fetchAudios() {
+            this.attackSound = new Audio();
+            this.attackSound.src = "../Game/Assets/attack.wav";
+            this.attackSound.load();
+            this.selectSound = new Audio();
+            this.selectSound.src = "../Game/Assets/select.wav";
+            this.selectSound.load();
+            this.pickUpSound = new Audio();
+            this.pickUpSound.src = "../Game/Assets/pickUp.wav";
+            this.pickUpSound.load();
+            this.jumpSound = new Audio();
+            this.jumpSound.src = "../Game/Assets/jump.wav";
+            this.jumpSound.load();
+            this.hurtSound = new Audio();
+            this.hurtSound.src = "../Game/Assets/hurt.wav";
+            this.hurtSound.load();
+            this.themeSound = new Audio();
+            this.themeSound.src = "../Game/Assets/theme.wav";
+            this.themeSound.load();
         }
         createSavegame() {
             return " {\"levelName\": \"" + this.level.levelName + "\", \"hp\": " + this.level.player.getStats().hp + " , \"dmg\": " + this.level.player.getStats().dmg + ", \"jumpHeight\": " + this.level.player.getStats().jumpHeight + ", \"walkSpeed\": " + this.level.player.getStats().walkSpeed + ", \"attackSpeed\":" + this.level.player.getStats().attackSpeed + " } ";

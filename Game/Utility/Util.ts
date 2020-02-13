@@ -9,13 +9,21 @@ namespace Game {
     public gui: Gui;
     public level: Level;
     public spritesMap: Map<string, Map<string, Sprite>>;
-    private data: Savegame;
     public currentSavegame: Savegame;
     public collidableNode: fudge.Node;
     public lvlGenerator: LevelGenerator;
 
+    public attackSound: HTMLAudioElement;
+    public selectSound: HTMLAudioElement;
+    public pickUpSound: HTMLAudioElement;
+    public jumpSound: HTMLAudioElement;
+    public hurtSound: HTMLAudioElement;
+    public themeSound: HTMLAudioElement;
+    private data: Savegame;
 
-    constructor() {}
+    constructor() {
+      this.fetchAudios();
+    }
 
     public static getInstance(): Util {
       if (!Util.instance) {
@@ -23,15 +31,15 @@ namespace Game {
       }
       return Util.instance;
     }
-    
+
     public getTextureImageBy(name: string, state: string): fudge.TextureImage {
       let img: HTMLImageElement = document.querySelector("#" + name + "_" + state);
       let texture: fudge.TextureImage = new fudge.TextureImage();
-      texture.image = img;     
+      texture.image = img;
       return texture;
     }
 
-    public getRandomRange(min: number , max: number): number {
+    public getRandomRange(min: number, max: number): number {
       return Math.floor(Math.random() * (max - min) + min)
     }
 
@@ -45,33 +53,45 @@ namespace Game {
     }
 
     public delay(ms: number) {
-      return new Promise( resolve => setTimeout(resolve, ms) );
+      return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    /*public isLoaded(node: fudge.Node, root: fudge.Node): boolean
-    {
-      let children: fudge.Node[] = root.getChildren();
-      for(var i = 0; i < children.length; i++)
-      {
-        let n = children[i];
-        if(n.name == node.name)
-        {
-          return true;
-        }
-      }
-
-      return false;
-    }*/
-
-    public save()
-    {
+    public save() {
       let jsonString = this.createSavegame();
-      let map: fudge.MapFilenameToContent = { ["savegame.json"]: jsonString};
+      let map: fudge.MapFilenameToContent = { ["savegame.json"]: jsonString };
       fudge.FileIoBrowserLocal.save(map);
     }
+    
+    
+      public fetchAudios(): void {
 
-    private createSavegame() : string {
-      return   " {\"levelName\": \""+ this.level.levelName + "\", \"hp\": "+ this.level.player.getStats().hp +" , \"dmg\": "+ this.level.player.getStats().dmg +", \"jumpHeight\": "+ this.level.player.getStats().jumpHeight +", \"walkSpeed\": "+ this.level.player.getStats().walkSpeed +", \"attackSpeed\":"+ this.level.player.getStats().attackSpeed +" } "
+      this.attackSound = new Audio();
+      this.attackSound.src = "../Game/Assets/attack.wav";
+      this.attackSound.load();
+
+      this.selectSound = new Audio();
+      this.selectSound.src = "../Game/Assets/select.wav";
+      this.selectSound.load();
+
+      this.pickUpSound = new Audio();
+      this.pickUpSound.src = "../Game/Assets/pickUp.wav";
+      this.pickUpSound.load();
+
+      this.jumpSound = new Audio();
+      this.jumpSound.src = "../Game/Assets/jump.wav";
+      this.jumpSound.load();
+
+      this.hurtSound = new Audio();
+      this.hurtSound.src = "../Game/Assets/hurt.wav";
+      this.hurtSound.load();
+
+      this.themeSound = new Audio();
+      this.themeSound.src = "../Game/Assets/theme.wav";
+      this.themeSound.load();
+    }
+
+    private createSavegame(): string {
+      return " {\"levelName\": \"" + this.level.levelName + "\", \"hp\": " + this.level.player.getStats().hp + " , \"dmg\": " + this.level.player.getStats().dmg + ", \"jumpHeight\": " + this.level.player.getStats().jumpHeight + ", \"walkSpeed\": " + this.level.player.getStats().walkSpeed + ", \"attackSpeed\":" + this.level.player.getStats().attackSpeed + " } "
     }
 
 

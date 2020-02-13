@@ -26,6 +26,7 @@ var Game;
                 fudge.Debug.log("test");
                 this.isAttacking = true;
                 this.showOneTime(Game.CHARACTERSTATE.ATTACK);
+                Game.Util.getInstance().attackSound.play();
                 this.attackCooldown = this.getStats().attackSpeed;
             }
         }
