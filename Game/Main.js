@@ -57,7 +57,7 @@ var Game;
         function loadGame() {
             fudge.Debug.log("Game loaded");
             Game.loadSprites();
-            let gui = new Game.Gui(1, 1, 1, 1);
+            let gui = new Game.Gui(2, 5, 1, 50);
             Game.Util.getInstance().gui = gui;
             let lvlGenerator = new Game.LevelGenerator(collidableNode);
             lvlGenerator.getDataFromFile();
