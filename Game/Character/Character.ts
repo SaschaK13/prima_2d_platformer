@@ -320,17 +320,21 @@ namespace Game {
     }
 
     private update = (_event: fudge.Eventƒ): void => {
-      this.updateSprites();
-      this.collider.handleCollsion();
-      this.handlePhysics();
-      if (this.attackCooldown != 0) {
-        this.attackCooldown -= 1;
+
+      if(this.isLoaded){
+        this.updateSprites();
+        this.collider.handleCollsion();
+        this.handlePhysics();
+        if (this.attackCooldown != 0) {
+          this.attackCooldown -= 1;
+        }
+        if (this.currentDmgCooldown != 0) {
+          this.currentDmgCooldown -= 1;
+        } else {
+          this.isHitted = false;
+        }
       }
-      if (this.currentDmgCooldown != 0) {
-        this.currentDmgCooldown -= 1;
-      } else {
-        this.isHitted = false;
-      }
+   
     }
 
     private updateSprites(): void {

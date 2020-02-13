@@ -83,6 +83,22 @@ var Game;
                     platform.isLoaded = false;
                 }
             }
+            let enemyArray = Game.Util.getInstance().level.enemyArray;
+            for (var i = 0; i < enemyArray.length; i++) {
+                let enemy = enemyArray[i];
+                let showed = isInViewPort(enemy);
+                if (showed && !enemy.isLoaded) {
+                    collidableNode.appendChild(enemy);
+                    enemy.cmpTransform.local.translateY(1);
+                    fudge.Debug.log("Enemy loaded");
+                    enemy.isLoaded = true;
+                }
+                else if (!showed && enemy.isLoaded) {
+                    collidableNode.removeChild(enemy);
+                    enemy.isLoaded = false;
+                    fudge.Debug.log("Enemy destroyed");
+                }
+            }
         }
         function isInViewPort(node) {
             let camSize = new fudge.Vector2(20, 7);

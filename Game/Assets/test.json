@@ -4,11 +4,12 @@
   "platformArray": [
     {"name": "Platform1", "spriteName": "dirt", "type": "Platform", "positionX": 0, "positionY": 0, "scaleX": 5, "scaleY": 1},
     {"name": "Platform2", "spriteName": "stone", "type": "Platform", "positionX": 7.5, "positionY": 0, "scaleX": 5, "scaleY": 1}, 
-    {"name": "Platform1", "spriteName": "dirt", "type": "Platform", "positionX": 15, "positionY": 0, "scaleX": 5, "scaleY": 1},
-    {"name": "Platform2", "spriteName": "stone", "type": "Platform", "positionX": 25, "positionY": 0, "scaleX": 5, "scaleY": 1}
+    {"name": "Platform3", "spriteName": "dirt", "type": "Platform", "positionX": 15, "positionY": 0, "scaleX": 5, "scaleY": 1},
+    {"name": "Platform4", "spriteName": "stone", "type": "Platform", "positionX": 25, "positionY": 0, "scaleX": 5, "scaleY": 1}
   ],
 
   "enemyArray": [
+    {"name": "Enemy1", "spriteName": "blob",  "positionX":1, "positionY": 1, "scaleX": 1, "scaleY": 1}
 
   ],
 

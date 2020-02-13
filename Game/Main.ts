@@ -100,8 +100,6 @@ namespace Game {
 
     function updateGameObjects()
     {
-
-
       //load platform 
       let platformArray = Util.getInstance().level.platformArray;
 
@@ -121,7 +119,27 @@ namespace Game {
 
       }
 
+      //Load Enemys
+      let enemyArray = Util.getInstance().level.enemyArray;
+      for(var i = 0; i  < enemyArray.length; i++)
+      {
+        let enemy = enemyArray[i] as Character;
+        let showed = isInViewPort(enemy);
+        if(showed && !enemy.isLoaded)
+        {
+          collidableNode.appendChild(enemy);
+          enemy.cmpTransform.local.translateY(1);
+          fudge.Debug.log("Enemy loaded")
+          enemy.isLoaded = true;
 
+        }else if(!showed && enemy.isLoaded)
+        {
+          collidableNode.removeChild(enemy);
+          enemy.isLoaded = false;
+          fudge.Debug.log("Enemy destroyed")
+        }
+
+      }
 
     }
 

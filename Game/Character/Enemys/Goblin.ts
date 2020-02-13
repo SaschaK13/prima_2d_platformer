@@ -145,7 +145,7 @@ namespace Game {
     }
 
     private behavior = (_event: fudge.Eventƒ): void => {
-      if(!this.isDead){
+      if(!this.isDead && this.isLoaded){
         this.ki()
       }
     }

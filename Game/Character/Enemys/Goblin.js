@@ -9,7 +9,7 @@ var Game;
             this.currentLookAroundCooldown = 0;
             this.moveDirection = Game.DIRECTION.RIGHT;
             this.behavior = (_event) => {
-                if (!this.isDead) {
+                if (!this.isDead && this.isLoaded) {
                     this.ki();
                 }
             };
