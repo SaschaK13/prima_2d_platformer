@@ -3,7 +3,9 @@ var Game;
 (function (Game) {
     var fudge = FudgeCore;
     class Util {
-        constructor() { }
+        constructor() {
+            this.fetchAudios();
+        }
         static getInstance() {
             if (!Util.instance) {
                 Util.instance = new Util();
@@ -29,6 +31,26 @@ var Game;
         }
         delay(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
+        }
+        fetchAudios() {
+            this.attackSound = new Audio();
+            this.attackSound.src = "../Game/Assets/attack.wav";
+            this.attackSound.load();
+            this.selectSound = new Audio();
+            this.selectSound.src = "../Game/Assets/select.wav";
+            this.selectSound.load();
+            this.pickUpSound = new Audio();
+            this.pickUpSound.src = "../Game/Assets/pickUp.wav";
+            this.pickUpSound.load();
+            this.jumpSound = new Audio();
+            this.jumpSound.src = "../Game/Assets/jump.wav";
+            this.jumpSound.load();
+            this.hurtSound = new Audio();
+            this.hurtSound.src = "../Game/Assets/hurt.wav";
+            this.hurtSound.load();
+            this.themeSound = new Audio();
+            this.themeSound.src = "../Game/Assets/theme.wav";
+            this.themeSound.load();
         }
     }
     Game.Util = Util;
