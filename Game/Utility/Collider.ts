@@ -33,8 +33,6 @@ constructor(node: Character) {
 }
 
 
-
-
 public handleCollsion() {
 
   let objects: fudge.Node[] = Util.getInstance().level.getCollidableObjects();
@@ -47,8 +45,6 @@ public handleCollsion() {
         }
       }
   this.updateCollisionObjects();
-
-
 }
 
 public getCollisionObjects(): CollidedObject[]
@@ -77,7 +73,6 @@ public getCollisionType(colissionObject: fudge.Node): CollisionType {
       return CollisionType.PLAYER;
     }
   }
-  
 }
 
 public getCollisionDirection(colissionObject: fudge.Node): CollisionDirection {
@@ -105,7 +100,6 @@ public getCollisionDirection(colissionObject: fudge.Node): CollisionDirection {
 
 }
 
-
     private collideWith(cObject: fudge.Node) {
 
 
@@ -127,13 +121,10 @@ public getCollisionDirection(colissionObject: fudge.Node): CollisionDirection {
         this.isColliding = false;
 
       }
-
-
 }
 
 private updateCollisionObjects()
 {
-
   for(var i = 0; i < this.oldCollisionObjects.length; i++)
   {
     let oldObject = this.oldCollisionObjects[i];
@@ -151,8 +142,6 @@ private updateCollisionObjects()
 
   }
 }
-
-
 
 }
 

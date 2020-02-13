@@ -24,10 +24,9 @@ var Game;
             let height = this.cmpTransform.local.scaling.y;
             this.rectangle = new fudge.Rectangle(x, y, width, height, fudge.ORIGIN2D.CENTER);
             let detectedEnemys = [];
-            if (this.constructor.name == "Goblin") {
+            if (this.parentNode.constructor.name == "Goblin") {
                 if (this.collideWith(Game.Util.getInstance().level.player)) {
                     detectedEnemys.push(Game.Util.getInstance().level.player);
-                    return detectedEnemys;
                 }
             }
             else if (this.parentNode.constructor.name == "Player") {
@@ -37,8 +36,8 @@ var Game;
                         detectedEnemys.push(enemy);
                     }
                 }
-                return detectedEnemys;
             }
+            return detectedEnemys;
         }
         collideWith(cObject) {
             let colissionObjectPosition = cObject.cmpTransform.local.translation;
