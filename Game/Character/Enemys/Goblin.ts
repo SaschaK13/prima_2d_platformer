@@ -37,6 +37,7 @@ namespace Game {
       if (Math.random() < this.dropChance) {
         this.dropItem();
       }
+      this.isDead = true;
       this.getParent().removeChild(this);
       Util.getInstance().level.deleteEnemy(this);
     }
@@ -145,7 +146,9 @@ namespace Game {
     }
 
     private behavior = (_event: fudge.Eventƒ): void => {
-      this.ki()
+      if(!this.isDead){
+        this.ki()
+      }
     }
 
   }

@@ -10,7 +10,9 @@ var Game;
             this.currentLookAroundCooldown = 0;
             this.moveDirection = Game.DIRECTION.RIGHT;
             this.behavior = (_event) => {
-                this.ki();
+                if (!this.isDead) {
+                    this.ki();
+                }
             };
             this.name = name;
             this.spriteName = spriteName;
@@ -26,6 +28,7 @@ var Game;
             if (Math.random() < this.dropChance) {
                 this.dropItem();
             }
+            this.isDead = true;
             this.getParent().removeChild(this);
             Game.Util.getInstance().level.deleteEnemy(this);
         }
