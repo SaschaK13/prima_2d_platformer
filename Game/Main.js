@@ -66,8 +66,9 @@ var Game;
             Game.loadSprites();
             let gui = new Game.Gui(2, 5, 1, 50);
             Game.Util.getInstance().gui = gui;
-            let lvlGenerator = new Game.LevelGenerator(collidableNode);
-            lvlGenerator.getDataFromFile();
+            Game.Util.getInstance().collidableNode = collidableNode;
+            let lvlGen = new Game.LevelGenerator(collidableNode);
+            lvlGen.getDataFromFile("test");
         }
         function updateGameObjects() {
             //load platform 

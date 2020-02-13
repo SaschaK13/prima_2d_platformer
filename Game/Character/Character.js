@@ -64,7 +64,7 @@ var Game;
             this.cmpTrans = new fudge.ComponentTransform();
             this.addComponent(this.cmpTrans);
             this.collider = new Game.Collider(this);
-            this.hitbox = new Game.Hitbox(nodeName + "_Hitbox", this, new fudge.Vector2(this.cmpTransform.local.scaling.x / 2, this.cmpTransform.local.scaling.y));
+            this.hitbox = new Game.Hitbox(nodeName + "_Hitbox", this, new fudge.Vector2(this.cmpTransform.local.scaling.x - 0.3, this.cmpTransform.local.scaling.y));
             // this.show(CHARACTERSTATE.IDLE);
             fudge.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, this.update);
         }

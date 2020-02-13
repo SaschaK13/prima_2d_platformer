@@ -30,6 +30,11 @@ var Game;
         delay(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
+        save() {
+            let jsonString = this.createSavegame();
+            let map = { ["savegame.json"]: jsonString };
+            fudge.FileIoBrowserLocal.save(map);
+        }
         fetchAudios() {
             this.attackSound = new Audio();
             this.attackSound.src = "../Game/Assets/attack.wav";
@@ -49,6 +54,9 @@ var Game;
             this.themeSound = new Audio();
             this.themeSound.src = "../Game/Assets/theme.wav";
             this.themeSound.load();
+        }
+        createSavegame() {
+            return " {\"levelName\": \"" + this.level.levelName + "\", \"hp\": " + this.level.player.getStats().hp + " , \"dmg\": " + this.level.player.getStats().dmg + ", \"jumpHeight\": " + this.level.player.getStats().jumpHeight + ", \"walkSpeed\": " + this.level.player.getStats().walkSpeed + ", \"attackSpeed\":" + this.level.player.getStats().attackSpeed + " } ";
         }
     }
     Game.Util = Util;

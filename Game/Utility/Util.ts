@@ -9,6 +9,9 @@ namespace Game {
     public gui: Gui;
     public level: Level;
     public spritesMap: Map<string, Map<string, Sprite>>;
+    public currentSavegame: Savegame;
+    public collidableNode: fudge.Node;
+    public lvlGenerator: LevelGenerator;
 
     public attackSound: HTMLAudioElement;
     public selectSound: HTMLAudioElement;
@@ -16,6 +19,7 @@ namespace Game {
     public jumpSound: HTMLAudioElement;
     public hurtSound: HTMLAudioElement;
     public themeSound: HTMLAudioElement;
+    private data: Savegame;
 
     constructor() {}
 
@@ -25,15 +29,15 @@ namespace Game {
       }
       return Util.instance;
     }
-    
+
     public getTextureImageBy(name: string, state: string): fudge.TextureImage {
       let img: HTMLImageElement = document.querySelector("#" + name + "_" + state);
       let texture: fudge.TextureImage = new fudge.TextureImage();
-      texture.image = img;     
+      texture.image = img;
       return texture;
     }
 
-    public getRandomRange(min: number , max: number): number {
+    public getRandomRange(min: number, max: number): number {
       return Math.floor(Math.random() * (max - min) + min)
     }
 
@@ -47,10 +51,17 @@ namespace Game {
     }
 
     public delay(ms: number) {
-      return new Promise( resolve => setTimeout(resolve, ms) );
+      return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    public fetchAudios(): void {
+    public async  save(fileName: string): Promise<void> {
+      let jsonString = this.createSavegame();
+      let map: fudge.MapFilenameToContent = { [fileName]: jsonString };
+      fudge.FileIoBrowserLocal.save(map);
+    }
+    
+    
+      public fetchAudios(): void {
 
       this.attackSound = new Audio();
       this.attackSound.src = "../Game/Assets/attack.wav";
@@ -76,5 +87,13 @@ namespace Game {
       this.themeSound.src = "../Game/Assets/theme.wav";
       this.themeSound.load();
     }
+
+    private createSavegame(): string {
+      return " {\"levelName\": \"" + this.level.levelName + "\", \"hp\": " + this.level.player.getStats().hp + " , \"dmg\": " + this.level.player.getStats().dmg + ", \"jumpHeight\": " + this.level.player.getStats().jumpHeight + ", \"walkSpeed\": " + this.level.player.getStats().walkSpeed + ", \"attackSpeed\":" + this.level.player.getStats().attackSpeed + " } "
+    }
+
+  
+
+
   }
 }

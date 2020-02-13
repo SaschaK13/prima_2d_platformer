@@ -14,15 +14,16 @@ namespace Game {
       this.root = root;
     }
 
-    public async getDataFromFile() {
-      let response: Response = await fetch("../Game/Assets/test.json");
+    public async getDataFromFile(levelName: string) {
+      let response: Response = await fetch("../Game/Assets/level/" + levelName + ".json");
       let offer: string = await response.text();
       this.data = JSON.parse(offer);
       this.generateLevel();
     }
 
     public generateLevel(): void {
-
+      let levelName: string = this.data["levelName"]; 
+      this.levelObject.levelName = levelName;
       let levelLength: number = this.data["levelLength"];
       let backgroundValue: Background = this.data["background"];
       let numberOfBackground: number = Math.round(levelLength / backgroundValue.length);
@@ -84,6 +85,7 @@ namespace Game {
       this.levelObject.setRoot(this.root);
       let util = Util.getInstance();
       util.level = this.levelObject;
+
     }
 
 

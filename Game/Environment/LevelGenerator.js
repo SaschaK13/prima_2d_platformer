@@ -8,13 +8,15 @@ var Game;
             this.backgroundLength = 15;
             this.root = root;
         }
-        async getDataFromFile() {
-            let response = await fetch("../Game/Assets/test.json");
+        async getDataFromFile(levelName) {
+            let response = await fetch("../Game/Assets/level/" + levelName + ".json");
             let offer = await response.text();
             this.data = JSON.parse(offer);
             this.generateLevel();
         }
         generateLevel() {
+            let levelName = this.data["levelName"];
+            this.levelObject.levelName = levelName;
             let levelLength = this.data["levelLength"];
             let backgroundValue = this.data["background"];
             let numberOfBackground = Math.round(levelLength / backgroundValue.length);
@@ -67,6 +69,7 @@ var Game;
             this.levelObject.setRoot(this.root);
             let util = Game.Util.getInstance();
             util.level = this.levelObject;
+            Game.Util.getInstance().save();
         }
     }
     Game.LevelGenerator = LevelGenerator;

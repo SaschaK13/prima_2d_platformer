@@ -92,8 +92,15 @@ namespace Game {
       let gui: Gui = new Gui(2, 5, 1, 50);
       Util.getInstance().gui = gui;
 
-      let lvlGenerator: LevelGenerator = new LevelGenerator(collidableNode);
-      lvlGenerator.getDataFromFile();
+      Util.getInstance().collidableNode = collidableNode;
+
+      let lvlGen = new LevelGenerator(collidableNode)
+      lvlGen.getDataFromFile("test");
+
+
+     
+
+
 
 
     }
