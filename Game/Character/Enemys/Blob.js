@@ -23,8 +23,12 @@ var Game;
             if (Math.random() < 0.4) {
                 this.dropItem();
             }
-            this.getParent().removeChild(this);
-            Game.Util.getInstance().level.deleteEnemy(this);
+            this.isDead = true;
+            this.showOneTime(Game.CHARACTERSTATE.DEATH);
+            setTimeout(() => {
+                this.getParent().removeChild(this);
+                Game.Util.getInstance().level.deleteEnemy(this);
+            }, 500);
         }
         dropItem() {
             let possibleItemsArray = Game.Util.getInstance().level.possibleItemsArray;

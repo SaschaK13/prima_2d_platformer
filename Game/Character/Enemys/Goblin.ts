@@ -38,8 +38,12 @@ namespace Game {
         this.dropItem();
       }
       this.isDead = true;
-      this.getParent().removeChild(this);
-      Util.getInstance().level.deleteEnemy(this);
+      this.showOneTime(CHARACTERSTATE.DEATH);
+
+      setTimeout(() => { 
+        this.getParent().removeChild(this);
+        Util.getInstance().level.deleteEnemy(this);
+       }, 500);
     }
 
     public dropItem(): void {
