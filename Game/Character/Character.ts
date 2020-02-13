@@ -236,6 +236,22 @@ namespace Game {
 
     }
 
+    public look(direction: DIRECTION)
+    {
+      switch(direction) {
+
+        case DIRECTION.RIGHT: {
+          this.cmpTransform.local.rotation = fudge.Vector3.Y(0)
+          break;
+        }
+        
+        case DIRECTION.LEFT: {
+          this.cmpTransform.local.rotation = fudge.Vector3.Y(180)
+          break;
+        }
+      }
+    }
+
     public addSpriteListener(): void {
       for (let key of Util.getInstance().spritesMap.get(this.spriteName).keys()) {       
         let sprite: Sprite = Util.getInstance().spritesMap.get(this.spriteName).get(key);

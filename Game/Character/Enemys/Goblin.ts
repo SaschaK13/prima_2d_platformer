@@ -67,7 +67,7 @@ namespace Game {
     public lookAround() {
       if (this.currentLookAroundCooldown == this.lookAroundCooldown) {
         this.randomDirection()
-        this.walk(this.moveDirection);
+        this.look(this.moveDirection)
         this.currentLookAroundCooldown = 0;
       }else{
         this.currentLookAroundCooldown ++;
