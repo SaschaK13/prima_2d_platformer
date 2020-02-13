@@ -55,8 +55,24 @@ var Game;
             this.themeSound.src = "../Game/Assets/theme.wav";
             this.themeSound.load();
         }
+        loadNextLevel() {
+            this.deleteAllNodes();
+            this.lvlGenerator = new Game.LevelGenerator(this.collidableNode);
+            this.lvlGenerator.getDataFromFile("test");
+        }
         createSavegame() {
             return " {\"levelName\": \"" + this.level.levelName + "\", \"hp\": " + this.level.player.getStats().hp + " , \"dmg\": " + this.level.player.getStats().dmg + ", \"jumpHeight\": " + this.level.player.getStats().jumpHeight + ", \"walkSpeed\": " + this.level.player.getStats().walkSpeed + ", \"attackSpeed\":" + this.level.player.getStats().attackSpeed + " } ";
+        }
+        deleteAllNodes() {
+            let childs = this.collidableNode.getChildren();
+            for (var i = 0; i < childs.length; i++) {
+                this.collidableNode.removeChild(childs[i]);
+            }
+            this.level.enemyArray = [];
+            this.level.platformArray;
+            [];
+            this.level.player = null;
+            this.level = null;
         }
     }
     Game.Util = Util;

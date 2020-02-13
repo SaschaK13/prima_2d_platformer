@@ -7,6 +7,7 @@ var Game;
         CollisionType["ENEMY"] = "Enemy";
         CollisionType["PLAYER"] = "Player";
         CollisionType["ITEM"] = "Item";
+        CollisionType["FINISH"] = "Finish";
         CollisionType["MISSING"] = "Missing";
     })(CollisionType = Game.CollisionType || (Game.CollisionType = {}));
     let CollisionDirection;
@@ -52,6 +53,9 @@ var Game;
                 }
                 case "Item": {
                     return CollisionType.ITEM;
+                }
+                case "Finish": {
+                    return CollisionType.FINISH;
                 }
             }
         }

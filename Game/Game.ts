@@ -27,10 +27,13 @@ namespace Game {
 
     function safeGame(): void {
       var safeName: string = window.prompt("Enter your safe game name: ");
+      Util.getInstance().save(safeName);
+      next();
     }
 
     function next(): void {
-      
+      document.getElementById("safeGame").style.visibility = "hidden";
+      Util.getInstance().loadNextLevel()
     }
 
   }

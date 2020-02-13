@@ -19,8 +19,12 @@ var Game;
         }
         function safeGame() {
             var safeName = window.prompt("Enter your safe game name: ");
+            Game.Util.getInstance().save(safeName);
+            next();
         }
         function next() {
+            document.getElementById("safeGame").style.visibility = "hidden";
+            Game.Util.getInstance().loadNextLevel();
         }
     }
 })(Game || (Game = {}));
