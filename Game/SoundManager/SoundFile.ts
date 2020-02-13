@@ -163,4 +163,11 @@ namespace Game {
       delete this.soundMarkers[markerName];
     }
   }
+
+  var soundManager: SoundManager;
+
+  window.onload = () => {
+    soundManager = new SoundManager("audio/sounds");
+  };
+
 }
