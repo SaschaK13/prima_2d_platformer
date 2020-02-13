@@ -18,7 +18,6 @@ namespace Game {
       this.addComponent(cmpMesh)
       this.addComponent(cmpTransform)
       this.currentDirection = DIRECTION.RIGHT
-
       this.cmpTransform.local.translation = parentNode.cmpTransform.local.translation;
       this.cmpTransform.local.scaling = this.scaling.toVector3()
       this.cmpTransform.local.translateX((parentNode.cmpTransform.local.scaling.x / 2) + (this.cmpTransform.local.scaling.x / 2))

@@ -64,6 +64,8 @@ namespace Game {
         collidableNodes.push(this.itemArray[i]);
       }
 
+      collidableNodes.push(this.player)
+
       return collidableNodes;
     }
   }

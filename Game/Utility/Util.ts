@@ -30,5 +30,18 @@ namespace Game {
     public getRandomRange(min: number , max: number): number {
       return Math.floor(Math.random() * (max - min) + min)
     }
+
+    public gameOver(): void {
+      let gameOver: HTMLElement = document.getElementById("gameOver");
+      gameOver.style.visibility = "visible";
+      let canvas: HTMLElement = document.getElementById("canvas");
+      canvas.style.opacity = "0.5";
+      let statBox: HTMLElement = document.getElementById("stats");
+      statBox.style.opacity = "0.5";
+    }
+
+    public delay(ms: number) {
+      return new Promise( resolve => setTimeout(resolve, ms) );
+    }
   }
 }

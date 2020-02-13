@@ -9,6 +9,7 @@ var Game;
         CHARACTERSTATE["WALK"] = "walk";
         CHARACTERSTATE["JUMP"] = "jump";
         CHARACTERSTATE["ATTACK"] = "attack";
+        CHARACTERSTATE["DEATH"] = "death";
     })(CHARACTERSTATE = Game.CHARACTERSTATE || (Game.CHARACTERSTATE = {}));
     let DIRECTION;
     (function (DIRECTION) {
@@ -24,15 +25,37 @@ var Game;
             this.WALK_SPEED = 2;
             this.DMG = 1;
             this.HP = 5;
-            this.ATTACKSPEED = 100;
+            this.ATTACKSPEED = 50;
             this.dmgCooldown = 50;
             this.currentDmgCooldown = 0;
             this.gravity = -8;
             this.velocity = new fudge.Vector2(0, 0);
             this.currentSpriteCooldown = 0;
             this.ANIMATION_COOLDOWN = 4;
+            this.showAttackAnimation = false;
+            this.attackAnimationCounter = 0;
+            this.showDeathAnimation = false;
+            this.deathAnimationCounter = 0;
             this.direction = DIRECTION.RIGHT;
             this.isJumping = false;
+            this.isDead = false;
+            this.isAttacking = false;
+            /*public getCurrentPlatform(): Platform {
+        
+              let collisionObjects = this.collider.getCollisionObjects();
+              for(var i = 0; i < collisionObjects.length; i++ )
+              {
+                let collisionObject: CollidedObject = collisionObjects[i];
+        
+                if(collisionObject.object.constructor.name == "Platform")
+                {
+                  return collisionObject.object as Platform;
+                }
+              }
+        
+              return null;
+            }
+            */
             this.update = (_event) => {
                 this.updateSprites();
                 this.collider.handleCollsion();
@@ -113,8 +136,13 @@ var Game;
                 child.activate(child.name == (this.spriteName + "_" + _characterstate));
             }
         }
+        showOneTime(_characterstate) {
+            this.showAttackAnimation = true;
+            this.showDeathAnimation = true;
+            this.show(_characterstate);
+        }
         idle() {
-            if (!this.isJumping) {
+            if (!this.isJumping && !this.isDead && !this.isAttacking) {
                 this.show(CHARACTERSTATE.IDLE);
             }
         }
@@ -146,7 +174,12 @@ var Game;
             }
         }
         attack() { }
-        die() { }
+        die() {
+            this.isDead = true;
+            this.showOneTime(CHARACTERSTATE.DEATH);
+            let util = Game.Util.getInstance();
+            setTimeout(() => { util.gameOver(); }, 1500);
+        }
         takeDmg(dmgTaken) {
             if (this.currentDmgCooldown == 0) {
                 if (this.HP > 0) {
@@ -155,17 +188,43 @@ var Game;
                     }
                 }
                 else {
-                    this.die();
+                    if (!this.isDead) {
+                        this.die();
+                    }
                 }
                 this.currentDmgCooldown = this.dmgCooldown;
+            }
+        }
+        look(direction) {
+            switch (direction) {
+                case DIRECTION.RIGHT: {
+                    this.cmpTransform.local.rotation = fudge.Vector3.Y(0);
+                    this.direction = DIRECTION.RIGHT;
+                    break;
+                }
+                case DIRECTION.LEFT: {
+                    this.cmpTransform.local.rotation = fudge.Vector3.Y(180);
+                    this.direction = DIRECTION.LEFT;
+                    break;
+                }
             }
         }
         addSpriteListener() {
             for (let key of Game.Util.getInstance().spritesMap.get(this.spriteName).keys()) {
                 let sprite = Game.Util.getInstance().spritesMap.get(this.spriteName).get(key);
                 let nodeSprite = new Game.NodeSprite(sprite.name, sprite);
+                if (sprite.name == "player_attack") {
+                    this.attackSpriteLength = sprite.frames.length;
+                    nodeSprite.addEventListener("showNextAttack", (_event) => { _event.currentTarget.showFrameNext(); }, true);
+                }
+                else if (sprite.name == "player_death") {
+                    this.deathSpriteLength = sprite.frames.length - 1;
+                    nodeSprite.addEventListener("showNextDeath", (_event) => { _event.currentTarget.showFrameNext(); }, true);
+                }
+                else {
+                    nodeSprite.addEventListener("showNext", (_event) => { _event.currentTarget.showFrameNext(); }, true);
+                }
                 nodeSprite.activate(false);
-                nodeSprite.addEventListener("showNext", (_event) => { _event.currentTarget.showFrameNext(); }, true);
                 this.appendChild(nodeSprite);
             }
             this.show(CHARACTERSTATE.IDLE);
@@ -198,6 +257,24 @@ var Game;
             }
             else {
                 this.broadcastEvent(new CustomEvent("showNext"));
+                //fudge.Debug.log(this.attackAnimationCounter + " + " + this.attackSpriteLength);
+                if (this.showAttackAnimation && this.attackAnimationCounter != this.attackSpriteLength) {
+                    this.broadcastEvent(new CustomEvent("showNextAttack"));
+                    this.attackAnimationCounter++;
+                }
+                else if (this.attackAnimationCounter == this.attackSpriteLength) {
+                    this.attackAnimationCounter = 0;
+                    this.showAttackAnimation = false;
+                    this.isAttacking = false;
+                }
+                if (this.showDeathAnimation && this.deathAnimationCounter != this.deathSpriteLength) {
+                    this.broadcastEvent(new CustomEvent("showNextDeath"));
+                    this.deathAnimationCounter++;
+                }
+                else if (this.deathAnimationCounter == this.deathSpriteLength) {
+                    this.deathAnimationCounter = 0;
+                    this.showDeathAnimation = false;
+                }
                 this.currentSpriteCooldown = this.ANIMATION_COOLDOWN;
             }
         }

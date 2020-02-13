@@ -12,7 +12,6 @@ var Game;
         root = new fudge.Node("Root");
         collidableNode = new fudge.Node("collidable");
         root.appendChild(collidableNode);
-        //fudge.Debug.log(Util.getInstance().spritesMap);
         let cmpCamera = new fudge.ComponentCamera();
         cmpCamera.pivot.translateZ(15);
         cmpCamera.pivot.lookAt(fudge.Vector3.ZERO());
@@ -30,23 +29,25 @@ var Game;
         }
         function processInput() {
             let player = Game.Util.getInstance().level.player;
-            if (keysPressed[fudge.KEYBOARD_CODE.SPACE]) {
-                player.jump();
-                return;
+            if (!player.isDead) {
+                if (keysPressed[fudge.KEYBOARD_CODE.SPACE]) {
+                    player.jump();
+                    return;
+                }
+                if (keysPressed[fudge.KEYBOARD_CODE.D]) {
+                    player.walk(Game.DIRECTION.RIGHT);
+                    return;
+                }
+                if (keysPressed[fudge.KEYBOARD_CODE.A]) {
+                    player.walk(Game.DIRECTION.LEFT);
+                    return;
+                }
+                if (keysPressed[fudge.KEYBOARD_CODE.E]) {
+                    player.attack();
+                    return;
+                }
+                player.idle();
             }
-            if (keysPressed[fudge.KEYBOARD_CODE.D]) {
-                player.walk(Game.DIRECTION.RIGHT);
-                return;
-            }
-            if (keysPressed[fudge.KEYBOARD_CODE.A]) {
-                player.walk(Game.DIRECTION.LEFT);
-                return;
-            }
-            if (keysPressed[fudge.KEYBOARD_CODE.E]) {
-                player.attack();
-                return;
-            }
-            player.idle();
         }
         function update(_event) {
             processInput();
@@ -54,6 +55,7 @@ var Game;
             //fudge.RenderManager.update()
         }
         function loadGame() {
+            fudge.Debug.log("Game loaded");
             Game.loadSprites();
             let gui = new Game.Gui(1, 1, 1, 1);
             Game.Util.getInstance().gui = gui;

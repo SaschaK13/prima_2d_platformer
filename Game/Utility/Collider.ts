@@ -10,8 +10,8 @@ export interface CollidedObject {
 
 export enum CollisionType {
   ENVIRONMENT = "Platform", 
-  CHARACTER = "Character",
-  ITEM = "Item",
+  ENEMY = "Enemy",
+  PLAYER = "Player",
   MISSING = "Missing"
 }
 
@@ -42,23 +42,73 @@ public handleCollsion() {
   let objects: fudge.Node[] = Util.getInstance().level.getCollidableObjects();
   this.oldCollisionObjects = this.collissionObjects;
   this.collissionObjects = [];
-  for (var i: number = 0; i < objects.length; i++) {
-
+  for (var i = 0; i < objects.length; i++) {
         let node: fudge.Node = objects[i];
         if (node.name != this.object.name) {
           this.collideWith(node);
         }
       }
   this.updateCollisionObjects();
-  fudge.Debug.log(objects);
+
+
 }
 
-public getCollisionObjects(): CollidedObject[] {
-
+public getCollisionObjects(): CollidedObject[]
+{
   return this.collissionObjects;
 }
 
 public getCollisionType(colissionObject: fudge.Node): CollisionType {
+  switch(colissionObject.constructor.name) {
+
+    case "Platform": {
+      return CollisionType.ENVIRONMENT;
+    }
+
+    case"Blob": {
+     
+      return CollisionType.ENEMY;
+    }
+
+    case"Goblin": {
+     
+      return CollisionType.ENEMY;
+    }
+ 
+    case "Player": {
+      return CollisionType.PLAYER;
+    }
+  }
+  
+}
+
+public getCollisionDirection(colissionObject: fudge.Node): CollisionDirection {
+  let objectLeft = this.object.cmpTransform.local.translation.x - (this.object.cmpTransform.local.scaling.x / 2);
+  let objectRight = this.object.cmpTransform.local.translation.x + (this.object.cmpTransform.local.scaling.x / 2);
+  let objectTop = this.object.cmpTransform.local.translation.y - (this.object.cmpTransform.local.scaling.y / 2);
+  let objectBottom = this.object.cmpTransform.local.translation.y + (this.object.cmpTransform.local.scaling.y / 2);
+
+  let objectOldLeft = this.object.oldTransform.x - (this.object.cmpTransform.local.scaling.x / 2);
+  let objectOldRight = this.object.oldTransform.x + (this.object.cmpTransform.local.scaling.x / 2);
+  let objectOldTop = this.object.oldTransform.y - (this.object.cmpTransform.local.scaling.y / 2);
+  let objectOldBottom = this.object.oldTransform.y + (this.object.cmpTransform.local.scaling.y / 2);
+
+  let collissionObjectLeft = colissionObject.cmpTransform.local.translation.x - (colissionObject.cmpTransform.local.scaling.x / 2);
+  let collissionObjectRight = colissionObject.cmpTransform.local.translation.x + (colissionObject.cmpTransform.local.scaling.x / 2);
+  let collissionObjectTop = colissionObject.cmpTransform.local.translation.y - (colissionObject.cmpTransform.local.scaling.y / 2);
+  let collissionObjectBottom = colissionObject.cmpTransform.local.translation.y + (colissionObject.cmpTransform.local.scaling.y / 2);
+
+  if (objectOldBottom <= collissionObjectTop && objectBottom >= collissionObjectTop) return CollisionDirection.TOP;
+  if (objectOldTop >= collissionObjectBottom && objectTop <= collissionObjectBottom) return CollisionDirection.BOTTOM;
+  if (objectOldRight <= collissionObjectLeft && objectRight >= collissionObjectLeft) return CollisionDirection.RIGHT;
+  if (objectOldLeft >= collissionObjectRight && objectLeft <= collissionObjectRight) return CollisionDirection.LEFT;
+
+  return CollisionDirection.ERROR
+
+}
+
+
+    private collideWith(cObject: fudge.Node) {
 
   if (colissionObject.constructor.name == "Platform") {
     return CollisionType.ENVIRONMENT;
@@ -75,55 +125,9 @@ public getCollisionType(colissionObject: fudge.Node): CollisionType {
 
 }
 
-public getCollisionDirection(colissionObject: fudge.Node): CollisionDirection {
 
-  let objectLeft: number = this.object.cmpTransform.local.translation.x - (this.object.cmpTransform.local.scaling.x / 2);
-  let objectRight: number = this.object.cmpTransform.local.translation.x + (this.object.cmpTransform.local.scaling.x / 2);
-  let objectTop: number = this.object.cmpTransform.local.translation.y - (this.object.cmpTransform.local.scaling.y / 2);
-  let objectBottom: number = this.object.cmpTransform.local.translation.y + (this.object.cmpTransform.local.scaling.y / 2);
-
-  let objectOldLeft: number = this.object.oldTransform.x - (this.object.cmpTransform.local.scaling.x / 2);
-  let objectOldRight: number = this.object.oldTransform.x + (this.object.cmpTransform.local.scaling.x / 2);
-  let objectOldTop: number = this.object.oldTransform.y - (this.object.cmpTransform.local.scaling.y / 2);
-  let objectOldBottom: number = this.object.oldTransform.y + (this.object.cmpTransform.local.scaling.y / 2);
-
-  let collissionObjectLeft: number = colissionObject.cmpTransform.local.translation.x - (colissionObject.cmpTransform.local.scaling.x / 2);
-  let collissionObjectRight: number = colissionObject.cmpTransform.local.translation.x + (colissionObject.cmpTransform.local.scaling.x / 2);
-  let collissionObjectTop: number = colissionObject.cmpTransform.local.translation.y - (colissionObject.cmpTransform.local.scaling.y / 2);
-  let collissionObjectBottom: number = colissionObject.cmpTransform.local.translation.y + (colissionObject.cmpTransform.local.scaling.y / 2);
-
-  if (objectOldBottom <= collissionObjectTop && objectBottom >= collissionObjectTop) return CollisionDirection.TOP;
-  if (objectOldTop >= collissionObjectBottom && objectTop <= collissionObjectBottom) return CollisionDirection.BOTTOM;
-  if (objectOldRight <= collissionObjectLeft && objectRight >= collissionObjectLeft) return CollisionDirection.RIGHT;
-  if (objectOldLeft >= collissionObjectRight && objectLeft <= collissionObjectRight) return CollisionDirection.LEFT;
-
-  return CollisionDirection.ERROR;
-
-}
-
-  private collideWith(cObject: fudge.Node): void {
-
-    let colissionObjectPosition: fudge.Vector3 = cObject.cmpTransform.local.translation;
-    let colissionObjectScaling: fudge.Vector3 = cObject.cmpTransform.local.scaling;
-
-    let characterPosition: fudge.Vector3 = this.object.cmpTransform.local.translation;
-    let characterScaling: fudge.Vector3 = this.object.cmpTransform.local.scaling;
-
-    if (characterPosition.x - (characterScaling.x / 2) < colissionObjectPosition.x + (colissionObjectScaling.x / 2) &&
-        characterPosition.x + (characterScaling.x / 2) > colissionObjectPosition.x - (colissionObjectScaling.x / 2) &&
-        characterPosition.y - (characterScaling.y / 2) < colissionObjectPosition.y + (colissionObjectScaling.y / 2) &&
-        characterPosition.y + (characterScaling.y / 2) > colissionObjectPosition.y - (colissionObjectScaling.y / 2))  {
-          this.isColliding = true;
-          let direction: CollisionDirection = this.getCollisionDirection(cObject);
-          let collisionType: CollisionType = this.getCollisionType(cObject);
-          this.collissionObjects.push({object: cObject , collisionDirecton: direction, collisionType: collisionType});
-      } 
-      else {
-        this.isColliding = false;
-      }
-  }
-
-private updateCollisionObjects() {
+private updateCollisionObjects()
+{
 
   for (var i = 0; i < this.oldCollisionObjects.length; i++) {
     let oldObject = this.oldCollisionObjects[i];

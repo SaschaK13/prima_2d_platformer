@@ -50,7 +50,6 @@ namespace Game {
     public generateByGrid(_texture: fudge.TextureImage, _startRect: fudge.Rectangle, _frames: number, _borderSize: fudge.Vector2, _resolutionQuad: number, _origin: fudge.ORIGIN2D): void {
       let rect: fudge.Rectangle = _startRect.copy;
       let rects: fudge.Rectangle[] = [];
-      fudge.Debug.log(_texture.image)  
       while (_frames--) {
         rects.push(rect.copy);
         rect.position.x += _startRect.size.x + _borderSize.x;
@@ -64,7 +63,7 @@ namespace Game {
           break;
       }
 
-      rects.forEach((_rect: fudge.Rectangle) => fudge.Debug.log(_rect.toString()));
+      //rects.forEach((_rect: fudge.Rectangle) => fudge.Debug.log(_rect.toString()));
       this.generate(_texture, rects, _resolutionQuad, _origin);
     }
 
@@ -146,7 +145,8 @@ namespace Game {
     "idle",
     "walk",
     "jump",
-    "attack"
+    "attack",
+    "death"
   ];
 
   export function loadSprites(): void {
@@ -164,7 +164,6 @@ namespace Game {
         }
       }
       spritesMap.set(spriteNames[i], spriteArray);
-      fudge.Debug.log(spritesMap);
     }
     let util: Util = Util.getInstance();
     util.spritesMap = spritesMap;
@@ -191,7 +190,12 @@ namespace Game {
           }
           case CHARACTERSTATE.ATTACK: {
             let sprite: Sprite = new Sprite(spriteName + "_" + stateName);
-            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(630, 12, 45, 35), 3, new fudge.Vector2(90, 0), 32, fudge.ORIGIN2D.CENTER);
+            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(1062, 10, 50, 35), 6, new fudge.Vector2(93, 0), 32, fudge.ORIGIN2D.CENTER);
+            return sprite;
+          }
+          case CHARACTERSTATE.DEATH: {
+            let sprite: Sprite = new Sprite(spriteName + "_" + stateName);
+            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(422, 14, 30, 30), 11, new fudge.Vector2(66, 0), 32, fudge.ORIGIN2D.CENTER);
             return sprite;
           }
         }
@@ -200,7 +204,12 @@ namespace Game {
         switch (stateName) { 
           case CHARACTERSTATE.IDLE: { 
             let sprite: Sprite = new Sprite(spriteName + "_" + stateName);
-            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(50, 60, 50, 50), 2, new fudge.Vector2(100, 0), 32, fudge.ORIGIN2D.CENTER);
+            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(50, 60, 50, 50), 4, new fudge.Vector2(100, 0), 32, fudge.ORIGIN2D.CENTER);
+            return sprite;
+          }
+          case CHARACTERSTATE.WALK: { 
+            let sprite: Sprite = new Sprite(spriteName + "_" + stateName);
+            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(50, 60, 50, 50), 8, new fudge.Vector2(100, 0), 32, fudge.ORIGIN2D.CENTER);
             return sprite;
           }
         }

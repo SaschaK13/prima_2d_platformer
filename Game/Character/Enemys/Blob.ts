@@ -19,8 +19,7 @@ namespace Game {
       this.spriteName = spriteName;
       this.cmpTransform.local.translation = new fudge.Vector3(positionX, positionY, 0);
       this.cmpTransform.local.scaling = new fudge.Vector3(scaleX, scaleY, 0);
-      // let material: fudge.Material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(0, 1, 0, 1)));
-      // this.addComponent(new fudge.ComponentMaterial(material));
+      
 
       this.setStats({ hp: 1, dmg: 0, walkSpeed: 1, jumpHeight: 0, attackSpeed: 0 });
       this.movementDuration = Util.getInstance().getRandomRange(2, 3);
@@ -55,6 +54,31 @@ namespace Game {
       item.cmpTransform.local.translation = this.cmpTransform.local.translation;
       Util.getInstance().level.appendToRoot(item);
       Util.getInstance().level.itemArray.push(item);
+    }
+      
+    public reactToCollison(): void {
+      let collisionObjects: CollidedObject[] = this.collider.getCollisionObjects(); 
+
+      for (var i: number = 0; i < collisionObjects.length; i++) {
+        let collisionObject: CollidedObject = collisionObjects[i];
+        
+        switch (collisionObject.collisionType) {
+          case CollisionType.ENEMY: {
+          
+            break;
+          }
+
+          case CollisionType.ENVIRONMENT: {
+            this.handleSolidColision(collisionObject);
+            break;
+          }
+
+          case CollisionType.PLAYER: {
+           this.handleSolidColision(collisionObject)
+           break;
+          }
+        }
+      }
     }
 
     private behavior = (_event: fudge.Eventƒ): void => {

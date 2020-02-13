@@ -19,13 +19,14 @@
   <script src="Environment/Level.js"></script>
   <script src="Character/Character.js"></script>
   <script src="Character/Enemys/Blob.js"></script>
+  <script src="Character/Enemys/Goblin.js"></script>
   <script src="Character/Player.js"></script>
   <script src="Game.js"></script>
   <script src="Main.js"></script>
 </head>
 <body>
 
-  <canvas> </canvas>
+  <canvas id="canvas"> </canvas>
   <img id="player_attack" src="../Game/Assets/Spritesheets/Player/player_attack.png" hidden=true>
   <img id="player_death" src="../Game/Assets/Spritesheets/Player/player_death.png" hidden=true>
   <img id="player_idle" src="../Game/Assets/Spritesheets/Player/player_idle.png" hidden=true>
@@ -33,6 +34,7 @@
   <img id="player_walk" src="../Game/Assets/Spritesheets/Player/player_walk.png" hidden=true>
 
   <img id="goblin_idle" src="../Game/Assets/Spritesheets/enemies/goblin/goblin_idle.png" hidden=true>
+  <img id="goblin_walk" src="../Game/Assets/Spritesheets/enemies/goblin/goblin_walk.png" hidden=true>
   <img id="blob_walk" src="../Game/Assets/Spritesheets/enemies/blob/blob_walk.png" hidden=true>
 
   <img id="dirt_default" src="../Game/Assets/Spritesheets/environment/dirt_default.png" hidden=true>
@@ -40,16 +42,18 @@
 
   <img src="../Game/Assets/health/heart5.png" width="380px" height="70px" id="health">
 
-  <p id="time"> Time: 00:00:00 </p>
+  <div id="stats">
+    <p id="time"> Time: 00:00:00 </p>
 
-  <img src="./Assets/icons/walkSpeedUp.png" id="walkSpeedIcon">
-  <p id="speed"> 1 </p>
-  <img src="./Assets/icons/jumpingPowerUp.png" id="jumpingUpIcon">
-  <p id="jumping"> 1 </p>
-  <img src="./Assets/icons/attackDamageUp.png" id="attackDamageIcon">
-  <p id="damage"> 1 </p>
-  <img src="./Assets/icons/attackSpeedUp.png" id="attackSpeedIcon">
-  <p><p id="attackSpeed"> 1 </p></p>
+    <img src="./Assets/icons/walkSpeedUp.png" id="walkSpeedIcon">
+    <p id="speed"> 1 </p>
+    <img src="./Assets/icons/jumpingPowerUp.png" id="jumpingUpIcon">
+    <p id="jumping"> 1 </p>
+    <img src="./Assets/icons/attackDamageUp.png" id="attackDamageIcon">
+    <p id="damage"> 1 </p>
+    <img src="./Assets/icons/attackSpeedUp.png" id="attackSpeedIcon">
+    <p><p id="attackSpeed"> 1 </p></p>
+  </div>
 
   <div id="gameOver">
     <h1> Game Over! </h1>

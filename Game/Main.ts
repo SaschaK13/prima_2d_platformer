@@ -20,8 +20,6 @@ namespace Game {
     collidableNode = new fudge.Node("collidable");
     root.appendChild(collidableNode);
 
-    //fudge.Debug.log(Util.getInstance().spritesMap);
-
     let cmpCamera: fudge.ComponentCamera = new fudge.ComponentCamera();
     cmpCamera.pivot.translateZ(15);
     cmpCamera.pivot.lookAt(fudge.Vector3.ZERO());
@@ -47,26 +45,25 @@ namespace Game {
 
     function processInput(): void {
       let player: Player = Util.getInstance().level.player;
-      if (keysPressed[fudge.KEYBOARD_CODE.SPACE]) {
-        player.jump();
-        return;
+      if (!player.isDead) {
+        if (keysPressed[fudge.KEYBOARD_CODE.SPACE]) {
+          player.jump();
+          return;
+        }
+        if (keysPressed[fudge.KEYBOARD_CODE.D]) {
+          player.walk(DIRECTION.RIGHT);
+          return;
+        }
+        if (keysPressed[fudge.KEYBOARD_CODE.A]) {
+          player.walk(DIRECTION.LEFT);
+          return;
+        }
+        if (keysPressed[fudge.KEYBOARD_CODE.E]) {
+          player.attack();
+          return;
+        }
+        player.idle();
       }
-      if (keysPressed[fudge.KEYBOARD_CODE.D]) {
-        player.walk(DIRECTION.RIGHT);
-        return;
-      }
-      if (keysPressed[fudge.KEYBOARD_CODE.A]) {
-        player.walk(DIRECTION.LEFT);
-        return;
-      }
-      if(keysPressed[fudge.KEYBOARD_CODE.E])
-      {
-        player.attack()
-        return;
-      }
-      
-      player.idle();
-
     }
 
     function update(_event: fudge.Eventƒ): void {
@@ -79,6 +76,7 @@ namespace Game {
     function loadGame()
     {
  
+      fudge.Debug.log("Game loaded")
       loadSprites();
 
       let gui: Gui = new Gui(1, 1, 1, 1);

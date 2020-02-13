@@ -7,7 +7,8 @@ namespace Game {
     IDLE = "idle",
     WALK = "walk",
     JUMP = "jump",
-    ATTACK = "attack"
+    ATTACK = "attack",
+    DEATH = "death"
   }
 
   export enum DIRECTION {
@@ -42,10 +43,10 @@ namespace Game {
     private WALK_SPEED: number = 2;
     private DMG: number = 1;
     private HP: number = 5;
-    private ATTACKSPEED: number = 100;
+    private ATTACKSPEED: number = 50;
 
 
-    private dmgCooldown = 50
+    private dmgCooldown: number = 50;
     public currentDmgCooldown = 0;
 
     private gravity: number = -8;
@@ -55,10 +56,18 @@ namespace Game {
     private cmpTrans: fudge.ComponentTransform;
     private cmpMesh: fudge.ComponentMesh;
 
-      private sprites: Sprite[];
-      public spriteName: string;
-      private currentSpriteCooldown: number = 0;
-      private ANIMATION_COOLDOWN: number = 4;
+    private sprites: Sprite[];
+    public spriteName: string;
+    private currentSpriteCooldown: number = 0;
+    private ANIMATION_COOLDOWN: number = 4;
+
+    private attackSpriteLength: number;
+    private showAttackAnimation: boolean = false;
+    private attackAnimationCounter: number = 0;
+
+    private deathSpriteLength: number;
+    private showDeathAnimation: boolean = false;
+    private deathAnimationCounter: number = 0;
 
     private state: CHARACTERSTATE;
     public direction: DIRECTION = DIRECTION.RIGHT;
@@ -67,11 +76,16 @@ namespace Game {
     public hitbox: Hitbox;
 
     private isJumping: boolean = false;
+    public isDead: boolean = false;
+    public isAttacking = false;
 
     public oldTransform: fudge.Vector3;
     positionX: number;
     scaleX: number;
     positionY: number;
+
+    public currentPlatform: Platform;
+
 
     constructor(nodeName: string) {
       super(nodeName);
@@ -160,8 +174,14 @@ namespace Game {
       }
     }
 
+    public showOneTime(_characterstate: CHARACTERSTATE) {
+      this.showAttackAnimation = true;
+      this.showDeathAnimation = true;
+      this.show(_characterstate);
+    }
+
     public idle(): void {
-      if (!this.isJumping) {
+      if (!this.isJumping && !this.isDead && !this.isAttacking) {
         this.show(CHARACTERSTATE.IDLE);
       }
     }
@@ -199,7 +219,13 @@ namespace Game {
 
     public attack(): void {}
 
-    public die(): void {}
+    public die(): void {
+      this.isDead = true;
+      this.showOneTime(CHARACTERSTATE.DEATH);
+      
+      let util: Util = Util.getInstance();
+      setTimeout(() => { util.gameOver(); }, 1500);
+    }
 
     public takeDmg(dmgTaken: number) {
       if (this.currentDmgCooldown == 0) {
@@ -208,24 +234,60 @@ namespace Game {
             this.HP -= dmgTaken;
           }
         } else {
-          this.die()
+          if (!this.isDead) {
+            this.die();
+          }
         }
-        this.currentDmgCooldown = this.dmgCooldown
+        this.currentDmgCooldown = this.dmgCooldown;
       }
 
     }
 
+    public look(direction: DIRECTION)
+    {
+      switch(direction) {
+
+        case DIRECTION.RIGHT: {
+          this.cmpTransform.local.rotation = fudge.Vector3.Y(0);
+          this.direction = DIRECTION.RIGHT;
+          break;
+        }
+        
+        case DIRECTION.LEFT: {
+          this.cmpTransform.local.rotation = fudge.Vector3.Y(180);
+          this.direction = DIRECTION.LEFT;
+          break;
+        }
+      }
+    }
+
     public addSpriteListener(): void {
-      for (let key of Util.getInstance().spritesMap.get(this.spriteName).keys()) {
+      for (let key of Util.getInstance().spritesMap.get(this.spriteName).keys()) {       
         let sprite: Sprite = Util.getInstance().spritesMap.get(this.spriteName).get(key);
         let nodeSprite: NodeSprite = new NodeSprite(sprite.name, sprite);
+        if (sprite.name == "player_attack") {
+          this.attackSpriteLength = sprite.frames.length;
+          nodeSprite.addEventListener(
+            "showNextAttack",
+            (_event: Event) => { (<NodeSprite>_event.currentTarget).showFrameNext(); },
+            true
+          );
+        } else if (sprite.name == "player_death") {
+          this.deathSpriteLength = sprite.frames.length - 1;
+          nodeSprite.addEventListener(
+            "showNextDeath",
+            (_event: Event) => { (<NodeSprite>_event.currentTarget).showFrameNext(); },
+            true
+          );
+        } else {
+          nodeSprite.addEventListener(
+            "showNext",
+            (_event: Event) => { (<NodeSprite>_event.currentTarget).showFrameNext(); },
+            true
+          );
+        }
         nodeSprite.activate(false);        
   
-        nodeSprite.addEventListener(
-          "showNext",
-          (_event: Event) => { (<NodeSprite>_event.currentTarget).showFrameNext(); },
-          true
-        );
         this.appendChild(nodeSprite);
       }
       this.show(CHARACTERSTATE.IDLE);
@@ -260,6 +322,8 @@ namespace Game {
       gui.updateHealth(this);
     }
 
+
+
     private update = (_event: fudge.Eventƒ): void => {
       this.updateSprites();
       this.collider.handleCollsion();
@@ -277,9 +341,28 @@ namespace Game {
         this.currentSpriteCooldown --;
       } else {
         this.broadcastEvent(new CustomEvent("showNext"));
+        //fudge.Debug.log(this.attackAnimationCounter + " + " + this.attackSpriteLength);
+        if (this.showAttackAnimation && this.attackAnimationCounter != this.attackSpriteLength) {
+          this.broadcastEvent(new CustomEvent("showNextAttack"));
+          this.attackAnimationCounter++;
+        } else if (this.attackAnimationCounter == this.attackSpriteLength) {
+          this.attackAnimationCounter = 0;
+          this.showAttackAnimation = false;
+          this.isAttacking = false;
+        }
+        
+
+        if (this.showDeathAnimation && this.deathAnimationCounter != this.deathSpriteLength) {
+          this.broadcastEvent(new CustomEvent("showNextDeath"));
+          this.deathAnimationCounter++;
+        } else if (this.deathAnimationCounter == this.deathSpriteLength) {
+          this.deathAnimationCounter = 0;
+          this.showDeathAnimation = false;
+        }
+
         this.currentSpriteCooldown = this.ANIMATION_COOLDOWN;
       }
     }
   }
 }
-}
+
