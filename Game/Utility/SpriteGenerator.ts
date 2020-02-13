@@ -140,6 +140,7 @@ namespace Game {
     "dirt",
     "stone",
     "background",
+    "backgroundcastle",
     "healpotion",
     "sword",
     "boots"
@@ -283,6 +284,15 @@ namespace Game {
         }
       }
       case "background": {
+        switch (stateName) { 
+          case CHARACTERSTATE.DEFAULT: { 
+            let sprite: Sprite = new Sprite(spriteName + "_" + stateName);
+            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(0, 0, 240, 160), 1, new fudge.Vector2(0, 0), 16, fudge.ORIGIN2D.CENTER);
+            return sprite;
+          }
+        }
+      }
+      case "backgroundcastle": {
         switch (stateName) { 
           case CHARACTERSTATE.DEFAULT: { 
             let sprite: Sprite = new Sprite(spriteName + "_" + stateName);

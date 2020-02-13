@@ -68,7 +68,7 @@ var Game;
             Game.Util.getInstance().gui = gui;
             Game.Util.getInstance().collidableNode = collidableNode;
             let lvlGen = new Game.LevelGenerator(collidableNode);
-            lvlGen.getDataFromFile("test");
+            lvlGen.getDataFromFile("level2");
         }
         function updateGameObjects() {
             //load platform 
