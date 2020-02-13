@@ -3,7 +3,7 @@ var Game;
 (function (Game) {
     class Gui {
         constructor(initialWalkSpeed, initialJumpingPower, initialDamage, initialAttackSpeed) {
-            this.initialHealth = 5;
+            this.initialHealth = 10;
             this.initialWalkSpeed = initialWalkSpeed;
             this.initialJumpingPower = initialJumpingPower;
             this.initialDamage = initialDamage;

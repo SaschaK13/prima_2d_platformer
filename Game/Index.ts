@@ -16,7 +16,7 @@ namespace Game {
     let loadGame: HTMLElement = document.getElementById("loadGame");
 
     newGame.addEventListener("click", start);
-    //loadGame.addEventListener("click", load);
+    loadGame.addEventListener("click", load);
   }
 
 
@@ -25,6 +25,29 @@ namespace Game {
     window.open("game.html");
   }
 
+  function load(): void {
+    let loadList = document.getElementById("loadList");
+    let safes: string[] = ["hi", "bye", "babye", "BAAAAABYEEEE"];
+
+    loadList.style.visibility = "visible";
+    for (const safe of safes) {
+      let br = document.createElement("br"); 
+      let newSafe: HTMLButtonElement = document.createElement("button");
+      fudge.Debug.log(safe);
+      newSafe.value = safe;
+      newSafe.name = safe;
+      newSafe.id = safe;
+      newSafe.appendChild(document.createTextNode(safe));
+      newSafe.style.width = "400px";
+      newSafe.style.height = "50px";
+      newSafe.style.fontSize = "x-large";
+      newSafe.style.margin = "20px";
+      newSafe.style.overflow = "hidden";
+      newSafe.addEventListener("click", gotClicked);
+      loadList.appendChild(newSafe);
+      loadList.appendChild(br);
+      }
+  }
 
   function fetchAudios(): void {
 
@@ -43,6 +66,11 @@ namespace Game {
 
   function playThemeSound(): void  {
     theme.play();
+  }
+
+  function gotClicked(): void {
+    let buttonName = this.name;
+    //
   }
 
 }
