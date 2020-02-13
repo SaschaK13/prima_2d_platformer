@@ -25,11 +25,24 @@ var Game;
             this.getParent().removeChild(this);
             Game.Util.getInstance().level.deleteEnemy(this);
         }
+        attack() {
+            if (this.attackCooldown == 0) {
+                fudge.Debug.log("Attacked");
+                Game.Util.getInstance().level.player.takeDmg(1);
+                this.isAttacking = true;
+                this.showOneTime(Game.CHARACTERSTATE.ATTACK);
+                this.attackCooldown = this.getStats().attackspeed;
+            }
+        }
         ki() {
             //Check if player is on same height
             let player = Game.Util.getInstance().level.player;
             let playerTrans = Game.Util.getInstance().level.player.cmpTransform.local.translation;
             let goblinTrans = this.cmpTransform.local.translation;
+            let collisionObjects = this.hitbox.detectEnemys();
+            if (collisionObjects.length != 0) {
+                this.attack();
+            }
             if (goblinTrans.y <= playerTrans.y + 0.7 && goblinTrans.y >= playerTrans.y - 0.7) {
                 //Same height
                 if (this.currentPlatform && player.currentPlatform) {
