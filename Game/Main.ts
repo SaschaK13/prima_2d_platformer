@@ -84,8 +84,9 @@ namespace Game {
 
 
     function loadGame() {
-      
-     
+
+      Util.getInstance().fetchAudios();
+      fudge.Debug.log("Game loaded")
       loadSprites();
 
       let gui: Gui = new Gui(2, 5, 1, 50);
@@ -95,9 +96,6 @@ namespace Game {
 
       let lvlGen = new LevelGenerator(collidableNode)
       lvlGen.getDataFromFile("test");
-
-
-     
 
 
 

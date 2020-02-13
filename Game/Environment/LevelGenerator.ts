@@ -73,22 +73,17 @@ namespace Game {
 
       }
     }
-
-      let itemArray = this.data["itemArray"];
+      let itemArray: Item[] = this.data["itemArray"];
       for (var i: number = 0; i < itemArray.length; i++) {
-      let current = itemArray[i];
+      let current: Item = itemArray[i];
       let item: Item = new Item(current.name, current.spriteName, current.hp, current.dmg, current.jumpHeight, current.walkSpeed, current.attackSpeed);
       this.levelObject.possibleItemsArray.push(item);
       fudge.Debug.log(this.levelObject.possibleItemsArray);
     }
-
       this.levelObject.setRoot(this.root);
-      let util = Util.getInstance();
+      let util: Util = Util.getInstance();
       util.level = this.levelObject;
       //Util.getInstance().save()
-
     }
-
-
   }
 }

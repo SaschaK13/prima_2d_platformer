@@ -21,9 +21,7 @@ namespace Game {
     public themeSound: HTMLAudioElement;
     private data: Savegame;
 
-    constructor() {
-      this.fetchAudios();
-    }
+    constructor() {}
 
     public static getInstance(): Util {
       if (!Util.instance) {
@@ -56,9 +54,9 @@ namespace Game {
       return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    public save() {
+    public async  save(fileName: string): Promise<void> {
       let jsonString = this.createSavegame();
-      let map: fudge.MapFilenameToContent = { ["savegame.json"]: jsonString };
+      let map: fudge.MapFilenameToContent = { [fileName]: jsonString };
       fudge.FileIoBrowserLocal.save(map);
     }
     
@@ -66,33 +64,35 @@ namespace Game {
       public fetchAudios(): void {
 
       this.attackSound = new Audio();
-      this.attackSound.src = "../Game/Assets/attack.wav";
+      this.attackSound.src = "../Game/Assets/sounds/attack.wav";
       this.attackSound.load();
 
       this.selectSound = new Audio();
-      this.selectSound.src = "../Game/Assets/select.wav";
+      this.selectSound.src = "../Game/Assets/sounds/select.wav";
       this.selectSound.load();
 
       this.pickUpSound = new Audio();
-      this.pickUpSound.src = "../Game/Assets/pickUp.wav";
+      this.pickUpSound.src = "../Game/Assets/sounds/pickUp.wav";
       this.pickUpSound.load();
 
       this.jumpSound = new Audio();
-      this.jumpSound.src = "../Game/Assets/jump.wav";
+      this.jumpSound.src = "../Game/Assets/sounds/jump.wav";
       this.jumpSound.load();
 
       this.hurtSound = new Audio();
-      this.hurtSound.src = "../Game/Assets/hurt.wav";
+      this.hurtSound.src = "../Game/Assets/sounds/hurt.wav";
       this.hurtSound.load();
 
       this.themeSound = new Audio();
-      this.themeSound.src = "../Game/Assets/theme.wav";
+      this.themeSound.src = "../Game/Assets/sounds/theme.wav";
       this.themeSound.load();
     }
 
     private createSavegame(): string {
       return " {\"levelName\": \"" + this.level.levelName + "\", \"hp\": " + this.level.player.getStats().hp + " , \"dmg\": " + this.level.player.getStats().dmg + ", \"jumpHeight\": " + this.level.player.getStats().jumpHeight + ", \"walkSpeed\": " + this.level.player.getStats().walkSpeed + ", \"attackSpeed\":" + this.level.player.getStats().attackSpeed + " } "
     }
+
+  
 
 
   }

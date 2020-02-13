@@ -3,9 +3,7 @@ var Game;
 (function (Game) {
     var fudge = FudgeCore;
     class Util {
-        constructor() {
-            this.fetchAudios();
-        }
+        constructor() { }
         static getInstance() {
             if (!Util.instance) {
                 Util.instance = new Util();
@@ -32,9 +30,9 @@ var Game;
         delay(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
-        save() {
+        async save(fileName) {
             let jsonString = this.createSavegame();
-            let map = { ["savegame.json"]: jsonString };
+            let map = { [fileName]: jsonString };
             fudge.FileIoBrowserLocal.save(map);
         }
         fetchAudios() {

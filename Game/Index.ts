@@ -29,11 +29,11 @@ namespace Game {
   function fetchAudios(): void {
 
     select = new Audio();
-    select.src = "../Game/Assets/select.wav";
+    select.src = "../Game/Assets/sounds/select.wav";
     select.load();
 
     theme = new Audio();
-    theme.src = "../Game/Assets/theme.wav";
+    theme.src = "../Game/Assets/sounds/theme.wav";
     theme.load();
 
 
