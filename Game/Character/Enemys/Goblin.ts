@@ -44,7 +44,7 @@ namespace Game {
       setTimeout(() => { 
         this.getParent().removeChild(this);
         Util.getInstance().level.deleteEnemy(this);
-       }, 500);
+       }, 200);
     }
 
     public dropItem(): void {

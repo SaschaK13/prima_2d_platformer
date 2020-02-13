@@ -34,7 +34,7 @@ var Game;
             setTimeout(() => {
                 this.getParent().removeChild(this);
                 Game.Util.getInstance().level.deleteEnemy(this);
-            }, 500);
+            }, 200);
         }
         dropItem() {
             let possibleItemsArray = Game.Util.getInstance().level.possibleItemsArray;
