@@ -37,11 +37,28 @@ namespace Game {
       Util.getInstance().level.deleteEnemy(this);
     }
 
+    public attack()
+    {
+      if (this.attackCooldown == 0) {
+
+        fudge.Debug.log("Attacked");
+        Util.getInstance().level.player.takeDmg(1);
+        this.isAttacking = true;
+        this.showOneTime(CHARACTERSTATE.ATTACK);
+        this.attackCooldown = this.getStats().attackspeed;
+      }
+    }
+
     public ki() {
       //Check if player is on same height
       let player = Util.getInstance().level.player;
       let playerTrans = Util.getInstance().level.player.cmpTransform.local.translation;
       let goblinTrans = this.cmpTransform.local.translation;
+      let collisionObjects: Character[] = this.hitbox.detectEnemys() as Character[];
+      if(collisionObjects.length != 0)
+      {
+        this.attack()
+      }
 
       if (goblinTrans.y <= playerTrans.y + 0.7 && goblinTrans.y >= playerTrans.y - 0.7) {
         //Same height
@@ -63,6 +80,8 @@ namespace Game {
         this.lookAround();
       }
     }
+
+
 
 
     public lookAround() {

@@ -31,24 +31,21 @@ namespace Game {
       let width = this.cmpTransform.local.scaling.x
       let height = this.cmpTransform.local.scaling.y
       this.rectangle = new fudge.Rectangle(x, y, width, height, fudge.ORIGIN2D.CENTER)
-
-      let detectedEnemys: Character[] = []
-      if (this.constructor.name == "Goblin") {
+      let detectedEnemys: Character[] = [];
+      if (this.parentNode.constructor.name == "Goblin") {
         if (this.collideWith(Util.getInstance().level.player)) {
           detectedEnemys.push(Util.getInstance().level.player);
-          return detectedEnemys;
-
         }
       } else if (this.parentNode.constructor.name == "Player") {
         for (var i = 0; i < Util.getInstance().level.enemyArray.length; i++) {
           let enemy = Util.getInstance().level.enemyArray[i];
           if (this.collideWith(enemy)) {
-            detectedEnemys.push(enemy)
+            detectedEnemys.push(enemy);
           }
         }
-        return detectedEnemys;
+       
       }
-
+      return detectedEnemys;
     }
 
     private collideWith(cObject: Character): boolean {
