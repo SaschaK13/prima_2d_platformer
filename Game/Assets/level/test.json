@@ -15,7 +15,7 @@
   "background": {"name": "background", "spriteName": "background", "type": "Background", "length": 15},
 
   "enemyArray": [
-    {"name": "Enemy1", "spriteName": "blob",  "positionX":1, "positionY": 1, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy1", "spriteName": "goblin",  "positionX":2, "positionY": 1, "scaleX": 1, "scaleY": 1},
     {"name": "Enemy2", "spriteName": "blob",  "positionX":5, "positionY": 1, "scaleX": 1, "scaleY": 1}
   ],
 

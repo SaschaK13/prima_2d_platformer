@@ -45,8 +45,7 @@ var Game;
             Game.Util.getInstance().level.itemArray.push(item);
         }
         attack() {
-            if (this.attackCooldown == 0) {
-                fudge.Debug.log("Attacked");
+            if (this.attackCooldown == 0 && !Game.Util.getInstance().level.player.finish) {
                 Game.Util.getInstance().level.player.takeDmg(1);
                 this.attacksPlayer = true;
                 this.isAttacking = true;
@@ -56,7 +55,6 @@ var Game;
         }
         ki() {
             //Check if player is on same height
-            fudge.Debug.log(this.isAttacking);
             let player = Game.Util.getInstance().level.player;
             let playerTrans = Game.Util.getInstance().level.player.cmpTransform.local.translation;
             let goblinTrans = this.cmpTransform.local.translation;

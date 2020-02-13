@@ -13,6 +13,7 @@ export enum CollisionType{
   ENEMY = "Enemy",
   PLAYER = "Player",
   ITEM = "Item",
+  FINISH = "Finish",
   MISSING = "Missing"
 }
 export enum CollisionDirection {
@@ -46,6 +47,8 @@ public handleCollsion() {
         }
       }
   this.updateCollisionObjects();
+
+  
 }
 
 public getCollisionObjects(): CollidedObject[]
@@ -76,6 +79,10 @@ public getCollisionType(colissionObject: fudge.Node): CollisionType {
 
     case "Item": {
       return CollisionType.ITEM;
+    }
+
+    case "Finish": {
+      return CollisionType.FINISH;
     }
   }
 }

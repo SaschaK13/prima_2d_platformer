@@ -57,8 +57,7 @@ namespace Game {
     }
 
     public attack(): void {
-      if (this.attackCooldown == 0) {
-        fudge.Debug.log("Attacked");
+      if (this.attackCooldown == 0 && !Util.getInstance().level.player.finish) {
         Util.getInstance().level.player.takeDmg(1);
         this.attacksPlayer = true;
         this.isAttacking = true;
@@ -69,7 +68,6 @@ namespace Game {
 
     public ki() {
       //Check if player is on same height
-      fudge.Debug.log(this.isAttacking);
       let player = Util.getInstance().level.player;
       let playerTrans = Util.getInstance().level.player.cmpTransform.local.translation;
       let goblinTrans = this.cmpTransform.local.translation;
