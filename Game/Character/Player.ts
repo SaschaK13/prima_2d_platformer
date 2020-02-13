@@ -55,6 +55,7 @@ namespace Game {
               this.takeDmg(1);
             }
             super.handleSolidColision(collisionObject);
+            break;
           }
 
           case CollisionType.ENVIRONMENT: {
@@ -63,7 +64,15 @@ namespace Game {
               this.currentPlatform = collisionObject.object as Platform;
             }
             super.handleSolidColision(collisionObject);
+            break;
           }
+
+          case CollisionType.ITEM: {
+            let item = collisionObject.object as Item;
+            this.updateStats(item.getStats());
+            Util.getInstance().level.deleteItem(item);
+            this.getParent().removeChild(item);
+            break;
         }
       }
     }

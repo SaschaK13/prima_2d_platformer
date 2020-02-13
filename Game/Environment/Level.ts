@@ -5,7 +5,19 @@ namespace Game {
     public player: Player;
     public platformArray: Platform[] = [];
     public enemyArray: Character[] = [];
+    public itemArray: Item[] = [];
+    public possibleItemsArray: Item[] = [];
 
+    private root: fudge.Node;
+
+
+    public setRoot(root: fudge.Node): void {
+      this.root = root;
+    }
+
+    public appendToRoot(node: fudge.Node): void {
+      this.root.appendChild(node);
+    }
 
 
     public deleteEnemy(enemy: Character){
@@ -20,6 +32,19 @@ namespace Game {
       }
 
       Util.getInstance().level.enemyArray = newEnemyArray;
+
+    }
+
+    public deleteItem(item: Item): void {
+      let newItemArray: Item[] = [];
+
+      for (var i: number = 0; i < this.itemArray.length; i++) {
+        if (!(this.itemArray[i].name == item.name)) {
+          newItemArray.push(this.itemArray[i]);
+        }
+      }
+
+      Util.getInstance().level.itemArray = newItemArray;
 
     }
 

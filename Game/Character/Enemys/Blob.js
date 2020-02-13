@@ -20,8 +20,17 @@ var Game;
             fudge.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, this.behavior);
         }
         die() {
+            this.dropItem();
             this.getParent().removeChild(this);
             Game.Util.getInstance().level.deleteEnemy(this);
+        }
+        dropItem() {
+            let possibleItemsArray = Game.Util.getInstance().level.possibleItemsArray;
+            let randomItem = Game.Util.getInstance().getRandomRange(0, possibleItemsArray.length);
+            let item = possibleItemsArray[randomItem];
+            item.cmpTransform.local.translation = this.cmpTransform.local.translation;
+            Game.Util.getInstance().level.appendToRoot(item);
+            Game.Util.getInstance().level.itemArray.push(item);
         }
         ki() {
             if (this.currentMovmentDuration != this.movementDuration) {

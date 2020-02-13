@@ -1,6 +1,7 @@
 "use strict";
 var Game;
 (function (Game) {
+    var fudge = FudgeCore;
     class LevelGenerator {
         constructor(root) {
             this.levelObject = new Game.Level();
@@ -42,6 +43,14 @@ var Game;
                     }
                 }
             }
+            let itemArray = this.data["itemArray"];
+            for (var i = 0; i < itemArray.length; i++) {
+                let current = itemArray[i];
+                let item = new Game.Item(current.name, current.spriteName, current.hp, current.dmg, current.jumpHeight, current.walkSpeed, current.attackSpeed);
+                this.levelObject.possibleItemsArray.push(item);
+                fudge.Debug.log(this.levelObject.possibleItemsArray);
+            }
+            this.levelObject.setRoot(this.root);
             let util = Game.Util.getInstance();
             util.level = this.levelObject;
         }

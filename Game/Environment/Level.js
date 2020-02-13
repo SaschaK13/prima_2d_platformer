@@ -5,6 +5,14 @@ var Game;
         constructor() {
             this.platformArray = [];
             this.enemyArray = [];
+            this.itemArray = [];
+            this.possibleItemsArray = [];
+        }
+        setRoot(root) {
+            this.root = root;
+        }
+        appendToRoot(node) {
+            this.root.appendChild(node);
         }
         deleteEnemy(enemy) {
             let newEnemyArray = [];
@@ -14,6 +22,15 @@ var Game;
                 }
             }
             Game.Util.getInstance().level.enemyArray = newEnemyArray;
+        }
+        deleteItem(item) {
+            let newItemArray = [];
+            for (var i = 0; i < this.itemArray.length; i++) {
+                if (!(this.itemArray[i].name == item.name)) {
+                    newItemArray.push(this.itemArray[i]);
+                }
+            }
+            Game.Util.getInstance().level.itemArray = newItemArray;
         }
         getCollidableObjects() {
             let collidableNodes = [];

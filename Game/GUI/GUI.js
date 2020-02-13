@@ -15,19 +15,19 @@ var Game;
         }
         updateWalkSpeed(speedFactor) {
             this.initialWalkSpeed = this.initialWalkSpeed + speedFactor;
-            document.getElementById("speed").innerHTML = "walk speed: " + this.initialWalkSpeed;
+            document.getElementById("speed").innerHTML = this.initialWalkSpeed.toString();
         }
         updateJumpingPower(jumpingFactor) {
             this.initialJumpingPower = this.initialJumpingPower + jumpingFactor;
-            document.getElementById("jumping").innerHTML = "jumping power: " + this.initialJumpingPower;
+            document.getElementById("jumping").innerHTML = this.initialJumpingPower.toString();
         }
         updateDamage(damageFactor) {
             this.initialDamage = this.initialDamage + damageFactor;
-            document.getElementById("damage").innerHTML = "damage: " + this.initialDamage;
+            document.getElementById("damage").innerHTML = this.initialDamage.toString();
         }
         updatAttackSpeed(attackSpeedFactor) {
             this.initialAttackSpeed = this.initialAttackSpeed + attackSpeedFactor;
-            document.getElementById("attackSpeed").innerHTML = "attack speed: " + this.initialAttackSpeed;
+            document.getElementById("attackSpeed").innerHTML = this.initialAttackSpeed.toString();
         }
     }
     Game.Gui = Gui;

@@ -12,6 +12,7 @@ export enum CollisionType{
   ENVIRONMENT = "Platform", 
   ENEMY = "Enemy",
   PLAYER = "Player",
+  ITEM = "Item",
   MISSING = "Missing"
 }
 export enum CollisionDirection {
@@ -75,6 +76,10 @@ public getCollisionType(colissionObject: fudge.Node): CollisionType {
  
     case "Player": {
       return CollisionType.PLAYER;
+    }
+
+    case "Item": {
+      return CollisionType.ITEM;
     }
   }
   

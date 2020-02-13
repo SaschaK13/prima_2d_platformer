@@ -42,12 +42,21 @@ var Game;
                             this.takeDmg(1);
                         }
                         super.handleSolidColision(collisionObject);
+                        break;
                     }
                     case Game.CollisionType.ENVIRONMENT: {
                         if (collisionObject.object.constructor.name == "Platform") {
                             this.currentPlatform = collisionObject.object;
                         }
                         super.handleSolidColision(collisionObject);
+                        break;
+                    }
+                    case Game.CollisionType.ITEM: {
+                        let item = collisionObject.object;
+                        this.updateStats(item.getStats());
+                        Game.Util.getInstance().level.deleteItem(item);
+                        this.getParent().removeChild(item);
+                        break;
                     }
                 }
             }
