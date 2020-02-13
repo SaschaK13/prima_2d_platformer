@@ -32,7 +32,14 @@ namespace Game {
         let platform: Platform = new Platform(current.name, current.type, current.spriteName, current.positionX, current.positionY, current.scaleX, current.scaleY);
         this.root.appendChild(platform);
         this.levelObject.platformArray.push(platform);
+      }
 
+      let backgroundArray = this.data["backgroundArray"];
+      for (var i: number = 0; i < backgroundArray.length; i++) {
+        let current = backgroundArray[i];
+        let background: Background = new Background(current.name, current.type, current.spriteName);
+        this.root.appendChild(background);
+        this.levelObject.backgroundArray.push(background);
       }
 
       let enemyArray = this.data["enemyArray"];

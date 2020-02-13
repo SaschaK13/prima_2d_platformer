@@ -3,7 +3,8 @@ namespace Game {
   import fudge = FudgeCore;
 
   export enum EnvironmentType {
-  PLATFORM = "Platform"
+    PLATFORM = "Platform",
+    BACKGROUND = "Background"
   }  
 
   export class Environment extends fudge.Node {

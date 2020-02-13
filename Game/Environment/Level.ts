@@ -4,6 +4,7 @@ namespace Game {
   export class Level { 
     public player: Player;
     public platformArray: Platform[] = [];
+    public backgroundArray: Background[] = [];
     public enemyArray: Character[] = [];
     public itemArray: Item[] = [];
     public possibleItemsArray: Item[] = [];

@@ -25,6 +25,13 @@ var Game;
                 this.root.appendChild(platform);
                 this.levelObject.platformArray.push(platform);
             }
+            let backgroundArray = this.data["backgroundArray"];
+            for (var i = 0; i < backgroundArray.length; i++) {
+                let current = backgroundArray[i];
+                let background = new Game.Background(current.name, current.type, current.spriteName);
+                this.root.appendChild(background);
+                this.levelObject.backgroundArray.push(background);
+            }
             let enemyArray = this.data["enemyArray"];
             for (var i = 0; i < enemyArray.length; i++) {
                 let current = enemyArray[i];
