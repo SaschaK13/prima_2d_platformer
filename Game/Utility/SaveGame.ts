@@ -22,10 +22,6 @@ namespace Game {
       this.walkSpeed = walkSpeed;
     }
 
-    public save() {
-     
-
-    }
 
 
 

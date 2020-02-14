@@ -60,6 +60,7 @@ namespace Game {
       let map: fudge.MapFilenameToContent = { [fileName]: jsonString };
       fudge.FileIoBrowserLocal.save(map);
     }
+
     
     
       public fetchAudios(): void {

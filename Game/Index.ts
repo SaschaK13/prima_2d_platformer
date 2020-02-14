@@ -16,7 +16,7 @@ namespace Game {
     let loadGame: HTMLElement = document.getElementById("loadGame");
 
     newGame.addEventListener("click", start);
-    loadGame.addEventListener("click", load);
+    loadGame.addEventListener("click", loadButton);
   }
 
 
@@ -25,28 +25,8 @@ namespace Game {
     window.open("http://localhost:5000/Game/game", "_self" , "fullscreen=yes" , true);
   }
 
-  function load(): void {
-    let loadList = document.getElementById("loadList");
-    let safes: string[] = ["hi", "bye", "babye", "BAAAAABYEEEE"];
-
-    loadList.style.visibility = "visible";
-    for (const safe of safes) {
-      let br = document.createElement("br"); 
-      let newSafe: HTMLButtonElement = document.createElement("button");
-      fudge.Debug.log(safe);
-      newSafe.value = safe;
-      newSafe.name = safe;
-      newSafe.id = safe;
-      newSafe.appendChild(document.createTextNode(safe));
-      newSafe.style.width = "400px";
-      newSafe.style.height = "50px";
-      newSafe.style.fontSize = "x-large";
-      newSafe.style.margin = "20px";
-      newSafe.style.overflow = "hidden";
-      newSafe.addEventListener("click", gotClicked);
-      loadList.appendChild(newSafe);
-      loadList.appendChild(br);
-      }
+  function loadButton(): void {
+    load()
   }
 
   function fetchAudios(): void {
@@ -70,9 +50,26 @@ namespace Game {
 
   function gotClicked(): void {
     let buttonName = this.name as string;
-    window.open("http://localhost:5000/Game/game?saveGameName="+ buttonName, "_self" , "fullscreen=yes" , true);
+    
     //window.location.href = "http://localhost:5000/Game/game?W=WW"
     //
+  }
+
+
+  async function load(): Promise<void> {
+    fudge.FileIoBrowserLocal.addEventListener(fudge.EVENT.FILE_LOADED, handleContentLoaded);
+    fudge.FileIoBrowserLocal.load();
+  }
+
+
+  function handleContentLoaded(_event: CustomEvent): void {
+    let map: fudge.MapFilenameToContent = _event.detail.mapFilenameToContent;
+    console.log("Map", map);
+    for (let filename in map) {
+      let content: string = map[filename];
+      fudge.FileIoBrowserLocal.removeEventListener(fudge.EVENT.FILE_LOADED, handleContentLoaded);
+      window.open("http://localhost:5000/Game/game?saveGamejson="+ content, "_self" , "fullscreen=yes" , true);
+    }
   }
 
 }
