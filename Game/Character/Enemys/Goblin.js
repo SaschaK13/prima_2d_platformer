@@ -30,7 +30,7 @@ var Game;
                 this.dropItem();
             }
             this.isDead = true;
-            this.showOneTime(Game.CHARACTERSTATE.DEATH);
+            this.newShowOneTime(Game.CHARACTERSTATE.DEATH);
             setTimeout(() => {
                 this.getParent().removeChild(this);
                 Game.Util.getInstance().level.deleteEnemy(this);
@@ -46,12 +46,10 @@ var Game;
         }
         attack() {
             if (this.attackCooldown == 0 && !Game.Util.getInstance().level.player.finish) {
-                fudge.Debug.log("Goblin attack");
                 Game.Util.getInstance().level.player.takeDmg(1);
                 this.attacksPlayer = true;
                 this.isAttacking = true;
-                fudge.Debug.log("attackign");
-                this.showOneTime(Game.CHARACTERSTATE.ATTACK);
+                this.newShowOneTime(Game.CHARACTERSTATE.ATTACK);
                 this.attackCooldown = this.getStats().attackSpeed;
             }
         }

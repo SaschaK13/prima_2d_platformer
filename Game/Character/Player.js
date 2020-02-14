@@ -32,9 +32,13 @@ var Game;
                     detectedEnemys[i].takeDmg(this.getStats().dmg);
                 }
                 this.isAttacking = true;
-                this.showOneTime(Game.CHARACTERSTATE.ATTACK);
+                //this.showOneTime(CHARACTERSTATE.ATTACK);
+                this.newShowOneTime(Game.CHARACTERSTATE.ATTACK);
                 this.attackCooldown = this.getStats().attackSpeed;
                 Game.Util.getInstance().attackSound.play();
+            }
+            else {
+                // this.isAttacking = false;
             }
         }
         die() {
@@ -46,7 +50,6 @@ var Game;
                 let collisionObject = collisionObjects[i];
                 switch (collisionObject.collisionType) {
                     case Game.CollisionType.ENEMY: {
-                        fudge.Debug.log("hitted by enemy");
                         if (collisionObject.object.constructor.name == "Blob" && !this.finish) {
                             this.takeDmg(1);
                         }

@@ -131,6 +131,11 @@ namespace Game {
     public setFrameDirection(_direction: number): void {
       this.direction = Math.floor(_direction);
     }
+
+    public getSprite(): Sprite
+    {
+      return this.sprite;
+    }
   }
 
   let spriteNames: string[] = [
@@ -174,7 +179,6 @@ namespace Game {
     }
     let util: Util = Util.getInstance();
     util.spritesMap = spritesMap;
-    fudge.Debug.log(spritesMap); 
   }
 
   function generateSprites(textureImage: fudge.TextureImage, spriteName: string, stateName: string): Sprite {   
@@ -316,7 +320,6 @@ namespace Game {
           case CHARACTERSTATE.DEFAULT: { 
             let sprite: Sprite = new Sprite(spriteName + "_" + stateName);
             sprite.generateByGrid(textureImage, fudge.Rectangle.GET(0, 0, 30, 30), 1, new fudge.Vector2(0, 0), 32, fudge.ORIGIN2D.CENTER);
-            fudge.Debug.log(textureImage);
             return sprite;
           }
         }

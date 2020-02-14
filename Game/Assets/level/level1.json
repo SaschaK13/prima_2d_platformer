@@ -30,7 +30,8 @@
   "finish": {"name": "finish", "spriteName": "finish", "type": "Platform"},
 
   "enemyArray": [
-    {"name": "Enemy1", "spriteName": "blob",  "positionX": -3.5, "positionY": 2, "scaleX": 1, "scaleY": 1}
+    {"name": "Enemy1", "spriteName": "blob",  "positionX": -3.5, "positionY": 2, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy1", "spriteName": "goblin",  "positionX": -3.5, "positionY": 2, "scaleX": 1, "scaleY": 1}
   ],
 
   "itemArray": [

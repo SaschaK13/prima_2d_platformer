@@ -10,7 +10,6 @@ namespace Game {
     scaleX: number;
     scaleY: number;
     dropChance: number = 0.4;
-
     lookAroundCooldown = 50;
     currentLookAroundCooldown = 0;
     moveDirection: DIRECTION = DIRECTION.RIGHT;
@@ -39,7 +38,7 @@ namespace Game {
         this.dropItem();
       }
       this.isDead = true;
-      this.showOneTime(CHARACTERSTATE.DEATH);
+      this.newShowOneTime(CHARACTERSTATE.DEATH)
 
       setTimeout(() => { 
         this.getParent().removeChild(this);
@@ -58,14 +57,12 @@ namespace Game {
 
     public attack(): void {
       if (this.attackCooldown == 0 && !Util.getInstance().level.player.finish) {
-        fudge.Debug.log("Goblin attack")
         Util.getInstance().level.player.takeDmg(1);
         this.attacksPlayer = true;
         this.isAttacking = true;
-        fudge.Debug.log("attackign")
-        this.showOneTime(CHARACTERSTATE.ATTACK);
+        this.newShowOneTime(CHARACTERSTATE.ATTACK);
         this.attackCooldown = this.getStats().attackSpeed;
-      } 
+      }
     }
 
     public ki() {

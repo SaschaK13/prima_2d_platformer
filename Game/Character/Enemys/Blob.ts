@@ -36,7 +36,7 @@ namespace Game {
         this.dropItem();
       }
       this.isDead = true;
-      this.showOneTime(CHARACTERSTATE.DEATH);
+      this.newShowOneTime(CHARACTERSTATE.DEATH);
 
       setTimeout(() => { 
         this.getParent().removeChild(this);
