@@ -19,6 +19,7 @@ namespace Game {
     public jumpSound: HTMLAudioElement;
     public hurtSound: HTMLAudioElement;
     public themeSound: HTMLAudioElement;
+    public currentLVLNumber: number;
     private data: Savegame;
 
     constructor() {}
@@ -97,9 +98,7 @@ namespace Game {
       this.collidableNode = new fudge.Node("Colidable")
       this.lvlGenerator = new LevelGenerator(this.collidableNode)
       this.rootNode.appendChild (this.collidableNode);
-
-      this.lvlGenerator.getDataFromFile("level2");
-      this.gui.updateHealth()
+      this.lvlGenerator.getDataFromFile("level" + (this.currentLVLNumber + 1));
 
     }
 
@@ -129,6 +128,7 @@ namespace Game {
       }
 
       this.lvlGenerator = null;
+      this.currentLVLNumber = this.level.levelNumber
       this.level = null;
      
 

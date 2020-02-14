@@ -241,17 +241,12 @@ var Game;
             this.ATTACKSPEED = stats.attackSpeed;
         }
         updateStats(stats) {
-            let gui = Game.Util.getInstance().gui;
             this.HP += stats.hp;
             this.DMG += stats.dmg;
             this.JUMP_HEIGHT += stats.jumpHeight;
             this.WALK_SPEED += stats.walkSpeed;
             this.ATTACKSPEED += stats.attackSpeed;
-            gui.updateHealth();
-            gui.updateDamage(stats.dmg);
-            gui.updateJumpingPower(stats.jumpHeight);
-            gui.updateWalkSpeed(stats.walkSpeed);
-            gui.updatAttackSpeed(stats.attackSpeed);
+            Game.Util.getInstance().gui.updateStats(this);
         }
         updateSprites() {
             if (this.currentSpriteCooldown != 0) {

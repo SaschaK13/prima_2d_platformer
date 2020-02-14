@@ -315,19 +315,14 @@ namespace Game {
     }
 
     public updateStats(stats: CharacterStats): void {
-      let gui: Gui = Util.getInstance().gui;
-
+  
       this.HP += stats.hp;
       this.DMG += stats.dmg;
       this.JUMP_HEIGHT += stats.jumpHeight;
       this.WALK_SPEED += stats.walkSpeed;
       this.ATTACKSPEED += stats.attackSpeed;
 
-      gui.updateHealth();
-      gui.updateDamage(stats.dmg);
-      gui.updateJumpingPower(stats.jumpHeight);
-      gui.updateWalkSpeed(stats.walkSpeed);
-      gui.updatAttackSpeed(stats.attackSpeed);
+      Util.getInstance().gui.updateStats(this);
     }
 
     private update = (_event: fudge.Eventƒ): void => {

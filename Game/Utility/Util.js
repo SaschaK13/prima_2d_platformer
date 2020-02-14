@@ -60,8 +60,8 @@ var Game;
             this.collidableNode = new fudge.Node("Colidable");
             this.lvlGenerator = new Game.LevelGenerator(this.collidableNode);
             this.rootNode.appendChild(this.collidableNode);
-            this.lvlGenerator.getDataFromFile("level2");
-            this.gui.updateHealth();
+            fudge.Debug.log("level" + (this.currentLVLNumber + 1));
+            this.lvlGenerator.getDataFromFile("level" + (this.currentLVLNumber + 1));
         }
         createSavegame() {
             return " {\"levelName\": \"level" + (this.level.levelNumber + 1) + "\", \"hp\": " + this.level.player.getStats().hp + " , \"dmg\": " + this.level.player.getStats().dmg + ", \"jumpHeight\": " + this.level.player.getStats().jumpHeight + ", \"walkSpeed\": " + this.level.player.getStats().walkSpeed + ", \"attackSpeed\":" + this.level.player.getStats().attackSpeed + " } ";
@@ -80,6 +80,7 @@ var Game;
                 }
             }
             this.lvlGenerator = null;
+            this.currentLVLNumber = this.level.levelNumber;
             this.level = null;
         }
     }
