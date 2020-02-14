@@ -46,6 +46,11 @@ namespace Game {
       this.levelObject.player = player;
       player.isLoaded = true;
       this.root.appendChild(player);
+      if(Util.getInstance().currentSavegame)
+      {
+        let savegame = Util.getInstance().currentSavegame;
+        player.setStats({hp: savegame.hp, dmg: savegame.dmg, jumpHeight:savegame.jumpHeight, attackSpeed: savegame.attackSpeed, walkSpeed: savegame.walkSpeed })        
+      }
 
       let finishValue: Finish = this.data["finish"];
       let finish: Finish = new Finish(finishValue.name, finishValue.type, finishValue.spriteName);

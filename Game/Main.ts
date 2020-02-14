@@ -116,6 +116,7 @@ namespace Game {
     function loadLevel(saveGamejson: string)
     {
       let data: Savegame = JSON.parse(saveGamejson);
+      Util.getInstance().currentSavegame = data;
       Util.getInstance().lvlGenerator = new LevelGenerator(Util.getInstance().collidableNode);
       Util.getInstance().lvlGenerator.getDataFromFile(data.levelName);
     }

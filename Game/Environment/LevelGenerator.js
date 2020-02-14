@@ -36,6 +36,10 @@ var Game;
             this.levelObject.player = player;
             player.isLoaded = true;
             this.root.appendChild(player);
+            if (Game.Util.getInstance().currentSavegame) {
+                let savegame = Game.Util.getInstance().currentSavegame;
+                player.setStats({ hp: savegame.hp, dmg: savegame.dmg, jumpHeight: savegame.jumpHeight, attackSpeed: savegame.attackSpeed, walkSpeed: savegame.walkSpeed });
+            }
             let finishValue = this.data["finish"];
             let finish = new Game.Finish(finishValue.name, finishValue.type, finishValue.spriteName);
             finish.cmpTransform.local.translateX(levelLength / 2);

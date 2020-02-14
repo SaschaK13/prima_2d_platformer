@@ -79,6 +79,7 @@ var Game;
         }
         function loadLevel(saveGamejson) {
             let data = JSON.parse(saveGamejson);
+            Game.Util.getInstance().currentSavegame = data;
             Game.Util.getInstance().lvlGenerator = new Game.LevelGenerator(Game.Util.getInstance().collidableNode);
             Game.Util.getInstance().lvlGenerator.getDataFromFile(data.levelName);
         }
