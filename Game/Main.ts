@@ -75,7 +75,7 @@ namespace Game {
           player.attack();
           return;
         }
-        player.idle();
+        player.idle()
       }
     }
 

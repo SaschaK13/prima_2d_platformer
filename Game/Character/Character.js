@@ -27,15 +27,14 @@ var Game;
             this.velocity = new fudge.Vector2(0, 0);
             this.currentSpriteCooldown = 0;
             this.ANIMATION_COOLDOWN = 4;
-            this.showAttackAnimation = false;
-            this.attackAnimationCounter = 0;
-            this.showDeathAnimation = false;
-            this.deathAnimationCounter = 0;
             this.direction = DIRECTION.RIGHT;
             this.isHitted = false;
             this.isJumping = false;
             this.isDead = false;
             this.isAttacking = false;
+            this.isIdling = false;
+            this.currentShowOnetimeCounter = 1;
+            this.isShowingOnetime = false;
             this.isLoaded = false;
             this.update = (_event) => {
                 if (this.isLoaded) {
@@ -122,14 +121,30 @@ var Game;
                 child.activate(child.name == (this.spriteName + "_" + _characterstate));
             }
         }
-        showOneTime(_characterstate) {
-            this.showAttackAnimation = true;
-            this.showDeathAnimation = true;
-            this.show(_characterstate);
+        newShowOneTime(_characterstate) {
+            //activates sprite
+            fudge.Debug.log("onetime");
+            let spriteMap = Game.Util.getInstance().spritesMap.get(this.spriteName);
+            let nodeSprite = spriteMap.get(_characterstate);
+            fudge.Debug.log(this.spriteName + " " + _characterstate + " " + nodeSprite.frames.length + " frames");
+            for (let child of this.getChildren()) {
+                if (child.name == (this.spriteName + "_" + _characterstate)) {
+                    child.activate(true);
+                    this.isShowingOnetime = true;
+                    this.showOnetimeCounter = child.getSprite().frames.length;
+                    fudge.Debug.log(child.getSprite().frames.length);
+                    this.showOnetimeNodeSprite = child;
+                }
+                else {
+                    child.activate(false);
+                }
+            }
         }
         idle() {
-            if (!this.isJumping && !this.isDead && !this.isAttacking && !this.isHitted) {
+            if (!this.isJumping && !this.isDead && !this.isAttacking && !this.isHitted && !this.isShowingOnetime) {
+                fudge.Debug.log("show idle");
                 this.show(CHARACTERSTATE.IDLE);
+                this.isIdling = true;
             }
         }
         jump() {
@@ -162,9 +177,12 @@ var Game;
         attack() { }
         die() {
             this.isDead = true;
-            this.showOneTime(CHARACTERSTATE.DEATH);
+            this.newShowOneTime(CHARACTERSTATE.DEATH);
             let util = Game.Util.getInstance();
-            setTimeout(() => { util.gameOver(); }, 1500);
+            setTimeout(() => {
+                util.gameOver();
+                this.isShowingOnetime = true;
+            }, 1500);
         }
         takeDmg(dmgTaken) {
             if (this.currentDmgCooldown == 0) {
@@ -172,7 +190,7 @@ var Game;
                     if ((this.HP - dmgTaken) >= 0) {
                         this.HP -= dmgTaken;
                         this.isHitted = true;
-                        this.show(CHARACTERSTATE.HIT);
+                        this.newShowOneTime(CHARACTERSTATE.HIT);
                     }
                 }
                 else {
@@ -201,16 +219,11 @@ var Game;
             for (let key of Game.Util.getInstance().spritesMap.get(this.spriteName).keys()) {
                 let sprite = Game.Util.getInstance().spritesMap.get(this.spriteName).get(key);
                 let nodeSprite = new Game.NodeSprite(sprite.name, sprite);
-                if (sprite.name == "player_attack") {
-                    this.attackSpriteLength = sprite.frames.length;
-                    nodeSprite.addEventListener("showNextAttack", (_event) => { _event.currentTarget.showFrameNext(); }, true);
-                }
-                else if (sprite.name == "player_death") {
-                    this.deathSpriteLength = sprite.frames.length - 1;
-                    nodeSprite.addEventListener("showNextDeath", (_event) => { _event.currentTarget.showFrameNext(); }, true);
+                if (!(sprite.name == (this.spriteName + "_attack")) && !(sprite.name == (this.spriteName + "_death")) && !(sprite.name == (this.spriteName + "_hit"))) {
+                    nodeSprite.addEventListener("showNext", (_event) => { _event.currentTarget.showFrameNext(); }, true);
                 }
                 else {
-                    nodeSprite.addEventListener("showNext", (_event) => { _event.currentTarget.showFrameNext(); }, true);
+                    fudge.Debug.log(this.spriteName + " has: " + nodeSprite.getSprite().frames.length + " sprite length on animation: " + key);
                 }
                 nodeSprite.activate(false);
                 this.appendChild(nodeSprite);
@@ -245,25 +258,24 @@ var Game;
                 this.currentSpriteCooldown--;
             }
             else {
+                fudge.Debug.log("broadcast next");
                 this.broadcastEvent(new CustomEvent("showNext"));
-                //fudge.Debug.log(this.attackAnimationCounter + " + " + this.attackSpriteLength);
-                fudge.Debug.log(this.showAttackAnimation);
-                if (this.showAttackAnimation && this.attackAnimationCounter != this.attackSpriteLength) {
-                    this.broadcastEvent(new CustomEvent("showNextAttack"));
-                    this.attackAnimationCounter++;
-                }
-                else if (this.attackAnimationCounter == this.attackSpriteLength) {
-                    this.attackAnimationCounter = 0;
-                    this.showAttackAnimation = false;
-                    this.isAttacking = false;
-                }
-                if (this.showDeathAnimation && this.deathAnimationCounter != this.deathSpriteLength) {
-                    this.broadcastEvent(new CustomEvent("showNextDeath"));
-                    this.deathAnimationCounter++;
-                }
-                else if (this.deathAnimationCounter == this.deathSpriteLength) {
-                    this.deathAnimationCounter = 0;
-                    this.showDeathAnimation = false;
+                if (this.isShowingOnetime) {
+                    if (this.currentShowOnetimeCounter != this.showOnetimeCounter) {
+                        fudge.Debug.log("is showing one time frame: " + this.currentShowOnetimeCounter);
+                        this.showOnetimeNodeSprite.showFrameNext();
+                        this.currentShowOnetimeCounter++;
+                    }
+                    else {
+                        if (this.showOnetimeNodeSprite) {
+                            this.showOnetimeNodeSprite.activate(false);
+                        }
+                        this.isShowingOnetime = false;
+                        this.isAttacking = false;
+                        this.isHitted = false;
+                        this.currentShowOnetimeCounter = 1;
+                        this.idle();
+                    }
                 }
                 this.currentSpriteCooldown = this.ANIMATION_COOLDOWN;
             }

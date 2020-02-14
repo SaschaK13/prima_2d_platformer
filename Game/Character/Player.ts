@@ -49,9 +49,12 @@ namespace Game {
           detectedEnemys[i].takeDmg(this.getStats().dmg);
         }
         this.isAttacking = true;
-        this.showOneTime(CHARACTERSTATE.ATTACK);
+       //this.showOneTime(CHARACTERSTATE.ATTACK);
+       this.newShowOneTime(CHARACTERSTATE.ATTACK);
         this.attackCooldown = this.getStats().attackSpeed;
         Util.getInstance().attackSound.play();
+      }else{
+       // this.isAttacking = false;
       }
     }
 
@@ -66,7 +69,6 @@ namespace Game {
 
         switch (collisionObject.collisionType) {
           case CollisionType.ENEMY: {
-            fudge.Debug.log("hitted by enemy")
             if (collisionObject.object.constructor.name == "Blob" && !this.finish) {
               this.takeDmg(1);
             }

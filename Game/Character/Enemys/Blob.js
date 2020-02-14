@@ -25,7 +25,7 @@ var Game;
                 this.dropItem();
             }
             this.isDead = true;
-            this.showOneTime(Game.CHARACTERSTATE.DEATH);
+            this.newShowOneTime(Game.CHARACTERSTATE.DEATH);
             setTimeout(() => {
                 this.getParent().removeChild(this);
                 Game.Util.getInstance().level.deleteEnemy(this);
