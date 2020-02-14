@@ -370,7 +370,13 @@ namespace Game {
             this.isAttacking = false;
             this.isHitted = false;
             this.currentShowOnetimeCounter = 1;
-            this.idle()
+            if(this.isJumping)
+            {
+              this.show(CHARACTERSTATE.JUMP)
+            }else{
+              this.idle()
+            }
+            
 
         }
           
