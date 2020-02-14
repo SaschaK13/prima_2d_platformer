@@ -41,15 +41,15 @@ namespace Game {
       this.root.appendChild(background);
       this.levelObject.backgroundArray.push(background);
 
-      let playerValue = this.data["player"];
+      let playerValue: Player = this.data["player"];
       let player: Player = new Player(playerValue.name, playerValue.spriteName, playerValue.positionX, playerValue.positionY, playerValue.scaleX, playerValue.scaleY);
       this.levelObject.player = player;
-      player.isLoaded= true;
+      player.isLoaded = true;
       this.root.appendChild(player);
 
-      let finishValue = this.data["finish"];
+      let finishValue: Finish = this.data["finish"];
       let finish: Finish = new Finish(finishValue.name, finishValue.type, finishValue.spriteName);
-      finish.cmpTransform.local.translateX(10);
+      finish.cmpTransform.local.translateX(levelLength / 2);
       this.levelObject.finish = finish;
       this.root.appendChild(finish);
 
