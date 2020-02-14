@@ -115,6 +115,8 @@ namespace Game {
       fudge.Debug.info("NodeSprite constructor", this);
     }
 
+
+
     public showFrame(_index: number): void {
       let spriteFrame: SpriteFrame = this.sprite.frames[_index];
       this.cmpMesh.pivot = spriteFrame.pivot;

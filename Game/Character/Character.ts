@@ -71,7 +71,7 @@ namespace Game {
     positionY: number;
 
     public showOnetimeCounter: number;
-    public currentShowOnetimeCounter: number = 0;
+    public currentShowOnetimeCounter: number = 1;
     public isShowingOnetime: boolean = false;
     public showOnetimeNodeSprite: NodeSprite;
 
@@ -354,8 +354,6 @@ namespace Game {
       } else {
         fudge.Debug.log("broadcast next")
         this.broadcastEvent(new CustomEvent("showNext"));
-
-
         if(this.isShowingOnetime)
         {
           if(this.currentShowOnetimeCounter != this.showOnetimeCounter)
@@ -371,12 +369,13 @@ namespace Game {
             this.isShowingOnetime = false;
             this.isAttacking = false;
             this.isHitted = false;
-            this.currentShowOnetimeCounter = 0;
+            this.currentShowOnetimeCounter = 1;
             this.idle()
 
         }
-          this.currentSpriteCooldown = this.ANIMATION_COOLDOWN;
+          
       }
+      this.currentSpriteCooldown = this.ANIMATION_COOLDOWN;
     }
   }
 }

@@ -20,11 +20,6 @@ var Game;
     class Character extends fudge.Node {
         constructor(nodeName) {
             super(nodeName);
-            this.JUMP_HEIGHT = 6;
-            this.WALK_SPEED = 2;
-            this.DMG = 1;
-            this.HP = 5;
-            this.ATTACKSPEED = 50;
             this.dmgCooldown = 50;
             this.currentDmgCooldown = 0;
             this.attackCooldown = 0;
@@ -38,7 +33,7 @@ var Game;
             this.isDead = false;
             this.isAttacking = false;
             this.isIdling = false;
-            this.currentShowOnetimeCounter = 0;
+            this.currentShowOnetimeCounter = 1;
             this.isShowingOnetime = false;
             this.isLoaded = false;
             this.update = (_event) => {
@@ -278,11 +273,11 @@ var Game;
                         this.isShowingOnetime = false;
                         this.isAttacking = false;
                         this.isHitted = false;
-                        this.currentShowOnetimeCounter = 0;
+                        this.currentShowOnetimeCounter = 1;
                         this.idle();
                     }
-                    this.currentSpriteCooldown = this.ANIMATION_COOLDOWN;
                 }
+                this.currentSpriteCooldown = this.ANIMATION_COOLDOWN;
             }
         }
     }
