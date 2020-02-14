@@ -44,6 +44,7 @@ namespace Game {
       let playerValue = this.data["player"];
       let player: Player = new Player(playerValue.name, playerValue.spriteName, playerValue.positionX, playerValue.positionY, playerValue.scaleX, playerValue.scaleY);
       this.levelObject.player = player;
+      Util.getInstance().gui.updateStats(player);
       player.isLoaded= true;
       this.root.appendChild(player);
 

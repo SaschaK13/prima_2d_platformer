@@ -98,7 +98,7 @@ namespace Game {
       Util.getInstance().fetchAudios();
       loadSprites();
 
-      let gui: Gui = new Gui(2, 5, 1, 50);
+      let gui: Gui = new Gui();
       Util.getInstance().gui = gui;
 
       saveGameName = urlParams.get('saveGameName');
