@@ -15,7 +15,7 @@ var Game;
     }
     function start() {
         select.play();
-        window.open("game.html");
+        window.open("http://localhost:5000/Game/game", "_self", "fullscreen=yes", true);
     }
     function load() {
         let loadList = document.getElementById("loadList");
@@ -54,6 +54,8 @@ var Game;
     }
     function gotClicked() {
         let buttonName = this.name;
+        window.open("http://localhost:5000/Game/game?saveGameName=" + buttonName, "_self", "fullscreen=yes", true);
+        //window.location.href = "http://localhost:5000/Game/game?W=WW"
         //
     }
 })(Game || (Game = {}));

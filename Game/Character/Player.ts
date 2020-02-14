@@ -20,12 +20,22 @@ namespace Game {
     }
 
     takeDmg(dmgTaken: number): void {
-      fudge.Debug.log("Get dmg")
-      if (this.getStats().hp >= 0) {
+      if(this.currentDmgCooldown == 0)
+      {
+        Util.getInstance().hurtSound.play()
         Util.getInstance().gui.updateHealth();
+
       }
       super.takeDmg(dmgTaken);
 
+    }
+
+    jump()
+    {
+      if(!this.isJumping){
+        Util.getInstance().jumpSound.play()
+      }
+      super.jump()
     }
 
     attack(): void {

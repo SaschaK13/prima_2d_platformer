@@ -50,6 +50,7 @@ var Game;
                 Game.Util.getInstance().level.player.takeDmg(1);
                 this.attacksPlayer = true;
                 this.isAttacking = true;
+                fudge.Debug.log("attackign");
                 this.showOneTime(Game.CHARACTERSTATE.ATTACK);
                 this.attackCooldown = this.getStats().attackSpeed;
             }
