@@ -13,11 +13,17 @@ var Game;
             super.addSpriteListener();
         }
         takeDmg(dmgTaken) {
-            fudge.Debug.log("Get dmg");
-            if (this.getStats().hp >= 0) {
+            if (this.currentDmgCooldown == 0) {
+                Game.Util.getInstance().hurtSound.play();
                 Game.Util.getInstance().gui.updateHealth();
             }
             super.takeDmg(dmgTaken);
+        }
+        jump() {
+            if (!this.isJumping) {
+                Game.Util.getInstance().jumpSound.play();
+            }
+            super.jump();
         }
         attack() {
             if (this.attackCooldown == 0) {

@@ -4,6 +4,7 @@ namespace Game {
 
   window.addEventListener("load", test);
   let root: fudge.Node;
+  let saveGameName: string;
 
   interface KeyPressed {
     [code: string]: boolean;
@@ -16,6 +17,12 @@ namespace Game {
     fudge.RenderManager.initialize(true, false);
 
     root = new fudge.Node("Root");
+
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    
+    
    
 
     let cmpCamera: fudge.ComponentCamera = new fudge.ComponentCamera();
@@ -34,6 +41,8 @@ namespace Game {
 
 
     loadGame()
+
+  
 
     document.addEventListener("keydown", handleKeyboard);
     document.addEventListener("keyup", handleKeyboard);
@@ -92,8 +101,16 @@ namespace Game {
       let gui: Gui = new Gui(2, 5, 1, 50);
       Util.getInstance().gui = gui;
 
-      Util.getInstance().lvlGenerator = new LevelGenerator(Util.getInstance().collidableNode);
-      Util.getInstance().lvlGenerator.getDataFromFile("level1");
+      saveGameName = urlParams.get('saveGameName');
+      if(saveGameName)
+      {
+
+      }else{
+        Util.getInstance().lvlGenerator = new LevelGenerator(Util.getInstance().collidableNode);
+        Util.getInstance().lvlGenerator.getDataFromFile("level1");
+      }
+
+     
     }
 
     function updateGameObjects() {

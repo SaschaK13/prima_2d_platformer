@@ -4,11 +4,14 @@ var Game;
     var fudge = FudgeCore;
     window.addEventListener("load", test);
     let root;
+    let saveGameName;
     let keysPressed = {};
     function test() {
         let canvas = document.querySelector("canvas");
         fudge.RenderManager.initialize(true, false);
         root = new fudge.Node("Root");
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
         let cmpCamera = new fudge.ComponentCamera();
         cmpCamera.pivot.translateZ(15);
         cmpCamera.pivot.lookAt(fudge.Vector3.ZERO());
@@ -65,8 +68,13 @@ var Game;
             Game.loadSprites();
             let gui = new Game.Gui(2, 5, 1, 50);
             Game.Util.getInstance().gui = gui;
-            Game.Util.getInstance().lvlGenerator = new Game.LevelGenerator(Game.Util.getInstance().collidableNode);
-            Game.Util.getInstance().lvlGenerator.getDataFromFile("level1");
+            saveGameName = urlParams.get('saveGameName');
+            if (saveGameName) {
+            }
+            else {
+                Game.Util.getInstance().lvlGenerator = new Game.LevelGenerator(Game.Util.getInstance().collidableNode);
+                Game.Util.getInstance().lvlGenerator.getDataFromFile("level1");
+            }
         }
         function updateGameObjects() {
             //load platform 

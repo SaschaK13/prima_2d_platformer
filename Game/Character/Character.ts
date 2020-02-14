@@ -69,7 +69,7 @@ namespace Game {
     public hitbox: Hitbox;
 
     public isHitted: boolean = false;
-    private isJumping: boolean = false;
+    public isJumping: boolean = false;
     public isDead: boolean = false;
     public isAttacking = false;
 
@@ -312,7 +312,7 @@ namespace Game {
       this.WALK_SPEED += stats.walkSpeed;
       this.ATTACKSPEED += stats.attackSpeed;
 
-      gui.updateHealth(this);
+      gui.updateHealth();
       gui.updateDamage(stats.dmg);
       gui.updateJumpingPower(stats.jumpHeight);
       gui.updateWalkSpeed(stats.walkSpeed);
@@ -343,6 +343,7 @@ namespace Game {
       } else {
         this.broadcastEvent(new CustomEvent("showNext"));
         //fudge.Debug.log(this.attackAnimationCounter + " + " + this.attackSpriteLength);
+        fudge.Debug.log(this.showAttackAnimation)
         if (this.showAttackAnimation && this.attackAnimationCounter != this.attackSpriteLength) {
           this.broadcastEvent(new CustomEvent("showNextAttack"));
           this.attackAnimationCounter++;

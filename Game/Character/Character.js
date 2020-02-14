@@ -239,7 +239,7 @@ var Game;
             this.JUMP_HEIGHT += stats.jumpHeight;
             this.WALK_SPEED += stats.walkSpeed;
             this.ATTACKSPEED += stats.attackSpeed;
-            gui.updateHealth(this);
+            gui.updateHealth();
             gui.updateDamage(stats.dmg);
             gui.updateJumpingPower(stats.jumpHeight);
             gui.updateWalkSpeed(stats.walkSpeed);
@@ -252,6 +252,7 @@ var Game;
             else {
                 this.broadcastEvent(new CustomEvent("showNext"));
                 //fudge.Debug.log(this.attackAnimationCounter + " + " + this.attackSpriteLength);
+                fudge.Debug.log(this.showAttackAnimation);
                 if (this.showAttackAnimation && this.attackAnimationCounter != this.attackSpriteLength) {
                     this.broadcastEvent(new CustomEvent("showNextAttack"));
                     this.attackAnimationCounter++;
