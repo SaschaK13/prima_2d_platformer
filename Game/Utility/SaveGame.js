@@ -10,8 +10,6 @@ var Game;
             this.jumpHeight = jumpHeight;
             this.walkSpeed = walkSpeed;
         }
-        save() {
-        }
     }
     Game.Savegame = Savegame;
 })(Game || (Game = {}));

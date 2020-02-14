@@ -101,10 +101,10 @@ namespace Game {
       let gui: Gui = new Gui();
       Util.getInstance().gui = gui;
 
-      saveGameName = urlParams.get('saveGameName');
+      saveGameName = urlParams.get('saveGamejson');
       if(saveGameName)
       {
-
+        loadLevel(saveGameName);
       }else{
         Util.getInstance().lvlGenerator = new LevelGenerator(Util.getInstance().collidableNode);
         Util.getInstance().lvlGenerator.getDataFromFile("level1");
@@ -112,6 +112,16 @@ namespace Game {
 
      
     }
+
+    function loadLevel(saveGamejson: string)
+    {
+      let data: Savegame = JSON.parse(saveGamejson);
+      Util.getInstance().currentSavegame = data;
+      Util.getInstance().lvlGenerator = new LevelGenerator(Util.getInstance().collidableNode);
+      Util.getInstance().lvlGenerator.getDataFromFile(data.levelName);
+    }
+
+  
 
     function updateGameObjects() {
       //load platform 

@@ -64,7 +64,7 @@ var Game;
             this.gui.updateHealth();
         }
         createSavegame() {
-            return " {\"levelName\": \"" + this.level.levelName + "\", \"hp\": " + this.level.player.getStats().hp + " , \"dmg\": " + this.level.player.getStats().dmg + ", \"jumpHeight\": " + this.level.player.getStats().jumpHeight + ", \"walkSpeed\": " + this.level.player.getStats().walkSpeed + ", \"attackSpeed\":" + this.level.player.getStats().attackSpeed + " } ";
+            return " {\"levelName\": \"level" + (this.level.levelNumber + 1) + "\", \"hp\": " + this.level.player.getStats().hp + " , \"dmg\": " + this.level.player.getStats().dmg + ", \"jumpHeight\": " + this.level.player.getStats().jumpHeight + ", \"walkSpeed\": " + this.level.player.getStats().walkSpeed + ", \"attackSpeed\":" + this.level.player.getStats().attackSpeed + " } ";
         }
         deleteAllNodes() {
             let childs = this.collidableNode.getChildren();

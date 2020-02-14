@@ -15,11 +15,11 @@ var Game;
             this.generateLevel();
         }
         generateLevel() {
-            let levelName = this.data["levelName"];
-            this.levelObject.levelName = levelName;
+            let levelName = this.data["levelNumber"];
+            this.levelObject.levelNumber = levelName;
             let levelLength = this.data["levelLength"];
             let backgroundValue = this.data["background"];
-            let numberOfBackground = Math.round(levelLength / backgroundValue.length);
+            let numberOfBackground = Math.floor(levelLength / backgroundValue.length) + 2; //so the background will surely not end
             for (var i = 0; i < numberOfBackground; i++) {
                 let background = new Game.Background(backgroundValue.name, backgroundValue.type, backgroundValue.spriteName, backgroundValue.length);
                 background.cmpTransform.local.translation = new fudge.Vector3(i * this.backgroundLength, 0, -1);
@@ -36,9 +36,13 @@ var Game;
             this.levelObject.player = player;
             player.isLoaded = true;
             this.root.appendChild(player);
+            if (Game.Util.getInstance().currentSavegame) {
+                let savegame = Game.Util.getInstance().currentSavegame;
+                player.setStats({ hp: savegame.hp, dmg: savegame.dmg, jumpHeight: savegame.jumpHeight, attackSpeed: savegame.attackSpeed, walkSpeed: savegame.walkSpeed });
+            }
             let finishValue = this.data["finish"];
             let finish = new Game.Finish(finishValue.name, finishValue.type, finishValue.spriteName);
-            finish.cmpTransform.local.translateX(10);
+            finish.cmpTransform.local.translateX(levelLength);
             this.levelObject.finish = finish;
             this.root.appendChild(finish);
             let platformArray = this.data["platformArray"];

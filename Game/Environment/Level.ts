@@ -2,7 +2,7 @@ namespace Game {
   import fudge = FudgeCore;
   
   export class Level { 
-    public levelName: string;
+    public levelNumber: number;
     public player: Player;
     public platformArray: Platform[] = [];
     public background: Background;

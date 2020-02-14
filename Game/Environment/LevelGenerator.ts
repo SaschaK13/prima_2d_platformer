@@ -23,11 +23,11 @@ namespace Game {
     }
 
     public generateLevel(): void {
-      let levelName: string = this.data["levelName"]; 
-      this.levelObject.levelName = levelName;
+      let levelName: number = this.data["levelNumber"]; 
+      this.levelObject.levelNumber = levelName;
       let levelLength: number = this.data["levelLength"];
       let backgroundValue: Background = this.data["background"];
-      let numberOfBackground: number = Math.round(levelLength / backgroundValue.length);
+      let numberOfBackground: number = Math.floor(levelLength / backgroundValue.length) + 2; //so the background will surely not end
 
       for (var i: number = 0; i < numberOfBackground; i++) {
         let background: Background = new Background(backgroundValue.name, backgroundValue.type, backgroundValue.spriteName, backgroundValue.length);
@@ -41,16 +41,21 @@ namespace Game {
       this.root.appendChild(background);
       this.levelObject.backgroundArray.push(background);
 
-      let playerValue = this.data["player"];
+      let playerValue: Player = this.data["player"];
       let player: Player = new Player(playerValue.name, playerValue.spriteName, playerValue.positionX, playerValue.positionY, playerValue.scaleX, playerValue.scaleY);
       this.levelObject.player = player;
       Util.getInstance().gui.updateStats(player);
-      player.isLoaded= true;
+      player.isLoaded = true;
       this.root.appendChild(player);
+      if(Util.getInstance().currentSavegame)
+      {
+        let savegame = Util.getInstance().currentSavegame;
+        player.setStats({hp: savegame.hp, dmg: savegame.dmg, jumpHeight:savegame.jumpHeight, attackSpeed: savegame.attackSpeed, walkSpeed: savegame.walkSpeed })        
+      }
 
-      let finishValue = this.data["finish"];
+      let finishValue: Finish = this.data["finish"];
       let finish: Finish = new Finish(finishValue.name, finishValue.type, finishValue.spriteName);
-      finish.cmpTransform.local.translateX(10);
+      finish.cmpTransform.local.translateX(levelLength);
       this.levelObject.finish = finish;
       this.root.appendChild(finish);
 

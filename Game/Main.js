@@ -68,13 +68,20 @@ var Game;
             Game.loadSprites();
             let gui = new Game.Gui(2, 5, 1, 50);
             Game.Util.getInstance().gui = gui;
-            saveGameName = urlParams.get('saveGameName');
+            saveGameName = urlParams.get('saveGamejson');
             if (saveGameName) {
+                loadLevel(saveGameName);
             }
             else {
                 Game.Util.getInstance().lvlGenerator = new Game.LevelGenerator(Game.Util.getInstance().collidableNode);
                 Game.Util.getInstance().lvlGenerator.getDataFromFile("level1");
             }
+        }
+        function loadLevel(saveGamejson) {
+            let data = JSON.parse(saveGamejson);
+            Game.Util.getInstance().currentSavegame = data;
+            Game.Util.getInstance().lvlGenerator = new Game.LevelGenerator(Game.Util.getInstance().collidableNode);
+            Game.Util.getInstance().lvlGenerator.getDataFromFile(data.levelName);
         }
         function updateGameObjects() {
             //load platform 
