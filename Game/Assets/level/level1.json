@@ -31,7 +31,10 @@
   "finish": {"name": "finish", "spriteName": "finish", "type": "Platform"},
 
   "enemyArray": [
-    {"name": "Enemy1", "spriteName": "blob",  "positionX": -3.5, "positionY": 2, "scaleX": 1, "scaleY": 1}
+    {"name": "Enemy1", "spriteName": "blob",  "positionX": -3.5, "positionY": 2, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy1", "spriteName": "blob",  "positionX": 8, "positionY": -2, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy1", "spriteName": "blob",  "positionX": 21, "positionY": 2.5, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy1", "spriteName": "blob",  "positionX": 41, "positionY": -1.5, "scaleX": 2, "scaleY": 1}
   ],
 
   "itemArray": [

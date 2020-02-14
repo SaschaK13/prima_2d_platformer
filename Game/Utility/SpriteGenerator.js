@@ -112,6 +112,7 @@ var Game;
         "finish",
         "background",
         "backgroundcastle",
+        "backgroundcity",
         "healpotion",
         "sword",
         "boots"
@@ -269,6 +270,15 @@ var Game;
                 }
             }
             case "backgroundcastle": {
+                switch (stateName) {
+                    case Game.CHARACTERSTATE.DEFAULT: {
+                        let sprite = new Sprite(spriteName + "_" + stateName);
+                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(0, 0, 240, 160), 1, new fudge.Vector2(0, 0), 16, fudge.ORIGIN2D.CENTER);
+                        return sprite;
+                    }
+                }
+            }
+            case "backgroundcity": {
                 switch (stateName) {
                     case Game.CHARACTERSTATE.DEFAULT: {
                         let sprite = new Sprite(spriteName + "_" + stateName);
