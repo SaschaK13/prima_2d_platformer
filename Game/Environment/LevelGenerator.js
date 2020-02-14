@@ -15,8 +15,8 @@ var Game;
             this.generateLevel();
         }
         generateLevel() {
-            let levelName = this.data["levelName"];
-            this.levelObject.levelName = levelName;
+            let levelName = this.data["levelNumber"];
+            this.levelObject.levelNumber = levelName;
             let levelLength = this.data["levelLength"];
             let backgroundValue = this.data["background"];
             let numberOfBackground = Math.round(levelLength / backgroundValue.length);

@@ -23,8 +23,8 @@ namespace Game {
     }
 
     public generateLevel(): void {
-      let levelName: string = this.data["levelName"]; 
-      this.levelObject.levelName = levelName;
+      let levelName: number = this.data["levelNumber"]; 
+      this.levelObject.levelNumber = levelName;
       let levelLength: number = this.data["levelLength"];
       let backgroundValue: Background = this.data["background"];
       let numberOfBackground: number = Math.round(levelLength / backgroundValue.length);

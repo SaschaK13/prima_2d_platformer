@@ -1,5 +1,5 @@
 {
-  "levelName": "level2",
+  "levelNumber": 2,
   "levelLength": 100,
 
   "player": {"name": "player", "spriteName": "player", "positionX": 3, "positionY": 2, "scaleX": 1, "scaleY": 1},

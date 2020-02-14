@@ -80,7 +80,6 @@ var Game;
         function loadLevel(saveGamejson) {
             let data = JSON.parse(saveGamejson);
             Game.Util.getInstance().lvlGenerator = new Game.LevelGenerator(Game.Util.getInstance().collidableNode);
-            fudge.Debug.log(data.levelName);
             Game.Util.getInstance().lvlGenerator.getDataFromFile(data.levelName);
         }
         function updateGameObjects() {
