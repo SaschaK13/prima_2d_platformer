@@ -4,41 +4,29 @@ namespace Game {
 
   export class Gui {
 
-    initialHealth: number = 10;
-    initialWalkSpeed: number;
-    initialJumpingPower: number;
-    initialDamage: number;
-    initialAttackSpeed: number;
+    initialHealth: number = 0;
+    initialWalkSpeed: number = 0;
+    initialJumpingPower: number = 0;
+    initialDamage: number = 0;
+    initialAttackSpeed: number = 0;
 
-    constructor(initialWalkSpeed: number, initialJumpingPower: number, initialDamage: number, initialAttackSpeed: number) {
-      this.initialWalkSpeed = initialWalkSpeed;
-      this.initialJumpingPower = initialJumpingPower;
-      this.initialDamage = initialDamage;
-      this.initialAttackSpeed = initialAttackSpeed;
-    }
+    constructor() {}
 
-    public updateHealth(): void {
-      this.initialHealth = Util.getInstance().level.player.getStats().hp
+    public updateStats(player: Player): void {
+
+      this.initialHealth = player.getStats().hp;
       document.getElementById("health").setAttribute("src", "../Game/Assets/health/heart" + this.initialHealth + ".png");
-    }
-    
-    public updateWalkSpeed(speedFactor: number): void {
-      this.initialWalkSpeed = this.initialWalkSpeed + speedFactor;
+
+      this.initialWalkSpeed += player.getStats().walkSpeed;
       document.getElementById("speed").innerHTML = this.initialWalkSpeed.toString();
-    }
 
-    public updateJumpingPower(jumpingFactor: number): void {
-      this.initialJumpingPower = this.initialJumpingPower + jumpingFactor;
+      this.initialJumpingPower += player.getStats().jumpHeight;
       document.getElementById("jumping").innerHTML = this.initialJumpingPower.toString();
-    }
 
-    public updateDamage(damageFactor: number): void {
-      this.initialDamage = this.initialDamage + damageFactor;
+      this.initialDamage += player.getStats().dmg;
       document.getElementById("damage").innerHTML = this.initialDamage.toString();
-    }
 
-    public updatAttackSpeed(attackSpeedFactor: number): void {
-      this.initialAttackSpeed = this.initialAttackSpeed + attackSpeedFactor;
+      this.initialAttackSpeed += player.getStats().attackSpeed;
       document.getElementById("attackSpeed").innerHTML = this.initialAttackSpeed.toString();
     }
   }

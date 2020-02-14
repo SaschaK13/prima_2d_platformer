@@ -8,6 +8,7 @@ namespace Game {
     scaleX: number;
     scaleY: number;
     finish: boolean = false;
+    playerStats: CharacterStats;
 
     constructor(name: string, spriteName: string, positionX: number, positionY: number, scaleX: number, scaleY: number) {
       super(name);
@@ -17,13 +18,16 @@ namespace Game {
       this.cmpTransform.local.translation = new fudge.Vector3(positionX, positionY, 0);
       this.cmpTransform.local.scaling = new fudge.Vector3(scaleX, scaleY, 0);
       super.addSpriteListener();
+
+      this.playerStats = {hp: 10, walkSpeed: 2, jumpHeight: 6, dmg: 1, attackSpeed: 50};
+      this.setStats(this.playerStats);
     }
 
     takeDmg(dmgTaken: number): void {
       if(this.currentDmgCooldown == 0)
       {
         Util.getInstance().hurtSound.play()
-        Util.getInstance().gui.updateHealth();
+        Util.getInstance().gui.updateStats(this);
 
       }
       super.takeDmg(dmgTaken);

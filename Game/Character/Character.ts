@@ -32,11 +32,11 @@ namespace Game {
 
   export class Character extends fudge.Node {
 
-    private JUMP_HEIGHT: number = 6;
-    private WALK_SPEED: number = 2;
-    private DMG: number = 1;
-    private HP: number = 5;
-    private ATTACKSPEED: number = 50;
+    private JUMP_HEIGHT: number;
+    private WALK_SPEED: number;
+    private DMG: number;
+    private HP: number;
+    private ATTACKSPEED: number;
 
 
     private dmgCooldown: number = 50;

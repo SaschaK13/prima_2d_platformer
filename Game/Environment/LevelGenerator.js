@@ -19,7 +19,7 @@ var Game;
             this.levelObject.levelNumber = levelName;
             let levelLength = this.data["levelLength"];
             let backgroundValue = this.data["background"];
-            let numberOfBackground = Math.round(levelLength / backgroundValue.length);
+            let numberOfBackground = Math.floor(levelLength / backgroundValue.length) + 2; //so the background will surely not end
             for (var i = 0; i < numberOfBackground; i++) {
                 let background = new Game.Background(backgroundValue.name, backgroundValue.type, backgroundValue.spriteName, backgroundValue.length);
                 background.cmpTransform.local.translation = new fudge.Vector3(i * this.backgroundLength, 0, -1);
@@ -42,7 +42,7 @@ var Game;
             }
             let finishValue = this.data["finish"];
             let finish = new Game.Finish(finishValue.name, finishValue.type, finishValue.spriteName);
-            finish.cmpTransform.local.translateX(levelLength / 2);
+            finish.cmpTransform.local.translateX(levelLength);
             this.levelObject.finish = finish;
             this.root.appendChild(finish);
             let platformArray = this.data["platformArray"];
