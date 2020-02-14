@@ -2,31 +2,23 @@
 var Game;
 (function (Game) {
     class Gui {
-        constructor(initialWalkSpeed, initialJumpingPower, initialDamage, initialAttackSpeed) {
-            this.initialHealth = 10;
-            this.initialWalkSpeed = initialWalkSpeed;
-            this.initialJumpingPower = initialJumpingPower;
-            this.initialDamage = initialDamage;
-            this.initialAttackSpeed = initialAttackSpeed;
+        constructor() {
+            this.initialHealth = 0;
+            this.initialWalkSpeed = 0;
+            this.initialJumpingPower = 0;
+            this.initialDamage = 0;
+            this.initialAttackSpeed = 0;
         }
-        updateHealth() {
-            this.initialHealth = Game.Util.getInstance().level.player.getStats().hp;
+        updateStats(player) {
+            this.initialHealth = player.getStats().hp;
             document.getElementById("health").setAttribute("src", "../Game/Assets/health/heart" + this.initialHealth + ".png");
-        }
-        updateWalkSpeed(speedFactor) {
-            this.initialWalkSpeed = this.initialWalkSpeed + speedFactor;
+            this.initialWalkSpeed += player.getStats().walkSpeed;
             document.getElementById("speed").innerHTML = this.initialWalkSpeed.toString();
-        }
-        updateJumpingPower(jumpingFactor) {
-            this.initialJumpingPower = this.initialJumpingPower + jumpingFactor;
+            this.initialJumpingPower += player.getStats().jumpHeight;
             document.getElementById("jumping").innerHTML = this.initialJumpingPower.toString();
-        }
-        updateDamage(damageFactor) {
-            this.initialDamage = this.initialDamage + damageFactor;
+            this.initialDamage += player.getStats().dmg;
             document.getElementById("damage").innerHTML = this.initialDamage.toString();
-        }
-        updatAttackSpeed(attackSpeedFactor) {
-            this.initialAttackSpeed = this.initialAttackSpeed + attackSpeedFactor;
+            this.initialAttackSpeed += player.getStats().attackSpeed;
             document.getElementById("attackSpeed").innerHTML = this.initialAttackSpeed.toString();
         }
     }

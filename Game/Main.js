@@ -66,7 +66,7 @@ var Game;
             root.appendChild(Game.Util.getInstance().collidableNode);
             Game.Util.getInstance().fetchAudios();
             Game.loadSprites();
-            let gui = new Game.Gui(2, 5, 1, 50);
+            let gui = new Game.Gui();
             Game.Util.getInstance().gui = gui;
             saveGameName = urlParams.get('saveGamejson');
             if (saveGameName) {
