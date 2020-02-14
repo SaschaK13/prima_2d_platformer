@@ -27,7 +27,7 @@ namespace Game {
       this.levelObject.levelNumber = levelName;
       let levelLength: number = this.data["levelLength"];
       let backgroundValue: Background = this.data["background"];
-      let numberOfBackground: number = Math.round(levelLength / backgroundValue.length);
+      let numberOfBackground: number = Math.floor(levelLength / backgroundValue.length) + 2; //so the background will surely not end
 
       for (var i: number = 0; i < numberOfBackground; i++) {
         let background: Background = new Background(backgroundValue.name, backgroundValue.type, backgroundValue.spriteName, backgroundValue.length);
@@ -54,7 +54,7 @@ namespace Game {
 
       let finishValue: Finish = this.data["finish"];
       let finish: Finish = new Finish(finishValue.name, finishValue.type, finishValue.spriteName);
-      finish.cmpTransform.local.translateX(levelLength / 2);
+      finish.cmpTransform.local.translateX(levelLength);
       this.levelObject.finish = finish;
       this.root.appendChild(finish);
 

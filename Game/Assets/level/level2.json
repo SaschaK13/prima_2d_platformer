@@ -1,15 +1,26 @@
 {
   "levelNumber": 2,
-  "levelLength": 100,
+  "levelLength": 50,
 
-  "player": {"name": "player", "spriteName": "player", "positionX": 3, "positionY": 2, "scaleX": 1, "scaleY": 1},
+  "player": {"name": "player", "spriteName": "player", "positionX": 0, "positionY": 0, "scaleX": 1, "scaleY": 1},
 
   "platformArray": [
-    {"name": "Platform1", "spriteName": "stone", "type": "Platform", "positionX": -5, "positionY": -3, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform1", "spriteName": "stone", "type": "Platform", "positionX": -5, "positionY": -2.5, "scaleX": 2, "scaleY": 0.7},
     {"name": "Platform3", "spriteName": "stone", "type": "Platform", "positionX": 1, "positionY": -1.5, "scaleX": 2, "scaleY": 0.7},
     {"name": "Platform4", "spriteName": "stone", "type": "Platform", "positionX": 5, "positionY": 0, "scaleX": 2, "scaleY": 0.7},
     {"name": "Platform5", "spriteName": "stone", "type": "Platform", "positionX": -3.5, "positionY": 0, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform5", "spriteName": "stone", "type": "Platform", "positionX": 7, "positionY": 0, "scaleX": 10, "scaleY": 0.7}
+    {"name": "Platform6", "spriteName": "stone", "type": "Platform", "positionX": 7, "positionY": -2.5, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform7", "spriteName": "stone", "type": "Platform", "positionX": 9, "positionY": -2.5, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform8", "spriteName": "stone", "type": "Platform", "positionX": 14.5, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform9", "spriteName": "stone", "type": "Platform", "positionX": 18, "positionY": 0.2, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform9", "spriteName": "stone", "type": "Platform", "positionX": 22.4, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform9", "spriteName": "stone", "type": "Platform", "positionX": 26.9, "positionY": 0, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform9", "spriteName": "stone", "type": "Platform", "positionX": 31.5, "positionY": 1, "scaleX": 1, "scaleY": 0.7},
+    {"name": "Platform9", "spriteName": "stone", "type": "Platform", "positionX": 36.5, "positionY": -2, "scaleX": 1, "scaleY": 0.7},
+    {"name": "Platform9", "spriteName": "stone", "type": "Platform", "positionX": 40, "positionY": -1.5, "scaleX": 0.7, "scaleY": 0.7},
+    {"name": "Platform9", "spriteName": "stone", "type": "Platform", "positionX": 43, "positionY": -0.5, "scaleX": 0.5, "scaleY": 0.7},
+    {"name": "Platform9", "spriteName": "stone", "type": "Platform", "positionX": 46, "positionY": 1, "scaleX": 0.4, "scaleY": 0.7},
+    {"name": "Platform9", "spriteName": "stone", "type": "Platform", "positionX": 50, "positionY": -1, "scaleX": 1.5, "scaleY": 0.7}
   ],
 
   "background": {"name": "backgroundcastle", "spriteName": "backgroundcastle", "type": "Background", "length": 15},
@@ -17,8 +28,7 @@
   "finish": {"name": "finish", "spriteName": "finish", "type": "Platform"},
 
   "enemyArray": [
-    {"name": "Enemy1", "spriteName": "goblin",  "positionX":2, "positionY": 1, "scaleX": 1, "scaleY": 1},
-    {"name": "Enemy2", "spriteName": "blob",  "positionX":5, "positionY": 1, "scaleX": 1, "scaleY": 1}
+    
   ],
 
   "itemArray": [
