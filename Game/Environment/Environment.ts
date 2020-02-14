@@ -31,7 +31,7 @@ namespace Game {
       for (let key of Util.getInstance().spritesMap.get(this.spriteName).keys()) {
         let sprite: Sprite = Util.getInstance().spritesMap.get(this.spriteName).get(key);
         let nodeSprite: NodeSprite = new NodeSprite(sprite.name, sprite);
-        
+
         nodeSprite.activate(true);        
   
         nodeSprite.addEventListener(

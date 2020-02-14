@@ -11,7 +11,7 @@ namespace Game {
     public itemArray: Item[] = [];
     public possibleItemsArray: Item[] = [];
     private levelLength: number;
-    public finsih: Finish;
+    public finish: Finish;
 
     private root: fudge.Node;
 
@@ -74,7 +74,7 @@ namespace Game {
       }
 
       collidableNodes.push(this.player)
-      collidableNodes.push(this.finsih)
+      collidableNodes.push(this.finish)
 
       return collidableNodes
     }

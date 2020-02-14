@@ -49,7 +49,7 @@ var Game;
                 collidableNodes.push(this.itemArray[i]);
             }
             collidableNodes.push(this.player);
-            collidableNodes.push(this.finsih);
+            collidableNodes.push(this.finish);
             return collidableNodes;
         }
     }

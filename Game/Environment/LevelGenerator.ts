@@ -47,9 +47,10 @@ namespace Game {
       player.isLoaded= true;
       this.root.appendChild(player);
 
-      let finish: Finish = new Finish("Finish");
+      let finishValue = this.data["finish"];
+      let finish: Finish = new Finish(finishValue.name, finishValue.type, finishValue.spriteName);
       finish.cmpTransform.local.translateX(10);
-      this.levelObject.finsih = finish;
+      this.levelObject.finish = finish;
       this.root.appendChild(finish);
 
       let platformArray = this.data["platformArray"];

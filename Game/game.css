@@ -22,6 +22,7 @@ html {
 }
 
 #time {
+  color: white;
   position: absolute;
   top: var(--borderTop);
   z-index: 10;
@@ -31,6 +32,7 @@ html {
 }
 
 #speed {
+  color: white;
   position: absolute;
   top: 10%;
   z-index: 10;
@@ -50,6 +52,7 @@ html {
 }
 
 #jumping {
+  color: white;
   position: absolute;
   top: 15%;
   z-index: 10;
@@ -69,6 +72,7 @@ html {
 }
 
 #damage {
+  color: white;
   position: absolute;
   top: 20%;
   z-index: 10;
@@ -88,6 +92,7 @@ html {
 }
 
 #attackSpeed {
+  color: white;
   position: absolute;
   top: 25%;
   z-index: 10;

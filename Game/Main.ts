@@ -93,7 +93,7 @@ namespace Game {
       Util.getInstance().gui = gui;
 
       Util.getInstance().lvlGenerator = new LevelGenerator(Util.getInstance().collidableNode);
-      Util.getInstance().lvlGenerator.getDataFromFile("test");
+      Util.getInstance().lvlGenerator.getDataFromFile("level1");
     }
 
     function updateGameObjects() {

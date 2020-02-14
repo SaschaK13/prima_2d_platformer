@@ -36,9 +36,10 @@ var Game;
             this.levelObject.player = player;
             player.isLoaded = true;
             this.root.appendChild(player);
-            let finish = new Game.Finish("Finish");
+            let finishValue = this.data["finish"];
+            let finish = new Game.Finish(finishValue.name, finishValue.type, finishValue.spriteName);
             finish.cmpTransform.local.translateX(10);
-            this.levelObject.finsih = finish;
+            this.levelObject.finish = finish;
             this.root.appendChild(finish);
             let platformArray = this.data["platformArray"];
             for (var i = 0; i < platformArray.length; i++) {
