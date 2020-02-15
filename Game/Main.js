@@ -12,6 +12,7 @@ var Game;
         root = new fudge.Node("Root");
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
+        //camera
         let cmpCamera = new fudge.ComponentCamera();
         cmpCamera.pivot.translateZ(15);
         cmpCamera.pivot.lookAt(fudge.Vector3.ZERO());
@@ -140,8 +141,6 @@ var Game;
             let camPosition = cameraOrbit.cmpTransform.local.translation;
             let leftBorder = camPosition.x - (camSize.x / 2);
             let rightBorder = camPosition.x + (camSize.x / 2);
-            let bottom = camPosition.y - (camSize.y / 2);
-            let top = camPosition.y + (camSize.y / 2);
             let nodePosition = background.cmpTransform.local.translation;
             let nodeLeftBorder = nodePosition.x - (background.length / 2);
             let nodeRightBorder = nodePosition.x + (background.length / 2);

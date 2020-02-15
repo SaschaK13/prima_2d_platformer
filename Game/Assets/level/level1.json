@@ -6,24 +6,28 @@
 
   "platformArray": [
     {"name": "Platform1", "spriteName": "dirt", "type": "Platform", "positionX": -5, "positionY": -2.5, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform3", "spriteName": "dirt", "type": "Platform", "positionX": 1, "positionY": -1.5, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform4", "spriteName": "dirt", "type": "Platform", "positionX": 5, "positionY": 0, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform5", "spriteName": "dirt", "type": "Platform", "positionX": -3.5, "positionY": 0, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform6", "spriteName": "dirt", "type": "Platform", "positionX": 7, "positionY": -2.5, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform7", "spriteName": "dirt", "type": "Platform", "positionX": 9, "positionY": -2.5, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform8", "spriteName": "dirt", "type": "Platform", "positionX": 14, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform9", "spriteName": "dirt", "type": "Platform", "positionX": 16, "positionY": 0, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform9", "spriteName": "dirt", "type": "Platform", "positionX": 20, "positionY": 2, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform9", "spriteName": "dirt", "type": "Platform", "positionX": 22, "positionY": 2, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform9", "spriteName": "dirt", "type": "Platform", "positionX": 26, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform9", "spriteName": "dirt", "type": "Platform", "positionX": 28, "positionY": -0.5, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform9", "spriteName": "dirt", "type": "Platform", "positionX": 31, "positionY": 1, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform9", "spriteName": "dirt", "type": "Platform", "positionX": 35, "positionY": 0.5, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform9", "spriteName": "dirt", "type": "Platform", "positionX": 39, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform9", "spriteName": "dirt", "type": "Platform", "positionX": 41, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform9", "spriteName": "dirt", "type": "Platform", "positionX": 43, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform9", "spriteName": "dirt", "type": "Platform", "positionX": 48, "positionY": -1, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform9", "spriteName": "dirt", "type": "Platform", "positionX": 50, "positionY": -1, "scaleX": 2, "scaleY": 0.7}
+    {"name": "Platform2", "spriteName": "dirt", "type": "Platform", "positionX": -7, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform3", "spriteName": "dirt", "type": "Platform", "positionX": -1.5, "positionY": -2.5, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform4", "spriteName": "dirt", "type": "Platform", "positionX": 1, "positionY": -1.5, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform5", "spriteName": "dirt", "type": "Platform", "positionX": 5, "positionY": 0, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform6", "spriteName": "dirt", "type": "Platform", "positionX": -3.5, "positionY": 0, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform7", "spriteName": "dirt", "type": "Platform", "positionX": 9.5, "positionY": 1, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform8", "spriteName": "dirt", "type": "Platform", "positionX": 7, "positionY": -2.5, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform9", "spriteName": "dirt", "type": "Platform", "positionX": 9, "positionY": -2.5, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform10", "spriteName": "dirt", "type": "Platform", "positionX": 14, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform11", "spriteName": "dirt", "type": "Platform", "positionX": 16, "positionY": 0, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform12", "spriteName": "dirt", "type": "Platform", "positionX": 20, "positionY": 1.5, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform14", "spriteName": "dirt", "type": "Platform", "positionX": 24, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform15", "spriteName": "dirt", "type": "Platform", "positionX": 26, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform16", "spriteName": "dirt", "type": "Platform", "positionX": 29, "positionY": -0.5, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform17", "spriteName": "dirt", "type": "Platform", "positionX": 32, "positionY": 1, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform18", "spriteName": "dirt", "type": "Platform", "positionX": 35, "positionY": 0.5, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform19", "spriteName": "dirt", "type": "Platform", "positionX": 37, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform20", "spriteName": "dirt", "type": "Platform", "positionX": 39, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform21", "spriteName": "dirt", "type": "Platform", "positionX": 41, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform22", "spriteName": "dirt", "type": "Platform", "positionX": 43, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform23", "spriteName": "dirt", "type": "Platform", "positionX": 48, "positionY": -1, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform24", "spriteName": "dirt", "type": "Platform", "positionX": 50, "positionY": -1, "scaleX": 2, "scaleY": 0.7}
   ],
 
   "background": {"name": "background", "spriteName": "background", "type": "Background", "length": 15},
@@ -31,10 +35,17 @@
   "finish": {"name": "finish", "spriteName": "finish", "type": "Platform"},
 
   "enemyArray": [
-    {"name": "Enemy1", "spriteName": "blob",  "positionX": -3.5, "positionY": 2, "scaleX": 1, "scaleY": 1},
-    {"name": "Enemy1", "spriteName": "blob",  "positionX": 8, "positionY": -2, "scaleX": 1, "scaleY": 1},
-    {"name": "Enemy1", "spriteName": "blob",  "positionX": 21, "positionY": 2.5, "scaleX": 1, "scaleY": 1},
-    {"name": "Enemy1", "spriteName": "blob",  "positionX": 41, "positionY": -1.5, "scaleX": 2, "scaleY": 1}
+    {"name": "Enemy1", "spriteName": "blob",  "positionX": -3.5, "positionY": 0.5, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy2", "spriteName": "blob",  "positionX": 5, "positionY": 0.5, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy3", "spriteName": "blob",  "positionX": 8, "positionY": -2, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy4", "spriteName": "blob",  "positionX": 20, "positionY": 2.5, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy5", "spriteName": "blob",  "positionX": 21, "positionY": 2.5, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy6", "spriteName": "blob",  "positionX": 29, "positionY": 0, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy7", "spriteName": "blob",  "positionX": 40, "positionY": -1.5, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy8", "spriteName": "blob",  "positionX": 41, "positionY": -1.5, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy9", "spriteName": "blob",  "positionX": 42, "positionY": -1.5, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy10", "spriteName": "goblin",  "positionX": 43, "positionY": -1.5, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy11", "spriteName": "blob",  "positionX": 60, "positionY": 0, "scaleX": 1, "scaleY": 1}
   ],
 
   "itemArray": [
