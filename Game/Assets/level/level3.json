@@ -1,28 +1,33 @@
 {
   "levelNumber": 3,
-  "levelLength": 50,
+  "levelLength": 63,
   "theme": "level3",
 
 
-  "player": {"name": "player", "spriteName": "player", "positionX": 0, "positionY": 0, "scaleX": 1, "scaleY": 1},
+  "player": {"name": "player", "spriteName": "player", "positionX": 0.5, "positionY": 1, "scaleX": 1, "scaleY": 1},
 
   "platformArray": [
     {"name": "Platform1", "spriteName": "stone", "type": "Platform", "positionX": -5, "positionY": 0, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform1", "spriteName": "stone", "type": "Platform", "positionX": -3.5, "positionY": 0, "scaleX": 2, "scaleY": 0.7},
     {"name": "Platform2", "spriteName": "stone", "type": "Platform", "positionX": 1, "positionY": -1.5, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform3", "spriteName": "stone", "type": "Platform", "positionX": 5, "positionY": 0, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform4", "spriteName": "stone", "type": "Platform", "positionX": -3.5, "positionY": 0, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform5", "spriteName": "stone", "type": "Platform", "positionX": 7, "positionY": -2.5, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform6", "spriteName": "stone", "type": "Platform", "positionX": 9, "positionY": -2.5, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform7", "spriteName": "stone", "type": "Platform", "positionX": 14.5, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform8", "spriteName": "stone", "type": "Platform", "positionX": 18.8, "positionY": 0, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform9", "spriteName": "stone", "type": "Platform", "positionX": 22.4, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform10", "spriteName": "stone", "type": "Platform", "positionX": 26.9, "positionY": 0, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform11", "spriteName": "stone", "type": "Platform", "positionX": 31.5, "positionY": 1, "scaleX": 1, "scaleY": 0.7},
-    {"name": "Platform12", "spriteName": "stone", "type": "Platform", "positionX": 36.5, "positionY": -2, "scaleX": 1, "scaleY": 0.7},
-    {"name": "Platform13", "spriteName": "stone", "type": "Platform", "positionX": 40, "positionY": -1.5, "scaleX": 0.7, "scaleY": 0.7},
-    {"name": "Platform14", "spriteName": "stone", "type": "Platform", "positionX": 43, "positionY": -0.5, "scaleX": 0.5, "scaleY": 0.7},
-    {"name": "Platform15", "spriteName": "stone", "type": "Platform", "positionX": 46, "positionY": 1, "scaleX": 0.4, "scaleY": 0.7},
-    {"name": "Platform16", "spriteName": "stone", "type": "Platform", "positionX": 50, "positionY": -1, "scaleX": 1.5, "scaleY": 0.7}
+    {"name": "Platform3", "spriteName": "stone", "type": "Platform", "positionX": 5, "positionY": 0, "scaleX": 2, "scaleY": 0.7}, 
+    {"name": "Platform4", "spriteName": "stone", "type": "Platform", "positionX": 7, "positionY": -2.5, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform4", "spriteName": "stone", "type": "Platform", "positionX": 9, "positionY": -2.5, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform5", "spriteName": "stone", "type": "Platform", "positionX": 14.5, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform6", "spriteName": "stone", "type": "Platform", "positionX": 18.8, "positionY": 0, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform7", "spriteName": "stone", "type": "Platform", "positionX": 22.4, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform8", "spriteName": "stone", "type": "Platform", "positionX": 26.9, "positionY": 0, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform9", "spriteName": "stone", "type": "Platform", "positionX": 31.5, "positionY": 1, "scaleX": 1, "scaleY": 0.7},
+    {"name": "Platform10", "spriteName": "stone", "type": "Platform", "positionX": 36.5, "positionY": -2, "scaleX": 1, "scaleY": 0.7},
+    {"name": "Platform11", "spriteName": "stone", "type": "Platform", "positionX": 40, "positionY": -1.5, "scaleX": 0.7, "scaleY": 0.7},
+    {"name": "Platform12", "spriteName": "stone", "type": "Platform", "positionX": 43, "positionY": -0.5, "scaleX": 0.5, "scaleY": 0.7},
+    {"name": "Platform13", "spriteName": "stone", "type": "Platform", "positionX": 46, "positionY": 1, "scaleX": 0.4, "scaleY": 0.7},
+    {"name": "Platform14", "spriteName": "stone", "type": "Platform", "positionX": 50, "positionY": -1, "scaleX": 0.2, "scaleY": 0.7},
+    {"name": "Platform15", "spriteName": "stone", "type": "Platform", "positionX": 52, "positionY": -0.5, "scaleX": 0.2, "scaleY": 0.7},
+    {"name": "Platform16", "spriteName": "stone", "type": "Platform", "positionX": 55, "positionY": 0, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform16", "spriteName": "stone", "type": "Platform", "positionX": 57, "positionY": 0, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform16", "spriteName": "stone", "type": "Platform", "positionX": 59, "positionY": 0, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform16", "spriteName": "stone", "type": "Platform", "positionX": 63, "positionY": -1, "scaleX": 2, "scaleY": 0.7}
   ],
 
   "background": {"name": "backgroundcity", "spriteName": "backgroundcity", "type": "Background", "length": 15},
@@ -30,9 +35,11 @@
   "finish": {"name": "finish", "spriteName": "finish", "type": "Platform"},
 
   "enemyArray": [
-    {"name": "Enemy1", "spriteName": "blob",  "positionX": 8, "positionY": -2, "scaleX": 1, "scaleY": 1},
-    {"name": "Enemy2", "spriteName": "goblin",  "positionX": 7.5, "positionY": -2, "scaleX": 1, "scaleY": 1},
-    {"name": "Enemy3", "spriteName": "goblin",  "positionX": -4, "positionY": 0.5, "scaleX": 1, "scaleY": 1}
+    {"name": "Enemy1", "spriteName": "blob",  "positionX": 5, "positionY": 0.5, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy2", "spriteName": "goblin",  "positionX": 8, "positionY": -2, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy3", "spriteName": "goblin",  "positionX": -5, "positionY": 0.5, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy4", "spriteName": "goblin",  "positionX": 57, "positionY": 0.5, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy5", "spriteName": "goblin",  "positionX": 59, "positionY": 0.5, "scaleX": 1, "scaleY": 1}
   ],
 
   "itemArray": [
