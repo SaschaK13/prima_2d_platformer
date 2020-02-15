@@ -22,7 +22,7 @@ namespace Game {
     }
 
     function goBack(): void {
-      window.close();
+      window.history.back();
     }
 
     function safeGame(): void {
