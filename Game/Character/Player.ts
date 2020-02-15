@@ -2,13 +2,13 @@ namespace Game {
 
   import fudge = FudgeCore;
   export class Player extends Character {
-    name: string;
-    positionX: number;
-    positionY: number;
-    scaleX: number;
-    scaleY: number;
-    finish: boolean = false;
-    playerStats: CharacterStats;
+    public name: string;
+    public positionX: number;
+    public positionY: number;
+    public scaleX: number;
+    public scaleY: number;
+    public finished: boolean = false;
+    public playerStats: CharacterStats;
 
     constructor(name: string, spriteName: string, positionX: number, positionY: number, scaleX: number, scaleY: number) {
       super(name);
@@ -23,7 +23,7 @@ namespace Game {
       this.setStats(this.playerStats);
     }
 
-    takeDmg(dmgTaken: number): void {
+    public takeDmg(dmgTaken: number): void {
       if(this.currentDmgCooldown == 0)
       {
         Util.getInstance().hurtSound.play()
@@ -34,7 +34,7 @@ namespace Game {
 
     }
 
-    jump()
+    public jump()
     {
       if(!this.isJumping){
         Util.getInstance().jumpSound.play()
@@ -42,7 +42,7 @@ namespace Game {
       super.jump()
     }
 
-    attack(): void {
+    public attack(): void {
       if (this.attackCooldown == 0) {
         let detectedEnemys: Character[] = this.hitbox.detectEnemys() as Character[];
         for (var i: number = 0; i < detectedEnemys.length; i++) {
@@ -50,7 +50,7 @@ namespace Game {
         }
         this.isAttacking = true;
        //this.showOneTime(CHARACTERSTATE.ATTACK);
-       this.newShowOneTime(CHARACTERSTATE.ATTACK);
+       this.showOneTime(CHARACTERSTATE.ATTACK);
         this.attackCooldown = this.getStats().attackSpeed;
         Util.getInstance().attackSound.play();
       }else{
@@ -58,7 +58,7 @@ namespace Game {
       }
     }
 
-    die(): void {
+    public die(): void {
       super.die();
     }
 
@@ -68,15 +68,15 @@ namespace Game {
         let collisionObject: CollidedObject = collisionObjects[i];
 
         switch (collisionObject.collisionType) {
-          case CollisionType.ENEMY: {
-            if (collisionObject.object.constructor.name == "Blob" && !this.finish) {
+          case COLLISIONTYPE.ENEMY: {
+            if (collisionObject.object.constructor.name == "Blob" && !this.finished) {
               this.takeDmg(1);
             }
             super.handleSolidColision(collisionObject);
             break;
           }
 
-          case CollisionType.ENVIRONMENT: {
+          case COLLISIONTYPE.ENVIRONMENT: {
             if (collisionObject.object.constructor.name == "Platform") {
               this.currentPlatform = collisionObject.object as Platform;
             }
@@ -84,15 +84,15 @@ namespace Game {
             break;
           }
 
-          case CollisionType.FINISH: {
-            if(!this.finish)
+          case COLLISIONTYPE.FINISH: {
+            if(!this.finished)
             {
               this.hittedFinish()
             }
             break;
           }
 
-          case CollisionType.ITEM: {
+          case COLLISIONTYPE.ITEM: {
             let item = collisionObject.object as Item;
             this.updateStats(item.getStats());
             Util.getInstance().level.deleteItem(item);
@@ -104,7 +104,7 @@ namespace Game {
     }
 
     private hittedFinish() {
-      this.finish = true;
+      this.finished = true;
       document.getElementById("safeGame").style.visibility = "visible";
     }
   }

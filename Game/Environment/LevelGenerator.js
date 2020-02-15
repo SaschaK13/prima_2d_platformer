@@ -57,12 +57,12 @@ var Game;
                 let current = enemyArray[i];
                 switch (current.spriteName) {
                     case "blob": {
-                        let enemy = new Game.Blob(current.name, current.spriteName, current.positionX, current.positionY, current.scaleX, current.scaleX);
+                        let enemy = new Game.Blob(current.name, current.spriteName, current.positionX, current.positionY, current.scaleX, current.scaleY);
                         this.levelObject.enemyArray.push(enemy);
                         break;
                     }
                     case "goblin": {
-                        let enemy = new Game.Goblin(current.name, current.spriteName, current.positionX, current.positionY, current.scaleX, current.scaleX);
+                        let enemy = new Game.Goblin(current.name, current.spriteName, current.positionX, current.positionY, current.scaleX, current.scaleY);
                         this.levelObject.enemyArray.push(enemy);
                         break;
                     }

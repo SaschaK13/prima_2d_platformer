@@ -18,10 +18,6 @@ namespace Game {
     LEFT = "left"
   }
 
-  export interface SpriteName {
-    [type: string]: string;
-  }
-
   export interface CharacterStats {
     hp: number;
     dmg: number;
@@ -32,28 +28,10 @@ namespace Game {
 
   export class Character extends fudge.Node {
 
-    private JUMP_HEIGHT: number;
-    private WALK_SPEED: number;
-    private DMG: number;
-    private HP: number;
-    private ATTACKSPEED: number;
 
-
-    private dmgCooldown: number = 50;
     public currentDmgCooldown = 0;
     public attackCooldown = 0;
-
-    private gravity: number = -8;
-    private velocity: fudge.Vector2 = new fudge.Vector2(0, 0);
-
-    private mesh: fudge.MeshQuad;
-    private cmpTrans: fudge.ComponentTransform;
-    private cmpMesh: fudge.ComponentMesh;
-
-    private sprites: Sprite[];
     public spriteName: string;
-    private currentSpriteCooldown: number = 0;
-    private ANIMATION_COOLDOWN: number = 4;
 
     public direction: DIRECTION = DIRECTION.RIGHT;
 
@@ -63,21 +41,45 @@ namespace Game {
     public isHitted: boolean = false;
     public isJumping: boolean = false;
     public isDead: boolean = false;
-    public isAttacking = false;
-    public isIdling = false;
-    public oldTransform: fudge.Vector3;
-    positionX: number;
-    scaleX: number;
-    positionY: number;
+    public isAttacking: boolean = false;
+    public isLoaded: boolean = false;
 
-    public showOnetimeCounter: number;
-    public currentShowOnetimeCounter: number = 1;
+    public oldTransform: fudge.Vector3;
+
+   public positionX: number;
+   public positionY: number;
+   public scaleX: number;
+   public scaleY: number;
+
+
+
     public isShowingOnetime: boolean = false;
     public showOnetimeNodeSprite: NodeSprite;
 
-    public isLoaded: boolean = false;
 
     public currentPlatform: Platform;
+
+    private JUMP_HEIGHT: number;
+    private WALK_SPEED: number;
+    private DMG: number;
+    private HP: number;
+    private ATTACK_SPEED: number;
+
+
+    private DMG_COOLDOWN: number = 50;
+    private ANIMATION_COOLDOWN: number = 4;
+
+    private currentShowOnetimeCounter: number = 1;
+    private showOnetimeCounter: number;
+    private currentAnimationCooldown: number = 0;
+
+
+    private gravity: number = -8;
+    private velocity: fudge.Vector2 = new fudge.Vector2(0, 0);
+
+    private mesh: fudge.MeshQuad;
+    private cmpTrans: fudge.ComponentTransform;
+    private cmpMesh: fudge.ComponentMesh;
 
 
     constructor(nodeName: string) {
@@ -96,21 +98,7 @@ namespace Game {
       fudge.Loop.addEventListener(fudge.EVENT.LOOP_FRAME, this.update);
     }
 
-    public handlePhysics(): void {
-      this.handleVelocity();
-      this.reactToCollison();
-    }
-
-    public handleVelocity(): void {
-      this.oldTransform = this.cmpTransform.local.translation;
-      let timeFrame: number = fudge.Loop.timeFrameGame / 1000;
-      this.velocity.y += this.gravity * timeFrame;
-
-      //ad velocity to position
-      this.cmpTransform.local.translateY(this.velocity.y * timeFrame);
-      this.cmpTransform.local.translateX(this.velocity.x * timeFrame);
-    }
-
+  
     public reactToCollison(): void {
       let collisionObjects: CollidedObject[] = this.collider.getCollisionObjects();
 
@@ -126,16 +114,17 @@ namespace Game {
       let collisionObject: fudge.Node = collidedObject.object as fudge.Node;
       let translation = this.cmpTransform.local.translation;
       switch (collidedObject.collisionDirecton) {
-        case CollisionDirection.BOTTOM: {
+        case COLLISIONDIRECTION.BOTTOM: {
+          //fudge.Debug.log("hitting bottom")
           let newYPosition: number = collisionObject.cmpTransform.local.translation.y + (collisionObject.cmpTransform.local.scaling.y / 2) + (this.cmpTransform.local.scaling.y / 2);
           translation.y = newYPosition;
           this.cmpTransform.local.translation = translation;
-          this.velocity.y = 0;
           this.isJumping = false;
+          this.velocity.y = 0;
           break;
         }
 
-        case CollisionDirection.TOP: {
+        case COLLISIONDIRECTION.TOP: {
           let newYPosition: number = collisionObject.cmpTransform.local.translation.y - (collisionObject.cmpTransform.local.scaling.y / 2) - (this.cmpTransform.local.scaling.y / 2);
           translation.y = newYPosition;
           this.cmpTransform.local.translation = translation;
@@ -143,7 +132,7 @@ namespace Game {
           break;
         }
 
-        case CollisionDirection.LEFT: {
+        case COLLISIONDIRECTION.LEFT: {
           let newXPosition: number = collisionObject.cmpTransform.local.translation.x + (collisionObject.cmpTransform.local.scaling.x / 2) + (this.cmpTransform.local.scaling.x / 2);
           translation.x = newXPosition;
           this.cmpTransform.local.translation = translation;
@@ -151,7 +140,7 @@ namespace Game {
           break;
         }
 
-        case CollisionDirection.RIGHT: {
+        case COLLISIONDIRECTION.RIGHT: {
           let newXPosition: number = collisionObject.cmpTransform.local.translation.x - (collisionObject.cmpTransform.local.scaling.x / 2) - (this.cmpTransform.local.scaling.x / 2);
           translation.x = newXPosition;
           this.cmpTransform.local.translation = translation;
@@ -167,15 +156,11 @@ namespace Game {
       }
     }
 
-    public newShowOneTime(_characterstate: CHARACTERSTATE)
+    public showOneTime(_characterstate: CHARACTERSTATE)
     {
       //activates sprite
-      fudge.Debug.log("onetime")
-
       let spriteMap = Util.getInstance().spritesMap.get(this.spriteName);
       let nodeSprite = spriteMap.get(_characterstate)
-
-      fudge.Debug.log( this.spriteName + " "+ _characterstate + " " + nodeSprite.frames.length +" frames")
 
       
 
@@ -185,7 +170,6 @@ namespace Game {
           child.activate(true);
           this.isShowingOnetime = true;
           this.showOnetimeCounter = (child as NodeSprite).getSprite().frames.length;
-          fudge.Debug.log((child as NodeSprite).getSprite().frames.length)
           this.showOnetimeNodeSprite = (child as NodeSprite);
         }else
         {
@@ -198,14 +182,14 @@ namespace Game {
 
     public idle(): void {
       if (!this.isJumping && !this.isDead && !this.isAttacking && !this.isHitted && !this.isShowingOnetime) {
-        fudge.Debug.log("show idle")
         this.show(CHARACTERSTATE.IDLE);
-        this.isIdling = true;
       }
     }
 
     public jump(): void {
+      fudge.Debug.log(this.isJumping)
       if (!this.isJumping) {
+        fudge.Debug.log("Jump")
         this.isJumping = true;
         this.velocity.y += this.JUMP_HEIGHT;
         this.show(CHARACTERSTATE.JUMP);
@@ -237,7 +221,7 @@ namespace Game {
 
     public die(): void {
       this.isDead = true;
-      this.newShowOneTime(CHARACTERSTATE.DEATH);
+      this.showOneTime(CHARACTERSTATE.DEATH);
       let util: Util = Util.getInstance();
       setTimeout(() => {
          util.gameOver(); 
@@ -251,14 +235,14 @@ namespace Game {
           if ((this.HP - dmgTaken) >= 0) {
             this.HP -= dmgTaken;
             this.isHitted = true;
-            this.newShowOneTime(CHARACTERSTATE.HIT);
+            this.showOneTime(CHARACTERSTATE.HIT);
           }
         } else {
           if (!this.isDead) {
             this.die();
           }
         }
-        this.currentDmgCooldown = this.dmgCooldown;
+        this.currentDmgCooldown = this.DMG_COOLDOWN;
       }
 
     }
@@ -291,9 +275,6 @@ namespace Game {
             (_event: Event) => { (<NodeSprite>_event.currentTarget).showFrameNext(); },
             true
           );
-        }else{
-          fudge.Debug.log( this.spriteName + " has: " + nodeSprite.getSprite().frames.length + " sprite length on animation: " + key)
-
         }
         nodeSprite.activate(false);        
         this.appendChild(nodeSprite);
@@ -303,7 +284,7 @@ namespace Game {
 
    
     public getStats(): CharacterStats {
-      return { hp: this.HP, dmg: this.DMG, jumpHeight: this.JUMP_HEIGHT, walkSpeed: this.WALK_SPEED, attackSpeed: this.ATTACKSPEED }
+      return { hp: this.HP, dmg: this.DMG, jumpHeight: this.JUMP_HEIGHT, walkSpeed: this.WALK_SPEED, attackSpeed: this.ATTACK_SPEED }
     }
 
     public setStats(stats: CharacterStats): void {
@@ -311,7 +292,7 @@ namespace Game {
       this.DMG = stats.dmg;
       this.JUMP_HEIGHT = stats.jumpHeight; 
       this.WALK_SPEED = stats.walkSpeed;
-      this.ATTACKSPEED = stats.attackSpeed;
+      this.ATTACK_SPEED = stats.attackSpeed;
     }
 
     public updateStats(stats: CharacterStats): void {
@@ -320,9 +301,29 @@ namespace Game {
       this.DMG += stats.dmg;
       this.JUMP_HEIGHT += stats.jumpHeight;
       this.WALK_SPEED += stats.walkSpeed;
-      this.ATTACKSPEED += stats.attackSpeed;
+      this.ATTACK_SPEED += stats.attackSpeed;
 
       Util.getInstance().gui.updateStats(this);
+    }
+
+    private handlePhysics(): void {
+      this.handleVelocity();
+      this.reactToCollison();
+    }
+
+    private handleVelocity(): void {
+      this.oldTransform = this.cmpTransform.local.translation;
+      let timeFrame: number = fudge.Loop.timeFrameGame / 1000;
+      //this.velocity.y += this.gravity * timeFram
+      this.velocity.y += this.gravity * timeFrame;
+      fudge.Debug.log(timeFrame)
+      fudge.Debug.log(this.velocity.y)
+
+
+      //ad velocity to position
+      fudge.Debug.log(this.velocity.y * timeFrame + "translate")
+      this.cmpTransform.local.translateY(this.velocity.y * timeFrame);
+      this.cmpTransform.local.translateX(this.velocity.x * timeFrame);
     }
 
     private update = (_event: fudge.Eventƒ): void => {
@@ -344,16 +345,14 @@ namespace Game {
     }
 
     private updateSprites(): void {
-      if (this.currentSpriteCooldown != 0) {
-        this.currentSpriteCooldown --;
+      if (this.currentAnimationCooldown != 0) {
+        this.currentAnimationCooldown --;
       } else {
-        fudge.Debug.log("broadcast next")
         this.broadcastEvent(new CustomEvent("showNext"));
         if(this.isShowingOnetime)
         {
           if(this.currentShowOnetimeCounter != this.showOnetimeCounter)
           {
-            fudge.Debug.log("is showing one time frame: " + this.currentShowOnetimeCounter)
             this.showOnetimeNodeSprite.showFrameNext();
             this.currentShowOnetimeCounter++;
           }else{
@@ -376,7 +375,7 @@ namespace Game {
         }
           
       }
-      this.currentSpriteCooldown = this.ANIMATION_COOLDOWN;
+      this.currentAnimationCooldown = this.ANIMATION_COOLDOWN;
     }
   }
 }

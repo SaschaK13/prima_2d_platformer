@@ -5,7 +5,7 @@ var Game;
     class Player extends Game.Character {
         constructor(name, spriteName, positionX, positionY, scaleX, scaleY) {
             super(name);
-            this.finish = false;
+            this.finished = false;
             this.name = name;
             super.spriteName = spriteName;
             this.cmpTransform.local.translation = new fudge.Vector3(positionX, positionY, 0);
@@ -35,7 +35,7 @@ var Game;
                 }
                 this.isAttacking = true;
                 //this.showOneTime(CHARACTERSTATE.ATTACK);
-                this.newShowOneTime(Game.CHARACTERSTATE.ATTACK);
+                this.showOneTime(Game.CHARACTERSTATE.ATTACK);
                 this.attackCooldown = this.getStats().attackSpeed;
                 Game.Util.getInstance().attackSound.play();
             }
@@ -51,27 +51,27 @@ var Game;
             for (var i = 0; i < collisionObjects.length; i++) {
                 let collisionObject = collisionObjects[i];
                 switch (collisionObject.collisionType) {
-                    case Game.CollisionType.ENEMY: {
-                        if (collisionObject.object.constructor.name == "Blob" && !this.finish) {
+                    case Game.COLLISIONTYPE.ENEMY: {
+                        if (collisionObject.object.constructor.name == "Blob" && !this.finished) {
                             this.takeDmg(1);
                         }
                         super.handleSolidColision(collisionObject);
                         break;
                     }
-                    case Game.CollisionType.ENVIRONMENT: {
+                    case Game.COLLISIONTYPE.ENVIRONMENT: {
                         if (collisionObject.object.constructor.name == "Platform") {
                             this.currentPlatform = collisionObject.object;
                         }
                         super.handleSolidColision(collisionObject);
                         break;
                     }
-                    case Game.CollisionType.FINISH: {
-                        if (!this.finish) {
+                    case Game.COLLISIONTYPE.FINISH: {
+                        if (!this.finished) {
                             this.hittedFinish();
                         }
                         break;
                     }
-                    case Game.CollisionType.ITEM: {
+                    case Game.COLLISIONTYPE.ITEM: {
                         let item = collisionObject.object;
                         this.updateStats(item.getStats());
                         Game.Util.getInstance().level.deleteItem(item);
@@ -82,7 +82,7 @@ var Game;
             }
         }
         hittedFinish() {
-            this.finish = true;
+            this.finished = true;
             document.getElementById("safeGame").style.visibility = "visible";
         }
     }

@@ -4,15 +4,15 @@ namespace Game {
 
   export class Goblin extends Character {
     public attacksPlayer: boolean = false;
-    name: string;
-    positionX: number;
-    positionY: number;
-    scaleX: number;
-    scaleY: number;
-    dropChance: number = 0.4;
-    lookAroundCooldown = 50;
-    currentLookAroundCooldown = 0;
-    moveDirection: DIRECTION = DIRECTION.RIGHT;
+    public name: string;
+    public positionX: number;
+    public positionY: number;
+    public scaleX: number;
+    public scaleY: number;
+    private dropChance: number = 0.4;
+    private lookAroundCooldown: number = 50;
+    private currentLookAroundCooldown: number = 0;
+    private moveDirection: DIRECTION = DIRECTION.RIGHT;
 
 
     constructor(name: string, spriteName: string, positionX: number, positionY: number, scaleX: number, scaleY: number) {
@@ -38,7 +38,7 @@ namespace Game {
         this.dropItem();
       }
       this.isDead = true;
-      this.newShowOneTime(CHARACTERSTATE.DEATH)
+      this.showOneTime(CHARACTERSTATE.DEATH)
 
       setTimeout(() => { 
         this.getParent().removeChild(this);
@@ -56,11 +56,11 @@ namespace Game {
     }
 
     public attack(): void {
-      if (this.attackCooldown == 0 && !Util.getInstance().level.player.finish) {
+      if (this.attackCooldown == 0 && !Util.getInstance().level.player.finished) {
         Util.getInstance().level.player.takeDmg(1);
         this.attacksPlayer = true;
         this.isAttacking = true;
-        this.newShowOneTime(CHARACTERSTATE.ATTACK);
+        this.showOneTime(CHARACTERSTATE.ATTACK);
         this.attackCooldown = this.getStats().attackSpeed;
       }
     }
@@ -99,18 +99,6 @@ namespace Game {
     }
 
 
-
-
-    public lookAround() {
-      if (this.currentLookAroundCooldown == this.lookAroundCooldown) {
-        this.randomDirection()
-        this.look(this.moveDirection)
-        this.currentLookAroundCooldown = 0;
-      }else{
-        this.currentLookAroundCooldown ++;
-      }
-    }
-
     public reactToCollison(): void {
       let collisionObjects: CollidedObject[] = this.collider.getCollisionObjects();
 
@@ -118,12 +106,12 @@ namespace Game {
         let collisionObject: CollidedObject = collisionObjects[i];
 
         switch (collisionObject.collisionType) {
-          case CollisionType.ENEMY: {
+          case COLLISIONTYPE.ENEMY: {
 
             break;
           }
 
-          case CollisionType.ENVIRONMENT: {
+          case COLLISIONTYPE.ENVIRONMENT: {
             if (collisionObject.object.constructor.name == "Platform") {
               this.currentPlatform = collisionObject.object as Platform;
             }
@@ -131,11 +119,23 @@ namespace Game {
             break;
           }
 
-          case CollisionType.PLAYER: {
+          case COLLISIONTYPE.PLAYER: {
             this.handleSolidColision(collisionObject);
             break;
           }
         }
+      }
+    }
+
+
+
+    private lookAround() {
+      if (this.currentLookAroundCooldown == this.lookAroundCooldown) {
+        this.randomDirection()
+        this.look(this.moveDirection)
+        this.currentLookAroundCooldown = 0;
+      }else{
+        this.currentLookAroundCooldown ++;
       }
     }
 

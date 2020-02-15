@@ -4,11 +4,11 @@ import fudge = FudgeCore;
 
 export interface CollidedObject {
     object: fudge.Node;
-    collisionDirecton: CollisionDirection
-    collisionType: CollisionType
+    collisionDirecton: COLLISIONDIRECTION
+    collisionType: COLLISIONTYPE
 }
 
-export enum CollisionType{
+export enum COLLISIONTYPE{
   ENVIRONMENT = "Platform", 
   ENEMY = "Enemy",
   PLAYER = "Player",
@@ -16,7 +16,7 @@ export enum CollisionType{
   FINISH = "Finish",
   MISSING = "Missing"
 }
-export enum CollisionDirection {
+export enum COLLISIONDIRECTION {
   RIGHT = "Right",
   LEFT = "Left",
   TOP = "Top",
@@ -55,38 +55,7 @@ public getCollisionObjects(): CollidedObject[]
   return this.collissionObjects;
 }
 
-public getCollisionType(colissionObject: fudge.Node): CollisionType {
-  switch(colissionObject.constructor.name) {
-
-    case "Platform": {
-      return CollisionType.ENVIRONMENT;
-    }
-
-    case"Blob": {
-     
-      return CollisionType.ENEMY;
-    }
-
-    case"Goblin": {
-     
-      return CollisionType.ENEMY;
-    }
- 
-    case "Player": {
-      return CollisionType.PLAYER;
-    }
-
-    case "Item": {
-      return CollisionType.ITEM;
-    }
-
-    case "Finish": {
-      return CollisionType.FINISH;
-    }
-  }
-}
-
-public getCollisionDirection(colissionObject: fudge.Node): CollisionDirection {
+private getCollisionDirection(colissionObject: fudge.Node): COLLISIONDIRECTION {
   let objectLeft = this.object.cmpTransform.local.translation.x - (this.object.cmpTransform.local.scaling.x / 2);
   let objectRight = this.object.cmpTransform.local.translation.x + (this.object.cmpTransform.local.scaling.x / 2);
   let objectTop = this.object.cmpTransform.local.translation.y - (this.object.cmpTransform.local.scaling.y / 2);
@@ -102,16 +71,16 @@ public getCollisionDirection(colissionObject: fudge.Node): CollisionDirection {
   let collissionObjectTop = colissionObject.cmpTransform.local.translation.y - (colissionObject.cmpTransform.local.scaling.y / 2);
   let collissionObjectBottom = colissionObject.cmpTransform.local.translation.y + (colissionObject.cmpTransform.local.scaling.y / 2);
 
-  if (objectOldBottom <= collissionObjectTop && objectBottom >= collissionObjectTop) return CollisionDirection.TOP;
-  if (objectOldTop >= collissionObjectBottom && objectTop <= collissionObjectBottom) return CollisionDirection.BOTTOM;
-  if (objectOldRight <= collissionObjectLeft && objectRight >= collissionObjectLeft) return CollisionDirection.RIGHT;
-  if (objectOldLeft >= collissionObjectRight && objectLeft <= collissionObjectRight) return CollisionDirection.LEFT;
+  if (objectOldBottom <= collissionObjectTop && objectBottom >= collissionObjectTop) return COLLISIONDIRECTION.TOP;
+  if (objectOldTop >= collissionObjectBottom && objectTop <= collissionObjectBottom) return COLLISIONDIRECTION.BOTTOM;
+  if (objectOldRight <= collissionObjectLeft && objectRight >= collissionObjectLeft) return COLLISIONDIRECTION.RIGHT;
+  if (objectOldLeft >= collissionObjectRight && objectLeft <= collissionObjectRight) return COLLISIONDIRECTION.LEFT;
 
-  return CollisionDirection.ERROR
+  return COLLISIONDIRECTION.ERROR
 
 }
 
-    private collideWith(cObject: fudge.Node) {
+private collideWith(cObject: fudge.Node) {
 
 
     let colissionObjectPosition: fudge.Vector3 = cObject.cmpTransform.local.translation;
@@ -142,13 +111,44 @@ private updateCollisionObjects()
       let newObject = this.collissionObjects[j]
       if(oldObject.object.name ==  newObject.object.name)
       {
-        if(newObject.collisionDirecton == CollisionDirection.ERROR)
+        if(newObject.collisionDirecton == COLLISIONDIRECTION.ERROR)
         {
           newObject.collisionDirecton = oldObject.collisionDirecton
         }
       }
     }
 
+  }
+}
+
+private getCollisionType(colissionObject: fudge.Node): COLLISIONTYPE {
+  switch(colissionObject.constructor.name) {
+
+    case "Platform": {
+      return COLLISIONTYPE.ENVIRONMENT;
+    }
+
+    case"Blob": {
+     
+      return COLLISIONTYPE.ENEMY;
+    }
+
+    case"Goblin": {
+     
+      return COLLISIONTYPE.ENEMY;
+    }
+ 
+    case "Player": {
+      return COLLISIONTYPE.PLAYER;
+    }
+
+    case "Item": {
+      return COLLISIONTYPE.ITEM;
+    }
+
+    case "Finish": {
+      return COLLISIONTYPE.FINISH;
+    }
   }
 }
 

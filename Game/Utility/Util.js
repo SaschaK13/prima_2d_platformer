@@ -60,7 +60,6 @@ var Game;
             this.collidableNode = new fudge.Node("Colidable");
             this.lvlGenerator = new Game.LevelGenerator(this.collidableNode);
             this.rootNode.appendChild(this.collidableNode);
-            fudge.Debug.log("level" + (this.currentLVLNumber + 1));
             this.lvlGenerator.getDataFromFile("level" + (this.currentLVLNumber + 1));
         }
         createSavegame() {

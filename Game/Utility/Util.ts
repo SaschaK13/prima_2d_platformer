@@ -20,7 +20,6 @@ namespace Game {
     public hurtSound: HTMLAudioElement;
     public themeSound: HTMLAudioElement;
     public currentLVLNumber: number;
-    private data: Savegame;
 
     constructor() {}
 
@@ -64,7 +63,7 @@ namespace Game {
 
     
     
-      public fetchAudios(): void {
+    public fetchAudios(): void {
 
       this.attackSound = new Audio();
       this.attackSound.src = "../Game/Assets/sounds/attack.wav";
