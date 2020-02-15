@@ -1,37 +1,38 @@
 {
   "levelNumber": 2,
   "levelLength": 50,
+  "theme": "level2",
 
   "player": {"name": "player", "spriteName": "player", "positionX": 0, "positionY": 0, "scaleX": 1, "scaleY": 1},
 
   "platformArray": [
-    {"name": "Platform1", "spriteName": "stone", "type": "Platform", "positionX": -1, "positionY": 2, "scaleX": 2, "scaleY": 0.8},
-    {"name": "Platform2", "spriteName": "stone", "type": "Platform", "positionX": -5.5, "positionY": 0.5, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform3", "spriteName": "stone", "type": "Platform", "positionX": -4, "positionY": -1.5, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform4", "spriteName": "stone", "type": "Platform", "positionX": 0.5, "positionY": -2.5, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform5", "spriteName": "stone", "type": "Platform", "positionX": 4.5, "positionY": 0, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform6", "spriteName": "stone", "type": "Platform", "positionX": 7, "positionY": -2.5, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform7", "spriteName": "stone", "type": "Platform", "positionX": 9, "positionY": -2.5, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform8", "spriteName": "stone", "type": "Platform", "positionX": 14, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform9", "spriteName": "stone", "type": "Platform", "positionX": 16, "positionY": 0, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform10", "spriteName": "stone", "type": "Platform", "positionX": 20, "positionY": 2, "scaleX": 2, "scaleY": 0.8},
-    {"name": "Platform11", "spriteName": "stone", "type": "Platform", "positionX": 22, "positionY": 2, "scaleX": 2, "scaleY": 0.8},
-    {"name": "Platform10", "spriteName": "stone", "type": "Platform", "positionX": 19, "positionY": -2.5, "scaleX": 2, "scaleY": 0.9},
-    {"name": "Platform11", "spriteName": "stone", "type": "Platform", "positionX": 21, "positionY": -2.5, "scaleX": 2, "scaleY": 0.9},
-    {"name": "Platform12", "spriteName": "stone", "type": "Platform", "positionX": 28, "positionY": -3, "scaleX": 2, "scaleY": 0.8},
-    {"name": "Platform13", "spriteName": "stone", "type": "Platform", "positionX": 26, "positionY": -3, "scaleX": 2, "scaleY": 0.8},
-    {"name": "Platform14", "spriteName": "stone", "type": "Platform", "positionX": 30, "positionY": -3, "scaleX": 2, "scaleY": 0.8},
-    {"name": "Platform15", "spriteName": "stone", "type": "Platform", "positionX": 28.2, "positionY": -0.5, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform16", "spriteName": "stone", "type": "Platform", "positionX": 31, "positionY": 1, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform17", "spriteName": "stone", "type": "Platform", "positionX": 35, "positionY": -2.5, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform18", "spriteName": "stone", "type": "Platform", "positionX": 36.5, "positionY": 1.5, "scaleX": 2, "scaleY": 0.8},
-    {"name": "Platform19", "spriteName": "stone", "type": "Platform", "positionX": 41, "positionY": 2, "scaleX": 1, "scaleY": 0.8},
-    {"name": "Platform20", "spriteName": "stone", "type": "Platform", "positionX": 44, "positionY": 2, "scaleX": 1, "scaleY": 0.8},
-    {"name": "Platform21", "spriteName": "stone", "type": "Platform", "positionX": 39, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform22", "spriteName": "stone", "type": "Platform", "positionX": 41, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform23", "spriteName": "stone", "type": "Platform", "positionX": 43, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform24", "spriteName": "stone", "type": "Platform", "positionX": 46, "positionY": -1, "scaleX": 1, "scaleY": 0.7},
-    {"name": "Platform25", "spriteName": "stone", "type": "Platform", "positionX": 50, "positionY": -1, "scaleX": 2, "scaleY": 0.7}
+    {"name": "Platform1", "spriteName": "stone", "type": "Platform", "positionX": -1, "positionY": 2, "scaleX": 2, "scaleY": 1},
+    {"name": "Platform2", "spriteName": "stone", "type": "Platform", "positionX": -5.5, "positionY": 0.5, "scaleX": 2, "scaleY": 1},
+    {"name": "Platform3", "spriteName": "stone", "type": "Platform", "positionX": -4, "positionY": -1.5, "scaleX": 2, "scaleY": 1},
+    {"name": "Platform4", "spriteName": "stone", "type": "Platform", "positionX": 0.5, "positionY": -2.5, "scaleX": 2, "scaleY": 1},
+    {"name": "Platform5", "spriteName": "stone", "type": "Platform", "positionX": 4.5, "positionY": 0, "scaleX": 2, "scaleY": 1},
+    {"name": "Platform6", "spriteName": "stone", "type": "Platform", "positionX": 7, "positionY": -2.5, "scaleX": 2, "scaleY": 1},
+    {"name": "Platform6", "spriteName": "stone", "type": "Platform", "positionX": 9, "positionY": -2.5, "scaleX": 2, "scaleY": 1},
+    {"name": "Platform7", "spriteName": "stone", "type": "Platform", "positionX": 14, "positionY": -2, "scaleX": 2, "scaleY": 1},
+    {"name": "Platform8", "spriteName": "stone", "type": "Platform", "positionX": 16, "positionY": 0, "scaleX": 2, "scaleY": 1},
+    {"name": "Platform9", "spriteName": "stone", "type": "Platform", "positionX": 20, "positionY": 2, "scaleX": 2, "scaleY": 1},
+    {"name": "Platform9", "spriteName": "stone", "type": "Platform", "positionX": 22, "positionY": 2, "scaleX": 2, "scaleY": 1},
+    {"name": "Platform10", "spriteName": "stone", "type": "Platform", "positionX": 19, "positionY": -2.5, "scaleX": 2, "scaleY": 1},
+    {"name": "Platform10", "spriteName": "stone", "type": "Platform", "positionX": 21, "positionY": -2.5, "scaleX": 2, "scaleY": 1},
+    {"name": "Platform11", "spriteName": "stone", "type": "Platform", "positionX": 28, "positionY": -3, "scaleX": 2, "scaleY": 1},
+    {"name": "Platform11", "spriteName": "stone", "type": "Platform", "positionX": 26, "positionY": -3, "scaleX": 2, "scaleY": 1},
+    {"name": "Platform11", "spriteName": "stone", "type": "Platform", "positionX": 30, "positionY": -3, "scaleX": 2, "scaleY": 1},
+    {"name": "Platform12", "spriteName": "stone", "type": "Platform", "positionX": 28.2, "positionY": -0.5, "scaleX": 2, "scaleY": 1},
+    {"name": "Platform13", "spriteName": "stone", "type": "Platform", "positionX": 31, "positionY": 1, "scaleX": 2, "scaleY": 1},
+    {"name": "Platform14", "spriteName": "stone", "type": "Platform", "positionX": 35, "positionY": -2.5, "scaleX": 2, "scaleY": 1},
+    {"name": "Platform15", "spriteName": "stone", "type": "Platform", "positionX": 36.5, "positionY": 1.5, "scaleX": 2, "scaleY": 1},
+    {"name": "Platform16", "spriteName": "stone", "type": "Platform", "positionX": 41, "positionY": 2, "scaleX": 1, "scaleY": 1},
+    {"name": "Platform16", "spriteName": "stone", "type": "Platform", "positionX": 44, "positionY": 2, "scaleX": 1, "scaleY": 1},
+    {"name": "Platform17", "spriteName": "stone", "type": "Platform", "positionX": 39, "positionY": -2, "scaleX": 2, "scaleY": 1},
+    {"name": "Platform17", "spriteName": "stone", "type": "Platform", "positionX": 41, "positionY": -2, "scaleX": 2, "scaleY": 1},
+    {"name": "Platform17", "spriteName": "stone", "type": "Platform", "positionX": 43, "positionY": -2, "scaleX": 2, "scaleY": 1},
+    {"name": "Platform18", "spriteName": "stone", "type": "Platform", "positionX": 46, "positionY": -1, "scaleX": 1, "scaleY": 1},
+    {"name": "Platform18", "spriteName": "stone", "type": "Platform", "positionX": 50, "positionY": -1, "scaleX": 2, "scaleY": 1}
   ],
 
   "background": {"name": "backgroundcastle", "spriteName": "backgroundcastle", "type": "Background", "length": 15},
@@ -40,19 +41,20 @@
 
   "enemyArray": [
     {"name": "Enemy1", "spriteName": "blob",  "positionX": -1, "positionY": 2.5, "scaleX": 1, "scaleY": 1},
-    {"name": "Enemy1", "spriteName": "blob",  "positionX": 8, "positionY": -2, "scaleX": 1, "scaleY": 1},
-    {"name": "Enemy1", "spriteName": "blob",  "positionX": 8.5, "positionY": -2, "scaleX": 1, "scaleY": 1},
-    {"name": "Enemy1", "spriteName": "goblin",  "positionX": 21, "positionY": -0.5, "scaleX": 1, "scaleY": 1},
-    {"name": "Enemy1", "spriteName": "goblin",  "positionX": 28, "positionY": -2.5, "scaleX": 1, "scaleY": 1},
-    {"name": "Enemy1", "spriteName": "blob",  "positionX": 28, "positionY": -2.5, "scaleX": 1, "scaleY": 1},
-    {"name": "Enemy1", "spriteName": "goblin",  "positionX": 30, "positionY": -2.5, "scaleX": 1, "scaleY": 1},
-    {"name": "Enemy1", "spriteName": "goblin",  "positionX": 43, "positionY": -1.5, "scaleX": 1, "scaleY": 1},
-    {"name": "Enemy1", "spriteName": "blob",  "positionX": 41, "positionY": -1.5, "scaleX": 1, "scaleY": 1}
+    {"name": "Enemy2", "spriteName": "blob",  "positionX": 8, "positionY": -2, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy3", "spriteName": "blob",  "positionX": 9, "positionY": -2, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy4", "spriteName": "goblin",  "positionX": 22, "positionY": 2.5, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy4", "spriteName": "goblin",  "positionX": 21, "positionY": -0.5, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy5", "spriteName": "goblin",  "positionX": 28, "positionY": -2.5, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy6", "spriteName": "blob",  "positionX": 28, "positionY": -2.5, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy7", "spriteName": "goblin",  "positionX": 30, "positionY": -2.5, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy8", "spriteName": "goblin",  "positionX": 43, "positionY": -1.5, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy9", "spriteName": "blob",  "positionX": 41, "positionY": -1.5, "scaleX": 1, "scaleY": 1}
   ],
 
   "itemArray": [
-    {"name": "Item1", "spriteName": "sword",  "hp": -1, "dmg": 4, "jumpHeight": -0.2, "walkSpeed": -0.2, "attackSpeed": 4},
-    {"name": "Item2", "spriteName": "healpotion",  "hp": 2, "dmg": -0.5, "jumpHeight": -1, "walkSpeed": -1, "attackSpeed": 1},
-    {"name": "Item3", "spriteName": "boots",  "hp": 1, "dmg": 0.5, "jumpHeight": 1, "walkSpeed": 1, "attackSpeed": 4}
+    {"name": "Item1", "spriteName": "sword",  "hp": 0, "dmg": 4, "jumpHeight": 0, "walkSpeed": 0, "attackSpeed": 10},
+    {"name": "Item2", "spriteName": "healpotion",  "hp": 2, "dmg": 0, "jumpHeight": 0, "walkSpeed": 0, "attackSpeed": 0},
+    {"name": "Item3", "spriteName": "boots",  "hp": 0, "dmg": 0, "jumpHeight": 1, "walkSpeed": 1, "attackSpeed": 0}
   ]
 }

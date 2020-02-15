@@ -59,6 +59,9 @@ namespace Game {
       this.levelObject.finish = finish;
       this.root.appendChild(finish);
 
+      let theme: string = this.data["theme"];
+      this.levelObject.theme = theme;
+
       let platformArray = this.data["platformArray"];
       for (var i: number = 0; i < platformArray.length; i++) {
         let current = platformArray[i];
@@ -94,7 +97,8 @@ namespace Game {
       this.levelObject.setRoot(this.root);
       let util: Util = Util.getInstance();
       util.level = this.levelObject;
-      //Util.getInstance().save()
+      Util.getInstance().setTheme(this.levelObject.theme);
+      Util.getInstance().themeSound.play();
     }
   }
 }

@@ -11,6 +11,7 @@ namespace Game {
     public itemArray: Item[] = [];
     public possibleItemsArray: Item[] = [];
     private levelLength: number;
+    public theme: string;
     public finish: Finish;
 
     private root: fudge.Node;

@@ -24,7 +24,6 @@ var Game;
         root.appendChild(cameraOrbit);
         viewport.initialize("Viewport", root, cameraOrbit.getComponent(fudge.ComponentCamera), canvas);
         loadGame();
-        Game.Util.getInstance().themeSound.play();
         document.addEventListener("keydown", handleKeyboard);
         document.addEventListener("keyup", handleKeyboard);
         fudge.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, update);
