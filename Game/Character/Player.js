@@ -43,9 +43,6 @@ var Game;
                 this.isAttacking = false;
             }
         }
-        die() {
-            super.die();
-        }
         reactToCollison() {
             let collisionObjects = this.collider.getCollisionObjects();
             for (var i = 0; i < collisionObjects.length; i++) {
@@ -53,7 +50,9 @@ var Game;
                 switch (collisionObject.collisionType) {
                     case Game.COLLISIONTYPE.ENEMY: {
                         if (collisionObject.object.constructor.name == "Blob" && !this.finished) {
-                            this.takeDmg(1);
+                            if (!this.isDead) {
+                                this.takeDmg(1);
+                            }
                         }
                         super.handleSolidColision(collisionObject);
                         break;

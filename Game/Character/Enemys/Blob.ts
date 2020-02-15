@@ -37,6 +37,7 @@ namespace Game {
         this.dropItem();
       }
       this.isDead = true;
+      fudge.Debug.log("dead")
       this.showOneTime(CHARACTERSTATE.DEATH);
 
       setTimeout(() => { 

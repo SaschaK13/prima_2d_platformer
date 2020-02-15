@@ -58,10 +58,6 @@ namespace Game {
       }
     }
 
-    public die(): void {
-      super.die();
-    }
-
     public reactToCollison(): void {
       let collisionObjects: CollidedObject[] = this.collider.getCollisionObjects();
       for (var i: number = 0; i < collisionObjects.length; i++) {
@@ -70,7 +66,11 @@ namespace Game {
         switch (collisionObject.collisionType) {
           case COLLISIONTYPE.ENEMY: {
             if (collisionObject.object.constructor.name == "Blob" && !this.finished) {
-              this.takeDmg(1);
+              if(!this.isDead)
+              {
+                this.takeDmg(1);
+
+              }
             }
             super.handleSolidColision(collisionObject);
             break;

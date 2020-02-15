@@ -210,7 +210,7 @@ namespace Game {
           }
           case CHARACTERSTATE.ATTACK: {
             let sprite: Sprite = new Sprite(spriteName + "_" + stateName);
-            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(1062, 10, 50, 35), 6, new fudge.Vector2(93, 0), 32, fudge.ORIGIN2D.CENTER);
+            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(1062, 10, 50, 35), 5, new fudge.Vector2(93, 0), 32, fudge.ORIGIN2D.CENTER);
             return sprite;
           }
           case CHARACTERSTATE.DEATH: {

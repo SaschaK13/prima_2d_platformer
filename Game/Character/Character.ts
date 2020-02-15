@@ -69,7 +69,7 @@ namespace Game {
     private DMG_COOLDOWN: number = 50;
     private ANIMATION_COOLDOWN: number = 4;
 
-    private currentShowOnetimeCounter: number = 1;
+    private currentShowOnetimeCounter: number = 0;
     private showOnetimeCounter: number;
     private currentAnimationCooldown: number = 0;
 
@@ -157,34 +157,42 @@ namespace Game {
 
     public showOneTime(_characterstate: CHARACTERSTATE)
     {
+      if(!this.isDead)
+      {
       //activates sprite
       let spriteMap = Util.getInstance().spritesMap.get(this.spriteName);
       let nodeSprite = spriteMap.get(_characterstate)
 
-      
+    
 
       for (let child of this.getChildren()) {
         if(child.name == (this.spriteName + "_" + _characterstate))
         {
+          if(this.isDead)
+          {
+            fudge.Debug.log(" show death anim")
+          }
           child.activate(true);
           this.isShowingOnetime = true;
           this.showOnetimeCounter = (child as NodeSprite).getSprite().frames.length;
           this.showOnetimeNodeSprite = (child as NodeSprite);
+          this.currentShowOnetimeCounter = 0;
         }else
         {
           child.activate(false);
         }
         
       }
+    }
       
     }
 
     public idle(): void {
-      fudge.Debug.log(this.isJumping + " jumping")
-      fudge.Debug.log(this.isDead + " dead")
-      fudge.Debug.log(this.isAttacking + " attacking")
-      fudge.Debug.log(this.isHitted + " hitted")
-      fudge.Debug.log(this.isShowingOnetime + " showing one time")
+      // fudge.Debug.log(this.isJumping + " jumping" + this.spriteName)
+      // fudge.Debug.log(this.isDead + " dead" + this.spriteName)
+      // fudge.Debug.log(this.isAttacking + " attacking"+ this.spriteName)
+      // fudge.Debug.log(this.isHitted + " hitted"+ this.spriteName)
+      // fudge.Debug.log(this.isShowingOnetime + " showing one time"+ this.spriteName)
 
       fudge.Debug.log(this.currentShowOnetimeCounter)
       if (!this.isJumping && !this.isDead && !this.isAttacking && !this.isHitted && !this.isShowingOnetime) {
@@ -201,6 +209,7 @@ namespace Game {
     }
 
     public walk(direction: DIRECTION) {
+      if(!this.isDead){
       let timeFrame = fudge.Loop.timeFrameGame / 1000
       if (direction == DIRECTION.RIGHT) {
         this.cmpTransform.local.translateX(this.WALK_SPEED * timeFrame)
@@ -220,12 +229,13 @@ namespace Game {
         this.show(CHARACTERSTATE.WALK);
       }
     }
+    }
 
     public attack(): void {}
 
     public die(): void {
-      this.isDead = true;
       this.showOneTime(CHARACTERSTATE.DEATH);
+      this.isDead = true;
       let util: Util = Util.getInstance();
       setTimeout(() => {
          util.gameOver(); 
@@ -234,6 +244,7 @@ namespace Game {
     }
 
     public takeDmg(dmgTaken: number) {
+      if (!this.isDead) {
       if (this.currentDmgCooldown == 0) {
         if (this.HP > 0) {
           if ((this.HP - dmgTaken) >= 0) {
@@ -242,12 +253,12 @@ namespace Game {
             this.showOneTime(CHARACTERSTATE.HIT);
           }
         } else {
-          if (!this.isDead) {
             this.die();
-          }
+          
         }
         this.currentDmgCooldown = this.DMG_COOLDOWN;
       }
+    }
 
     }
 
@@ -367,7 +378,7 @@ namespace Game {
             this.isShowingOnetime = false;
             this.isAttacking = false;
             this.isHitted = false;
-            this.currentShowOnetimeCounter = 1;
+            this.currentShowOnetimeCounter = 0;
 
             if(this.isJumping)
             {

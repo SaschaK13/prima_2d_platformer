@@ -23,9 +23,9 @@
     {"name": "Platform17", "spriteName": "dirt", "type": "Platform", "positionX": 32, "positionY": 1, "scaleX": 2, "scaleY": 0.7},
     {"name": "Platform18", "spriteName": "dirt", "type": "Platform", "positionX": 35, "positionY": 0.5, "scaleX": 2, "scaleY": 0.7},
     {"name": "Platform19", "spriteName": "dirt", "type": "Platform", "positionX": 37, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform20", "spriteName": "dirt", "type": "Platform", "positionX": 39, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform21", "spriteName": "dirt", "type": "Platform", "positionX": 41, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform22", "spriteName": "dirt", "type": "Platform", "positionX": 43, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform19", "spriteName": "dirt", "type": "Platform", "positionX": 39, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform19", "spriteName": "dirt", "type": "Platform", "positionX": 41, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform19", "spriteName": "dirt", "type": "Platform", "positionX": 43, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
     {"name": "Platform23", "spriteName": "dirt", "type": "Platform", "positionX": 48, "positionY": -1, "scaleX": 2, "scaleY": 0.7},
     {"name": "Platform24", "spriteName": "dirt", "type": "Platform", "positionX": 50, "positionY": -1, "scaleX": 2, "scaleY": 0.7}
   ],

@@ -31,7 +31,7 @@ var Game;
             this.isShowingOnetime = false;
             this.DMG_COOLDOWN = 50;
             this.ANIMATION_COOLDOWN = 4;
-            this.currentShowOnetimeCounter = 1;
+            this.currentShowOnetimeCounter = 0;
             this.currentAnimationCooldown = 0;
             this.gravity = -8;
             this.velocity = new fudge.Vector2(0, 0);
@@ -109,27 +109,33 @@ var Game;
             }
         }
         showOneTime(_characterstate) {
-            //activates sprite
-            let spriteMap = Game.Util.getInstance().spritesMap.get(this.spriteName);
-            let nodeSprite = spriteMap.get(_characterstate);
-            for (let child of this.getChildren()) {
-                if (child.name == (this.spriteName + "_" + _characterstate)) {
-                    child.activate(true);
-                    this.isShowingOnetime = true;
-                    this.showOnetimeCounter = child.getSprite().frames.length;
-                    this.showOnetimeNodeSprite = child;
-                }
-                else {
-                    child.activate(false);
+            if (!this.isDead) {
+                //activates sprite
+                let spriteMap = Game.Util.getInstance().spritesMap.get(this.spriteName);
+                let nodeSprite = spriteMap.get(_characterstate);
+                for (let child of this.getChildren()) {
+                    if (child.name == (this.spriteName + "_" + _characterstate)) {
+                        if (this.isDead) {
+                            fudge.Debug.log(" show death anim");
+                        }
+                        child.activate(true);
+                        this.isShowingOnetime = true;
+                        this.showOnetimeCounter = child.getSprite().frames.length;
+                        this.showOnetimeNodeSprite = child;
+                        this.currentShowOnetimeCounter = 0;
+                    }
+                    else {
+                        child.activate(false);
+                    }
                 }
             }
         }
         idle() {
-            fudge.Debug.log(this.isJumping + " jumping");
-            fudge.Debug.log(this.isDead + " dead");
-            fudge.Debug.log(this.isAttacking + " attacking");
-            fudge.Debug.log(this.isHitted + " hitted");
-            fudge.Debug.log(this.isShowingOnetime + " showing one time");
+            // fudge.Debug.log(this.isJumping + " jumping" + this.spriteName)
+            // fudge.Debug.log(this.isDead + " dead" + this.spriteName)
+            // fudge.Debug.log(this.isAttacking + " attacking"+ this.spriteName)
+            // fudge.Debug.log(this.isHitted + " hitted"+ this.spriteName)
+            // fudge.Debug.log(this.isShowingOnetime + " showing one time"+ this.spriteName)
             fudge.Debug.log(this.currentShowOnetimeCounter);
             if (!this.isJumping && !this.isDead && !this.isAttacking && !this.isHitted && !this.isShowingOnetime) {
                 this.show(CHARACTERSTATE.IDLE);
@@ -143,29 +149,31 @@ var Game;
             }
         }
         walk(direction) {
-            let timeFrame = fudge.Loop.timeFrameGame / 1000;
-            if (direction == DIRECTION.RIGHT) {
-                this.cmpTransform.local.translateX(this.WALK_SPEED * timeFrame);
-                if (this.direction != direction) {
-                    this.cmpTransform.local.rotation = fudge.Vector3.Y(0);
+            if (!this.isDead) {
+                let timeFrame = fudge.Loop.timeFrameGame / 1000;
+                if (direction == DIRECTION.RIGHT) {
+                    this.cmpTransform.local.translateX(this.WALK_SPEED * timeFrame);
+                    if (this.direction != direction) {
+                        this.cmpTransform.local.rotation = fudge.Vector3.Y(0);
+                    }
+                    this.direction = direction;
                 }
-                this.direction = direction;
-            }
-            else {
-                this.cmpTransform.local.translateX(-(this.WALK_SPEED * timeFrame));
-                if (this.direction != direction) {
-                    this.cmpTransform.local.rotation = fudge.Vector3.Y(180);
+                else {
+                    this.cmpTransform.local.translateX(-(this.WALK_SPEED * timeFrame));
+                    if (this.direction != direction) {
+                        this.cmpTransform.local.rotation = fudge.Vector3.Y(180);
+                    }
+                    this.direction = direction;
                 }
-                this.direction = direction;
-            }
-            if (!this.isJumping && !this.isHitted) {
-                this.show(CHARACTERSTATE.WALK);
+                if (!this.isJumping && !this.isHitted) {
+                    this.show(CHARACTERSTATE.WALK);
+                }
             }
         }
         attack() { }
         die() {
-            this.isDead = true;
             this.showOneTime(CHARACTERSTATE.DEATH);
+            this.isDead = true;
             let util = Game.Util.getInstance();
             setTimeout(() => {
                 util.gameOver();
@@ -173,20 +181,20 @@ var Game;
             }, 1500);
         }
         takeDmg(dmgTaken) {
-            if (this.currentDmgCooldown == 0) {
-                if (this.HP > 0) {
-                    if ((this.HP - dmgTaken) >= 0) {
-                        this.HP -= dmgTaken;
-                        this.isHitted = true;
-                        this.showOneTime(CHARACTERSTATE.HIT);
+            if (!this.isDead) {
+                if (this.currentDmgCooldown == 0) {
+                    if (this.HP > 0) {
+                        if ((this.HP - dmgTaken) >= 0) {
+                            this.HP -= dmgTaken;
+                            this.isHitted = true;
+                            this.showOneTime(CHARACTERSTATE.HIT);
+                        }
                     }
-                }
-                else {
-                    if (!this.isDead) {
+                    else {
                         this.die();
                     }
+                    this.currentDmgCooldown = this.DMG_COOLDOWN;
                 }
-                this.currentDmgCooldown = this.DMG_COOLDOWN;
             }
         }
         look(direction) {
@@ -265,7 +273,7 @@ var Game;
                         this.isShowingOnetime = false;
                         this.isAttacking = false;
                         this.isHitted = false;
-                        this.currentShowOnetimeCounter = 1;
+                        this.currentShowOnetimeCounter = 0;
                         if (this.isJumping) {
                             this.show(CHARACTERSTATE.JUMP);
                         }
