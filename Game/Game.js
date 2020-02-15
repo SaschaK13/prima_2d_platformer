@@ -15,7 +15,7 @@ var Game;
             location.reload();
         }
         function goBack() {
-            window.close();
+            window.history.back();
         }
         function safeGame() {
             var safeName = window.prompt("Enter your safe game name: ");
