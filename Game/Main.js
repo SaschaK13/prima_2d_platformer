@@ -40,16 +40,16 @@ var Game;
                     player.jump();
                     return;
                 }
+                if (keysPressed[fudge.KEYBOARD_CODE.E]) {
+                    player.attack();
+                    return;
+                }
                 if (keysPressed[fudge.KEYBOARD_CODE.D]) {
                     player.walk(Game.DIRECTION.RIGHT);
                     return;
                 }
                 if (keysPressed[fudge.KEYBOARD_CODE.A]) {
                     player.walk(Game.DIRECTION.LEFT);
-                    return;
-                }
-                if (keysPressed[fudge.KEYBOARD_CODE.E]) {
-                    player.attack();
                     return;
                 }
                 player.idle();

@@ -73,7 +73,6 @@ var Game;
             let translation = this.cmpTransform.local.translation;
             switch (collidedObject.collisionDirecton) {
                 case Game.COLLISIONDIRECTION.BOTTOM: {
-                    //fudge.Debug.log("hitting bottom")
                     let newYPosition = collisionObject.cmpTransform.local.translation.y + (collisionObject.cmpTransform.local.scaling.y / 2) + (this.cmpTransform.local.scaling.y / 2);
                     translation.y = newYPosition;
                     this.cmpTransform.local.translation = translation;
@@ -126,14 +125,18 @@ var Game;
             }
         }
         idle() {
+            fudge.Debug.log(this.isJumping + " jumping");
+            fudge.Debug.log(this.isDead + " dead");
+            fudge.Debug.log(this.isAttacking + " attacking");
+            fudge.Debug.log(this.isHitted + " hitted");
+            fudge.Debug.log(this.isShowingOnetime + " showing one time");
+            fudge.Debug.log(this.currentShowOnetimeCounter);
             if (!this.isJumping && !this.isDead && !this.isAttacking && !this.isHitted && !this.isShowingOnetime) {
                 this.show(CHARACTERSTATE.IDLE);
             }
         }
         jump() {
-            fudge.Debug.log(this.isJumping);
             if (!this.isJumping) {
-                fudge.Debug.log("Jump");
                 this.isJumping = true;
                 this.velocity.y += this.JUMP_HEIGHT;
                 this.show(CHARACTERSTATE.JUMP);
@@ -166,7 +169,7 @@ var Game;
             let util = Game.Util.getInstance();
             setTimeout(() => {
                 util.gameOver();
-                this.isShowingOnetime = true;
+                //this.isShowingOnetime = true;
             }, 1500);
         }
         takeDmg(dmgTaken) {
@@ -239,10 +242,7 @@ var Game;
             let timeFrame = fudge.Loop.timeFrameGame / 1000;
             //this.velocity.y += this.gravity * timeFram
             this.velocity.y += this.gravity * timeFrame;
-            fudge.Debug.log(timeFrame);
-            fudge.Debug.log(this.velocity.y);
             //ad velocity to position
-            fudge.Debug.log(this.velocity.y * timeFrame + "translate");
             this.cmpTransform.local.translateY(this.velocity.y * timeFrame);
             this.cmpTransform.local.translateX(this.velocity.x * timeFrame);
         }
@@ -253,12 +253,13 @@ var Game;
             else {
                 this.broadcastEvent(new CustomEvent("showNext"));
                 if (this.isShowingOnetime) {
-                    if (this.currentShowOnetimeCounter != this.showOnetimeCounter) {
+                    if (this.currentShowOnetimeCounter <= this.showOnetimeCounter) {
                         this.showOnetimeNodeSprite.showFrameNext();
                         this.currentShowOnetimeCounter++;
                     }
                     else {
                         if (this.showOnetimeNodeSprite) {
+                            this.showOnetimeNodeSprite.resetFrames();
                             this.showOnetimeNodeSprite.activate(false);
                         }
                         this.isShowingOnetime = false;

@@ -40,7 +40,7 @@ var Game;
                 Game.Util.getInstance().attackSound.play();
             }
             else {
-                // this.isAttacking = false;
+                this.isAttacking = false;
             }
         }
         die() {

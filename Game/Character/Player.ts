@@ -54,7 +54,7 @@ namespace Game {
         this.attackCooldown = this.getStats().attackSpeed;
         Util.getInstance().attackSound.play();
       }else{
-       // this.isAttacking = false;
+        this.isAttacking = false;
       }
     }
 

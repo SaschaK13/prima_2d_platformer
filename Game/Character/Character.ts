@@ -115,7 +115,6 @@ namespace Game {
       let translation = this.cmpTransform.local.translation;
       switch (collidedObject.collisionDirecton) {
         case COLLISIONDIRECTION.BOTTOM: {
-          //fudge.Debug.log("hitting bottom")
           let newYPosition: number = collisionObject.cmpTransform.local.translation.y + (collisionObject.cmpTransform.local.scaling.y / 2) + (this.cmpTransform.local.scaling.y / 2);
           translation.y = newYPosition;
           this.cmpTransform.local.translation = translation;
@@ -181,15 +180,20 @@ namespace Game {
     }
 
     public idle(): void {
+      fudge.Debug.log(this.isJumping + " jumping")
+      fudge.Debug.log(this.isDead + " dead")
+      fudge.Debug.log(this.isAttacking + " attacking")
+      fudge.Debug.log(this.isHitted + " hitted")
+      fudge.Debug.log(this.isShowingOnetime + " showing one time")
+
+      fudge.Debug.log(this.currentShowOnetimeCounter)
       if (!this.isJumping && !this.isDead && !this.isAttacking && !this.isHitted && !this.isShowingOnetime) {
         this.show(CHARACTERSTATE.IDLE);
       }
     }
 
     public jump(): void {
-      fudge.Debug.log(this.isJumping)
       if (!this.isJumping) {
-        fudge.Debug.log("Jump")
         this.isJumping = true;
         this.velocity.y += this.JUMP_HEIGHT;
         this.show(CHARACTERSTATE.JUMP);
@@ -225,7 +229,7 @@ namespace Game {
       let util: Util = Util.getInstance();
       setTimeout(() => {
          util.gameOver(); 
-         this.isShowingOnetime = true;
+         //this.isShowingOnetime = true;
       }, 1500);
     }
 
@@ -316,12 +320,11 @@ namespace Game {
       let timeFrame: number = fudge.Loop.timeFrameGame / 1000;
       //this.velocity.y += this.gravity * timeFram
       this.velocity.y += this.gravity * timeFrame;
-      fudge.Debug.log(timeFrame)
-      fudge.Debug.log(this.velocity.y)
+
 
 
       //ad velocity to position
-      fudge.Debug.log(this.velocity.y * timeFrame + "translate")
+   
       this.cmpTransform.local.translateY(this.velocity.y * timeFrame);
       this.cmpTransform.local.translateX(this.velocity.x * timeFrame);
     }
@@ -351,23 +354,26 @@ namespace Game {
         this.broadcastEvent(new CustomEvent("showNext"));
         if(this.isShowingOnetime)
         {
-          if(this.currentShowOnetimeCounter != this.showOnetimeCounter)
+          if(this.currentShowOnetimeCounter <= this.showOnetimeCounter)
           {
             this.showOnetimeNodeSprite.showFrameNext();
             this.currentShowOnetimeCounter++;
           }else{
             if(this.showOnetimeNodeSprite)
             {
+              this.showOnetimeNodeSprite.resetFrames()
               this.showOnetimeNodeSprite.activate(false);
             }
             this.isShowingOnetime = false;
             this.isAttacking = false;
             this.isHitted = false;
             this.currentShowOnetimeCounter = 1;
+
             if(this.isJumping)
             {
               this.show(CHARACTERSTATE.JUMP)
-            }else{
+            }
+            else{
               this.idle()
             }
             
@@ -379,4 +385,4 @@ namespace Game {
     }
   }
 }
-
+}

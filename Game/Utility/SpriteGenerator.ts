@@ -130,6 +130,11 @@ namespace Game {
       this.showFrame(this.frameCurrent);
     }
 
+    public resetFrames()
+    {
+      this.frameCurrent = 0;
+    }
+
     public setFrameDirection(_direction: number): void {
       this.direction = Math.floor(_direction);
     }

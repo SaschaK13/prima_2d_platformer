@@ -98,6 +98,9 @@ var Game;
             this.frameCurrent = (this.frameCurrent + this.direction + this.sprite.frames.length) % this.sprite.frames.length;
             this.showFrame(this.frameCurrent);
         }
+        resetFrames() {
+            this.frameCurrent = 0;
+        }
         setFrameDirection(_direction) {
             this.direction = Math.floor(_direction);
         }

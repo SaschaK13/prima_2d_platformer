@@ -56,6 +56,11 @@ namespace Game {
           player.jump();
           return;
         }
+
+        if (keysPressed[fudge.KEYBOARD_CODE.E]) {
+          player.attack();
+          return;
+        }
         if (keysPressed[fudge.KEYBOARD_CODE.D]) {
           player.walk(DIRECTION.RIGHT);
           return;
@@ -64,10 +69,7 @@ namespace Game {
           player.walk(DIRECTION.LEFT);
           return;
         }
-        if (keysPressed[fudge.KEYBOARD_CODE.E]) {
-          player.attack();
-          return;
-        }
+      
         player.idle();
       }
     }
