@@ -44,6 +44,7 @@ namespace Game {
 
   
 
+    Util.getInstance().themeSound.play()
     document.addEventListener("keydown", handleKeyboard);
     document.addEventListener("keyup", handleKeyboard);
 

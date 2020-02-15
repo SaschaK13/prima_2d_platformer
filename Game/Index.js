@@ -25,7 +25,7 @@ var Game;
         select.src = "../Game/Assets/sounds/select.wav";
         select.load();
         theme = new Audio();
-        theme.src = "../Game/Assets/sounds/theme.wav";
+        theme.src = "../Game/Assets/sounds/menu.wav";
         theme.load();
         Game.Util.getInstance().selectSound = select;
         Game.Util.getInstance().pickUpSound = theme;
