@@ -84,15 +84,37 @@ namespace Game {
       this.hurtSound = new Audio();
       this.hurtSound.src = "../Game/Assets/sounds/hurt.wav";
       this.hurtSound.load();
+  
+    }
 
+
+    public setTheme(theme: String)
+    {
+      fudge.Debug.log(theme)
       this.themeSound = new Audio();
-      this.themeSound.src = "../Game/Assets/sounds/theme.wav";
+      switch(theme) {
+        case "level1": {
+          this.themeSound.src = "../Game/Assets/sounds/level1.wav";
+          break;
+        }
+        case "level2": {
+          this.themeSound.src = "../Game/Assets/sounds/level2.wav";
+          break;
+        }
+        case "level3": {
+          this.themeSound.src = "../Game/Assets/sounds/level3.wav";
+          break;
+        }
+
+      }
+      this.themeSound.volume = 0.8;
       this.themeSound.load();
     }
 
 
     public loadNextLevel()
     {
+      this.themeSound.pause();
       this.deleteAllNodes()
       this.collidableNode = new fudge.Node("Colidable")
       this.lvlGenerator = new LevelGenerator(this.collidableNode)

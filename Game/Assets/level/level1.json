@@ -1,6 +1,8 @@
 {
   "levelNumber": 1,
   "levelLength": 50,
+  "theme": "level1",
+
 
   "player": {"name": "player", "spriteName": "player", "positionX": 0, "positionY": 0, "scaleX": 1, "scaleY": 1},
 

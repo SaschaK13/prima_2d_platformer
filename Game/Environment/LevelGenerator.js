@@ -46,6 +46,8 @@ var Game;
             finish.cmpTransform.local.translateX(levelLength);
             this.levelObject.finish = finish;
             this.root.appendChild(finish);
+            let theme = this.data["theme"];
+            this.levelObject.theme = theme;
             let platformArray = this.data["platformArray"];
             for (var i = 0; i < platformArray.length; i++) {
                 let current = platformArray[i];
@@ -77,7 +79,8 @@ var Game;
             this.levelObject.setRoot(this.root);
             let util = Game.Util.getInstance();
             util.level = this.levelObject;
-            //Util.getInstance().save()
+            Game.Util.getInstance().setTheme(this.levelObject.theme);
+            Game.Util.getInstance().themeSound.play();
         }
     }
     Game.LevelGenerator = LevelGenerator;

@@ -37,7 +37,6 @@ namespace Game {
 
     loadGame();
 
-    Util.getInstance().themeSound.play();
     document.addEventListener("keydown", handleKeyboard);
     document.addEventListener("keyup", handleKeyboard);
 
@@ -88,6 +87,7 @@ namespace Game {
       root.appendChild(Util.getInstance().collidableNode);
 
       Util.getInstance().fetchAudios();
+
       loadSprites();
 
       let gui: Gui = new Gui();
@@ -100,6 +100,9 @@ namespace Game {
         Util.getInstance().lvlGenerator = new LevelGenerator(Util.getInstance().collidableNode);
         Util.getInstance().lvlGenerator.getDataFromFile("level1");
       }
+
+    
+     
     }
 
     function loadLevel(saveGamejson: string): void {
