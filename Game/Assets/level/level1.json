@@ -16,7 +16,7 @@
     {"name": "Platform9", "spriteName": "dirt", "type": "Platform", "positionX": 9, "positionY": -2.5, "scaleX": 2, "scaleY": 0.7},
     {"name": "Platform10", "spriteName": "dirt", "type": "Platform", "positionX": 14, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
     {"name": "Platform11", "spriteName": "dirt", "type": "Platform", "positionX": 16, "positionY": 0, "scaleX": 2, "scaleY": 0.7},
-    {"name": "Platform12", "spriteName": "dirt", "type": "Platform", "positionX": 20, "positionY": 1.5, "scaleX": 2, "scaleY": 0.7},
+    {"name": "Platform12", "spriteName": "dirt", "type": "Platform", "positionX": 20, "positionY": 1.5, "scaleX": 2, "scaleY": 0.8},
     {"name": "Platform14", "spriteName": "dirt", "type": "Platform", "positionX": 24, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
     {"name": "Platform15", "spriteName": "dirt", "type": "Platform", "positionX": 26, "positionY": -2, "scaleX": 2, "scaleY": 0.7},
     {"name": "Platform16", "spriteName": "dirt", "type": "Platform", "positionX": 29, "positionY": -0.5, "scaleX": 2, "scaleY": 0.7},
