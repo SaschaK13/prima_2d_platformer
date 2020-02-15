@@ -11,6 +11,7 @@ body {
 
 #newGame {
   background-image: url("./Assets/newGame.png");
+  border: 2px solid rgb(189, 189, 189);
   width: 300px;
   height: 150px;
   border-radius: 20px;
@@ -20,6 +21,8 @@ body {
 
 
 #loadGame {
+  background-image: url("./Assets/loadGame.png");
+  border: 2px solid rgb(189, 189, 189);
   width: 300px;
   height: 150px;
   border-radius: 20px;
@@ -27,6 +30,7 @@ body {
   margin: 100px;
 }
 
+/*
 #loadList {
   position: absolute;
   text-align: center;
@@ -43,3 +47,4 @@ body {
   overflow: hidden;
   visibility: hidden;
 }
+*/
