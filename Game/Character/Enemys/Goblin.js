@@ -29,8 +29,8 @@ var Game;
             if (Math.random() < this.dropChance) {
                 this.dropItem();
             }
+            this.showOneTime(Game.CHARACTERSTATE.DEATH);
             this.isDead = true;
-            this.newShowOneTime(Game.CHARACTERSTATE.DEATH);
             setTimeout(() => {
                 this.getParent().removeChild(this);
                 Game.Util.getInstance().level.deleteEnemy(this);
@@ -45,11 +45,11 @@ var Game;
             Game.Util.getInstance().level.itemArray.push(item);
         }
         attack() {
-            if (this.attackCooldown == 0 && !Game.Util.getInstance().level.player.finish) {
+            if (this.attackCooldown == 0 && !Game.Util.getInstance().level.player.finished) {
                 Game.Util.getInstance().level.player.takeDmg(1);
                 this.attacksPlayer = true;
                 this.isAttacking = true;
-                this.newShowOneTime(Game.CHARACTERSTATE.ATTACK);
+                this.showOneTime(Game.CHARACTERSTATE.ATTACK);
                 this.attackCooldown = this.getStats().attackSpeed;
             }
         }
@@ -66,9 +66,12 @@ var Game;
                 this.attacksPlayer = false;
             }
             if (goblinTrans.y <= playerTrans.y + 0.7 && goblinTrans.y >= playerTrans.y - 0.7) {
+                fudge.Debug.log("Same height");
                 //Same height
                 if (this.currentPlatform && player.currentPlatform) {
                     if (this.currentPlatform.name == player.currentPlatform.name && !this.attacksPlayer) {
+                        fudge.Debug.log(this.attacksPlayer);
+                        fudge.Debug.log("Same platform");
                         //Same platform
                         if (playerTrans.x < goblinTrans.x) {
                             //Player is LeftB
@@ -86,6 +89,28 @@ var Game;
                 this.lookAround();
             }
         }
+        reactToCollison() {
+            let collisionObjects = this.collider.getCollisionObjects();
+            for (var i = 0; i < collisionObjects.length; i++) {
+                let collisionObject = collisionObjects[i];
+                switch (collisionObject.collisionType) {
+                    case Game.COLLISIONTYPE.ENEMY: {
+                        break;
+                    }
+                    case Game.COLLISIONTYPE.ENVIRONMENT: {
+                        if (collisionObject.object.constructor.name == "Platform") {
+                            this.currentPlatform = collisionObject.object;
+                        }
+                        this.handleSolidColision(collisionObject);
+                        break;
+                    }
+                    case Game.COLLISIONTYPE.PLAYER: {
+                        this.handleSolidColision(collisionObject);
+                        break;
+                    }
+                }
+            }
+        }
         lookAround() {
             if (this.currentLookAroundCooldown == this.lookAroundCooldown) {
                 this.randomDirection();
@@ -94,28 +119,6 @@ var Game;
             }
             else {
                 this.currentLookAroundCooldown++;
-            }
-        }
-        reactToCollison() {
-            let collisionObjects = this.collider.getCollisionObjects();
-            for (var i = 0; i < collisionObjects.length; i++) {
-                let collisionObject = collisionObjects[i];
-                switch (collisionObject.collisionType) {
-                    case Game.CollisionType.ENEMY: {
-                        break;
-                    }
-                    case Game.CollisionType.ENVIRONMENT: {
-                        if (collisionObject.object.constructor.name == "Platform") {
-                            this.currentPlatform = collisionObject.object;
-                        }
-                        this.handleSolidColision(collisionObject);
-                        break;
-                    }
-                    case Game.CollisionType.PLAYER: {
-                        this.handleSolidColision(collisionObject);
-                        break;
-                    }
-                }
             }
         }
         randomDirection() {

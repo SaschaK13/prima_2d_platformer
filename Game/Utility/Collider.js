@@ -1,23 +1,23 @@
 "use strict";
 var Game;
 (function (Game) {
-    let CollisionType;
-    (function (CollisionType) {
-        CollisionType["ENVIRONMENT"] = "Platform";
-        CollisionType["ENEMY"] = "Enemy";
-        CollisionType["PLAYER"] = "Player";
-        CollisionType["ITEM"] = "Item";
-        CollisionType["FINISH"] = "Finish";
-        CollisionType["MISSING"] = "Missing";
-    })(CollisionType = Game.CollisionType || (Game.CollisionType = {}));
-    let CollisionDirection;
-    (function (CollisionDirection) {
-        CollisionDirection["RIGHT"] = "Right";
-        CollisionDirection["LEFT"] = "Left";
-        CollisionDirection["TOP"] = "Top";
-        CollisionDirection["BOTTOM"] = "Bottom";
-        CollisionDirection["ERROR"] = "Error";
-    })(CollisionDirection = Game.CollisionDirection || (Game.CollisionDirection = {}));
+    let COLLISIONTYPE;
+    (function (COLLISIONTYPE) {
+        COLLISIONTYPE["ENVIRONMENT"] = "Platform";
+        COLLISIONTYPE["ENEMY"] = "Enemy";
+        COLLISIONTYPE["PLAYER"] = "Player";
+        COLLISIONTYPE["ITEM"] = "Item";
+        COLLISIONTYPE["FINISH"] = "Finish";
+        COLLISIONTYPE["MISSING"] = "Missing";
+    })(COLLISIONTYPE = Game.COLLISIONTYPE || (Game.COLLISIONTYPE = {}));
+    let COLLISIONDIRECTION;
+    (function (COLLISIONDIRECTION) {
+        COLLISIONDIRECTION["RIGHT"] = "Right";
+        COLLISIONDIRECTION["LEFT"] = "Left";
+        COLLISIONDIRECTION["TOP"] = "Top";
+        COLLISIONDIRECTION["BOTTOM"] = "Bottom";
+        COLLISIONDIRECTION["ERROR"] = "Error";
+    })(COLLISIONDIRECTION = Game.COLLISIONDIRECTION || (Game.COLLISIONDIRECTION = {}));
     class Collider {
         constructor(node) {
             this.object = node;
@@ -37,28 +37,6 @@ var Game;
         getCollisionObjects() {
             return this.collissionObjects;
         }
-        getCollisionType(colissionObject) {
-            switch (colissionObject.constructor.name) {
-                case "Platform": {
-                    return CollisionType.ENVIRONMENT;
-                }
-                case "Blob": {
-                    return CollisionType.ENEMY;
-                }
-                case "Goblin": {
-                    return CollisionType.ENEMY;
-                }
-                case "Player": {
-                    return CollisionType.PLAYER;
-                }
-                case "Item": {
-                    return CollisionType.ITEM;
-                }
-                case "Finish": {
-                    return CollisionType.FINISH;
-                }
-            }
-        }
         getCollisionDirection(colissionObject) {
             let objectLeft = this.object.cmpTransform.local.translation.x - (this.object.cmpTransform.local.scaling.x / 2);
             let objectRight = this.object.cmpTransform.local.translation.x + (this.object.cmpTransform.local.scaling.x / 2);
@@ -73,14 +51,14 @@ var Game;
             let collissionObjectTop = colissionObject.cmpTransform.local.translation.y - (colissionObject.cmpTransform.local.scaling.y / 2);
             let collissionObjectBottom = colissionObject.cmpTransform.local.translation.y + (colissionObject.cmpTransform.local.scaling.y / 2);
             if (objectOldBottom <= collissionObjectTop && objectBottom >= collissionObjectTop)
-                return CollisionDirection.TOP;
+                return COLLISIONDIRECTION.TOP;
             if (objectOldTop >= collissionObjectBottom && objectTop <= collissionObjectBottom)
-                return CollisionDirection.BOTTOM;
+                return COLLISIONDIRECTION.BOTTOM;
             if (objectOldRight <= collissionObjectLeft && objectRight >= collissionObjectLeft)
-                return CollisionDirection.RIGHT;
+                return COLLISIONDIRECTION.RIGHT;
             if (objectOldLeft >= collissionObjectRight && objectLeft <= collissionObjectRight)
-                return CollisionDirection.LEFT;
-            return CollisionDirection.ERROR;
+                return COLLISIONDIRECTION.LEFT;
+            return COLLISIONDIRECTION.ERROR;
         }
         collideWith(cObject) {
             let colissionObjectPosition = cObject.cmpTransform.local.translation;
@@ -104,10 +82,32 @@ var Game;
                 for (var j = 0; j < this.collissionObjects.length; j++) {
                     let newObject = this.collissionObjects[j];
                     if (oldObject.object.name == newObject.object.name) {
-                        if (newObject.collisionDirecton == CollisionDirection.ERROR) {
+                        if (newObject.collisionDirecton == COLLISIONDIRECTION.ERROR) {
                             newObject.collisionDirecton = oldObject.collisionDirecton;
                         }
                     }
+                }
+            }
+        }
+        getCollisionType(colissionObject) {
+            switch (colissionObject.constructor.name) {
+                case "Platform": {
+                    return COLLISIONTYPE.ENVIRONMENT;
+                }
+                case "Blob": {
+                    return COLLISIONTYPE.ENEMY;
+                }
+                case "Goblin": {
+                    return COLLISIONTYPE.ENEMY;
+                }
+                case "Player": {
+                    return COLLISIONTYPE.PLAYER;
+                }
+                case "Item": {
+                    return COLLISIONTYPE.ITEM;
+                }
+                case "Finish": {
+                    return COLLISIONTYPE.FINISH;
                 }
             }
         }

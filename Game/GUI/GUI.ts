@@ -12,7 +12,7 @@ namespace Game {
 
     constructor() {}
 
-    public updateStats(player: Player): void {
+    public updateStats(player: Character): void {
 
       this.initialHealth = player.getStats().hp;
       document.getElementById("health").setAttribute("src", "../Game/Assets/health/heart" + this.initialHealth + ".png");

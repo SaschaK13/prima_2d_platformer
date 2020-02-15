@@ -3,16 +3,17 @@ namespace Game {
   import fudge = FudgeCore;
 
   export class Blob extends Character {
-    name: string;
-    positionX: number;
-    positionY: number;
-    scaleX: number;
-    scaleY: number;
-    dropChance: number = 0.2;
+    public name: string;
+    public positionX: number;
+    public positionY: number;
+    public scaleX: number;
+    public scaleY: number;
 
+
+    private dropChance: number = 0.2;
     private movementDuration: number;
     private currentMovmentDuration: number = 0;
-    private movedirection: DIRECTION;
+    private moveDirection: DIRECTION;
 
     constructor(name: string, spriteName: string, positionX: number, positionY: number, scaleX: number, scaleY: number) {
       super(name);
@@ -36,7 +37,8 @@ namespace Game {
         this.dropItem();
       }
       this.isDead = true;
-      this.newShowOneTime(CHARACTERSTATE.DEATH);
+      fudge.Debug.log("dead")
+      this.showOneTime(CHARACTERSTATE.DEATH);
 
       setTimeout(() => { 
         this.getParent().removeChild(this);
@@ -55,7 +57,7 @@ namespace Game {
 
     public ki(): void {
        if (this.currentMovmentDuration != this.movementDuration) {
-        this.walk(this.movedirection);
+        this.walk(this.moveDirection);
         this.currentMovmentDuration++;
       } else {
         this.movementDuration = Util.getInstance().getRandomRange(100, 200);
@@ -71,17 +73,17 @@ namespace Game {
         let collisionObject: CollidedObject = collisionObjects[i];
         
         switch (collisionObject.collisionType) {
-          case CollisionType.ENEMY: {
+          case COLLISIONTYPE.ENEMY: {
           
             break;
           }
 
-          case CollisionType.ENVIRONMENT: {
+          case COLLISIONTYPE.ENVIRONMENT: {
             this.handleSolidColision(collisionObject);
             break;
           }
 
-          case CollisionType.PLAYER: {
+          case COLLISIONTYPE.PLAYER: {
            this.handleSolidColision(collisionObject)
            break;
           }
@@ -96,9 +98,9 @@ namespace Game {
     private randomDirection(): void {
       let randomnum: number = Util.getInstance().getRandomRange(1, 3);
       if (randomnum == 1) {
-        this.movedirection = DIRECTION.RIGHT;
+        this.moveDirection = DIRECTION.RIGHT;
       } else {
-        this.movedirection = DIRECTION.LEFT;
+        this.moveDirection = DIRECTION.LEFT;
       }
     }
   }

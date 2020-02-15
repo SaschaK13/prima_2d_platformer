@@ -25,7 +25,8 @@ var Game;
                 this.dropItem();
             }
             this.isDead = true;
-            this.newShowOneTime(Game.CHARACTERSTATE.DEATH);
+            fudge.Debug.log("dead");
+            this.showOneTime(Game.CHARACTERSTATE.DEATH);
             setTimeout(() => {
                 this.getParent().removeChild(this);
                 Game.Util.getInstance().level.deleteEnemy(this);
@@ -41,7 +42,7 @@ var Game;
         }
         ki() {
             if (this.currentMovmentDuration != this.movementDuration) {
-                this.walk(this.movedirection);
+                this.walk(this.moveDirection);
                 this.currentMovmentDuration++;
             }
             else {
@@ -55,14 +56,14 @@ var Game;
             for (var i = 0; i < collisionObjects.length; i++) {
                 let collisionObject = collisionObjects[i];
                 switch (collisionObject.collisionType) {
-                    case Game.CollisionType.ENEMY: {
+                    case Game.COLLISIONTYPE.ENEMY: {
                         break;
                     }
-                    case Game.CollisionType.ENVIRONMENT: {
+                    case Game.COLLISIONTYPE.ENVIRONMENT: {
                         this.handleSolidColision(collisionObject);
                         break;
                     }
-                    case Game.CollisionType.PLAYER: {
+                    case Game.COLLISIONTYPE.PLAYER: {
                         this.handleSolidColision(collisionObject);
                         break;
                     }
@@ -72,10 +73,10 @@ var Game;
         randomDirection() {
             let randomnum = Game.Util.getInstance().getRandomRange(1, 3);
             if (randomnum == 1) {
-                this.movedirection = Game.DIRECTION.RIGHT;
+                this.moveDirection = Game.DIRECTION.RIGHT;
             }
             else {
-                this.movedirection = Game.DIRECTION.LEFT;
+                this.moveDirection = Game.DIRECTION.LEFT;
             }
         }
     }

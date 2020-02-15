@@ -12,6 +12,7 @@ var Game;
         root = new fudge.Node("Root");
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
+        //camera
         let cmpCamera = new fudge.ComponentCamera();
         cmpCamera.pivot.translateZ(15);
         cmpCamera.pivot.lookAt(fudge.Vector3.ZERO());
@@ -23,6 +24,7 @@ var Game;
         root.appendChild(cameraOrbit);
         viewport.initialize("Viewport", root, cameraOrbit.getComponent(fudge.ComponentCamera), canvas);
         loadGame();
+        Game.Util.getInstance().themeSound.play();
         document.addEventListener("keydown", handleKeyboard);
         document.addEventListener("keyup", handleKeyboard);
         fudge.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, update);
@@ -38,16 +40,16 @@ var Game;
                     player.jump();
                     return;
                 }
+                if (keysPressed[fudge.KEYBOARD_CODE.E]) {
+                    player.attack();
+                    return;
+                }
                 if (keysPressed[fudge.KEYBOARD_CODE.D]) {
                     player.walk(Game.DIRECTION.RIGHT);
                     return;
                 }
                 if (keysPressed[fudge.KEYBOARD_CODE.A]) {
                     player.walk(Game.DIRECTION.LEFT);
-                    return;
-                }
-                if (keysPressed[fudge.KEYBOARD_CODE.E]) {
-                    player.attack();
                     return;
                 }
                 player.idle();
@@ -139,8 +141,6 @@ var Game;
             let camPosition = cameraOrbit.cmpTransform.local.translation;
             let leftBorder = camPosition.x - (camSize.x / 2);
             let rightBorder = camPosition.x + (camSize.x / 2);
-            let bottom = camPosition.y - (camSize.y / 2);
-            let top = camPosition.y + (camSize.y / 2);
             let nodePosition = background.cmpTransform.local.translation;
             let nodeLeftBorder = nodePosition.x - (background.length / 2);
             let nodeRightBorder = nodePosition.x + (background.length / 2);
