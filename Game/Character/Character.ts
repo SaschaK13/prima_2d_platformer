@@ -207,7 +207,7 @@ namespace Game {
       setTimeout(() => {
          util.gameOver(); 
          //this.isShowingOnetime = true;
-      }, 1500);
+      }, 750);
     }
 
     public takeDmg(dmgTaken: number): void {

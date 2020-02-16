@@ -73,8 +73,6 @@ var Game;
                 let collisionType = this.getCollisionType(cObject);
                 this.collissionObjects.push({ object: cObject, collisionDirecton: direction, collisionType: collisionType });
             }
-            else {
-            }
         }
         updateCollisionObjects() {
             for (var i = 0; i < this.oldCollisionObjects.length; i++) {
