@@ -27,11 +27,9 @@ namespace Game {
       if(this.currentDmgCooldown == 0)
       {
         Util.getInstance().hurtSound.play()
-        Util.getInstance().gui.updateStats(this);
-
       }
       super.takeDmg(dmgTaken);
-
+      Util.getInstance().gui.updateHealth(this);
     }
 
     public jump()

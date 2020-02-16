@@ -12,7 +12,7 @@ namespace Game {
     public jumpHeight: number;
     public walkSpeed: number;
     public attackSpeed: number;
-    private stats: CharacterStats = { hp: 1, dmg: 1, jumpHeight: 1, walkSpeed: 1, attackSpeed: 1 };
+    private stats: CharacterStats = { hp: 0, dmg: 0, jumpHeight: 0, walkSpeed: 0, attackSpeed: 0 };
 
     constructor(nodeName: string, spriteName: string, hp: number, dmg: number, jumpHeight: number, walkSpeed: number, attackSpeed: number) {
       super(nodeName);
