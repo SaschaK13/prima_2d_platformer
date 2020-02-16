@@ -8,7 +8,9 @@ var Game;
             this.dropChance = 0.2;
             this.currentMovmentDuration = 0;
             this.behavior = (_event) => {
-                this.ki();
+                if (!this.isDead) {
+                    this.ki();
+                }
             };
             this.name = name;
             this.spriteName = spriteName;
@@ -25,7 +27,7 @@ var Game;
                 this.dropItem();
             }
             this.isDead = true;
-            fudge.Debug.log("dead");
+            this.isShowingOnetime = false;
             this.showOneTime(Game.CHARACTERSTATE.DEATH);
             setTimeout(() => {
                 this.getParent().removeChild(this);
@@ -42,8 +44,24 @@ var Game;
         }
         ki() {
             if (this.currentMovmentDuration != this.movementDuration) {
-                this.walk(this.moveDirection);
-                this.currentMovmentDuration++;
+                if (this.cmpTransform.local.translation.x >= this.currentPlatform.cmpTransform.local.translation.x - (this.currentPlatform.cmpTransform.local.scaling.x / 2) && this.cmpTransform.local.translation.x <= this.currentPlatform.cmpTransform.local.translation.x + (this.currentPlatform.cmpTransform.local.scaling.x / 2)) {
+                    this.walk(this.moveDirection);
+                }
+                else {
+                    switch (this.moveDirection) {
+                        case Game.DIRECTION.LEFT: {
+                            this.moveDirection = Game.DIRECTION.RIGHT;
+                            this.walk(this.moveDirection);
+                            break;
+                        }
+                        case Game.DIRECTION.RIGHT: {
+                            this.moveDirection = Game.DIRECTION.LEFT;
+                            this.walk(this.moveDirection);
+                            break;
+                        }
+                    }
+                    this.currentMovmentDuration++;
+                }
             }
             else {
                 this.movementDuration = Game.Util.getInstance().getRandomRange(100, 200);
@@ -60,6 +78,9 @@ var Game;
                         break;
                     }
                     case Game.COLLISIONTYPE.ENVIRONMENT: {
+                        if (collisionObject.object.constructor.name == "Platform") {
+                            this.currentPlatform = collisionObject.object;
+                        }
                         this.handleSolidColision(collisionObject);
                         break;
                     }

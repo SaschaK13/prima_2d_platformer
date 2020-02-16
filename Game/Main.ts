@@ -2,7 +2,7 @@
 namespace Game {
   import fudge = FudgeCore;
 
-  window.addEventListener("load", test);
+  window.addEventListener("load", loadMain);
   let root: fudge.Node;
   let saveGameName: string;
 
@@ -12,7 +12,7 @@ namespace Game {
 
   let keysPressed: KeyPressed = {};
 
-  function test(): void {
+  function loadMain(): void {
     let canvas: HTMLCanvasElement = document.querySelector("canvas");
     fudge.RenderManager.initialize(true, false);
 

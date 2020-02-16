@@ -33,8 +33,7 @@ namespace Game {
 
     function next(): void {
       document.getElementById("safeGame").style.visibility = "hidden";
-      Util.getInstance().loadNextLevel()
+      Util.getInstance().loadNextLevel();
     }
-
   }
 }

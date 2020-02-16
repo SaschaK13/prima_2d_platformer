@@ -31,6 +31,7 @@ var Game;
         Game.Util.getInstance().pickUpSound = theme;
     }
     function playThemeSound() {
+        theme.loop = true;
         theme.play();
     }
     function gotClicked() {

@@ -107,6 +107,7 @@ namespace Game {
         }
 
       }
+      this.themeSound.loop = true;
       this.themeSound.volume = 0.8;
       this.themeSound.load();
     }

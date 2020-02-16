@@ -1,6 +1,6 @@
 
 body {
-  background-image: url("./Assets/menu.png");
+  background-image: url("./Assets/menu/menu.png");
   margin-left: 15%;
   margin-right: 15%;
   margin-top: 2%;
@@ -10,7 +10,7 @@ body {
 
 
 #newGame {
-  background-image: url("./Assets/newGame.png");
+  background-image: url("./Assets/menu/newGame.png");
   border: 2px solid rgb(189, 189, 189);
   width: 300px;
   height: 150px;
@@ -21,7 +21,7 @@ body {
 
 
 #loadGame {
-  background-image: url("./Assets/loadGame.png");
+  background-image: url("./Assets/menu/loadGame.png");
   border: 2px solid rgb(189, 189, 189);
   width: 300px;
   height: 150px;

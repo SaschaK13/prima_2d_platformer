@@ -9,7 +9,6 @@ namespace Game {
     public scaleX: number;
     public scaleY: number;
 
-
     private dropChance: number = 0.2;
     private movementDuration: number;
     private currentMovmentDuration: number = 0;
@@ -22,7 +21,6 @@ namespace Game {
       this.cmpTransform.local.translation = new fudge.Vector3(positionX, positionY, 0);
       this.cmpTransform.local.scaling = new fudge.Vector3(scaleX, scaleY, 0);
       
-
       this.setStats({ hp: 3, dmg: 0, walkSpeed: 1, jumpHeight: 0, attackSpeed: 0 });
       this.movementDuration = Util.getInstance().getRandomRange(2, 3);
       this.randomDirection();
@@ -37,7 +35,6 @@ namespace Game {
         this.dropItem();
       }
       this.isDead = true;
-      fudge.Debug.log("dead")
       this.showOneTime(CHARACTERSTATE.DEATH);
 
       setTimeout(() => { 
@@ -57,8 +54,27 @@ namespace Game {
 
     public ki(): void {
        if (this.currentMovmentDuration != this.movementDuration) {
-        this.walk(this.moveDirection);
-        this.currentMovmentDuration++;
+        if(this.cmpTransform.local.translation.x >= this.currentPlatform.cmpTransform.local.translation.x - (this.currentPlatform.cmpTransform.local.scaling.x / 2) && this.cmpTransform.local.translation.x <= this.currentPlatform.cmpTransform.local.translation.x + (this.currentPlatform.cmpTransform.local.scaling.x / 2))
+        {
+          this.walk(this.moveDirection);
+          
+        }else{
+          switch(this.moveDirection){
+            case DIRECTION.LEFT: {
+              this.moveDirection = DIRECTION.RIGHT;
+              this.walk(this.moveDirection);
+              break;
+            }
+            case DIRECTION.RIGHT: {
+              this.moveDirection = DIRECTION.LEFT;
+              this.walk(this.moveDirection);
+              break;
+            }
+
+          }
+          this.currentMovmentDuration++;
+        }
+        
       } else {
         this.movementDuration = Util.getInstance().getRandomRange(100, 200);
         this.randomDirection();
@@ -74,17 +90,17 @@ namespace Game {
         
         switch (collisionObject.collisionType) {
           case COLLISIONTYPE.ENEMY: {
-          
             break;
           }
-
           case COLLISIONTYPE.ENVIRONMENT: {
+            if (collisionObject.object.constructor.name == "Platform") {
+              this.currentPlatform = collisionObject.object as Platform;
+            }
             this.handleSolidColision(collisionObject);
             break;
           }
-
           case COLLISIONTYPE.PLAYER: {
-           this.handleSolidColision(collisionObject)
+           this.handleSolidColision(collisionObject);
            break;
           }
         }
@@ -92,7 +108,11 @@ namespace Game {
     }
 
     private behavior = (_event: fudge.Eventƒ): void => {
-      this.ki();
+      if(!this.isDead)
+      {
+        this.ki();
+
+      }
     }
 
     private randomDirection(): void {

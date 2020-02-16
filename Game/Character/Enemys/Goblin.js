@@ -66,12 +66,9 @@ var Game;
                 this.attacksPlayer = false;
             }
             if (goblinTrans.y <= playerTrans.y + 0.7 && goblinTrans.y >= playerTrans.y - 0.7) {
-                fudge.Debug.log("Same height");
                 //Same height
                 if (this.currentPlatform && player.currentPlatform) {
                     if (this.currentPlatform.name == player.currentPlatform.name && !this.attacksPlayer) {
-                        fudge.Debug.log(this.attacksPlayer);
-                        fudge.Debug.log("Same platform");
                         //Same platform
                         if (playerTrans.x < goblinTrans.x) {
                             //Player is LeftB

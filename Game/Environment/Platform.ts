@@ -3,11 +3,11 @@ namespace Game {
   import fudge = FudgeCore;
 
   export class Platform extends Environment {
-    name: string;
-    positionX: number;
-    positionY: number;
-    scaleX: number;
-    scaleY: number;
+    public name: string;
+    public positionX: number;
+    public positionY: number;
+    public scaleX: number;
+    public scaleY: number;
 
     constructor(name: string, type: string, spriteName: string, positionX: number, positionY: number, scaleX: number, scaleY: number) {
       super(name, type);

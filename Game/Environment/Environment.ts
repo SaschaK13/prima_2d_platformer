@@ -2,19 +2,18 @@ namespace Game {
 
   import fudge = FudgeCore;
 
-  export enum EnvironmentType {
+  export enum ENVIRONMENTTYPE {
     PLATFORM = "Platform",
     BACKGROUND = "Background"
   }  
 
   export class Environment extends fudge.Node {
     private static mesh: fudge.MeshQuad = new fudge.MeshQuad;
-    public type: EnvironmentType
+    public type: ENVIRONMENTTYPE;
     //private static materials: fudge.Material;
 
     public spriteName: string;
     public isLoaded: boolean = false;
-
 
     constructor(nodeName: string, type: String) {
       super(nodeName);
@@ -43,10 +42,10 @@ namespace Game {
       }
     }
 
-    private parseStringToEnviornmentType(s: String): EnvironmentType {
+    private parseStringToEnviornmentType(s: String): ENVIRONMENTTYPE {
       switch (s) {
         case "Platform": {
-          return EnvironmentType.PLATFORM;
+          return ENVIRONMENTTYPE.PLATFORM;
         }
       }
     }

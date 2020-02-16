@@ -19,18 +19,16 @@ namespace Game {
     loadGame.addEventListener("click", loadButton);
   }
 
-
   function start(): void {
     select.play();
     window.open("http://localhost:5000/Game/game", "_self" , "fullscreen=yes" , true);
   }
 
   function loadButton(): void {
-    load()
+    load();
   }
 
   function fetchAudios(): void {
-
     select = new Audio();
     select.src = "../Game/Assets/sounds/select.wav";
     select.load();
@@ -39,12 +37,12 @@ namespace Game {
     theme.src = "../Game/Assets/sounds/menu.wav";
     theme.load();
 
-
     Util.getInstance().selectSound = select;
     Util.getInstance().pickUpSound = theme;
   }
 
   function playThemeSound(): void  {
+    theme.loop = true;
     theme.play();
   }
 
@@ -55,12 +53,10 @@ namespace Game {
     //
   }
 
-
   async function load(): Promise<void> {
     fudge.FileIoBrowserLocal.addEventListener(fudge.EVENT.FILE_LOADED, handleContentLoaded);
     fudge.FileIoBrowserLocal.load();
   }
-
 
   function handleContentLoaded(_event: CustomEvent): void {
     let map: fudge.MapFilenameToContent = _event.detail.mapFilenameToContent;
@@ -71,5 +67,4 @@ namespace Game {
       window.open("http://localhost:5000/Game/game?saveGamejson="+ content, "_self" , "fullscreen=yes" , true);
     }
   }
-
 }
