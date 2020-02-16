@@ -10,6 +10,7 @@ body {
 
 
 #newGame {
+  position: absolute;
   background-image: url("./Assets/menu/newGame.png");
   border: 2px solid rgb(189, 189, 189);
   width: 300px;
@@ -17,10 +18,13 @@ body {
   border-radius: 20px;
   font-size: x-large;
   margin: 100px;
+  left: 15%;
+  outline: none;
 }
 
 
 #loadGame {
+  position: absolute;
   background-image: url("./Assets/menu/loadGame.png");
   border: 2px solid rgb(189, 189, 189);
   width: 300px;
@@ -28,6 +32,52 @@ body {
   border-radius: 20px;
   font-size: x-large;
   margin: 100px;
+  right: 15%;
+  outline: none;
+}
+
+#settings {
+  border: 2px solid rgb(189, 189, 189);
+  background-image: url("./Assets/menu/settings.png");
+  border-radius: 20px;
+  width: 280px;
+  height: 80px;
+  font-size: x-large;
+  margin-left: auto;
+  margin-right: auto;
+  bottom: 5%;
+  display: block;
+  margin-top: 50%;
+  outline: none;
+}
+
+#settingsBox {
+  position: absolute;
+  text-align: center;
+  border: 5px solid black;
+  border-radius: 8px;
+  background-color: white;
+  top: 25%;
+  left: 35%;
+  height: 25%;
+  width: 30%;
+  padding: 1%;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: x-large;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+#closeSettings {
+  border-radius: 8px;
+  font-size: x-large;
+  margin: 8px;
+  padding: 5px;
+  border: grey;
+  color: white;
+  background-color: grey;
+  outline: none;
 }
 
 /*
