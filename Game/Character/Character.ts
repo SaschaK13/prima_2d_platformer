@@ -1,4 +1,3 @@
-
 namespace Game {
 
   import fudge = FudgeCore;
@@ -27,10 +26,8 @@ namespace Game {
   }
 
   export class Character extends fudge.Node {
-
-
-    public currentDmgCooldown = 0;
-    public attackCooldown = 0;
+    public currentDmgCooldown: number = 0;
+    public attackCooldown: number = 0;
     public spriteName: string;
 
     public direction: DIRECTION = DIRECTION.RIGHT;
@@ -46,16 +43,13 @@ namespace Game {
 
     public oldTransform: fudge.Vector3;
 
-   public positionX: number;
-   public positionY: number;
-   public scaleX: number;
-   public scaleY: number;
-
-
+    public positionX: number;
+    public positionY: number;
+    public scaleX: number;
+    public scaleY: number;
 
     public isShowingOnetime: boolean = false;
     public showOnetimeNodeSprite: NodeSprite;
-
 
     public currentPlatform: Platform;
 
@@ -65,7 +59,6 @@ namespace Game {
     private HP: number;
     private ATTACK_SPEED: number;
 
-
     private DMG_COOLDOWN: number = 50;
     private ANIMATION_COOLDOWN: number = 4;
 
@@ -73,14 +66,12 @@ namespace Game {
     private showOnetimeCounter: number;
     private currentAnimationCooldown: number = 0;
 
-
     private gravity: number = -8;
     private velocity: fudge.Vector2 = new fudge.Vector2(0, 0);
 
     private mesh: fudge.MeshQuad;
     private cmpTrans: fudge.ComponentTransform;
     private cmpMesh: fudge.ComponentMesh;
-
 
     constructor(nodeName: string) {
       super(nodeName);
@@ -98,21 +89,18 @@ namespace Game {
       fudge.Loop.addEventListener(fudge.EVENT.LOOP_FRAME, this.update);
     }
 
-  
     public reactToCollison(): void {
       let collisionObjects: CollidedObject[] = this.collider.getCollisionObjects();
 
       for (var i: number = 0; i < collisionObjects.length; i++) {
-        let collisionObject = collisionObjects[i];
-        this.handleSolidColision(collisionObject)
-
+        let collisionObject: CollidedObject = collisionObjects[i];
+        this.handleSolidColision(collisionObject);
       }
     }
 
-    public handleSolidColision(collidedObject: CollidedObject) {
-
+    public handleSolidColision(collidedObject: CollidedObject): void {
       let collisionObject: fudge.Node = collidedObject.object as fudge.Node;
-      let translation = this.cmpTransform.local.translation;
+      let translation: fudge.Vector3 = this.cmpTransform.local.translation;
       switch (collidedObject.collisionDirecton) {
         case COLLISIONDIRECTION.BOTTOM: {
           let newYPosition: number = collisionObject.cmpTransform.local.translation.y + (collisionObject.cmpTransform.local.scaling.y / 2) + (this.cmpTransform.local.scaling.y / 2);
@@ -122,7 +110,6 @@ namespace Game {
           this.velocity.y = 0;
           break;
         }
-
         case COLLISIONDIRECTION.TOP: {
           let newYPosition: number = collisionObject.cmpTransform.local.translation.y - (collisionObject.cmpTransform.local.scaling.y / 2) - (this.cmpTransform.local.scaling.y / 2);
           translation.y = newYPosition;
@@ -130,7 +117,6 @@ namespace Game {
           this.velocity.y = 0;
           break;
         }
-
         case COLLISIONDIRECTION.LEFT: {
           let newXPosition: number = collisionObject.cmpTransform.local.translation.x + (collisionObject.cmpTransform.local.scaling.x / 2) + (this.cmpTransform.local.scaling.x / 2);
           translation.x = newXPosition;
@@ -138,7 +124,6 @@ namespace Game {
           this.velocity.x = 0;
           break;
         }
-
         case COLLISIONDIRECTION.RIGHT: {
           let newXPosition: number = collisionObject.cmpTransform.local.translation.x - (collisionObject.cmpTransform.local.scaling.x / 2) - (this.cmpTransform.local.scaling.x / 2);
           translation.x = newXPosition;
@@ -155,46 +140,27 @@ namespace Game {
       }
     }
 
-    public showOneTime(_characterstate: CHARACTERSTATE)
-    {
-      if(!this.isDead)
-      {
-      //activates sprite
-      let spriteMap = Util.getInstance().spritesMap.get(this.spriteName);
-      let nodeSprite = spriteMap.get(_characterstate)
+    public showOneTime(_characterstate: CHARACTERSTATE): void {
+      if (!this.isDead) {
+        //let spriteMap: Map<string, Sprite> = Util.getInstance().spritesMap.get(this.spriteName);
+        //let nodeSprite: Sprite = spriteMap.get(_characterstate);
 
-    
-
-      for (let child of this.getChildren()) {
-        if(child.name == (this.spriteName + "_" + _characterstate))
-        {
-          if(this.isDead)
-          {
-            fudge.Debug.log(" show death anim")
+        //activates sprite
+        for (let child of this.getChildren()) {
+          if (child.name == (this.spriteName + "_" + _characterstate)) {
+            child.activate(true);
+            this.isShowingOnetime = true;
+            this.showOnetimeCounter = (child as NodeSprite).getSprite().frames.length;
+            this.showOnetimeNodeSprite = (child as NodeSprite);
+            this.currentShowOnetimeCounter = 0;
+          } else {
+            child.activate(false);
           }
-          child.activate(true);
-          this.isShowingOnetime = true;
-          this.showOnetimeCounter = (child as NodeSprite).getSprite().frames.length;
-          this.showOnetimeNodeSprite = (child as NodeSprite);
-          this.currentShowOnetimeCounter = 0;
-        }else
-        {
-          child.activate(false);
         }
-        
       }
-    }
-      
     }
 
     public idle(): void {
-      // fudge.Debug.log(this.isJumping + " jumping" + this.spriteName)
-      // fudge.Debug.log(this.isDead + " dead" + this.spriteName)
-      // fudge.Debug.log(this.isAttacking + " attacking"+ this.spriteName)
-      // fudge.Debug.log(this.isHitted + " hitted"+ this.spriteName)
-      // fudge.Debug.log(this.isShowingOnetime + " showing one time"+ this.spriteName)
-
-      fudge.Debug.log(this.currentShowOnetimeCounter)
       if (!this.isJumping && !this.isDead && !this.isAttacking && !this.isHitted && !this.isShowingOnetime) {
         this.show(CHARACTERSTATE.IDLE);
       }
@@ -208,30 +174,31 @@ namespace Game {
       }
     }
 
-    public walk(direction: DIRECTION) {
-      if(!this.isDead){
-      let timeFrame = fudge.Loop.timeFrameGame / 1000
-      if (direction == DIRECTION.RIGHT) {
-        this.cmpTransform.local.translateX(this.WALK_SPEED * timeFrame)
-        if (this.direction != direction) {
-          this.cmpTransform.local.rotation = fudge.Vector3.Y(0)
+    public walk(direction: DIRECTION): void {
+      if (!this.isDead) {
+        let timeFrame: number = fudge.Loop.timeFrameGame / 1000;
+        if (direction == DIRECTION.RIGHT) {
+          this.cmpTransform.local.translateX(this.WALK_SPEED * timeFrame);
+          if (this.direction != direction) {
+            this.cmpTransform.local.rotation = fudge.Vector3.Y(0);
+          }
+          this.direction = direction;
+        } else {
+          this.cmpTransform.local.translateX(-(this.WALK_SPEED * timeFrame));
+          if (this.direction != direction) {
+            this.cmpTransform.local.rotation = fudge.Vector3.Y(180);
+          }
+          this.direction = direction;
         }
-        this.direction = direction;
-      } else {
-        this.cmpTransform.local.translateX(-(this.WALK_SPEED * timeFrame))
-        if (this.direction != direction) {
-          this.cmpTransform.local.rotation = fudge.Vector3.Y(180)
+        if (!this.isJumping && !this.isHitted) {
+          this.show(CHARACTERSTATE.WALK);
         }
-        this.direction = direction;
-      }
-
-      if (!this.isJumping && !this.isHitted) {
-        this.show(CHARACTERSTATE.WALK);
       }
     }
-    }
 
-    public attack(): void {}
+    public attack(): void {
+      //will be overwritten
+    }
 
     public die(): void {
       this.showOneTime(CHARACTERSTATE.DEATH);
@@ -243,35 +210,30 @@ namespace Game {
       }, 1500);
     }
 
-    public takeDmg(dmgTaken: number) {
+    public takeDmg(dmgTaken: number): void {
       if (!this.isDead) {
-      if (this.currentDmgCooldown == 0) {
-        if (this.HP > 0) {
-          if ((this.HP - dmgTaken) >= 0) {
-            this.HP -= dmgTaken;
-            this.isHitted = true;
-            this.showOneTime(CHARACTERSTATE.HIT);
-          }
-        } else {
+        if (this.currentDmgCooldown == 0) {
+          if (this.HP > 0) {
+            if ((this.HP - dmgTaken) >= 0) {
+              this.HP -= dmgTaken;
+              this.isHitted = true;
+              this.showOneTime(CHARACTERSTATE.HIT);
+            }
+          } else {
             this.die();
-          
+          }
+          this.currentDmgCooldown = this.DMG_COOLDOWN;
         }
-        this.currentDmgCooldown = this.DMG_COOLDOWN;
       }
     }
 
-    }
-
-    public look(direction: DIRECTION)
-    {
-      switch(direction) {
-
+    public look(direction: DIRECTION): void {
+      switch (direction) {
         case DIRECTION.RIGHT: {
           this.cmpTransform.local.rotation = fudge.Vector3.Y(0);
           this.direction = DIRECTION.RIGHT;
           break;
         }
-        
         case DIRECTION.LEFT: {
           this.cmpTransform.local.rotation = fudge.Vector3.Y(180);
           this.direction = DIRECTION.LEFT;
@@ -297,9 +259,8 @@ namespace Game {
       this.show(CHARACTERSTATE.IDLE);
     }
 
-   
     public getStats(): CharacterStats {
-      return { hp: this.HP, dmg: this.DMG, jumpHeight: this.JUMP_HEIGHT, walkSpeed: this.WALK_SPEED, attackSpeed: this.ATTACK_SPEED }
+      return { hp: this.HP, dmg: this.DMG, jumpHeight: this.JUMP_HEIGHT, walkSpeed: this.WALK_SPEED, attackSpeed: this.ATTACK_SPEED };
     }
 
     public setStats(stats: CharacterStats): void {
@@ -311,13 +272,11 @@ namespace Game {
     }
 
     public updateStats(stats: CharacterStats): void {
-  
       this.HP += stats.hp;
       this.DMG += stats.dmg;
       this.JUMP_HEIGHT += stats.jumpHeight;
       this.WALK_SPEED += stats.walkSpeed;
       this.ATTACK_SPEED += stats.attackSpeed;
-
       Util.getInstance().gui.updateStats(this);
     }
 
@@ -331,18 +290,13 @@ namespace Game {
       let timeFrame: number = fudge.Loop.timeFrameGame / 1000;
       //this.velocity.y += this.gravity * timeFram
       this.velocity.y += this.gravity * timeFrame;
-
-
-
       //ad velocity to position
-   
       this.cmpTransform.local.translateY(this.velocity.y * timeFrame);
       this.cmpTransform.local.translateX(this.velocity.x * timeFrame);
     }
 
     private update = (_event: fudge.Eventƒ): void => {
-
-      if(this.isLoaded){
+      if (this.isLoaded) {
         this.updateSprites();
         this.collider.handleCollsion();
         this.handlePhysics();
@@ -355,7 +309,6 @@ namespace Game {
           this.isHitted = false;
         }
       }
-   
     }
 
     private updateSprites(): void {
@@ -363,16 +316,13 @@ namespace Game {
         this.currentAnimationCooldown --;
       } else {
         this.broadcastEvent(new CustomEvent("showNext"));
-        if(this.isShowingOnetime)
-        {
-          if(this.currentShowOnetimeCounter <= this.showOnetimeCounter)
-          {
+        if (this.isShowingOnetime) {
+          if (this.currentShowOnetimeCounter <= this.showOnetimeCounter) {
             this.showOnetimeNodeSprite.showFrameNext();
             this.currentShowOnetimeCounter++;
-          }else{
-            if(this.showOnetimeNodeSprite)
-            {
-              this.showOnetimeNodeSprite.resetFrames()
+          } else {
+            if (this.showOnetimeNodeSprite) {
+              this.showOnetimeNodeSprite.resetFrames();
               this.showOnetimeNodeSprite.activate(false);
             }
             this.isShowingOnetime = false;
@@ -380,20 +330,15 @@ namespace Game {
             this.isHitted = false;
             this.currentShowOnetimeCounter = 0;
 
-            if(this.isJumping)
-            {
-              this.show(CHARACTERSTATE.JUMP)
+            if (this.isJumping) {
+              this.show(CHARACTERSTATE.JUMP);
+            } else {
+              this.idle();
             }
-            else{
-              this.idle()
-            }
-            
-
+          }
         }
-          
+        this.currentAnimationCooldown = this.ANIMATION_COOLDOWN;
       }
-      this.currentAnimationCooldown = this.ANIMATION_COOLDOWN;
     }
   }
-}
 }

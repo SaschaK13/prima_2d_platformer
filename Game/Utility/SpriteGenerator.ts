@@ -2,10 +2,10 @@ namespace Game {
   import fudge = FudgeCore;
 
   export class SpriteFrame {
-    rectTexture: fudge.Rectangle;
-    pivot: fudge.Matrix4x4;
-    material: fudge.Material;
-    timeScale: number;
+    public rectTexture: fudge.Rectangle;
+    public pivot: fudge.Matrix4x4;
+    public material: fudge.Material;
+    public timeScale: number;
   }
 
   export class Sprite {
@@ -42,7 +42,6 @@ namespace Game {
         // ƒ.Debug.log(frame.rectTexture.toString());
         // ƒ.Debug.log(frame.pivot.toString());
         // ƒ.Debug.log(frame.material);
-
         count++;
       }
     }
@@ -130,8 +129,7 @@ namespace Game {
       this.showFrame(this.frameCurrent);
     }
 
-    public resetFrames()
-    {
+    public resetFrames(): void {
       this.frameCurrent = 0;
     }
 
@@ -139,8 +137,7 @@ namespace Game {
       this.direction = Math.floor(_direction);
     }
 
-    public getSprite(): Sprite
-    {
+    public getSprite(): Sprite {
       return this.sprite;
     }
   }
@@ -159,6 +156,7 @@ namespace Game {
     "sword",
     "boots"
   ];
+  
   let states: string[] = [
     "default",
     "idle",

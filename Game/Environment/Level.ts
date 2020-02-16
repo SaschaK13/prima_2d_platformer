@@ -10,13 +10,9 @@ namespace Game {
     public enemyArray: Character[] = [];
     public itemArray: Item[] = [];
     public possibleItemsArray: Item[] = [];
-
     public theme: string;
     public finish: Finish;
-    
     private levelLength: number;
- 
-
     private root: fudge.Node;
 
     public setRoot(root: fudge.Node): void {
@@ -27,19 +23,15 @@ namespace Game {
       this.root.appendChild(node);
     }
 
-    public deleteEnemy(enemy: Character){
-      let newEnemyArray: Character[] = []
+    public deleteEnemy(enemy: Character): void {
+      let newEnemyArray: Character[] = [];
 
-      for(var i = 0; i < this.enemyArray.length; i++)
-      {
-        if(!(this.enemyArray[i].name == enemy.name))
-        {
-          newEnemyArray.push(this.enemyArray[i])
+      for (var i: number = 0; i < this.enemyArray.length; i++) {
+        if (!(this.enemyArray[i].name == enemy.name)) {
+          newEnemyArray.push(this.enemyArray[i]);
         }
       }
-
       Util.getInstance().level.enemyArray = newEnemyArray;
-
     }
 
     public deleteItem(item: Item): void {
@@ -50,39 +42,30 @@ namespace Game {
           newItemArray.push(this.itemArray[i]);
         }
       }
-
       Util.getInstance().level.itemArray = newItemArray;
-
     }
 
     public getCollidableObjects(): fudge.Node[] {
-      
-      let collidableNodes: fudge.Node[] = []
-
-      for(var i = 0; i < this.platformArray.length; i++)
-      {
-        if(this.platformArray[i].isLoaded){
-          collidableNodes.push(this.platformArray[i])
+      let collidableNodes: fudge.Node[] = [];
+      for (var i: number = 0; i < this.platformArray.length; i++) {
+        if (this.platformArray[i].isLoaded) {
+          collidableNodes.push(this.platformArray[i]);
         }
       }
 
-      for(var i = 0; i < this.enemyArray.length; i++)
-      {
-        if(this.enemyArray[i].isLoaded){
-        collidableNodes.push(this.enemyArray[i])
+      for (var i: number = 0; i < this.enemyArray.length; i++) {
+        if (this.enemyArray[i].isLoaded) {
+        collidableNodes.push(this.enemyArray[i]);
         }
       }
 
       for (var i = 0; i < this.itemArray.length; i++) {
-        collidableNodes.push(this.itemArray[i])
+        collidableNodes.push(this.itemArray[i]);
       }
+      collidableNodes.push(this.player);
+      collidableNodes.push(this.finish);
 
-      collidableNodes.push(this.player)
-      collidableNodes.push(this.finish)
-
-      return collidableNodes
+      return collidableNodes;
     }
   }
-
- 
 }

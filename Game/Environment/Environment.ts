@@ -9,12 +9,11 @@ namespace Game {
 
   export class Environment extends fudge.Node {
     private static mesh: fudge.MeshQuad = new fudge.MeshQuad;
-    public type: ENVIRONMENTTYPE
+    public type: ENVIRONMENTTYPE;
     //private static materials: fudge.Material;
 
     public spriteName: string;
     public isLoaded: boolean = false;
-
 
     constructor(nodeName: string, type: String) {
       super(nodeName);

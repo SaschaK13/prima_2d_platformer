@@ -34,7 +34,6 @@ var Game;
                     detectedEnemys[i].takeDmg(this.getStats().dmg);
                 }
                 this.isAttacking = true;
-                //this.showOneTime(CHARACTERSTATE.ATTACK);
                 this.showOneTime(Game.CHARACTERSTATE.ATTACK);
                 this.attackCooldown = this.getStats().attackSpeed;
                 Game.Util.getInstance().attackSound.play();
