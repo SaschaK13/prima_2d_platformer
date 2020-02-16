@@ -14,14 +14,12 @@ namespace Game {
     private currentLookAroundCooldown: number = 0;
     private moveDirection: DIRECTION = DIRECTION.RIGHT;
 
-
     constructor(name: string, spriteName: string, positionX: number, positionY: number, scaleX: number, scaleY: number) {
       super(name);
       this.name = name;
       this.spriteName = spriteName;
       this.cmpTransform.local.translation = new fudge.Vector3(positionX, positionY, 0);
       this.cmpTransform.local.scaling = new fudge.Vector3(scaleX, scaleY, 0);
-
 
       this.setStats({ hp: 3, dmg: 0, walkSpeed: 2, jumpHeight: 0, attackSpeed: 100 });
 
@@ -32,14 +30,12 @@ namespace Game {
       fudge.Loop.addEventListener(fudge.EVENT.LOOP_FRAME, this.behavior);
     }
 
-
     public die(): void {
       if (Math.random() < this.dropChance) {
         this.dropItem();
       }
-      this.showOneTime(CHARACTERSTATE.DEATH)
+      this.showOneTime(CHARACTERSTATE.DEATH);
       this.isDead = true;
-
 
       setTimeout(() => { 
         this.getParent().removeChild(this);
@@ -66,11 +62,11 @@ namespace Game {
       }
     }
 
-    public ki() {
+    public ki(): void {
       //Check if player is on same height
-      let player = Util.getInstance().level.player;
-      let playerTrans = Util.getInstance().level.player.cmpTransform.local.translation;
-      let goblinTrans = this.cmpTransform.local.translation;
+      let player: Player = Util.getInstance().level.player;
+      let playerTrans: fudge.Vector3 = Util.getInstance().level.player.cmpTransform.local.translation;
+      let goblinTrans: fudge.Vector3 = this.cmpTransform.local.translation;
       let collisionObjects: Character[] = this.hitbox.detectEnemys() as Character[];
       if (collisionObjects.length != 0) {
         this.attack();
@@ -79,14 +75,9 @@ namespace Game {
       }
 
       if (goblinTrans.y <= playerTrans.y + 0.7 && goblinTrans.y >= playerTrans.y - 0.7) {
-        fudge.Debug.log("Same height")
         //Same height
         if (this.currentPlatform && player.currentPlatform) {
-          
-
           if (this.currentPlatform.name == player.currentPlatform.name && !this.attacksPlayer) {
-            fudge.Debug.log(this.attacksPlayer)
-            fudge.Debug.log("Same platform")
             //Same platform
             if (playerTrans.x < goblinTrans.x) {
               //Player is LeftB
@@ -103,7 +94,6 @@ namespace Game {
       }
     }
 
-
     public reactToCollison(): void {
       let collisionObjects: CollidedObject[] = this.collider.getCollisionObjects();
 
@@ -112,10 +102,8 @@ namespace Game {
 
         switch (collisionObject.collisionType) {
           case COLLISIONTYPE.ENEMY: {
-
             break;
           }
-
           case COLLISIONTYPE.ENVIRONMENT: {
             if (collisionObject.object.constructor.name == "Platform") {
               this.currentPlatform = collisionObject.object as Platform;
@@ -123,7 +111,6 @@ namespace Game {
             this.handleSolidColision(collisionObject);
             break;
           }
-
           case COLLISIONTYPE.PLAYER: {
             this.handleSolidColision(collisionObject);
             break;
@@ -132,14 +119,12 @@ namespace Game {
       }
     }
 
-
-
-    private lookAround() {
+    private lookAround(): void {
       if (this.currentLookAroundCooldown == this.lookAroundCooldown) {
-        this.randomDirection()
-        this.look(this.moveDirection)
+        this.randomDirection();
+        this.look(this.moveDirection);
         this.currentLookAroundCooldown = 0;
-      }else{
+      } else {
         this.currentLookAroundCooldown ++;
       }
     }
@@ -154,10 +139,9 @@ namespace Game {
     }
 
     private behavior = (_event: fudge.Eventƒ): void => {
-      if(!this.isDead && this.isLoaded){
-        this.ki()
+      if (!this.isDead && this.isLoaded) {
+        this.ki();
       }
     }
-
   }
 }

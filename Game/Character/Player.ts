@@ -24,20 +24,18 @@ namespace Game {
     }
 
     public takeDmg(dmgTaken: number): void {
-      if(this.currentDmgCooldown == 0)
-      {
-        Util.getInstance().hurtSound.play()
+      if (this.currentDmgCooldown == 0) {
+        Util.getInstance().hurtSound.play();
       }
       super.takeDmg(dmgTaken);
       Util.getInstance().gui.updateStats(this);
     }
 
-    public jump()
-    {
-      if(!this.isJumping){
-        Util.getInstance().jumpSound.play()
+    public jump(): void {
+      if (!this.isJumping) {
+        Util.getInstance().jumpSound.play();
       }
-      super.jump()
+      super.jump();
     }
 
     public attack(): void {
@@ -47,11 +45,10 @@ namespace Game {
           detectedEnemys[i].takeDmg(this.getStats().dmg);
         }
         this.isAttacking = true;
-       //this.showOneTime(CHARACTERSTATE.ATTACK);
-       this.showOneTime(CHARACTERSTATE.ATTACK);
+        this.showOneTime(CHARACTERSTATE.ATTACK);
         this.attackCooldown = this.getStats().attackSpeed;
         Util.getInstance().attackSound.play();
-      }else{
+      } else {
         this.isAttacking = false;
       }
     }
@@ -64,16 +61,13 @@ namespace Game {
         switch (collisionObject.collisionType) {
           case COLLISIONTYPE.ENEMY: {
             if (collisionObject.object.constructor.name == "Blob" && !this.finished) {
-              if(!this.isDead)
-              {
+              if (!this.isDead) {
                 this.takeDmg(1);
-
               }
             }
             super.handleSolidColision(collisionObject);
             break;
           }
-
           case COLLISIONTYPE.ENVIRONMENT: {
             if (collisionObject.object.constructor.name == "Platform") {
               this.currentPlatform = collisionObject.object as Platform;
@@ -81,17 +75,15 @@ namespace Game {
             super.handleSolidColision(collisionObject);
             break;
           }
-
           case COLLISIONTYPE.FINISH: {
-            if(!this.finished)
-            {
-              this.hittedFinish()
+            if (!this.finished) {
+              this.hittedFinish();
             }
             break;
           }
 
           case COLLISIONTYPE.ITEM: {
-            let item = collisionObject.object as Item;
+            let item: Item = collisionObject.object as Item;
             this.updateStats(item.getStats());
             Util.getInstance().level.deleteItem(item);
             this.getParent().removeChild(item);
@@ -101,10 +93,9 @@ namespace Game {
       }
     }
 
-    private hittedFinish() {
+    private hittedFinish(): void {
       this.finished = true;
       document.getElementById("safeGame").style.visibility = "visible";
     }
   }
-
 }

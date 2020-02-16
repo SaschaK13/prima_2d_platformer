@@ -9,7 +9,6 @@ namespace Game {
     public scaleX: number;
     public scaleY: number;
 
-
     private dropChance: number = 0.2;
     private movementDuration: number;
     private currentMovmentDuration: number = 0;
@@ -22,7 +21,6 @@ namespace Game {
       this.cmpTransform.local.translation = new fudge.Vector3(positionX, positionY, 0);
       this.cmpTransform.local.scaling = new fudge.Vector3(scaleX, scaleY, 0);
       
-
       this.setStats({ hp: 3, dmg: 0, walkSpeed: 1, jumpHeight: 0, attackSpeed: 0 });
       this.movementDuration = Util.getInstance().getRandomRange(2, 3);
       this.randomDirection();
@@ -37,7 +35,6 @@ namespace Game {
         this.dropItem();
       }
       this.isDead = true;
-      fudge.Debug.log("dead")
       this.showOneTime(CHARACTERSTATE.DEATH);
 
       setTimeout(() => { 
@@ -74,17 +71,14 @@ namespace Game {
         
         switch (collisionObject.collisionType) {
           case COLLISIONTYPE.ENEMY: {
-          
             break;
           }
-
           case COLLISIONTYPE.ENVIRONMENT: {
             this.handleSolidColision(collisionObject);
             break;
           }
-
           case COLLISIONTYPE.PLAYER: {
-           this.handleSolidColision(collisionObject)
+           this.handleSolidColision(collisionObject);
            break;
           }
         }

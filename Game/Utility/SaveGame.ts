@@ -1,17 +1,14 @@
-
 namespace Game {
 
   import fudge = FudgeCore;
 
   export class Savegame {
-
     levelName: string;
-    hp: number
-    dmg: number
-    jumpHeight: number
-    walkSpeed: number
-    attackSpeed: number
-
+    hp: number;
+    dmg: number;
+    jumpHeight: number;
+    walkSpeed: number;
+    attackSpeed: number;
 
     constructor(levelName: string, hp: number, dmg: number, jumpHeight: number, walkSpeed: number, attackSpeed: number) {
       this.levelName = levelName;
@@ -21,11 +18,5 @@ namespace Game {
       this.jumpHeight = jumpHeight;
       this.walkSpeed = walkSpeed;
     }
-
-
-
-
   }
-
-
 }

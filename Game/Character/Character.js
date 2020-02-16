@@ -110,14 +110,11 @@ var Game;
         }
         showOneTime(_characterstate) {
             if (!this.isDead) {
+                //let spriteMap: Map<string, Sprite> = Util.getInstance().spritesMap.get(this.spriteName);
+                //let nodeSprite: Sprite = spriteMap.get(_characterstate);
                 //activates sprite
-                let spriteMap = Game.Util.getInstance().spritesMap.get(this.spriteName);
-                let nodeSprite = spriteMap.get(_characterstate);
                 for (let child of this.getChildren()) {
                     if (child.name == (this.spriteName + "_" + _characterstate)) {
-                        if (this.isDead) {
-                            fudge.Debug.log(" show death anim");
-                        }
                         child.activate(true);
                         this.isShowingOnetime = true;
                         this.showOnetimeCounter = child.getSprite().frames.length;
@@ -131,12 +128,6 @@ var Game;
             }
         }
         idle() {
-            // fudge.Debug.log(this.isJumping + " jumping" + this.spriteName)
-            // fudge.Debug.log(this.isDead + " dead" + this.spriteName)
-            // fudge.Debug.log(this.isAttacking + " attacking"+ this.spriteName)
-            // fudge.Debug.log(this.isHitted + " hitted"+ this.spriteName)
-            // fudge.Debug.log(this.isShowingOnetime + " showing one time"+ this.spriteName)
-            fudge.Debug.log(this.currentShowOnetimeCounter);
             if (!this.isJumping && !this.isDead && !this.isAttacking && !this.isHitted && !this.isShowingOnetime) {
                 this.show(CHARACTERSTATE.IDLE);
             }
@@ -170,7 +161,9 @@ var Game;
                 }
             }
         }
-        attack() { }
+        attack() {
+            //will be overwritten
+        }
         die() {
             this.showOneTime(CHARACTERSTATE.DEATH);
             this.isDead = true;

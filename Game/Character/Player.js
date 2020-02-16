@@ -17,9 +17,9 @@ var Game;
         takeDmg(dmgTaken) {
             if (this.currentDmgCooldown == 0) {
                 Game.Util.getInstance().hurtSound.play();
-                Game.Util.getInstance().gui.updateStats(this);
             }
             super.takeDmg(dmgTaken);
+            Game.Util.getInstance().gui.updateStats(this);
         }
         jump() {
             if (!this.isJumping) {
@@ -34,7 +34,6 @@ var Game;
                     detectedEnemys[i].takeDmg(this.getStats().dmg);
                 }
                 this.isAttacking = true;
-                //this.showOneTime(CHARACTERSTATE.ATTACK);
                 this.showOneTime(Game.CHARACTERSTATE.ATTACK);
                 this.attackCooldown = this.getStats().attackSpeed;
                 Game.Util.getInstance().attackSound.play();
