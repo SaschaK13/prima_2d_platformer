@@ -54,7 +54,7 @@
 
   "itemArray": [
     {"name": "Item1", "spriteName": "sword",  "hp": 0, "dmg": 2, "jumpHeight": 0, "walkSpeed": 0, "attackSpeed": 2},
-    {"name": "Item2", "spriteName": "healpotion",  "hp": 2, "dmg": 0, "jumpHeight": 0, "walkSpeed": 1, "attackSpeed": 0},
-    {"name": "Item3", "spriteName": "boots",  "hp": 1, "dmg": 0, "jumpHeight": 1, "walkSpeed": 1, "attackSpeed": 0}
+    {"name": "Item2", "spriteName": "healpotion",  "hp": 3, "dmg": 0, "jumpHeight": 0, "walkSpeed": 0.2, "attackSpeed": 0},
+    {"name": "Item3", "spriteName": "boots",  "hp": 1, "dmg": 0, "jumpHeight": 0.2, "walkSpeed": 0.5, "attackSpeed": 0}
   ]
 }
