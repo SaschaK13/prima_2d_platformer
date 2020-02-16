@@ -21,16 +21,6 @@ html {
   margin: 1%;
 }
 
-#time {
-  color: white;
-  position: absolute;
-  top: var(--borderTop);
-  z-index: 10;
-  width: 10%;
-  right: var(--borderright);
-  font-size: x-large;
-}
-
 #speed {
   color: white;
   position: absolute;
