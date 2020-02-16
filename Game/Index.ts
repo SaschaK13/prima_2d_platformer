@@ -14,9 +14,13 @@ namespace Game {
 
     let newGame: HTMLElement = document.getElementById("newGame");
     let loadGame: HTMLElement = document.getElementById("loadGame");
+    let settings: HTMLElement = document.getElementById("settings");
+    let closeSettings: HTMLElement = document.getElementById("closeSettings"); 
 
     newGame.addEventListener("click", start);
     loadGame.addEventListener("click", loadButton);
+    settings.addEventListener("click", openSettings);
+    closeSettings.addEventListener("click", close);
   }
 
   function start(): void {
@@ -26,6 +30,14 @@ namespace Game {
 
   function loadButton(): void {
     load();
+  }
+
+  function openSettings(): void {
+    document.getElementById("settingsBox").style.visibility = "visible";
+  }
+
+  function close(): void {
+    document.getElementById("settingsBox").style.visibility = "hidden";
   }
 
   function fetchAudios(): void {
