@@ -48,13 +48,13 @@ namespace Game {
       this.root.appendChild(player);
       if(Util.getInstance().currentSavegame)
       {
-        let savegame = Util.getInstance().currentSavegame;
-        player.setStats({hp: savegame.hp, dmg: savegame.dmg, jumpHeight:savegame.jumpHeight, attackSpeed: savegame.attackSpeed, walkSpeed: savegame.walkSpeed })        
+        let savegame: Savegame = Util.getInstance().currentSavegame;
+        player.setStats({hp: savegame.hp, dmg: savegame.dmg, jumpHeight: savegame.jumpHeight, attackSpeed: savegame.attackSpeed, walkSpeed: savegame.walkSpeed });      
       } else if (Util.getInstance().oldPlayer) {
         let oldPlayerStats: CharacterStats = Util.getInstance().oldPlayer.getStats();
         player.setStats({hp: 10, dmg: oldPlayerStats.dmg, attackSpeed: oldPlayerStats.attackSpeed, jumpHeight: oldPlayerStats.jumpHeight, walkSpeed: oldPlayerStats.walkSpeed});
       }
-      Util.getInstance().gui.updateStats(player)
+      Util.getInstance().gui.updateStats(player);
       this.levelObject.player = player;
 
       let finishValue: Finish = this.data["finish"];

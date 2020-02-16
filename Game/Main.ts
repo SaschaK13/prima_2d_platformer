@@ -160,7 +160,7 @@ namespace Game {
       //Check if Player is in ViewPort 
       let player: Player = Util.getInstance().level.player;
       let showed: boolean = isInViewPort(player);
-      if (!showed && player.isLoaded) {
+      if (!showed && player.isLoaded && player.cmpTransform.local.translation.y < (cameraOrbit.cmpTransform.local.translation.y - 5)) {
         player.die();
       }
     }

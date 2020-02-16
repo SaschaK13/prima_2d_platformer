@@ -4,12 +4,12 @@ import fudge = FudgeCore;
 
 export interface CollidedObject {
     object: fudge.Node;
-    collisionDirecton: COLLISIONDIRECTION
-    collisionType: COLLISIONTYPE
+    collisionDirecton: COLLISIONDIRECTION;
+    collisionType: COLLISIONTYPE;
 }
 
 export enum COLLISIONTYPE{
-  ENVIRONMENT = "Platform", 
+  ENVIRONMENT = "Environment", 
   ENEMY = "Enemy",
   PLAYER = "Player",
   ITEM = "Item",
