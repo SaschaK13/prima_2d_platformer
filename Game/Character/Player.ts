@@ -29,7 +29,7 @@ namespace Game {
         Util.getInstance().hurtSound.play()
       }
       super.takeDmg(dmgTaken);
-      Util.getInstance().gui.updateHealth(this);
+      Util.getInstance().gui.updateStats(this);
     }
 
     public jump()
