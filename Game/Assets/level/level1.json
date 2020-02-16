@@ -37,16 +37,13 @@
   "finish": {"name": "finish", "spriteName": "finish", "type": "Platform"},
 
   "enemyArray": [
-    {"name": "Enemy1", "spriteName": "blob",  "positionX": -3.5, "positionY": 1.5, "scaleX": 1, "scaleY": 1},
-    {"name": "Enemy2", "spriteName": "blob",  "positionX": 5, "positionY": 1.5, "scaleX": 1, "scaleY": 1},
-    {"name": "Enemy3", "spriteName": "blob",  "positionX": 8, "positionY": -2, "scaleX": 1, "scaleY": 1},
-    {"name": "Enemy4", "spriteName": "blob",  "positionX": 20, "positionY": 2.5, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy1", "spriteName": "blob",  "positionX": -8, "positionY": 0, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy2", "spriteName": "blob",  "positionX": -3.5, "positionY": 1.5, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy3", "spriteName": "blob",  "positionX": 5, "positionY": 1.5, "scaleX": 1, "scaleY": 1},
+    {"name": "Enemy4", "spriteName": "blob",  "positionX": 8, "positionY": -2, "scaleX": 1, "scaleY": 1},
     {"name": "Enemy5", "spriteName": "blob",  "positionX": 21, "positionY": 2.5, "scaleX": 1, "scaleY": 1},
     {"name": "Enemy6", "spriteName": "blob",  "positionX": 29, "positionY": 0, "scaleX": 1, "scaleY": 1},
-    {"name": "Enemy7", "spriteName": "blob",  "positionX": 40, "positionY": -1.5, "scaleX": 1, "scaleY": 1},
-    {"name": "Enemy8", "spriteName": "blob",  "positionX": 41, "positionY": -1.5, "scaleX": 1, "scaleY": 1},
-    {"name": "Enemy9", "spriteName": "blob",  "positionX": 42, "positionY": -1.5, "scaleX": 1, "scaleY": 1},
-    {"name": "Enemy10", "spriteName": "goblin",  "positionX": 43, "positionY": -1.5, "scaleX": 1, "scaleY": 1}
+    {"name": "Enemy7", "spriteName": "goblin",  "positionX": 43, "positionY": -1.5, "scaleX": 1, "scaleY": 1}
   ],
 
   "itemArray": [

@@ -171,7 +171,7 @@ var Game;
             setTimeout(() => {
                 util.gameOver();
                 //this.isShowingOnetime = true;
-            }, 1500);
+            }, 750);
         }
         takeDmg(dmgTaken) {
             if (!this.isDead) {
