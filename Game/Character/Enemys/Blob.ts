@@ -54,11 +54,11 @@ namespace Game {
 
     public ki(): void {
        if (this.currentMovmentDuration != this.movementDuration) {
-        if(this.cmpTransform.local.translation.x >= this.currentPlatform.cmpTransform.local.translation.x - (this.currentPlatform.cmpTransform.local.scaling.x / 2) && this.cmpTransform.local.translation.x <= this.currentPlatform.cmpTransform.local.translation.x + (this.currentPlatform.cmpTransform.local.scaling.x / 2))
+        if (this.cmpTransform.local.translation.x >= this.currentPlatform.cmpTransform.local.translation.x - (this.currentPlatform.cmpTransform.local.scaling.x / 2) && this.cmpTransform.local.translation.x <= this.currentPlatform.cmpTransform.local.translation.x + (this.currentPlatform.cmpTransform.local.scaling.x / 2))
         {
           this.walk(this.moveDirection);
           
-        }else{
+        } else {
           switch(this.moveDirection){
             case DIRECTION.LEFT: {
               this.moveDirection = DIRECTION.RIGHT;
@@ -108,7 +108,7 @@ namespace Game {
     }
 
     private behavior = (_event: fudge.Eventƒ): void => {
-      if(!this.isDead)
+      if(!this.isDead && this.isLoaded)
       {
         this.ki();
 

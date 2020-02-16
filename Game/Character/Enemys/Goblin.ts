@@ -68,7 +68,7 @@ namespace Game {
       let playerTrans: fudge.Vector3 = Util.getInstance().level.player.cmpTransform.local.translation;
       let goblinTrans: fudge.Vector3 = this.cmpTransform.local.translation;
       let collisionObjects: Character[] = this.hitbox.detectEnemys() as Character[];
-      if (collisionObjects.length != 0) {
+      if (collisionObjects.length != 0 && !player.isDead) {
         this.attack();
       } else {
         this.attacksPlayer = false;

@@ -8,7 +8,7 @@ var Game;
             this.dropChance = 0.2;
             this.currentMovmentDuration = 0;
             this.behavior = (_event) => {
-                if (!this.isDead) {
+                if (!this.isDead && this.isLoaded) {
                     this.ki();
                 }
             };
