@@ -59,7 +59,7 @@ var Game;
             let playerTrans = Game.Util.getInstance().level.player.cmpTransform.local.translation;
             let goblinTrans = this.cmpTransform.local.translation;
             let collisionObjects = this.hitbox.detectEnemys();
-            if (collisionObjects.length != 0) {
+            if (collisionObjects.length != 0 && !player.isDead) {
                 this.attack();
             }
             else {

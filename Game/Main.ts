@@ -78,6 +78,7 @@ namespace Game {
       viewport.draw();
       cameraOrbit.cmpTransform.local.translation = new fudge.Vector3(Util.getInstance().level.player.cmpTransform.local.translation.x, cameraOrbit.cmpTransform.local.translation.y, cameraOrbit.cmpTransform.local.translation.z)
       updateGameObjects();
+      fudge.Debug.log(Util.getInstance().level.player.getStats().hpaa)
       //fudge.RenderManager.update()
     }
 
@@ -160,7 +161,7 @@ namespace Game {
       //Check if Player is in ViewPort 
       let player: Player = Util.getInstance().level.player;
       let showed: boolean = isInViewPort(player);
-      if (!showed && player.isLoaded) {
+      if (!showed && player.isLoaded && player.cmpTransform.local.translation.y < (cameraOrbit.cmpTransform.local.translation.y - 5)) {
         player.die();
       }
     }

@@ -8,7 +8,7 @@ var Game;
             this.dropChance = 0.2;
             this.currentMovmentDuration = 0;
             this.behavior = (_event) => {
-                if (!this.isDead) {
+                if (!this.isDead && this.isLoaded) {
                     this.ki();
                 }
             };
@@ -27,7 +27,6 @@ var Game;
                 this.dropItem();
             }
             this.isDead = true;
-            this.isShowingOnetime = false;
             this.showOneTime(Game.CHARACTERSTATE.DEATH);
             setTimeout(() => {
                 this.getParent().removeChild(this);
@@ -44,7 +43,7 @@ var Game;
         }
         ki() {
             if (this.currentMovmentDuration != this.movementDuration) {
-                if (this.cmpTransform.local.translation.x >= this.currentPlatform.cmpTransform.local.translation.x - (this.currentPlatform.cmpTransform.local.scaling.x / 2) && this.cmpTransform.local.translation.x <= this.currentPlatform.cmpTransform.local.translation.x + (this.currentPlatform.cmpTransform.local.scaling.x / 2)) {
+                if (this.cmpTransform.local.translation.x >= this.currentPlatform.cmpTransform.local.translation.x - ((this.currentPlatform.cmpTransform.local.scaling.x / 2) + 0.1) && this.cmpTransform.local.translation.x <= this.currentPlatform.cmpTransform.local.translation.x + ((this.currentPlatform.cmpTransform.local.scaling.x / 2) - 0.1)) {
                     this.walk(this.moveDirection);
                 }
                 else {

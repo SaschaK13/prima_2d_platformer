@@ -207,20 +207,20 @@ namespace Game {
       setTimeout(() => {
          util.gameOver(); 
          //this.isShowingOnetime = true;
-      }, 1500);
+      }, 750);
     }
 
     public takeDmg(dmgTaken: number): void {
       if (!this.isDead) {
         if (this.currentDmgCooldown == 0) {
-          if (this.HP > 0) {
-            if ((this.HP - dmgTaken) >= 0) {
+          if (this.HP  > 0) {
               this.HP -= dmgTaken;
               this.isHitted = true;
               this.showOneTime(CHARACTERSTATE.HIT);
-            }
-          } else {
-            this.die();
+              if (this.HP <= 0)
+              {
+                this.die();
+              }
           }
           this.currentDmgCooldown = this.DMG_COOLDOWN;
         }
