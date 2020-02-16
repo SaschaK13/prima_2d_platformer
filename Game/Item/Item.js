@@ -5,7 +5,7 @@ var Game;
     class Item extends fudge.Node {
         constructor(nodeName, spriteName, hp, dmg, jumpHeight, walkSpeed, attackSpeed) {
             super(nodeName);
-            this.stats = { hp: 1, dmg: 1, jumpHeight: 1, walkSpeed: 1, attackSpeed: 1 };
+            this.stats = { hp: 0, dmg: 0, jumpHeight: 0, walkSpeed: 0, attackSpeed: 0 };
             this.spriteName = spriteName;
             this.hp = hp;
             this.dmg = dmg;

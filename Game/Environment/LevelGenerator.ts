@@ -4,7 +4,7 @@ namespace Game {
   
   export class LevelGenerator {
 
-    root: fudge.Node;
+    public root: fudge.Node;
     private data: Level;
     private levelObject: Level = new Level();
 

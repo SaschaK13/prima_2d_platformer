@@ -17,9 +17,9 @@ var Game;
         takeDmg(dmgTaken) {
             if (this.currentDmgCooldown == 0) {
                 Game.Util.getInstance().hurtSound.play();
-                Game.Util.getInstance().gui.updateStats(this);
             }
             super.takeDmg(dmgTaken);
+            Game.Util.getInstance().gui.updateStats(this);
         }
         jump() {
             if (!this.isJumping) {

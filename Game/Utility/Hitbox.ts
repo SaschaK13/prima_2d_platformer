@@ -4,7 +4,6 @@ namespace Game {
 
   export class Hitbox extends fudge.Node {
     private static mesh: fudge.MeshQuad = new fudge.MeshQuad;
-    private rectangle: fudge.Rectangle;
     private parentNode: Character;
     private scaling: fudge.Vector2;
     private currentDirection: DIRECTION;

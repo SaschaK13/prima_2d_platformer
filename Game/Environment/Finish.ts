@@ -2,7 +2,7 @@ namespace Game {
   import fudge = FudgeCore;
 
   export class Finish extends Environment {
-    name: string;
+    public name: string;
 
     constructor(name: string, type: string, spriteName: string) {
       super(name, type);
