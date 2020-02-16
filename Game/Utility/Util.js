@@ -75,6 +75,7 @@ var Game;
         }
         loadNextLevel() {
             this.themeSound.pause();
+            this.oldPlayer = this.level.player;
             this.deleteAllNodes();
             this.collidableNode = new fudge.Node("Colidable");
             this.lvlGenerator = new Game.LevelGenerator(this.collidableNode);

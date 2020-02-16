@@ -27,7 +27,6 @@ var Game;
                 this.dropItem();
             }
             this.isDead = true;
-            this.isShowingOnetime = false;
             this.showOneTime(Game.CHARACTERSTATE.DEATH);
             setTimeout(() => {
                 this.getParent().removeChild(this);
