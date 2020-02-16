@@ -76,7 +76,7 @@ var Game;
             }
             else {
                 Game.Util.getInstance().lvlGenerator = new Game.LevelGenerator(Game.Util.getInstance().collidableNode);
-                Game.Util.getInstance().lvlGenerator.getDataFromFile("level2");
+                Game.Util.getInstance().lvlGenerator.getDataFromFile("level1");
             }
         }
         function loadLevel(saveGamejson) {
