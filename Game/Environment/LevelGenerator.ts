@@ -58,6 +58,7 @@ namespace Game {
       let finishValue: Finish = this.data["finish"];
       let finish: Finish = new Finish(finishValue.name, finishValue.type, finishValue.spriteName);
       finish.cmpTransform.local.translateX(levelLength);
+      finish.cmpTransform.local.translateZ(-1);
       this.levelObject.finish = finish;
       this.root.appendChild(finish);
 
