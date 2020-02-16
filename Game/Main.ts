@@ -78,7 +78,7 @@ namespace Game {
       viewport.draw();
       cameraOrbit.cmpTransform.local.translation = new fudge.Vector3(Util.getInstance().level.player.cmpTransform.local.translation.x, cameraOrbit.cmpTransform.local.translation.y, cameraOrbit.cmpTransform.local.translation.z)
       updateGameObjects();
-      fudge.Debug.log(Util.getInstance().level.player.getStats().hpaa)
+      fudge.Debug.log(Util.getInstance().level.player.getStats().hp);
       //fudge.RenderManager.update()
     }
 
@@ -99,7 +99,7 @@ namespace Game {
         loadLevel(saveGameName);
       } else {
         Util.getInstance().lvlGenerator = new LevelGenerator(Util.getInstance().collidableNode);
-        Util.getInstance().lvlGenerator.getDataFromFile("level1");
+        Util.getInstance().lvlGenerator.getDataFromFile("level2");
       }
 
     

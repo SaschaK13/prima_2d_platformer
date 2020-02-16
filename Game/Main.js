@@ -59,7 +59,7 @@ var Game;
             viewport.draw();
             cameraOrbit.cmpTransform.local.translation = new fudge.Vector3(Game.Util.getInstance().level.player.cmpTransform.local.translation.x, cameraOrbit.cmpTransform.local.translation.y, cameraOrbit.cmpTransform.local.translation.z);
             updateGameObjects();
-            fudge.Debug.log(Game.Util.getInstance().level.player.getStats().hpaa);
+            fudge.Debug.log(Game.Util.getInstance().level.player.getStats().hp);
             //fudge.RenderManager.update()
         }
         function loadGame() {
@@ -76,7 +76,7 @@ var Game;
             }
             else {
                 Game.Util.getInstance().lvlGenerator = new Game.LevelGenerator(Game.Util.getInstance().collidableNode);
-                Game.Util.getInstance().lvlGenerator.getDataFromFile("level1");
+                Game.Util.getInstance().lvlGenerator.getDataFromFile("level2");
             }
         }
         function loadLevel(saveGamejson) {
