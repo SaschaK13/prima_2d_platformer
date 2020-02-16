@@ -3,11 +3,11 @@ namespace Game {
   import fudge = FudgeCore;
 
   export class Hitbox extends fudge.Node {
-    private rectangle: fudge.Rectangle;
-    private parentNode: Character
-    private scaling: fudge.Vector2
-    private currentDirection: DIRECTION;
     private static mesh: fudge.MeshQuad = new fudge.MeshQuad;
+    private rectangle: fudge.Rectangle;
+    private parentNode: Character;
+    private scaling: fudge.Vector2;
+    private currentDirection: DIRECTION;
 
     constructor(nodeName: string, parentNode: Character, scaling: fudge.Vector2) {
       super(nodeName);

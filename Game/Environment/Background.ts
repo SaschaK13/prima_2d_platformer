@@ -3,8 +3,8 @@ namespace Game {
   import fudge = FudgeCore;
 
   export class Background extends Environment {
-    name: string;
-    length: number;
+    public name: string;
+    public length: number;
 
     constructor(name: string, type: string, spriteName: string, length: number) {
       super(name, type);

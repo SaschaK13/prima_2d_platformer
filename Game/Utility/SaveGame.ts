@@ -5,12 +5,12 @@ namespace Game {
 
   export class Savegame {
 
-    levelName: string;
-    hp: number
-    dmg: number
-    jumpHeight: number
-    walkSpeed: number
-    attackSpeed: number
+    public levelName: string;
+    public hp: number
+    public dmg: number
+    public jumpHeight: number
+    public walkSpeed: number
+    public attackSpeed: number
 
 
     constructor(levelName: string, hp: number, dmg: number, jumpHeight: number, walkSpeed: number, attackSpeed: number) {
