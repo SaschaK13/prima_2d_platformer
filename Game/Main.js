@@ -2,11 +2,11 @@
 var Game;
 (function (Game) {
     var fudge = FudgeCore;
-    window.addEventListener("load", test);
+    window.addEventListener("load", loadMain);
     let root;
     let saveGameName;
     let keysPressed = {};
-    function test() {
+    function loadMain() {
         let canvas = document.querySelector("canvas");
         fudge.RenderManager.initialize(true, false);
         root = new fudge.Node("Root");

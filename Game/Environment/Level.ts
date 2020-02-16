@@ -13,7 +13,6 @@ namespace Game {
     public theme: string;
     public finish: Finish;
     private levelLength: number;
-
     private root: fudge.Node;
 
     public setRoot(root: fudge.Node): void {

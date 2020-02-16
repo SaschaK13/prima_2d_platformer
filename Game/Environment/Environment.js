@@ -2,11 +2,11 @@
 var Game;
 (function (Game) {
     var fudge = FudgeCore;
-    let EnvironmentType;
-    (function (EnvironmentType) {
-        EnvironmentType["PLATFORM"] = "Platform";
-        EnvironmentType["BACKGROUND"] = "Background";
-    })(EnvironmentType = Game.EnvironmentType || (Game.EnvironmentType = {}));
+    let ENVIRONMENTTYPE;
+    (function (ENVIRONMENTTYPE) {
+        ENVIRONMENTTYPE["PLATFORM"] = "Platform";
+        ENVIRONMENTTYPE["BACKGROUND"] = "Background";
+    })(ENVIRONMENTTYPE = Game.ENVIRONMENTTYPE || (Game.ENVIRONMENTTYPE = {}));
     class Environment extends fudge.Node {
         constructor(nodeName, type) {
             super(nodeName);
@@ -30,7 +30,7 @@ var Game;
         parseStringToEnviornmentType(s) {
             switch (s) {
                 case "Platform": {
-                    return EnvironmentType.PLATFORM;
+                    return ENVIRONMENTTYPE.PLATFORM;
                 }
             }
         }
