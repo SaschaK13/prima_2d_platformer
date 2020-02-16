@@ -33,7 +33,6 @@ var Game;
             this.levelObject.backgroundArray.push(background);
             let playerValue = this.data["player"];
             let player = new Game.Player(playerValue.name, playerValue.spriteName, playerValue.positionX, playerValue.positionY, playerValue.scaleX, playerValue.scaleY);
-            this.levelObject.player = player;
             Game.Util.getInstance().gui.updateStats(player);
             player.isLoaded = true;
             this.root.appendChild(player);
@@ -41,6 +40,12 @@ var Game;
                 let savegame = Game.Util.getInstance().currentSavegame;
                 player.setStats({ hp: savegame.hp, dmg: savegame.dmg, jumpHeight: savegame.jumpHeight, attackSpeed: savegame.attackSpeed, walkSpeed: savegame.walkSpeed });
             }
+            else if (Game.Util.getInstance().oldPlayer) {
+                let oldPlayerStats = Game.Util.getInstance().oldPlayer.getStats();
+                player.setStats({ hp: 10, dmg: oldPlayerStats.dmg, attackSpeed: oldPlayerStats.attackSpeed, jumpHeight: oldPlayerStats.jumpHeight, walkSpeed: oldPlayerStats.walkSpeed });
+            }
+            Game.Util.getInstance().gui.updateStats(player);
+            this.levelObject.player = player;
             let finishValue = this.data["finish"];
             let finish = new Game.Finish(finishValue.name, finishValue.type, finishValue.spriteName);
             finish.cmpTransform.local.translateX(levelLength);

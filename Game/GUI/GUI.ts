@@ -4,11 +4,11 @@ namespace Game {
 
   export class Gui {
 
-    initialHealth: number = 0;
-    initialWalkSpeed: number = 0;
-    initialJumpingPower: number = 0;
-    initialDamage: number = 0;
-    initialAttackSpeed: number = 0;
+    public initialHealth: number = 0;
+    public initialWalkSpeed: number = 0;
+    public initialJumpingPower: number = 0;
+    public initialDamage: number = 0;
+    public initialAttackSpeed: number = 0;
 
     constructor() {}
 
