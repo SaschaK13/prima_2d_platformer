@@ -3,7 +3,7 @@ var Game;
 (function (Game) {
     let COLLISIONTYPE;
     (function (COLLISIONTYPE) {
-        COLLISIONTYPE["ENVIRONMENT"] = "Environment";
+        COLLISIONTYPE["ENVIRONMENT"] = "Platform";
         COLLISIONTYPE["ENEMY"] = "Enemy";
         COLLISIONTYPE["PLAYER"] = "Player";
         COLLISIONTYPE["ITEM"] = "Item";

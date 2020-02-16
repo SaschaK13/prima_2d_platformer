@@ -43,7 +43,7 @@ var Game;
         }
         ki() {
             if (this.currentMovmentDuration != this.movementDuration) {
-                if (this.cmpTransform.local.translation.x >= this.currentPlatform.cmpTransform.local.translation.x - (this.currentPlatform.cmpTransform.local.scaling.x / 2) && this.cmpTransform.local.translation.x <= this.currentPlatform.cmpTransform.local.translation.x + (this.currentPlatform.cmpTransform.local.scaling.x / 2)) {
+                if (this.cmpTransform.local.translation.x >= this.currentPlatform.cmpTransform.local.translation.x - ((this.currentPlatform.cmpTransform.local.scaling.x / 2) + 0.1) && this.cmpTransform.local.translation.x <= this.currentPlatform.cmpTransform.local.translation.x + ((this.currentPlatform.cmpTransform.local.scaling.x / 2) - 0.1)) {
                     this.walk(this.moveDirection);
                 }
                 else {
