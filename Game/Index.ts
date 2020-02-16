@@ -42,6 +42,7 @@ namespace Game {
   }
 
   function playThemeSound(): void  {
+    theme.loop = true;
     theme.play();
   }
 
