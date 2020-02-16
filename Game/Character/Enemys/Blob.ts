@@ -54,8 +54,27 @@ namespace Game {
 
     public ki(): void {
        if (this.currentMovmentDuration != this.movementDuration) {
-        this.walk(this.moveDirection);
-        this.currentMovmentDuration++;
+        if(this.cmpTransform.local.translation.x >= this.currentPlatform.cmpTransform.local.translation.x - (this.currentPlatform.cmpTransform.local.scaling.x / 2) && this.cmpTransform.local.translation.x <= this.currentPlatform.cmpTransform.local.translation.x + (this.currentPlatform.cmpTransform.local.scaling.x / 2))
+        {
+          this.walk(this.moveDirection);
+          
+        }else{
+          switch(this.moveDirection){
+            case DIRECTION.LEFT: {
+              this.moveDirection = DIRECTION.RIGHT;
+              this.walk(this.moveDirection);
+              break;
+            }
+            case DIRECTION.RIGHT: {
+              this.moveDirection = DIRECTION.LEFT;
+              this.walk(this.moveDirection);
+              break;
+            }
+
+          }
+          this.currentMovmentDuration++;
+        }
+        
       } else {
         this.movementDuration = Util.getInstance().getRandomRange(100, 200);
         this.randomDirection();
@@ -74,6 +93,9 @@ namespace Game {
             break;
           }
           case COLLISIONTYPE.ENVIRONMENT: {
+            if (collisionObject.object.constructor.name == "Platform") {
+              this.currentPlatform = collisionObject.object as Platform;
+            }
             this.handleSolidColision(collisionObject);
             break;
           }
@@ -86,7 +108,11 @@ namespace Game {
     }
 
     private behavior = (_event: fudge.Eventƒ): void => {
-      this.ki();
+      if(!this.isDead)
+      {
+        this.ki();
+
+      }
     }
 
     private randomDirection(): void {
