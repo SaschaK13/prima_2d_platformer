@@ -24,7 +24,7 @@ html {
 #speed {
   color: white;
   position: absolute;
-  top: 10%;
+  top: 7%;
   z-index: 10;
   width: 10%;
   right: var(--borderright);
@@ -33,7 +33,7 @@ html {
 
 #walkSpeedIcon {
   position: absolute;
-  top: 10%;
+  top: 7%;
   z-index: 10;
   height: 35px;
   width: 35px;
@@ -44,7 +44,7 @@ html {
 #jumping {
   color: white;
   position: absolute;
-  top: 15%;
+  top: 12%;
   z-index: 10;
   width: 10%;
   right: var(--borderright);
@@ -53,7 +53,7 @@ html {
 
 #jumpingUpIcon {
   position: absolute;
-  top: 15%;
+  top: 12%;
   z-index: 10;
   height: 35px;
   width: 35px;
@@ -64,7 +64,7 @@ html {
 #damage {
   color: white;
   position: absolute;
-  top: 20%;
+  top: 17%;
   z-index: 10;
   width: 10%;
   right: var(--borderright);
@@ -73,7 +73,7 @@ html {
 
 #attackDamageIcon {
   position: absolute;
-  top: 20%;
+  top: 17%;
   z-index: 10;
   height: 35px;
   width: 35px;
@@ -84,7 +84,7 @@ html {
 #attackSpeed {
   color: white;
   position: absolute;
-  top: 25%;
+  top: 22%;
   z-index: 10;
   width: 10%;
   right: var(--borderright);
@@ -93,7 +93,7 @@ html {
 
 #attackSpeedIcon {
   position: absolute;
-  top: 25%;
+  top: 22%;
   z-index: 10;
   height: 35px;
   width: 35px;
@@ -109,13 +109,6 @@ canvas {
   display: block;
   height: var(--height);
   width: var(--width);
-}
-
-#healthBar {
-  position: absolute;
-  left: 20px;
-  bottom: 20px;
-  visibility: hidden;
 }
 
 body {
@@ -155,6 +148,7 @@ body {
   border: grey;
   color: white;
   background-color: grey;
+  outline: none;
 }
 
 #restart:hover, #backToMenu:hover,  #safe:hover, #nextLevel:hover {
