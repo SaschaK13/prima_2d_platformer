@@ -15,13 +15,17 @@ var Game;
         let newGame = document.getElementById("newGame");
         let loadGame = document.getElementById("loadGame");
         let settings = document.getElementById("settings");
+        let story = document.getElementById("story");
         let closeSettings = document.getElementById("closeSettings");
+        let closeStory = document.getElementById("closeStory");
         let controls = document.getElementById("controls");
         let closeControls = document.getElementById("closeControls");
         newGame.addEventListener("click", start);
         loadGame.addEventListener("click", loadButton);
         settings.addEventListener("click", openSettings);
+        story.addEventListener("click", openStory);
         closeSettings.addEventListener("click", close);
+        closeStory.addEventListener("click", close);
         controls.addEventListener("click", openControls);
         closeControls.addEventListener("click", close);
         music = document.getElementById("music");
@@ -31,38 +35,53 @@ var Game;
     }
     function start() {
         select.play();
+        musicValue = music.value;
+        soundsValue = sounds.value;
         window.open("game?musicVol=" + musicValue + "&soundVol=" + soundsValue, "_self", "fullscreen=yes", true);
     }
     function loadButton() {
         select.play();
+        musicValue = music.value;
+        soundsValue = sounds.value;
         load();
     }
     function openSettings() {
         select.play();
-        if (document.getElementById("controlsBox").style.visibility == "visible") {
+        if (document.getElementById("controlsBox").style.visibility == "visible" || document.getElementById("storyBox").style.visibility == "visible") {
             document.getElementById("controlsBox").style.visibility = "hidden";
+            document.getElementById("storyBox").style.visibility = "hidden";
         }
         document.getElementById("settingsBox").style.visibility = "visible";
     }
-    function openControls() {
-        if (document.getElementById("settingsBox").style.visibility == "visible") {
+    function openStory() {
+        select.play();
+        if (document.getElementById("controlsBox").style.visibility == "visible" || document.getElementById("settingsBox").style.visibility == "visible") {
+            document.getElementById("controlsBox").style.visibility = "hidden";
             document.getElementById("settingsBox").style.visibility = "hidden";
         }
+        document.getElementById("storyBox").style.visibility = "visible";
+    }
+    function openControls() {
         select.play();
+        if (document.getElementById("settingsBox").style.visibility == "visible" || document.getElementById("storyBox").style.visibility == "visible") {
+            document.getElementById("settingsBox").style.visibility = "hidden";
+            document.getElementById("storyBox").style.visibility = "hidden";
+        }
         document.getElementById("controlsBox").style.visibility = "visible";
     }
     function close() {
         select.play();
         document.getElementById("settingsBox").style.visibility = "hidden";
         document.getElementById("controlsBox").style.visibility = "hidden";
+        document.getElementById("storyBox").style.visibility = "hidden";
     }
     function handleInputMusic() {
         select.play();
-        musicValue = music.value;
+        theme.volume = Game.Util.getInstance().numberToOneDecimal((parseInt(music.value) / 100));
     }
     function handleInputSounds() {
         select.play();
-        soundsValue = sounds.value;
+        select.volume = Game.Util.getInstance().numberToOneDecimal((parseInt(sounds.value) / 100));
     }
     function fetchAudios() {
         select = new Audio();
