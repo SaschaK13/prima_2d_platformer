@@ -19,7 +19,8 @@
 
   "finish": {"name": "finish", "spriteName": "finish", "type": "Platform"},
 
-  "enemyArray": [
+  "enemyArray": [    {"name": "Enemy1", "spriteName": "wizzard",  "positionX": 3, "positionY": 1, "scaleX": 1, "scaleY": 1}
+
   ],
 
   "itemArray": [

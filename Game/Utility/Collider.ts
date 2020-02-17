@@ -73,7 +73,6 @@ namespace Game {
 
       return COLLISIONDIRECTION.ERROR;
     }
-
     private collideWith(cObject: fudge.Node): void {
       let colissionObjectPosition: fudge.Vector3 = cObject.cmpTransform.local.translation;
       let colissionObjectScaling: fudge.Vector3 = cObject.cmpTransform.local.scaling;
@@ -111,6 +110,9 @@ namespace Game {
           return COLLISIONTYPE.ENVIRONMENT;
         }
         case"Blob": {
+          return COLLISIONTYPE.ENEMY;
+        }
+        case"Wizzard": {
           return COLLISIONTYPE.ENEMY;
         }
         case"Goblin": {
