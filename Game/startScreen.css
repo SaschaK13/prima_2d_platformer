@@ -86,6 +86,11 @@ p {
   margin-right: auto;
 }
 
+#storyBox {
+  overflow-y: scroll;
+  scrollbar-width: 0px;
+}
+
 #closeSettings, #closeControls, #closeStory {
   font-family: "8bit_wondernominal";
   font-size: x-large;
