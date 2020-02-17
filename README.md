@@ -4,9 +4,9 @@
 ## Inhalt: 
 [Code](https://github.com/SaschaK13/prima_2d_platformer/tree/master/Game)</br>
 [Designdokument](https://github.com/SaschaK13/prima_2d_platformer/tree/master/DesignDocument)</br> 
-[Known Issues](#known-issues)
-[Anleitung]
-[Credits]
+[Known Issues](#known-issues)</br>
+[Anleitung](#anleitung)</br>
+[Credits](#credits)</br>
 
 
 ## Checkliste für Leistungsnachweis
@@ -30,3 +30,24 @@
 
 
 ## Known Issues:
+
+1. Das Spiel lässt sich nicht in Firefox starten
+    * Unbekannt
+2. Animationen werden teils nicht richtig abgespielt
+    * Unbekannt
+3. Blobs laufen manchmal in Platfromen 
+    * Liegt an dem laden der Blobs und der gravity
+    
+    
+    
+## Anleitung: 
+Um das Spiel zu starten klicke einfach folgenden Link: [Curse of the Dawn](https://saschak13.github.io/prima_2d_platformer/Game/index)</br>
+Die Steuerung wird im Menü unter: "Controls" erklärt.</br>
+
+
+## Credits: 
+1.  Musik
+    * Menü-Theme: [8Bit Presentation - by David Fesliyan](https://www.fesliyanstudios.com/royalty-free-music/download/8-bit-presentation/383)
+    * Level1-Theme: [Retro Forest - by David Fesliyan](https://www.fesliyanstudios.com/royalty-free-music/download/retro-forest/451)
+    * Level2-Theme: [La Calahorra - by Rolemusic](https://freemusicarchive.org/search?sort=track_date_published&d=1&quicksearch=La+Calahorra)
+    * Level3-Theme: [Juglar Street - by Rolemusic](https://freemusicarchive.org/search?sort=track_date_published&d=1&quicksearch=juglar+street)
