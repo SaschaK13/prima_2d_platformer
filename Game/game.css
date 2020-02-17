@@ -5,6 +5,14 @@
   --borderright: 16%;
   --borderTop: 6%;
 }
+@font-face {
+  font-family: '8bit_wondernominal';
+  src: url('Assets/font/8-bit_wonder-webfont.woff2') format('woff2'),
+       url('Assets/font/8-bit_wonder-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
 
 
 html {
@@ -141,6 +149,7 @@ body {
 }
 
 #restart, #backToMenu, #safe, #nextLevel {
+  font-family: "8bit_wondernominal";
   border-radius: 8px;
   font-size: x-large;
   margin: 8px;
