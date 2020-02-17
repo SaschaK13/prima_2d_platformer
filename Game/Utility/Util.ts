@@ -105,6 +105,10 @@ namespace Game {
           this.themeSound.src = "../Game/Assets/sounds/level3.wav";
           break;
         }
+        case "level4": {
+          this.themeSound.src = "../Game/Assets/sounds/level4.wav";
+          break;
+        }
       }
       this.themeSound.loop = true;
       this.themeSound.load();
