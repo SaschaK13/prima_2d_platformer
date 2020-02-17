@@ -44,7 +44,7 @@ namespace Game {
     }
 
     public getRandomRange(min: number, max: number): number {
-      return Math.floor(Math.random() * (max - min) + min)
+      return Math.floor(Math.random() * (max - min) + min);
     }
 
     public gameOver(): void {
@@ -56,17 +56,15 @@ namespace Game {
       statBox.style.opacity = "0.5";
     }
 
-    public delay(ms: number) {
+    public delay(ms: number): Promise<unknown> {
       return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    public async  save(fileName: string): Promise<void> {
-      let jsonString = this.createSavegame();
+    public async save(fileName: string): Promise<void> {
+      let jsonString: string = this.createSavegame();
       let map: fudge.MapFilenameToContent = { [fileName]: jsonString };
       fudge.FileIoBrowserLocal.save(map);
     }
-
-
 
     public fetchAudios(): void {
 
@@ -89,13 +87,10 @@ namespace Game {
       this.hurtSound = new Audio();
       this.hurtSound.src = "../Game/Assets/sounds/hurt.wav";
       this.hurtSound.load();
-
-
     }
 
-
-    public setTheme(theme: String) {
-      fudge.Debug.log(theme)
+    public setTheme(theme: String): void {
+      fudge.Debug.log(theme);
       this.themeSound = new Audio();
       switch (theme) {
         case "level1": {
@@ -110,7 +105,10 @@ namespace Game {
           this.themeSound.src = "../Game/Assets/sounds/level3.wav";
           break;
         }
-
+        case "level4": {
+          this.themeSound.src = "../Game/Assets/sounds/level4.wav";
+          break;
+        }
       }
       this.themeSound.loop = true;
       this.themeSound.load();
@@ -118,25 +116,21 @@ namespace Game {
       this.setVolume(this.musicVol, this.soundVol);
     }
 
-
-    public loadNextLevel() {
+    public loadNextLevel(): void {
       this.themeSound.pause();
       this.oldPlayer = this.level.player;
       this.deleteAllNodes();
       this.collidableNode = new fudge.Node("Colidable");
       this.lvlGenerator = new LevelGenerator(this.collidableNode);
       this.rootNode.appendChild(this.collidableNode);
-      if(!(this.currentLVLNumber == 3))
-      {
+      if (!(this.currentLVLNumber == 4)) {
         this.lvlGenerator.getDataFromFile("level" + (this.currentLVLNumber + 1));
       } else {
         window.open("endscreen", "_self" , "fullscreen=yes" , true); 
       }
-
-
     }
 
-    public setVolume(musicVol: number, soundVol: number) {
+    public setVolume(musicVol: number, soundVol: number): void {
       this.themeSound.volume = this.numberToOneDecimal(musicVol);
       this.hurtSound.volume = this.numberToOneDecimal(soundVol);
       this.jumpSound.volume = this.numberToOneDecimal(soundVol);
@@ -145,7 +139,7 @@ namespace Game {
       this.attackSound.volume = this.numberToOneDecimal(soundVol);
     }
 
-    public numberToOneDecimal(number: number) {
+    public numberToOneDecimal(number: number): number {
       return Math.round(number * 10) / 10;
     }
 
@@ -153,32 +147,24 @@ namespace Game {
       return " {\"levelName\": \"level" + (this.level.levelNumber + 1) + "\", \"hp\": " + this.level.player.getStats().hp + " , \"dmg\": " + this.level.player.getStats().dmg + ", \"jumpHeight\": " + this.level.player.getStats().jumpHeight + ", \"walkSpeed\": " + this.level.player.getStats().walkSpeed + ", \"attackSpeed\":" + this.level.player.getStats().attackSpeed + " } "
     }
 
-    private deleteAllNodes() {
-      let childs = this.collidableNode.getChildren()
+    private deleteAllNodes(): void {
+      let childs: fudge.Node[] = this.collidableNode.getChildren();
 
-      for (var i = 0; i < childs.length; i++) {
+      for (var i: number = 0; i < childs.length; i++) {
         this.collidableNode.removeChild(childs[i]);
       }
-
       this.collidableNode.getParent().removeChild(this.collidableNode);
 
-      for (var i = 0; i < this.level.enemyArray.length; i++) {
-        let enemy = this.level.enemyArray[i];
-        for (var j = 0; j < enemy.getChildren().length; j++) {
-          let child = enemy.getChildren()[j];
-          enemy.removeChild(child)
+      for (var i: number = 0; i < this.level.enemyArray.length; i++) {
+        let enemy: Character = this.level.enemyArray[i];
+        for (var j: number = 0; j < enemy.getChildren().length; j++) {
+          let child: fudge.Node = enemy.getChildren()[j];
+          enemy.removeChild(child);
         }
       }
-
       this.lvlGenerator = null;
-      this.currentLVLNumber = this.level.levelNumber
+      this.currentLVLNumber = this.level.levelNumber;
       this.level = null;
-
-
     }
-
-
-
-
   }
 }

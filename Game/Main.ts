@@ -95,8 +95,8 @@ namespace Game {
 
       util.fetchAudios();
 
-      util.musicVol = (parseInt(urlParams.get('musicVol'))/100);
-      util.soundVol = (parseInt(urlParams.get('soundVol'))/100);
+      util.musicVol = (parseInt(urlParams.get('musicVol')) / 100);
+      util.soundVol = (parseInt(urlParams.get('soundVol')) / 100);
 
       loadSprites();
 

@@ -68,6 +68,10 @@ var Game;
                     this.themeSound.src = "../Game/Assets/sounds/level3.wav";
                     break;
                 }
+                case "level4": {
+                    this.themeSound.src = "../Game/Assets/sounds/level4.wav";
+                    break;
+                }
             }
             this.themeSound.loop = true;
             this.themeSound.load();
@@ -80,7 +84,7 @@ var Game;
             this.collidableNode = new fudge.Node("Colidable");
             this.lvlGenerator = new Game.LevelGenerator(this.collidableNode);
             this.rootNode.appendChild(this.collidableNode);
-            if (!(this.currentLVLNumber == 3)) {
+            if (!(this.currentLVLNumber == 4)) {
                 this.lvlGenerator.getDataFromFile("level" + (this.currentLVLNumber + 1));
             }
             else {
