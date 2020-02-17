@@ -6,7 +6,7 @@
 [Designdokument](https://github.com/SaschaK13/prima_2d_platformer/tree/master/DesignDocument)</br> 
 [Known Issues](#known-issues)</br>
 [Anleitung](#anleitung)</br>
-[Credits]
+[Credits](#credits)</br>
 
 
 ## Checkliste für Leistungsnachweis
