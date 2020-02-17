@@ -15,6 +15,7 @@ namespace Game {
     let backToMenu_menu: HTMLElement = document.getElementById("backToMenu_menu");
     let controls_menu: HTMLElement = document.getElementById("controls_menu");
     let goBackButton: HTMLElement = document.getElementById("back");
+    let backToGame: HTMLElement = document.getElementById("backToGame");
 
     restart.addEventListener("click", reload);
     backToMenu.addEventListener("click", goBack);
@@ -26,6 +27,7 @@ namespace Game {
     backToMenu_menu.addEventListener("click", goBack);
     controls_menu.addEventListener("click", openControls);
     goBackButton.addEventListener("click", closeControls);
+    backToGame.addEventListener("click", closeIngameMenu)
 
     function reload(): void {
       Util.getInstance().selectSound.play();
@@ -56,6 +58,10 @@ namespace Game {
 
     function closeControls(): void {
       document.getElementById("ingameControls").style.visibility = "hidden";
+    }
+
+    function closeIngameMenu(): void {
+      document.getElementById("ingameMenu").style.visibility = "hidden";
     }
   }
 }

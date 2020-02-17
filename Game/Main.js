@@ -52,7 +52,7 @@ var Game;
                     return;
                 }
                 if (keysPressed[fudge.KEYBOARD_CODE.ESC]) {
-                    //open menu
+                    document.getElementById("ingameMenu").style.visibility = "visible";
                     return;
                 }
                 player.idle();

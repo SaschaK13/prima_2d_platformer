@@ -11,6 +11,7 @@ var Game;
         let backToMenu_menu = document.getElementById("backToMenu_menu");
         let controls_menu = document.getElementById("controls_menu");
         let goBackButton = document.getElementById("back");
+        let backToGame = document.getElementById("backToGame");
         restart.addEventListener("click", reload);
         backToMenu.addEventListener("click", goBack);
         safe.addEventListener("click", safeGame);
@@ -19,6 +20,7 @@ var Game;
         backToMenu_menu.addEventListener("click", goBack);
         controls_menu.addEventListener("click", openControls);
         goBackButton.addEventListener("click", closeControls);
+        backToGame.addEventListener("click", closeIngameMenu);
         function reload() {
             Game.Util.getInstance().selectSound.play();
             location.reload();
@@ -43,6 +45,9 @@ var Game;
         }
         function closeControls() {
             document.getElementById("ingameControls").style.visibility = "hidden";
+        }
+        function closeIngameMenu() {
+            document.getElementById("ingameMenu").style.visibility = "hidden";
         }
     }
 })(Game || (Game = {}));
