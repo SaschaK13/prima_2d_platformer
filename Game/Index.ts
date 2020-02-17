@@ -1,14 +1,18 @@
-import fudge = FudgeCore;
+namespace Game {
 
-window.onload = addEventlisteners;
+  import fudge = FudgeCore;
 
-function addEventlisteners(): void {
+  window.onload = addEventlisteners;
 
-  let play: HTMLElement = document.getElementById("play");
+  function addEventlisteners(): void {
 
-  play.addEventListener("click", loadGame);
-}
+    let play: HTMLElement = document.getElementById("play");
 
-function loadGame(): void {
-  window.open("startScreen", "_self", "fullscreen=yes", true);
+    play.addEventListener("click", loadGame);
+  }
+
+  function loadGame(): void {
+    window.open("startScreen", "_self", "fullscreen=yes", true);
+  }
+
 }
