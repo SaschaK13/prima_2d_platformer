@@ -67,11 +67,11 @@ namespace Game {
 
   function fetchAudios(): void {
     select = new Audio();
-    select.src = "../Game/Assets/sounds/select.wav";
+    select.src = "Assets/sounds/select.wav";
     select.load();
 
     theme = new Audio();
-    theme.src = "../Game/Assets/sounds/menu.wav";
+    theme.src = "Assets/sounds/menu.wav";
     theme.load();
 
     Util.getInstance().selectSound = select;
