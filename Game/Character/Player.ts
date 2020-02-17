@@ -19,7 +19,7 @@ namespace Game {
       this.cmpTransform.local.scaling = new fudge.Vector3(scaleX, scaleY, 0);
       super.addSpriteListener();
       
-      this.playerStats = {hp: 10, walkSpeed: 2, jumpHeight: 6, dmg: 1, attackSpeed: 50};
+      this.playerStats = {hp: 10, walkSpeed: 2, jumpHeight: 6, dmg: 1, attackSpeed: 30};
       this.setStats(this.playerStats);
     }
 

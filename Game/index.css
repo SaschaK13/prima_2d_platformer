@@ -8,6 +8,10 @@
 
 body {
   background: url("Assets/menu/Curse_of_the_dawn_title_image.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 .center {

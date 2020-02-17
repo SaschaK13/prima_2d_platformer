@@ -48,6 +48,7 @@ namespace Game {
       let randomItem: number = Util.getInstance().getRandomRange(0, possibleItemsArray.length);
       let item: Item = possibleItemsArray[randomItem];
       item.cmpTransform.local.translation = this.cmpTransform.local.translation;
+      item.cmpTransform.local.scaling = new fudge.Vector3(this.cmpTransform.local.scaling.x / 1.5, this.cmpTransform.local.scaling.y / 1.5, 0);
       Util.getInstance().level.appendToRoot(item);
       Util.getInstance().level.itemArray.push(item);
     }
