@@ -1,0 +1,169 @@
+:root {
+  --width: 100%;
+  --height: 50%;
+  --borderLeft: 16%;
+  --borderright: 16%;
+  --borderTop: 6%;
+}
+
+@font-face {
+  font-family: '8bit_wondernominal';
+  src: url('Assets/font/8-bit_wonder-webfont.woff2') format('woff2'),
+       url('Assets/font/8-bit_wonder-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+html {
+  background-image: url("./Assets/menu/menu.png");
+}
+
+h1 {
+  font-family: "8bit_wondernominal";
+}
+
+#health {
+  position: absolute;
+  top: var(--borderTop);
+  left: var(--borderLeft);
+  z-index: 10;
+  height: 40px;
+  width: 200px;
+  margin: 1%;
+}
+
+#speed {
+  color: white;
+  position: absolute;
+  top: 7%;
+  z-index: 10;
+  width: 10%;
+  right: var(--borderright);
+  font-size: x-large;
+}
+
+#walkSpeedIcon {
+  position: absolute;
+  top: 7%;
+  z-index: 10;
+  height: 35px;
+  width: 35px;
+  right: var(--borderright);
+  margin: 1%;
+}
+
+#jumping {
+  color: white;
+  position: absolute;
+  top: 12%;
+  z-index: 10;
+  width: 10%;
+  right: var(--borderright);
+  font-size: x-large;
+}
+
+#jumpingUpIcon {
+  position: absolute;
+  top: 12%;
+  z-index: 10;
+  height: 35px;
+  width: 35px;
+  right: var(--borderright);
+  margin: 1%;
+}
+
+#damage {
+  color: white;
+  position: absolute;
+  top: 17%;
+  z-index: 10;
+  width: 10%;
+  right: var(--borderright);
+  font-size: x-large;
+}
+
+#attackDamageIcon {
+  position: absolute;
+  top: 17%;
+  z-index: 10;
+  height: 35px;
+  width: 35px;
+  right: var(--borderright);
+  margin: 1%;
+}
+
+#attackSpeed {
+  color: white;
+  position: absolute;
+  top: 22%;
+  z-index: 10;
+  width: 10%;
+  right: var(--borderright);
+  font-size: x-large;
+}
+
+#attackSpeedIcon {
+  position: absolute;
+  top: 22%;
+  z-index: 10;
+  height: 35px;
+  width: 35px;
+  right: var(--borderright);
+  margin: 1%;
+}
+
+canvas {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  height: var(--height);
+  width: var(--width);
+}
+
+body {
+  border: 5px solid black;
+  background-color: white;
+  margin-left: 15%;
+  margin-right: 15%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  padding: 1%;
+  overflow: hidden;
+}
+
+#gameOver, #safeGame {
+  position: absolute;
+  text-align: center;
+  border: 5px solid black;
+  border-radius: 8px;
+  background-color: white;
+  top: 15%;
+  left: 35%;
+  height: 40%;
+  width: 30%;
+  padding: 1%;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: x-large;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+#restart, #backToMenu, #safe, #nextLevel {
+  font-family: "8bit_wondernominal";
+  border-radius: 8px;
+  font-size: x-large;
+  margin: 8px;
+  padding: 10px;
+  border: grey;
+  color: white;
+  background-color: grey;
+  outline: none;
+}
+
+#restart:hover, #backToMenu:hover,  #safe:hover, #nextLevel:hover {
+  background-color:rgb(180, 180, 180);
+}

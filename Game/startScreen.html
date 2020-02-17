@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Game Menu</title>
+  <link rel="stylesheet" href="startScreen.css">
+  <script src="Fudge/FudgeCore.js"></script>
+  <script src="Utility/Util.js"></script>
+  <script src="startScreen.js"></script>
+</head>
+<body>
+  
+  <h1 id="newGame"> New Game</h1>
+  <h1 id="loadGame">Load Game</h1>
+  <h1 id="settings">Settings</h1>
+  <h1 id="controls">Controls</h1>
+
+
+  <div id="settingsBox">
+    <div class="slidecontainer">
+      <p>Music</p>
+      <input type="range" min="0" max="100" value="100" class="slider" id="music">
+    </div>
+    <br>
+    <div class="slidecontainer">
+      <p>Sounds</p>
+      <input type="range" min="0" max="100" value="100" class="slider" id="sounds">
+    </div>
+
+    <h1 id="closeSettings">close</h1>
+  </div>
+
+  <div id="controlsBox">
+    <p> A - WALK LEFT</p>
+    <p> D - WALK RIGHT</p>
+    <p> SPACE - JUMP</p>
+    <p> E - ATTACK</p>
+    <h1 id="closeControls">close</h1>
+  </div>
+
+</body>
+</html>
