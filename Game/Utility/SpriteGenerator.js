@@ -110,6 +110,7 @@ var Game;
     }
     Game.NodeSprite = NodeSprite;
     let spriteNames = [
+        "default",
         "player",
         "goblin",
         "blob",
@@ -119,6 +120,7 @@ var Game;
         "background",
         "backgroundcastle",
         "backgroundcity",
+        "backgroundend",
         "healpotion",
         "sword",
         "boots"
@@ -238,6 +240,15 @@ var Game;
                     }
                 }
             }
+            case "default": {
+                switch (stateName) {
+                    case Game.CHARACTERSTATE.DEFAULT: {
+                        let sprite = new Sprite(spriteName + "_" + stateName);
+                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(24, 21, 40, 30), 1, new fudge.Vector2(0, 0), 32, fudge.ORIGIN2D.CENTER);
+                        return sprite;
+                    }
+                }
+            }
             case "dirt": {
                 switch (stateName) {
                     case Game.CHARACTERSTATE.DEFAULT: {
@@ -284,6 +295,15 @@ var Game;
                 }
             }
             case "backgroundcity": {
+                switch (stateName) {
+                    case Game.CHARACTERSTATE.DEFAULT: {
+                        let sprite = new Sprite(spriteName + "_" + stateName);
+                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(0, 0, 240, 160), 1, new fudge.Vector2(0, 0), 16, fudge.ORIGIN2D.CENTER);
+                        return sprite;
+                    }
+                }
+            }
+            case "backgroundend": {
                 switch (stateName) {
                     case Game.CHARACTERSTATE.DEFAULT: {
                         let sprite = new Sprite(spriteName + "_" + stateName);
