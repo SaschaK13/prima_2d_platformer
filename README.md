@@ -4,8 +4,8 @@
 ## Inhalt: 
 [Code](https://github.com/SaschaK13/prima_2d_platformer/tree/master/Game)</br>
 [Designdokument](https://github.com/SaschaK13/prima_2d_platformer/tree/master/DesignDocument)</br> 
-[Known Issues](#known-issues)</br>
 [Anleitung](#anleitung)</br>
+[Known Issues](#known-issues)</br>
 [Credits](#credits)</br>
 
 
