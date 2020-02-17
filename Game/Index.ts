@@ -34,16 +34,6 @@ namespace Game {
     music.addEventListener("click", handleInputMusic);
     sounds.addEventListener("click", handleInputSounds);
 
-    /*
-    music.oninput = function (): void {
-      alert(music.Value);
-    };
-
-    sounds.oninput = function (): void {
-      alert(sounds.nodeValue);
-    };
-    */
-
   }
 
   function start(): void {
@@ -52,6 +42,7 @@ namespace Game {
   }
 
   function loadButton(): void {
+    select.play();
     load();
   }
 
@@ -60,14 +51,17 @@ namespace Game {
   }
 
   function close(): void {
+    select.play();
     document.getElementById("settingsBox").style.visibility = "hidden";
   }
 
   function handleInputMusic(): void {
+    select.play();
     musicValue = music.value;
   }
 
   function handleInputSounds(): void {
+    select.play();
     soundsValue = sounds.value;
   }
 

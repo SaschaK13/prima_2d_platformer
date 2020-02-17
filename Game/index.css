@@ -81,6 +81,18 @@ body {
   height: 50px;
 }
 
+#newGame:hover {
+  background-color:rgb(180, 180, 180);
+}
+
+#loadGame:hover {
+  background-color:rgb(180, 180, 180);
+}
+
+#settings:hover {
+  background-color:rgb(180, 180, 180);
+}
+
 #closeSettings:hover {
   background-color:rgb(180, 180, 180);
 }
@@ -123,7 +135,6 @@ body {
   background:gray;
   cursor: pointer;
 }
-
 
 /*
 #loadList {
