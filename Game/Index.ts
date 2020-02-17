@@ -23,13 +23,14 @@ namespace Game {
     let settings: HTMLElement = document.getElementById("settings");
     let closeSettings: HTMLElement = document.getElementById("closeSettings");
     let controls: HTMLElement = document.getElementById("controls");
-    let closeControls: HTMLElement = document.getElementById("controlsBox");
+    let closeControls: HTMLElement = document.getElementById("closeControls");
 
-    controls.addEventListener("click", openControls);
+    
     newGame.addEventListener("click", start);
     loadGame.addEventListener("click", loadButton);
     settings.addEventListener("click", openSettings);
     closeSettings.addEventListener("click", close);
+    controls.addEventListener("click", openControls);
     closeControls.addEventListener("click", close);
 
     music = document.getElementById("music");
@@ -52,10 +53,16 @@ namespace Game {
 
   function openSettings(): void {
     select.play();
+    if (document.getElementById("controlsBox").style.visibility == "visible") {
+      document.getElementById("controlsBox").style.visibility = "hidden";
+    }
     document.getElementById("settingsBox").style.visibility = "visible";
   }
 
   function openControls(): void {
+    if (document.getElementById("settingsBox").style.visibility == "visible") {
+      document.getElementById("settingsBox").style.visibility = "hidden";
+    }
     select.play();
     document.getElementById("controlsBox").style.visibility = "visible";
   }
