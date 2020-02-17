@@ -1,5 +1,5 @@
 ![Image of Background](https://github.com/SaschaK13/prima_2d_platformer/blob/master/Game/Assets/menu/Curse_of_the_dawn_title_image.png)
-[Spiele jetzt: "Curse of the Dawn"](https://saschak13.github.io/prima_2d_platformer/Game/index)
+[Spiele jetzt: "Curse of the Dawn" - schaffst du es den bösen Zauberer zu besiegen?](https://saschak13.github.io/prima_2d_platformer/Game/index)
 
 ## Inhalt: 
 [Code](https://github.com/SaschaK13/prima_2d_platformer/tree/master/Game)</br>
