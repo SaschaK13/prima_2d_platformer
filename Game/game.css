@@ -156,7 +156,7 @@ body {
   visibility: hidden;
 }
 
-#restart, #backToMenu, #safe, #nextLevel, #restart_menu, #backToMenu_menu, #controls_menu, #back {
+#restart, #backToMenu, #safe, #nextLevel, #restart_menu, #backToMenu_menu, #controls_menu, #back, #backToGame {
   font-family: "8bit_wondernominal";
   border-radius: 8px;
   font-size: x-large;
@@ -168,7 +168,7 @@ body {
   outline: none;
 }
 
-#restart:hover, #backToMenu:hover,  #safe:hover, #nextLevel:hover, #restart_menu:hover, #backToMenu_menu:hover, #controls_menu:hover, #back:hover  {
+#restart:hover, #backToMenu:hover,  #safe:hover, #nextLevel:hover, #restart_menu:hover, #backToMenu_menu:hover, #controls_menu:hover, #back:hover, #backToGame:hover  {
   background-color:rgb(180, 180, 180);
 }
 
@@ -180,17 +180,17 @@ body {
   background-color: white;
   top: 10%;
   left: 35%;
-  height: 45%;
+  height: 55%;
   width: 30%;
   padding: 1%;
   margin-left: auto;
   margin-right: auto;
   font-size: x-large;
   overflow: hidden;
-  visibility: visible;
+  visibility: hidden;
 }
 
-, #ingameControls {
+#ingameControls {
   position: absolute;
   text-align: center;
   border: 5px solid black;
@@ -198,7 +198,7 @@ body {
   background-color: white;
   top: 10%;
   left: 35%;
-  height: 45%;
+  height: 55%;
   width: 30%;
   padding: 1%;
   margin-left: auto;
