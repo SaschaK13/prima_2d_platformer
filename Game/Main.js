@@ -141,6 +141,7 @@ var Game;
             let showed = isInViewPort(player);
             if (!showed && player.isLoaded && player.cmpTransform.local.translation.y < (cameraOrbit.cmpTransform.local.translation.y - 5)) {
                 player.die();
+                document.getElementById("health").setAttribute("src", "Assets/health/heart0.png");
             }
         }
         function isBackgroundInViewPort(background) {

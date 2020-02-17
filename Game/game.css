@@ -23,6 +23,10 @@ h1 {
   font-family: "8bit_wondernominal";
 }
 
+p {
+  font-family: "8bit_wondernominal";
+}
+
 #health {
   position: absolute;
   top: var(--borderTop);
