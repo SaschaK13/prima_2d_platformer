@@ -21,7 +21,9 @@ namespace Game {
     let newGame: HTMLElement = document.getElementById("newGame");
     let loadGame: HTMLElement = document.getElementById("loadGame");
     let settings: HTMLElement = document.getElementById("settings");
+    let story: HTMLElement = document.getElementById("story");
     let closeSettings: HTMLElement = document.getElementById("closeSettings");
+    let closeStory: HTMLElement = document.getElementById("closeStory");
     let controls: HTMLElement = document.getElementById("controls");
     let closeControls: HTMLElement = document.getElementById("closeControls");
 
@@ -29,7 +31,9 @@ namespace Game {
     newGame.addEventListener("click", start);
     loadGame.addEventListener("click", loadButton);
     settings.addEventListener("click", openSettings);
+    story.addEventListener("click", openStory);
     closeSettings.addEventListener("click", close);
+    closeStory.addEventListener("click", close);
     controls.addEventListener("click", openControls);
     closeControls.addEventListener("click", close);
 
@@ -57,17 +61,29 @@ namespace Game {
 
   function openSettings(): void {
     select.play();
-    if (document.getElementById("controlsBox").style.visibility == "visible") {
+    if (document.getElementById("controlsBox").style.visibility == "visible" || document.getElementById("storyBox").style.visibility == "visible" ) {
       document.getElementById("controlsBox").style.visibility = "hidden";
+      document.getElementById("storyBox").style.visibility = "hidden";
+
     }
     document.getElementById("settingsBox").style.visibility = "visible";
   }
 
-  function openControls(): void {
-    if (document.getElementById("settingsBox").style.visibility == "visible") {
+  function openStory(): void {
+    select.play();
+    if (document.getElementById("controlsBox").style.visibility == "visible" || document.getElementById("settingsBox").style.visibility == "visible") {
+      document.getElementById("controlsBox").style.visibility = "hidden";
       document.getElementById("settingsBox").style.visibility = "hidden";
     }
+    document.getElementById("storyBox").style.visibility = "visible";
+  }
+
+  function openControls(): void {
     select.play();
+    if (document.getElementById("settingsBox").style.visibility == "visible" || document.getElementById("storyBox").style.visibility == "visible") {
+      document.getElementById("settingsBox").style.visibility = "hidden";
+      document.getElementById("storyBox").style.visibility = "hidden";
+    }
     document.getElementById("controlsBox").style.visibility = "visible";
   }
 
@@ -75,6 +91,7 @@ namespace Game {
     select.play();
     document.getElementById("settingsBox").style.visibility = "hidden";
     document.getElementById("controlsBox").style.visibility = "hidden";
+    document.getElementById("storyBox").style.visibility = "hidden";
   }
 
   function handleInputMusic(): void {
