@@ -16,7 +16,7 @@ namespace Game {
     public updateStats(player: Character): void {
 
       this.initialHealth = player.getStats().hp;
-      document.getElementById("health").setAttribute("src", "../Game/Assets/health/heart" + this.initialHealth + ".png");
+      document.getElementById("health").setAttribute("src", "Assets/health/heart" + this.initialHealth + ".png");
 
       this.initialWalkSpeed = player.getStats().walkSpeed;
       document.getElementById("speed").innerHTML = this.initialWalkSpeed.toString();
