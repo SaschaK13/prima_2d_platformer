@@ -5,9 +5,12 @@ var Game;
     class Blob extends Game.Character {
         constructor(name, spriteName, positionX, positionY, scaleX, scaleY) {
             super(name);
+            this.dropChance = 0.2;
             this.currentMovmentDuration = 0;
             this.behavior = (_event) => {
-                this.ki();
+                if (!this.isDead && this.isLoaded) {
+                    this.ki();
+                }
             };
             this.name = name;
             this.spriteName = spriteName;
@@ -20,7 +23,7 @@ var Game;
             fudge.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, this.behavior);
         }
         die() {
-            if (Math.random() < 0.4) {
+            if (Math.random() < this.dropChance) {
                 this.dropItem();
             }
             this.isDead = true;
@@ -40,8 +43,24 @@ var Game;
         }
         ki() {
             if (this.currentMovmentDuration != this.movementDuration) {
-                this.walk(this.movedirection);
-                this.currentMovmentDuration++;
+                if (this.cmpTransform.local.translation.x >= this.currentPlatform.cmpTransform.local.translation.x - ((this.currentPlatform.cmpTransform.local.scaling.x / 2) + 0.2) && this.cmpTransform.local.translation.x <= this.currentPlatform.cmpTransform.local.translation.x + ((this.currentPlatform.cmpTransform.local.scaling.x / 2) - 0.2)) {
+                    this.walk(this.moveDirection);
+                }
+                else {
+                    switch (this.moveDirection) {
+                        case Game.DIRECTION.LEFT: {
+                            this.moveDirection = Game.DIRECTION.RIGHT;
+                            this.walk(this.moveDirection);
+                            break;
+                        }
+                        case Game.DIRECTION.RIGHT: {
+                            this.moveDirection = Game.DIRECTION.LEFT;
+                            this.walk(this.moveDirection);
+                            break;
+                        }
+                    }
+                    this.currentMovmentDuration++;
+                }
             }
             else {
                 this.movementDuration = Game.Util.getInstance().getRandomRange(100, 200);
@@ -54,14 +73,17 @@ var Game;
             for (var i = 0; i < collisionObjects.length; i++) {
                 let collisionObject = collisionObjects[i];
                 switch (collisionObject.collisionType) {
-                    case Game.CollisionType.ENEMY: {
+                    case Game.COLLISIONTYPE.ENEMY: {
                         break;
                     }
-                    case Game.CollisionType.ENVIRONMENT: {
+                    case Game.COLLISIONTYPE.ENVIRONMENT: {
+                        if (collisionObject.object.constructor.name == "Platform") {
+                            this.currentPlatform = collisionObject.object;
+                        }
                         this.handleSolidColision(collisionObject);
                         break;
                     }
-                    case Game.CollisionType.PLAYER: {
+                    case Game.COLLISIONTYPE.PLAYER: {
                         this.handleSolidColision(collisionObject);
                         break;
                     }
@@ -71,10 +93,10 @@ var Game;
         randomDirection() {
             let randomnum = Game.Util.getInstance().getRandomRange(1, 3);
             if (randomnum == 1) {
-                this.movedirection = Game.DIRECTION.RIGHT;
+                this.moveDirection = Game.DIRECTION.RIGHT;
             }
             else {
-                this.movedirection = Game.DIRECTION.LEFT;
+                this.moveDirection = Game.DIRECTION.LEFT;
             }
         }
     }

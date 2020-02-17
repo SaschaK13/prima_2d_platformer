@@ -11,10 +11,12 @@
   <script src="Environment/LevelGenerator.js"></script>
   <script src="Utility/Collider.js"></script>
   <script src="Utility/Hitbox.js"></script>
+  <script src="Utility/SaveGame.js"></script>
   <script src="GUI/GUI.js"></script>
   <script src="Utility/Util.js"></script>
   <script src="Item/Item.js"></script>
   <script src="Environment/Environment.js"></script>
+  <script src="Environment/Finish.js"></script>
   <script src="Environment/Background.js"></script>
   <script src="Environment/Platform.js"></script>
   <script src="Environment/Level.js"></script>
@@ -47,13 +49,19 @@
 
   <img id="dirt_default" src="../Game/Assets/Spritesheets/environment/dirt_default.png" hidden=true>
   <img id="stone_default" src="../Game/Assets/Spritesheets/environment/stone_default.png" hidden=true>
+
+  <img id="finish_default" src="../Game/Assets/Spritesheets/environment/finish.png" hidden=true>
   <img id="background_default" src="../Game/Assets/Spritesheets/environment/background.png" hidden=true>
+  <img id="backgroundcastle_default" src="../Game/Assets/Spritesheets/environment/backgroundcastle.png" hidden=true>
+  <img id="backgroundcity_default" src="../Game/Assets/Spritesheets/environment/backgroundcity.png" hidden=true>
+
+  <img id="boots_default" src="../Game/Assets/Spritesheets/items/boots_default.png" hidden=true>
+  <img id="sword_default" src="../Game/Assets/Spritesheets/items/sword_default.png" hidden=true>
+  <img id="healpotion_default" src="../Game/Assets/Spritesheets/items/healpotion_default.png" hidden=true>
 
   <img src="../Game/Assets/health/heart5.png" width="380px" height="70px" id="health">
 
   <div id="stats">
-    <p id="time"> Time: 00:00:00 </p>
-
     <img src="./Assets/icons/walkSpeedUp.png" id="walkSpeedIcon">
     <p id="speed"> 2 </p>
     <img src="./Assets/icons/jumpingPowerUp.png" id="jumpingUpIcon">
@@ -61,7 +69,7 @@
     <img src="./Assets/icons/attackDamageUp.png" id="attackDamageIcon">
     <p id="damage"> 1 </p>
     <img src="./Assets/icons/attackSpeedUp.png" id="attackSpeedIcon">
-    <p><p id="attackSpeed"> 50 </p></p>
+    <p id="attackSpeed"> 50 </p>
   </div>
 
   <div id="gameOver">
@@ -71,7 +79,12 @@
     <button id="backToMenu"> Back to menu </button>
   </div>
 
-  <progress id="healthBar"></progress>
+  <div id="safeGame">
+    <h1> Level finished! </h1>
+    <button id="safe"> Safe? </button>
+    <br>
+    <button id="nextLevel"> Next Level </button>
+  </div>
 
 </body>
 </html>

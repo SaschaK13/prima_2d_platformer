@@ -2,10 +2,10 @@ namespace Game {
   import fudge = FudgeCore;
 
   export class SpriteFrame {
-    rectTexture: fudge.Rectangle;
-    pivot: fudge.Matrix4x4;
-    material: fudge.Material;
-    timeScale: number;
+    public rectTexture: fudge.Rectangle;
+    public pivot: fudge.Matrix4x4;
+    public material: fudge.Material;
+    public timeScale: number;
   }
 
   export class Sprite {
@@ -42,7 +42,6 @@ namespace Game {
         // ƒ.Debug.log(frame.rectTexture.toString());
         // ƒ.Debug.log(frame.pivot.toString());
         // ƒ.Debug.log(frame.material);
-
         count++;
       }
     }
@@ -115,6 +114,8 @@ namespace Game {
       fudge.Debug.info("NodeSprite constructor", this);
     }
 
+
+
     public showFrame(_index: number): void {
       let spriteFrame: SpriteFrame = this.sprite.frames[_index];
       this.cmpMesh.pivot = spriteFrame.pivot;
@@ -128,8 +129,16 @@ namespace Game {
       this.showFrame(this.frameCurrent);
     }
 
+    public resetFrames(): void {
+      this.frameCurrent = 0;
+    }
+
     public setFrameDirection(_direction: number): void {
       this.direction = Math.floor(_direction);
+    }
+
+    public getSprite(): Sprite {
+      return this.sprite;
     }
   }
 
@@ -139,8 +148,15 @@ namespace Game {
     "blob",
     "dirt",
     "stone",
-    "background"
+    "finish",
+    "background",
+    "backgroundcastle",
+    "backgroundcity",
+    "healpotion",
+    "sword",
+    "boots"
   ];
+  
   let states: string[] = [
     "default",
     "idle",
@@ -192,7 +208,7 @@ namespace Game {
           }
           case CHARACTERSTATE.ATTACK: {
             let sprite: Sprite = new Sprite(spriteName + "_" + stateName);
-            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(1062, 10, 50, 35), 6, new fudge.Vector2(93, 0), 32, fudge.ORIGIN2D.CENTER);
+            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(1062, 10, 50, 35), 5, new fudge.Vector2(93, 0), 32, fudge.ORIGIN2D.CENTER);
             return sprite;
           }
           case CHARACTERSTATE.DEATH: {
@@ -278,6 +294,15 @@ namespace Game {
           }
         }
       }
+      case "finish": {
+        switch (stateName) { 
+          case CHARACTERSTATE.DEFAULT: { 
+            let sprite: Sprite = new Sprite(spriteName + "_" + stateName);
+            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(0, 0, 30, 30), 1, new fudge.Vector2(0, 0), 16, fudge.ORIGIN2D.CENTER);            
+            return sprite;
+          }
+        }
+      }
       case "background": {
         switch (stateName) { 
           case CHARACTERSTATE.DEFAULT: { 
@@ -286,7 +311,52 @@ namespace Game {
             return sprite;
           }
         }
-      }     
+      }
+      case "backgroundcastle": {
+        switch (stateName) { 
+          case CHARACTERSTATE.DEFAULT: { 
+            let sprite: Sprite = new Sprite(spriteName + "_" + stateName);
+            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(0, 0, 240, 160), 1, new fudge.Vector2(0, 0), 16, fudge.ORIGIN2D.CENTER);
+            return sprite;
+          }
+        }
+      }
+      case "backgroundcity": {
+        switch (stateName) { 
+          case CHARACTERSTATE.DEFAULT: { 
+            let sprite: Sprite = new Sprite(spriteName + "_" + stateName);
+            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(0, 0, 240, 160), 1, new fudge.Vector2(0, 0), 16, fudge.ORIGIN2D.CENTER);
+            return sprite;
+          }
+        }
+      }
+      case "sword": {
+        switch (stateName) { 
+          case CHARACTERSTATE.DEFAULT: { 
+            let sprite: Sprite = new Sprite(spriteName + "_" + stateName);
+            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(0, 0, 30, 30), 1, new fudge.Vector2(0, 0), 32, fudge.ORIGIN2D.CENTER);
+            return sprite;
+          }
+        }
+      }
+      case "boots": {
+        switch (stateName) { 
+          case CHARACTERSTATE.DEFAULT: { 
+            let sprite: Sprite = new Sprite(spriteName + "_" + stateName);
+            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(0, 0, 30, 30), 1, new fudge.Vector2(0, 0), 32, fudge.ORIGIN2D.CENTER);
+            return sprite;
+          }
+        }
+      }
+      case "healpotion": {
+        switch (stateName) { 
+          case CHARACTERSTATE.DEFAULT: { 
+            let sprite: Sprite = new Sprite(spriteName + "_" + stateName);
+            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(0, 0, 30, 30), 1, new fudge.Vector2(0, 0), 32, fudge.ORIGIN2D.CENTER);
+            return sprite;
+          }
+        }
+      }      
     }
   }
 }

@@ -4,16 +4,15 @@ namespace Game {
 
   export class Goblin extends Character {
     public attacksPlayer: boolean = false;
-    name: string;
-    positionX: number;
-    positionY: number;
-    scaleX: number;
-    scaleY: number;
-
-    lookAroundCooldown = 50;
-    currentLookAroundCooldown = 0;
-    moveDirection: DIRECTION = DIRECTION.RIGHT;
-
+    public name: string;
+    public positionX: number;
+    public positionY: number;
+    public scaleX: number;
+    public scaleY: number;
+    private dropChance: number = 0.4;
+    private lookAroundCooldown: number = 50;
+    private currentLookAroundCooldown: number = 0;
+    private moveDirection: DIRECTION = DIRECTION.RIGHT;
 
     constructor(name: string, spriteName: string, positionX: number, positionY: number, scaleX: number, scaleY: number) {
       super(name);
@@ -21,7 +20,6 @@ namespace Game {
       this.spriteName = spriteName;
       this.cmpTransform.local.translation = new fudge.Vector3(positionX, positionY, 0);
       this.cmpTransform.local.scaling = new fudge.Vector3(scaleX, scaleY, 0);
-
 
       this.setStats({ hp: 3, dmg: 0, walkSpeed: 2, jumpHeight: 0, attackSpeed: 100 });
 
@@ -32,18 +30,17 @@ namespace Game {
       fudge.Loop.addEventListener(fudge.EVENT.LOOP_FRAME, this.behavior);
     }
 
-
     public die(): void {
-      if (Math.random() < 0.4) {
+      if (Math.random() < this.dropChance) {
         this.dropItem();
       }
-      this.isDead = true;
       this.showOneTime(CHARACTERSTATE.DEATH);
+      this.isDead = true;
 
       setTimeout(() => { 
         this.getParent().removeChild(this);
         Util.getInstance().level.deleteEnemy(this);
-       }, 500);
+       }, 200);
     }
 
     public dropItem(): void {
@@ -56,24 +53,22 @@ namespace Game {
     }
 
     public attack(): void {
-      if (this.attackCooldown == 0) {
-        fudge.Debug.log("Attacked");
+      if (this.attackCooldown == 0 && !Util.getInstance().level.player.finished) {
         Util.getInstance().level.player.takeDmg(1);
         this.attacksPlayer = true;
         this.isAttacking = true;
         this.showOneTime(CHARACTERSTATE.ATTACK);
         this.attackCooldown = this.getStats().attackSpeed;
-      } 
+      }
     }
 
-    public ki() {
+    public ki(): void {
       //Check if player is on same height
-      fudge.Debug.log(this.isAttacking);
-      let player = Util.getInstance().level.player;
-      let playerTrans = Util.getInstance().level.player.cmpTransform.local.translation;
-      let goblinTrans = this.cmpTransform.local.translation;
+      let player: Player = Util.getInstance().level.player;
+      let playerTrans: fudge.Vector3 = Util.getInstance().level.player.cmpTransform.local.translation;
+      let goblinTrans: fudge.Vector3 = this.cmpTransform.local.translation;
       let collisionObjects: Character[] = this.hitbox.detectEnemys() as Character[];
-      if (collisionObjects.length != 0) {
+      if (collisionObjects.length != 0 && !player.isDead) {
         this.attack();
       } else {
         this.attacksPlayer = false;
@@ -82,7 +77,6 @@ namespace Game {
       if (goblinTrans.y <= playerTrans.y + 0.7 && goblinTrans.y >= playerTrans.y - 0.7) {
         //Same height
         if (this.currentPlatform && player.currentPlatform) {
-
           if (this.currentPlatform.name == player.currentPlatform.name && !this.attacksPlayer) {
             //Same platform
             if (playerTrans.x < goblinTrans.x) {
@@ -100,19 +94,6 @@ namespace Game {
       }
     }
 
-
-
-
-    public lookAround() {
-      if (this.currentLookAroundCooldown == this.lookAroundCooldown) {
-        this.randomDirection()
-        this.look(this.moveDirection)
-        this.currentLookAroundCooldown = 0;
-      }else{
-        this.currentLookAroundCooldown ++;
-      }
-    }
-
     public reactToCollison(): void {
       let collisionObjects: CollidedObject[] = this.collider.getCollisionObjects();
 
@@ -120,24 +101,31 @@ namespace Game {
         let collisionObject: CollidedObject = collisionObjects[i];
 
         switch (collisionObject.collisionType) {
-          case CollisionType.ENEMY: {
-
+          case COLLISIONTYPE.ENEMY: {
             break;
           }
-
-          case CollisionType.ENVIRONMENT: {
+          case COLLISIONTYPE.ENVIRONMENT: {
             if (collisionObject.object.constructor.name == "Platform") {
               this.currentPlatform = collisionObject.object as Platform;
             }
             this.handleSolidColision(collisionObject);
             break;
           }
-
-          case CollisionType.PLAYER: {
+          case COLLISIONTYPE.PLAYER: {
             this.handleSolidColision(collisionObject);
             break;
           }
         }
+      }
+    }
+
+    private lookAround(): void {
+      if (this.currentLookAroundCooldown == this.lookAroundCooldown) {
+        this.randomDirection();
+        this.look(this.moveDirection);
+        this.currentLookAroundCooldown = 0;
+      } else {
+        this.currentLookAroundCooldown ++;
       }
     }
 
@@ -151,10 +139,9 @@ namespace Game {
     }
 
     private behavior = (_event: fudge.Eventƒ): void => {
-      if(!this.isDead && this.isLoaded){
-        this.ki()
+      if (!this.isDead && this.isLoaded) {
+        this.ki();
       }
     }
-
   }
 }

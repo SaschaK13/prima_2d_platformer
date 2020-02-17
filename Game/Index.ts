@@ -4,19 +4,104 @@ namespace Game {
 
   window.onload = addEventlisteners;
 
+  let select: HTMLAudioElement;
+  let theme: HTMLAudioElement;
+
+  let music: HTMLElement;
+  let sounds: HTMLElement;
+
+  let musicValue: number = 100;
+  let soundsValue: number = 100;
+
   function addEventlisteners(): void {
+
+    fetchAudios();
+    playThemeSound();
+
     let newGame: HTMLElement = document.getElementById("newGame");
     let loadGame: HTMLElement = document.getElementById("loadGame");
+    let settings: HTMLElement = document.getElementById("settings");
+    let closeSettings: HTMLElement = document.getElementById("closeSettings");
 
     newGame.addEventListener("click", start);
-    loadGame.addEventListener("click", load);
+    loadGame.addEventListener("click", loadButton);
+    settings.addEventListener("click", openSettings);
+    closeSettings.addEventListener("click", close);
 
-    function start(): void {      
-      window.open("game.html");
-    }
+    music = document.getElementById("music");
+    sounds = document.getElementById("sounds");
 
-    function load(): void {
-     
+    music.addEventListener("click", handleInputMusic);
+    sounds.addEventListener("click", handleInputSounds);
+
+  }
+
+  function start(): void {
+    select.play();
+    window.open("http://localhost:5000/Game/game?musicVol=" + musicValue + "&soundVol=" + soundsValue, "_self" , "fullscreen=yes" , true);
+  }
+
+  function loadButton(): void {
+    select.play();
+    load();
+  }
+
+  function openSettings(): void {
+    document.getElementById("settingsBox").style.visibility = "visible";
+  }
+
+  function close(): void {
+    select.play();
+    document.getElementById("settingsBox").style.visibility = "hidden";
+  }
+
+  function handleInputMusic(): void {
+    select.play();
+    musicValue = music.value;
+  }
+
+  function handleInputSounds(): void {
+    select.play();
+    soundsValue = sounds.value;
+  }
+
+  function fetchAudios(): void {
+    select = new Audio();
+    select.src = "../Game/Assets/sounds/select.wav";
+    select.load();
+
+    theme = new Audio();
+    theme.src = "../Game/Assets/sounds/menu.wav";
+    theme.load();
+
+    Util.getInstance().selectSound = select;
+    Util.getInstance().pickUpSound = theme;
+  }
+
+  function playThemeSound(): void  {
+    theme.loop = true;
+    theme.play();
+  }
+
+  function gotClicked(): void {
+    let buttonName = this.name as string;
+    
+    //window.location.href = "http://localhost:5000/Game/game?W=WW"
+    //
+  }
+
+  async function load(): Promise<void> {
+    fudge.FileIoBrowserLocal.addEventListener(fudge.EVENT.FILE_LOADED, handleContentLoaded);
+    fudge.FileIoBrowserLocal.load();
+  }
+
+  function handleContentLoaded(_event: CustomEvent): void {
+    let map: fudge.MapFilenameToContent = _event.detail.mapFilenameToContent;
+    console.log("Map", map);
+    for (let filename in map) {
+      let content: string = map[filename];
+      fudge.FileIoBrowserLocal.removeEventListener(fudge.EVENT.FILE_LOADED, handleContentLoaded);
+      window.open("http://localhost:5000/Game/game?musicVol=" + musicValue + "&soundVol=" + soundsValue + "&saveGamejson=" + content, "_self" , "fullscreen=yes" , true);
     }
   }
 }

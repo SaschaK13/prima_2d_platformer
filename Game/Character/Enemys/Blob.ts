@@ -3,15 +3,16 @@ namespace Game {
   import fudge = FudgeCore;
 
   export class Blob extends Character {
-    name: string;
-    positionX: number;
-    positionY: number;
-    scaleX: number;
-    scaleY: number;
+    public name: string;
+    public positionX: number;
+    public positionY: number;
+    public scaleX: number;
+    public scaleY: number;
 
+    private dropChance: number = 0.2;
     private movementDuration: number;
     private currentMovmentDuration: number = 0;
-    private movedirection: DIRECTION;
+    private moveDirection: DIRECTION;
 
     constructor(name: string, spriteName: string, positionX: number, positionY: number, scaleX: number, scaleY: number) {
       super(name);
@@ -20,7 +21,6 @@ namespace Game {
       this.cmpTransform.local.translation = new fudge.Vector3(positionX, positionY, 0);
       this.cmpTransform.local.scaling = new fudge.Vector3(scaleX, scaleY, 0);
       
-
       this.setStats({ hp: 3, dmg: 0, walkSpeed: 1, jumpHeight: 0, attackSpeed: 0 });
       this.movementDuration = Util.getInstance().getRandomRange(2, 3);
       this.randomDirection();
@@ -31,7 +31,7 @@ namespace Game {
 
 
     public die(): void {
-      if (Math.random() < 0.4) {
+      if (Math.random() < this.dropChance) {
         this.dropItem();
       }
       this.isDead = true;
@@ -54,8 +54,27 @@ namespace Game {
 
     public ki(): void {
        if (this.currentMovmentDuration != this.movementDuration) {
-        this.walk(this.movedirection);
-        this.currentMovmentDuration++;
+        if (this.cmpTransform.local.translation.x >= this.currentPlatform.cmpTransform.local.translation.x - ((this.currentPlatform.cmpTransform.local.scaling.x / 2) + 0.2) && this.cmpTransform.local.translation.x <= this.currentPlatform.cmpTransform.local.translation.x + ((this.currentPlatform.cmpTransform.local.scaling.x / 2) - 0.2))
+        {
+          this.walk(this.moveDirection);
+          
+        } else {
+          switch (this.moveDirection) {
+            case DIRECTION.LEFT: {
+              this.moveDirection = DIRECTION.RIGHT;
+              this.walk(this.moveDirection);
+              break;
+            }
+            case DIRECTION.RIGHT: {
+              this.moveDirection = DIRECTION.LEFT;
+              this.walk(this.moveDirection);
+              break;
+            }
+
+          }
+          this.currentMovmentDuration++;
+        }
+        
       } else {
         this.movementDuration = Util.getInstance().getRandomRange(100, 200);
         this.randomDirection();
@@ -70,18 +89,18 @@ namespace Game {
         let collisionObject: CollidedObject = collisionObjects[i];
         
         switch (collisionObject.collisionType) {
-          case CollisionType.ENEMY: {
-          
+          case COLLISIONTYPE.ENEMY: {
             break;
           }
-
-          case CollisionType.ENVIRONMENT: {
+          case COLLISIONTYPE.ENVIRONMENT: {
+            if (collisionObject.object.constructor.name == "Platform") {
+              this.currentPlatform = collisionObject.object as Platform;
+            }
             this.handleSolidColision(collisionObject);
             break;
           }
-
-          case CollisionType.PLAYER: {
-           this.handleSolidColision(collisionObject)
+          case COLLISIONTYPE.PLAYER: {
+           this.handleSolidColision(collisionObject);
            break;
           }
         }
@@ -89,15 +108,19 @@ namespace Game {
     }
 
     private behavior = (_event: fudge.Eventƒ): void => {
-      this.ki();
+      if(!this.isDead && this.isLoaded)
+      {
+        this.ki();
+
+      }
     }
 
     private randomDirection(): void {
       let randomnum: number = Util.getInstance().getRandomRange(1, 3);
       if (randomnum == 1) {
-        this.movedirection = DIRECTION.RIGHT;
+        this.moveDirection = DIRECTION.RIGHT;
       } else {
-        this.movedirection = DIRECTION.LEFT;
+        this.moveDirection = DIRECTION.LEFT;
       }
     }
   }

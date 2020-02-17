@@ -2,9 +2,9 @@
 namespace Game {
   import fudge = FudgeCore;
 
-  window.addEventListener("load", test);
+  window.addEventListener("load", loadMain);
   let root: fudge.Node;
-  let collidableNode: fudge.Node;
+  let saveGameName: string;
 
   interface KeyPressed {
     [code: string]: boolean;
@@ -12,30 +12,31 @@ namespace Game {
 
   let keysPressed: KeyPressed = {};
 
-  function test(): void {
+  function loadMain(): void {
     let canvas: HTMLCanvasElement = document.querySelector("canvas");
     fudge.RenderManager.initialize(true, false);
 
     root = new fudge.Node("Root");
-    collidableNode = new fudge.Node("collidable");
-    root.appendChild(collidableNode);
 
+    const queryString: string = window.location.search;
+    const urlParams: URLSearchParams = new URLSearchParams(queryString);
+
+
+    //camera
     let cmpCamera: fudge.ComponentCamera = new fudge.ComponentCamera();
     cmpCamera.pivot.translateZ(15);
     cmpCamera.pivot.lookAt(fudge.Vector3.ZERO());
     cmpCamera.backgroundColor = fudge.Color.CSS("aliceblue");
     let viewport: fudge.Viewport = new fudge.Viewport();
 
-    let cameraOrbit = new fudge.Node("CameraOrbit");
+    let cameraOrbit: fudge.Node = new fudge.Node("CameraOrbit");
     cameraOrbit.addComponent(new fudge.ComponentTransform());
     cameraOrbit.addComponent(cmpCamera);
-
-    root.appendChild(cameraOrbit)
+    root.appendChild(cameraOrbit);
 
     viewport.initialize("Viewport", root, cameraOrbit.getComponent(fudge.ComponentCamera), canvas);
 
-
-    loadGame()
+    loadGame();
 
     document.addEventListener("keydown", handleKeyboard);
     document.addEventListener("keyup", handleKeyboard);
@@ -44,7 +45,6 @@ namespace Game {
     fudge.Loop.start(fudge.LOOP_MODE.TIME_GAME, 60);
 
     //after world gen add collidable objects to Util 
-
     function handleKeyboard(event: KeyboardEvent): void {
       keysPressed[event.code] = (event.type == "keydown");
     }
@@ -56,6 +56,11 @@ namespace Game {
           player.jump();
           return;
         }
+
+        if (keysPressed[fudge.KEYBOARD_CODE.E]) {
+          player.attack();
+          return;
+        }
         if (keysPressed[fudge.KEYBOARD_CODE.D]) {
           player.walk(DIRECTION.RIGHT);
           return;
@@ -64,10 +69,7 @@ namespace Game {
           player.walk(DIRECTION.LEFT);
           return;
         }
-        if (keysPressed[fudge.KEYBOARD_CODE.E]) {
-          player.attack();
-          return;
-        }
+      
         player.idle();
       }
     }
@@ -76,102 +78,108 @@ namespace Game {
       processInput();
       viewport.draw();
       cameraOrbit.cmpTransform.local.translation = new fudge.Vector3(Util.getInstance().level.player.cmpTransform.local.translation.x, cameraOrbit.cmpTransform.local.translation.y, cameraOrbit.cmpTransform.local.translation.z)
-      updateGameObjects()
-
-
+      updateGameObjects();
+      fudge.Debug.log(Util.getInstance().level.player.getStats().hp);
       //fudge.RenderManager.update()
     }
 
+    function loadGame(): void {
+      let util: Util = Util.getInstance();
+      util.collidableNode = new fudge.Node("collidable"); 
+      util.rootNode = root;
+      root.appendChild(util.collidableNode);
 
-    function loadGame() {
+      util.fetchAudios();
 
-      fudge.Debug.log("Game loaded")
+      util.musicVol = (parseInt(urlParams.get('musicVol'))/100);
+      util.soundVol = (parseInt(urlParams.get('soundVol'))/100);
+
       loadSprites();
 
-      let gui: Gui = new Gui(2, 5, 1, 50);
-      Util.getInstance().gui = gui;
+      let gui: Gui = new Gui();
+      util.gui = gui;
 
-      let lvlGenerator: LevelGenerator = new LevelGenerator(collidableNode);
-      lvlGenerator.getDataFromFile();
+      saveGameName = urlParams.get('saveGamejson');
+      if (saveGameName) {
+        loadLevel(saveGameName);
+      } else {
+        util.lvlGenerator = new LevelGenerator(util.collidableNode);
+        util.lvlGenerator.getDataFromFile("level1");
+      }
 
-
+    
+     
     }
 
-    function updateGameObjects() {
-      //load platform 
-      let platformArray = Util.getInstance().level.platformArray;
+    function loadLevel(saveGamejson: string): void {
+      let data: Savegame = JSON.parse(saveGamejson);
+      Util.getInstance().currentSavegame = data;
+      Util.getInstance().lvlGenerator = new LevelGenerator(Util.getInstance().collidableNode);
+      Util.getInstance().lvlGenerator.getDataFromFile(data.levelName);
+    }
 
-      for (var i = 0; i < platformArray.length; i++) {
-        let platform = platformArray[i];
-        let showed = isInViewPort(platform);
+    function updateGameObjects(): void {
+      //load platform 
+      let platformArray: Platform[] = Util.getInstance().level.platformArray;
+
+      for (var i: number = 0; i < platformArray.length; i++) {
+        let platform: Platform = platformArray[i];
+        let showed: boolean = isInViewPort(platform);
         if (showed && !platform.isLoaded) {
-          collidableNode.appendChild(platform);
+          Util.getInstance().collidableNode.appendChild(platform);
           platform.isLoaded = true;
         } else if (!showed && platform.isLoaded) {
-          collidableNode.removeChild(platform);
+          Util.getInstance().collidableNode.removeChild(platform);
           platform.isLoaded = false;
         }
-
       }
 
       //Load Enemys
-      let enemyArray = Util.getInstance().level.enemyArray;
-      for (var i = 0; i < enemyArray.length; i++) {
-        let enemy = enemyArray[i] as Character;
-        let showed = isInViewPort(enemy);
+      let enemyArray: Character[] = Util.getInstance().level.enemyArray;
+      for (var i: number = 0; i < enemyArray.length; i++) {
+        let enemy: Character = enemyArray[i] as Character;
+        let showed: boolean = isInViewPort(enemy);
         if (showed && !enemy.isLoaded) {
-          collidableNode.appendChild(enemy);
+          Util.getInstance().collidableNode.appendChild(enemy);
           enemy.cmpTransform.local.translateY(1);
-          fudge.Debug.log("Enemy loaded")
           enemy.isLoaded = true;
-
         } else if (!showed && enemy.isLoaded) {
-          collidableNode.removeChild(enemy);
+          Util.getInstance().collidableNode.removeChild(enemy);
           enemy.isLoaded = false;
-          fudge.Debug.log("Enemy destroyed")
         }
-
       }
 
       //load Background
-      let backGroundArray = Util.getInstance().level.backgroundArray;
+      let backGroundArray: Background[] = Util.getInstance().level.backgroundArray;
       for (var i = 0; i < backGroundArray.length; i++) {
-        let backGround = backGroundArray[i] as Background;
-        let showed = isBackgroundInViewPort(backGround);
+        let backGround: Background = backGroundArray[i] as Background;
+        let showed: boolean = isBackgroundInViewPort(backGround);
         if (showed && !backGround.isLoaded) {
-          fudge.Debug.log("Bacvkground created")
-          collidableNode.appendChild(backGround);
+          Util.getInstance().collidableNode.appendChild(backGround);
           backGround.isLoaded = true;
-
         } else if (!showed && backGround.isLoaded) {
-          fudge.Debug.log("Bacvkground deleted")
-          collidableNode.removeChild(backGround);
+          Util.getInstance().collidableNode.removeChild(backGround);
           backGround.isLoaded = false;
         }
-
       }
 
       //Check if Player is in ViewPort 
-      let player = Util.getInstance().level.player;
-      let showed = isInViewPort(player);
-      if (!showed && player.isLoaded) {
-        player.die()
+      let player: Player = Util.getInstance().level.player;
+      let showed: boolean = isInViewPort(player);
+      if (!showed && player.isLoaded && player.cmpTransform.local.translation.y < (cameraOrbit.cmpTransform.local.translation.y - 5)) {
+        player.die();
       }
-
     }
 
-    function isBackgroundInViewPort(background: Background) {
-      let camSize = new fudge.Vector2(40, 10);
-      let camPosition = cameraOrbit.cmpTransform.local.translation;
-      let leftBorder = camPosition.x - (camSize.x / 2)
-      let rightBorder = camPosition.x + (camSize.x / 2)
+    function isBackgroundInViewPort(background: Background): boolean {
+      let camSize: fudge.Vector2 = new fudge.Vector2(40, 10);
+      let camPosition: fudge.Vector3 = cameraOrbit.cmpTransform.local.translation;
+      let leftBorder: number = camPosition.x - (camSize.x / 2);
+      let rightBorder: number = camPosition.x + (camSize.x / 2);
 
-      let bottom = camPosition.y - (camSize.y / 2)
-      let top = camPosition.y + (camSize.y / 2)
-
-      let nodePosition = background.cmpTransform.local.translation;
-      let nodeLeftBorder = nodePosition.x - (background.length / 2)
-      let nodeRightBorder = nodePosition.x + (background.length / 2)
+      let nodePosition: fudge.Vector3 = background.cmpTransform.local.translation;
+      let nodeLeftBorder: number = nodePosition.x - (background.length / 2);
+      let nodeRightBorder: number = nodePosition.x + (background.length / 2);
 
       if (nodeRightBorder >= leftBorder && nodeLeftBorder <= rightBorder) {
         return true;
@@ -180,23 +188,21 @@ namespace Game {
       }
     }
 
-
-
     function isInViewPort(node: fudge.Node): boolean {
-      let camSize = new fudge.Vector2(20, 10);
-      let camPosition = cameraOrbit.cmpTransform.local.translation;
-      let leftBorder = camPosition.x - (camSize.x / 2)
-      let rightBorder = camPosition.x + (camSize.x / 2)
+      let camSize: fudge.Vector2 = new fudge.Vector2(20, 10);
+      let camPosition: fudge.Vector3 = cameraOrbit.cmpTransform.local.translation;
+      let leftBorder: number = camPosition.x - (camSize.x / 2);
+      let rightBorder: number = camPosition.x + (camSize.x / 2);
 
-      let bottom = camPosition.y - (camSize.y / 2)
-      let top = camPosition.y + (camSize.y / 2)
+      let bottom: number = camPosition.y - (camSize.y / 2);
+      let top: number = camPosition.y + (camSize.y / 2);
 
-      let nodePosition = node.cmpTransform.local.translation;
-      let nodeLeftBorder = nodePosition.x - (node.cmpTransform.local.scaling.x / 2)
-      let nodeRightBorder = nodePosition.x + (node.cmpTransform.local.scaling.x / 2)
+      let nodePosition: fudge.Vector3 = node.cmpTransform.local.translation;
+      let nodeLeftBorder: number = nodePosition.x - (node.cmpTransform.local.scaling.x / 2);
+      let nodeRightBorder: number = nodePosition.x + (node.cmpTransform.local.scaling.x / 2);
 
-      let nodeTop = nodePosition.y + (node.cmpTransform.local.scaling.y / 2)
-      let nodeBottom = nodePosition.y - (node.cmpTransform.local.scaling.y / 2)
+      let nodeTop: number = nodePosition.y + (node.cmpTransform.local.scaling.y / 2);
+      let nodeBottom: number = nodePosition.y - (node.cmpTransform.local.scaling.y / 2);
 
       if (nodeRightBorder >= leftBorder && nodeLeftBorder <= rightBorder && nodeTop >= bottom && nodeBottom <= top) {
         return true;

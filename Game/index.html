@@ -7,12 +7,36 @@
   <title>Game Menu</title>
   <link rel="stylesheet" href="index.css">
   <script src="../FUDGE/FudgeCore.js"></script>
+  <script src="../Game/Utility/Util.js"></script>
   <script src="Index.js"></script>
 </head>
 <body>
   
-  <button id="newGame" type="button"> New Game </button>
-  <button id="loadGame" type="button"> Load Game </button>
+  <button id="newGame" type="button"></button>
+  <button id="loadGame" type="button"></button>
+
+  <button id="settings" type="button"></button>
+
+  <!-- <div id="loadList">
+    <h1> Select Safe Game </h1>
+  </div>
+-->
+
+  <div id="settingsBox">
+
+    <div class="slidecontainer">
+      <p>Music</p>
+      <input type="range" min="0" max="100" value="100" class="slider" id="music">
+    </div>
+    <br>
+    <div class="slidecontainer">
+      <p>Sounds</p>
+      <input type="range" min="0" max="100" value="100" class="slider" id="sounds">
+    </div>
+
+    <button id="closeSettings"></button>
+  </div>
+
 
 </body>
 </html>

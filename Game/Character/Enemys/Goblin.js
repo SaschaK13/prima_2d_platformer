@@ -6,6 +6,7 @@ var Game;
         constructor(name, spriteName, positionX, positionY, scaleX, scaleY) {
             super(name);
             this.attacksPlayer = false;
+            this.dropChance = 0.4;
             this.lookAroundCooldown = 50;
             this.currentLookAroundCooldown = 0;
             this.moveDirection = Game.DIRECTION.RIGHT;
@@ -25,15 +26,15 @@ var Game;
             fudge.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, this.behavior);
         }
         die() {
-            if (Math.random() < 0.4) {
+            if (Math.random() < this.dropChance) {
                 this.dropItem();
             }
-            this.isDead = true;
             this.showOneTime(Game.CHARACTERSTATE.DEATH);
+            this.isDead = true;
             setTimeout(() => {
                 this.getParent().removeChild(this);
                 Game.Util.getInstance().level.deleteEnemy(this);
-            }, 500);
+            }, 200);
         }
         dropItem() {
             let possibleItemsArray = Game.Util.getInstance().level.possibleItemsArray;
@@ -44,8 +45,7 @@ var Game;
             Game.Util.getInstance().level.itemArray.push(item);
         }
         attack() {
-            if (this.attackCooldown == 0) {
-                fudge.Debug.log("Attacked");
+            if (this.attackCooldown == 0 && !Game.Util.getInstance().level.player.finished) {
                 Game.Util.getInstance().level.player.takeDmg(1);
                 this.attacksPlayer = true;
                 this.isAttacking = true;
@@ -55,12 +55,11 @@ var Game;
         }
         ki() {
             //Check if player is on same height
-            fudge.Debug.log(this.isAttacking);
             let player = Game.Util.getInstance().level.player;
             let playerTrans = Game.Util.getInstance().level.player.cmpTransform.local.translation;
             let goblinTrans = this.cmpTransform.local.translation;
             let collisionObjects = this.hitbox.detectEnemys();
-            if (collisionObjects.length != 0) {
+            if (collisionObjects.length != 0 && !player.isDead) {
                 this.attack();
             }
             else {
@@ -87,6 +86,28 @@ var Game;
                 this.lookAround();
             }
         }
+        reactToCollison() {
+            let collisionObjects = this.collider.getCollisionObjects();
+            for (var i = 0; i < collisionObjects.length; i++) {
+                let collisionObject = collisionObjects[i];
+                switch (collisionObject.collisionType) {
+                    case Game.COLLISIONTYPE.ENEMY: {
+                        break;
+                    }
+                    case Game.COLLISIONTYPE.ENVIRONMENT: {
+                        if (collisionObject.object.constructor.name == "Platform") {
+                            this.currentPlatform = collisionObject.object;
+                        }
+                        this.handleSolidColision(collisionObject);
+                        break;
+                    }
+                    case Game.COLLISIONTYPE.PLAYER: {
+                        this.handleSolidColision(collisionObject);
+                        break;
+                    }
+                }
+            }
+        }
         lookAround() {
             if (this.currentLookAroundCooldown == this.lookAroundCooldown) {
                 this.randomDirection();
@@ -95,28 +116,6 @@ var Game;
             }
             else {
                 this.currentLookAroundCooldown++;
-            }
-        }
-        reactToCollison() {
-            let collisionObjects = this.collider.getCollisionObjects();
-            for (var i = 0; i < collisionObjects.length; i++) {
-                let collisionObject = collisionObjects[i];
-                switch (collisionObject.collisionType) {
-                    case Game.CollisionType.ENEMY: {
-                        break;
-                    }
-                    case Game.CollisionType.ENVIRONMENT: {
-                        if (collisionObject.object.constructor.name == "Platform") {
-                            this.currentPlatform = collisionObject.object;
-                        }
-                        this.handleSolidColision(collisionObject);
-                        break;
-                    }
-                    case Game.CollisionType.PLAYER: {
-                        this.handleSolidColision(collisionObject);
-                        break;
-                    }
-                }
             }
         }
         randomDirection() {
