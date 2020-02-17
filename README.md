@@ -2,7 +2,8 @@
 [Spiele jetzt: "Curse of the Dawn"](https://saschak13.github.io/prima_2d_platformer/Game/index)
 
 ## Links: 
-
+[Code"](https://github.com/SaschaK13/prima_2d_platformer/tree/master/Game)
+[Designdokument"](https://github.com/SaschaK13/prima_2d_platformer/tree/master/DesignDocument)
 
 
 ## Checkliste für Leistungsnachweis
