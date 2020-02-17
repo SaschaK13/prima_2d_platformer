@@ -12,6 +12,7 @@ namespace Game {
     public possibleItemsArray: Item[] = [];
     public theme: string;
     public finish: Finish;
+    public wizzardSpells: WizzardSpell[] = [];
     private levelLength: number;
     private root: fudge.Node;
 
@@ -45,6 +46,25 @@ namespace Game {
       Util.getInstance().level.itemArray = newItemArray;
     }
 
+    public addWizardSpell(spell: WizzardSpell)
+    {
+      this.wizzardSpells.push(spell);
+      this.root.appendChild(spell);
+    }
+
+    public removeWizzardSpell(spell: WizzardSpell)
+    {
+      let newSpellArray: WizzardSpell[] = [];
+
+      for (var i: number = 0; i < this.wizzardSpells.length; i++) {
+        if (!(this.wizzardSpells[i].name == spell.name)) {
+          newSpellArray.push(this.wizzardSpells[i]);
+        }
+      }
+      Util.getInstance().level.wizzardSpells = newSpellArray;
+      this.root.removeChild(spell);
+    }
+
     public getCollidableObjects(): fudge.Node[] {
       let collidableNodes: fudge.Node[] = [];
       for (var i: number = 0; i < this.platformArray.length; i++) {
@@ -57,6 +77,10 @@ namespace Game {
         if (this.enemyArray[i].isLoaded) {
         collidableNodes.push(this.enemyArray[i]);
         }
+      }
+
+      for (var i: number = 0; i < this.wizzardSpells.length; i++) {
+        collidableNodes.push(this.wizzardSpells[i]);
       }
 
       for (var i = 0; i < this.itemArray.length; i++) {

@@ -14,8 +14,8 @@ var Game;
     })(CHARACTERSTATE = Game.CHARACTERSTATE || (Game.CHARACTERSTATE = {}));
     let DIRECTION;
     (function (DIRECTION) {
-        DIRECTION["RIGHT"] = "right";
-        DIRECTION["LEFT"] = "left";
+        DIRECTION[DIRECTION["RIGHT"] = 1] = "RIGHT";
+        DIRECTION[DIRECTION["LEFT"] = -1] = "LEFT";
     })(DIRECTION = Game.DIRECTION || (Game.DIRECTION = {}));
     class Character extends fudge.Node {
         constructor(nodeName) {

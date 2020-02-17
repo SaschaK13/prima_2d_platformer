@@ -4,6 +4,7 @@ var Game;
     let COLLISIONTYPE;
     (function (COLLISIONTYPE) {
         COLLISIONTYPE["ENVIRONMENT"] = "Platform";
+        COLLISIONTYPE["WIZZARDSPELL"] = "WizzardSpell";
         COLLISIONTYPE["ENEMY"] = "Enemy";
         COLLISIONTYPE["PLAYER"] = "Player";
         COLLISIONTYPE["ITEM"] = "Item";
@@ -94,6 +95,9 @@ var Game;
                 }
                 case "Blob": {
                     return COLLISIONTYPE.ENEMY;
+                }
+                case "WizzardSpell": {
+                    return COLLISIONTYPE.WIZZARDSPELL;
                 }
                 case "Wizzard": {
                     return COLLISIONTYPE.ENEMY;
