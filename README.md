@@ -1,8 +1,12 @@
 ![Image of Background](https://github.com/SaschaK13/prima_2d_platformer/blob/master/Game/Assets/menu/Curse_of_the_dawn_title_image.png)
 [Spiele jetzt: "Curse of the Dawn"](https://saschak13.github.io/prima_2d_platformer/Game/index)
 
-## Links: 
-
+## Inhalt: 
+[Code](https://github.com/SaschaK13/prima_2d_platformer/tree/master/Game)</br>
+[Designdokument](https://github.com/SaschaK13/prima_2d_platformer/tree/master/DesignDocument)</br> 
+[Known Issues](#known-issues)
+[Anleitung]
+[Credits]
 
 
 ## Checkliste für Leistungsnachweis
@@ -23,3 +27,6 @@
 |  9 | Subklassen            | Umgebungsobjekte des Spiels erben alle von der Environment-Klasse, welche von der fudge.Node erbt. Die Environment-Klasse stellt bereits alle wichtigen Komponenten wie die ComponentTransform, ComponentMesh, usw. bereit. Außerdem kümmert sie sich auch um das Laden der Sprites. Plattformen, Items, Finish und Background erweitern diese um spezifische Funktionen. Des Weiteren erben, wie bereits erwähnt sämtliche Gegner und der Spieler von der Charakter-Klasse und ertweitern deren Funktionen. Die Charakter-Klasse erbt ebenfalls von fudge.Node. |
 | 10 | Maße & Positionen     | Der Nullpunkt des Koordinatensystems befindet sich am Start, in der Mitte des Screens. Das Level erstreckt sich in positive X-Richtung und der Charakter kann sich auf der Y-Achse ca. 5 Einheiten nach oben und unten bewegen. Jedes Spielelement wird ausgehend vom Nullpunkt positioniert.                                                                |
 | 11 | Event-System          | Sämtliche Tasteninteraktionen werden über einen Listener gehändelt, welcher dann, je nach gedrückter Taste die damit verbundene Funktion aufruft. Der Charakter beinhaltet einen EventtListener auf die Fudge Loopframe, welche pro Frame die Sprites updatet, eine Kollision prüft, die Velocity auf den Charakter anwendet und verschiedene Cooldowns bearbeitet. Des Weiteren beinhalten die Gegner ebenfalls einen LoopFrameListener, welcher pro Frame das Verhalten des jeweiligen Gegners ausführt. Auch das animieren der Sprites wird über EventListener gehändelt. Auch bei sämtlichen UI-Interaktionselementen wird das Event-System verwendet.                                                                       |
+
+
+## Known Issues:
