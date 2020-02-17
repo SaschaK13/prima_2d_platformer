@@ -31,7 +31,7 @@ export class WizzardSpell extends Environment {
       Util.getInstance().level.removeWizzardSpell(this);
       this.removeEventListener(fudge.EVENT.LOOP_FRAME, this.behavior);
     } else {
-      this.cmpTransform.local.translateX((5 * timeFrame) * this.shotdirection);
+      this.cmpTransform.local.translateX((7 * timeFrame) * this.shotdirection);
       this.currentLifetime++;
     }
   }
