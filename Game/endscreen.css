@@ -16,14 +16,14 @@ body {
   margin: auto;
   width: 50%;
   margin-top: 18%;
-  font-size: 100%;;
+  font-size: 110%;;
 }
 
 #backToMenu {
   font-family: "8bit_wondernominal";
   color: white;
   text-align: center;
-  font-size: 100%;
+  font-size: 110%;
   cursor: pointer;
   outline: none;
 }
