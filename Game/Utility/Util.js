@@ -80,7 +80,12 @@ var Game;
             this.collidableNode = new fudge.Node("Colidable");
             this.lvlGenerator = new Game.LevelGenerator(this.collidableNode);
             this.rootNode.appendChild(this.collidableNode);
-            this.lvlGenerator.getDataFromFile("level" + (this.currentLVLNumber + 1));
+            if (!(this.currentLVLNumber == 3)) {
+                this.lvlGenerator.getDataFromFile("level" + (this.currentLVLNumber + 1));
+            }
+            else {
+                window.open("endscreen", "_self", "fullscreen=yes", true);
+            }
         }
         setVolume(musicVol, soundVol) {
             fudge.Debug.log(musicVol + "music");
