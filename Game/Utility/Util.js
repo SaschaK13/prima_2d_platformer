@@ -70,8 +70,8 @@ var Game;
                 }
             }
             this.themeSound.loop = true;
-            this.themeSound.volume = 0.8;
             this.themeSound.load();
+            this.setVolume(this.musicVol, this.soundVol);
         }
         loadNextLevel() {
             this.themeSound.pause();
@@ -81,6 +81,19 @@ var Game;
             this.lvlGenerator = new Game.LevelGenerator(this.collidableNode);
             this.rootNode.appendChild(this.collidableNode);
             this.lvlGenerator.getDataFromFile("level" + (this.currentLVLNumber + 1));
+        }
+        setVolume(musicVol, soundVol) {
+            fudge.Debug.log(musicVol + "music");
+            fudge.Debug.log(soundVol + "sound");
+            this.themeSound.volume = this.numberToOneDecimal(musicVol);
+            this.hurtSound.volume = this.numberToOneDecimal(soundVol);
+            this.jumpSound.volume = this.numberToOneDecimal(soundVol);
+            this.pickUpSound.volume = this.numberToOneDecimal(soundVol);
+            this.selectSound.volume = this.numberToOneDecimal(soundVol);
+            this.attackSound.volume = this.numberToOneDecimal(soundVol);
+        }
+        numberToOneDecimal(number) {
+            return Math.round(number * 10) / 10;
         }
         createSavegame() {
             return " {\"levelName\": \"level" + (this.level.levelNumber + 1) + "\", \"hp\": " + this.level.player.getStats().hp + " , \"dmg\": " + this.level.player.getStats().dmg + ", \"jumpHeight\": " + this.level.player.getStats().jumpHeight + ", \"walkSpeed\": " + this.level.player.getStats().walkSpeed + ", \"attackSpeed\":" + this.level.player.getStats().attackSpeed + " } ";

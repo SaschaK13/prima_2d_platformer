@@ -1,3 +1,4 @@
+
 namespace Game {
 
   import fudge = FudgeCore;
@@ -22,7 +23,10 @@ namespace Game {
     public currentLVLNumber: number;
     public oldPlayer: Character;
 
-    constructor() {}
+    public musicVol: number;
+    public soundVol: number;
+
+    constructor() { }
 
     public static getInstance(): Util {
       if (!Util.instance) {
@@ -62,8 +66,8 @@ namespace Game {
       fudge.FileIoBrowserLocal.save(map);
     }
 
-    
-    
+
+
     public fetchAudios(): void {
 
       this.attackSound = new Audio();
@@ -85,15 +89,15 @@ namespace Game {
       this.hurtSound = new Audio();
       this.hurtSound.src = "../Game/Assets/sounds/hurt.wav";
       this.hurtSound.load();
-  
+
+
     }
 
 
-    public setTheme(theme: String)
-    {
+    public setTheme(theme: String) {
       fudge.Debug.log(theme)
       this.themeSound = new Audio();
-      switch(theme) {
+      switch (theme) {
         case "level1": {
           this.themeSound.src = "../Game/Assets/sounds/level1.wav";
           break;
@@ -109,43 +113,55 @@ namespace Game {
 
       }
       this.themeSound.loop = true;
-      this.themeSound.volume = 0.8;
       this.themeSound.load();
+
+      this.setVolume(this.musicVol, this.soundVol);
     }
 
 
-    public loadNextLevel()
-    {
+    public loadNextLevel() {
       this.themeSound.pause();
       this.oldPlayer = this.level.player;
       this.deleteAllNodes();
       this.collidableNode = new fudge.Node("Colidable");
       this.lvlGenerator = new LevelGenerator(this.collidableNode);
-      this.rootNode.appendChild (this.collidableNode);
+      this.rootNode.appendChild(this.collidableNode);
       this.lvlGenerator.getDataFromFile("level" + (this.currentLVLNumber + 1));
 
     }
 
-    private createSavegame(): string {
-      return " {\"levelName\": \"level" + (this.level.levelNumber + 1 )+"\", \"hp\": " + this.level.player.getStats().hp + " , \"dmg\": " + this.level.player.getStats().dmg + ", \"jumpHeight\": " + this.level.player.getStats().jumpHeight + ", \"walkSpeed\": " + this.level.player.getStats().walkSpeed + ", \"attackSpeed\":" + this.level.player.getStats().attackSpeed + " } "
+    public setVolume(musicVol: number, soundVol: number) {
+      fudge.Debug.log(musicVol + "music")
+      fudge.Debug.log(soundVol + "sound")
+      this.themeSound.volume = this.numberToOneDecimal(musicVol);
+
+      this.hurtSound.volume = this.numberToOneDecimal(soundVol);
+      this.jumpSound.volume = this.numberToOneDecimal(soundVol);
+      this.pickUpSound.volume = this.numberToOneDecimal(soundVol);
+      this.selectSound.volume = this.numberToOneDecimal(soundVol);
+      this.attackSound.volume = this.numberToOneDecimal(soundVol);
     }
 
-    private deleteAllNodes()
-    {
+    public numberToOneDecimal(number: number) {
+      return Math.round(number * 10) / 10;
+    }
+
+    private createSavegame(): string {
+      return " {\"levelName\": \"level" + (this.level.levelNumber + 1) + "\", \"hp\": " + this.level.player.getStats().hp + " , \"dmg\": " + this.level.player.getStats().dmg + ", \"jumpHeight\": " + this.level.player.getStats().jumpHeight + ", \"walkSpeed\": " + this.level.player.getStats().walkSpeed + ", \"attackSpeed\":" + this.level.player.getStats().attackSpeed + " } "
+    }
+
+    private deleteAllNodes() {
       let childs = this.collidableNode.getChildren()
 
-      for(var i = 0; i < childs.length ; i++)
-      {
+      for (var i = 0; i < childs.length; i++) {
         this.collidableNode.removeChild(childs[i]);
       }
 
       this.collidableNode.getParent().removeChild(this.collidableNode);
 
-      for(var i = 0; i < this.level.enemyArray.length ; i++)
-      {
-        let enemy =  this.level.enemyArray[i];
-        for(var j = 0; j < enemy.getChildren().length; j++)
-        {
+      for (var i = 0; i < this.level.enemyArray.length; i++) {
+        let enemy = this.level.enemyArray[i];
+        for (var j = 0; j < enemy.getChildren().length; j++) {
           let child = enemy.getChildren()[j];
           enemy.removeChild(child)
         }
@@ -154,12 +170,11 @@ namespace Game {
       this.lvlGenerator = null;
       this.currentLVLNumber = this.level.levelNumber
       this.level = null;
-     
 
 
     }
 
-  
+
 
 
   }

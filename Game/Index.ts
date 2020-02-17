@@ -10,8 +10,8 @@ namespace Game {
   let music: HTMLElement;
   let sounds: HTMLElement;
 
-  let musicValue: number;
-  let soundsValue: number;
+  let musicValue: number = 100;
+  let soundsValue: number = 100;
 
   function addEventlisteners(): void {
 
@@ -38,7 +38,7 @@ namespace Game {
 
   function start(): void {
     select.play();
-    window.open("http://localhost:5000/Game/game", "_self" , "fullscreen=yes" , true);
+    window.open("http://localhost:5000/Game/game?musicVol=" + musicValue + "&soundVol=" + soundsValue, "_self" , "fullscreen=yes" , true);
   }
 
   function loadButton(): void {
@@ -64,7 +64,6 @@ namespace Game {
     select.play();
     soundsValue = sounds.value;
   }
-
 
   function fetchAudios(): void {
     select = new Audio();
@@ -102,7 +101,7 @@ namespace Game {
     for (let filename in map) {
       let content: string = map[filename];
       fudge.FileIoBrowserLocal.removeEventListener(fudge.EVENT.FILE_LOADED, handleContentLoaded);
-      window.open("http://localhost:5000/Game/game?saveGamejson="+ content, "_self" , "fullscreen=yes" , true);
+      window.open("http://localhost:5000/Game/game?musicVol=" + musicValue + "&soundVol=" + soundsValue + "&saveGamejson=" + content, "_self" , "fullscreen=yes" , true);
     }
   }
 }

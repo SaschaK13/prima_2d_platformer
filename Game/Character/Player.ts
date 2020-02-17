@@ -18,7 +18,7 @@ namespace Game {
       this.cmpTransform.local.translation = new fudge.Vector3(positionX, positionY, 0);
       this.cmpTransform.local.scaling = new fudge.Vector3(scaleX, scaleY, 0);
       super.addSpriteListener();
-
+      
       this.playerStats = {hp: 10, walkSpeed: 2, jumpHeight: 6, dmg: 1, attackSpeed: 50};
       this.setStats(this.playerStats);
     }
@@ -84,6 +84,7 @@ namespace Game {
 
           case COLLISIONTYPE.ITEM: {
             let item: Item = collisionObject.object as Item;
+            Util.getInstance().pickUpSound.play();
             this.updateStats(item.getStats());
             Util.getInstance().level.deleteItem(item);
             this.getParent().removeChild(item);

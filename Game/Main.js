@@ -63,20 +63,23 @@ var Game;
             //fudge.RenderManager.update()
         }
         function loadGame() {
-            Game.Util.getInstance().collidableNode = new fudge.Node("collidable");
-            Game.Util.getInstance().rootNode = root;
-            root.appendChild(Game.Util.getInstance().collidableNode);
-            Game.Util.getInstance().fetchAudios();
+            let util = Game.Util.getInstance();
+            util.collidableNode = new fudge.Node("collidable");
+            util.rootNode = root;
+            root.appendChild(util.collidableNode);
+            util.fetchAudios();
+            util.musicVol = (parseInt(urlParams.get('musicVol')) / 100);
+            util.soundVol = (parseInt(urlParams.get('soundVol')) / 100);
             Game.loadSprites();
             let gui = new Game.Gui();
-            Game.Util.getInstance().gui = gui;
+            util.gui = gui;
             saveGameName = urlParams.get('saveGamejson');
             if (saveGameName) {
                 loadLevel(saveGameName);
             }
             else {
-                Game.Util.getInstance().lvlGenerator = new Game.LevelGenerator(Game.Util.getInstance().collidableNode);
-                Game.Util.getInstance().lvlGenerator.getDataFromFile("level1");
+                util.lvlGenerator = new Game.LevelGenerator(util.collidableNode);
+                util.lvlGenerator.getDataFromFile("level1");
             }
         }
         function loadLevel(saveGamejson) {

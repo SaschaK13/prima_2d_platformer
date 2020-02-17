@@ -71,6 +71,7 @@ var Game;
                     }
                     case Game.COLLISIONTYPE.ITEM: {
                         let item = collisionObject.object;
+                        Game.Util.getInstance().pickUpSound.play();
                         this.updateStats(item.getStats());
                         Game.Util.getInstance().level.deleteItem(item);
                         this.getParent().removeChild(item);
