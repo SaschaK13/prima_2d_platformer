@@ -15,19 +15,19 @@ namespace Game {
     
     public updateStats(player: Character): void {
 
-      this.initialHealth = player.getStats().hp;
+      this.initialHealth = Util.getInstance().numberToOneDecimal(player.getStats().hp);
       document.getElementById("health").setAttribute("src", "Assets/health/heart" + this.initialHealth + ".png");
 
-      this.initialWalkSpeed = player.getStats().walkSpeed;
+      this.initialWalkSpeed = Util.getInstance().numberToOneDecimal(player.getStats().walkSpeed);
       document.getElementById("speed").innerHTML = this.initialWalkSpeed.toString();
 
-      this.initialJumpingPower = player.getStats().jumpHeight;
+      this.initialJumpingPower = Util.getInstance().numberToOneDecimal(player.getStats().jumpHeight);
       document.getElementById("jumping").innerHTML = this.initialJumpingPower.toString();
 
-      this.initialDamage = player.getStats().dmg;
+      this.initialDamage = Util.getInstance().numberToOneDecimal(player.getStats().dmg);
       document.getElementById("damage").innerHTML = this.initialDamage.toString();
 
-      this.initialAttackSpeed = player.getStats().attackSpeed;
+      this.initialAttackSpeed = Util.getInstance().numberToOneDecimal(player.getStats().attackSpeed);
       document.getElementById("attackSpeed").innerHTML = this.initialAttackSpeed.toString();
     }
   }

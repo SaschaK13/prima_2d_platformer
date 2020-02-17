@@ -10,15 +10,15 @@ var Game;
             this.initialAttackSpeed = 0;
         }
         updateStats(player) {
-            this.initialHealth = player.getStats().hp;
+            this.initialHealth = Game.Util.getInstance().numberToOneDecimal(player.getStats().hp);
             document.getElementById("health").setAttribute("src", "Assets/health/heart" + this.initialHealth + ".png");
-            this.initialWalkSpeed = player.getStats().walkSpeed;
+            this.initialWalkSpeed = Game.Util.getInstance().numberToOneDecimal(player.getStats().walkSpeed);
             document.getElementById("speed").innerHTML = this.initialWalkSpeed.toString();
-            this.initialJumpingPower = player.getStats().jumpHeight;
+            this.initialJumpingPower = Game.Util.getInstance().numberToOneDecimal(player.getStats().jumpHeight);
             document.getElementById("jumping").innerHTML = this.initialJumpingPower.toString();
-            this.initialDamage = player.getStats().dmg;
+            this.initialDamage = Game.Util.getInstance().numberToOneDecimal(player.getStats().dmg);
             document.getElementById("damage").innerHTML = this.initialDamage.toString();
-            this.initialAttackSpeed = player.getStats().attackSpeed;
+            this.initialAttackSpeed = Game.Util.getInstance().numberToOneDecimal(player.getStats().attackSpeed);
             document.getElementById("attackSpeed").innerHTML = this.initialAttackSpeed.toString();
         }
     }

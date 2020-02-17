@@ -51,6 +51,10 @@ var Game;
                     player.walk(Game.DIRECTION.LEFT);
                     return;
                 }
+                if (keysPressed[fudge.KEYBOARD_CODE.ESC]) {
+                    //open menu
+                    return;
+                }
                 player.idle();
             }
         }
