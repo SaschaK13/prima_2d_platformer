@@ -272,7 +272,11 @@ namespace Game {
     }
 
     public updateStats(stats: CharacterStats): void {
-      this.HP += stats.hp;
+      if ((this.HP + stats.hp) > 10) {
+        this.HP = 10;
+      } else {
+        this.HP += stats.hp;
+      }
       this.DMG += stats.dmg;
       this.JUMP_HEIGHT += stats.jumpHeight;
       this.WALK_SPEED += stats.walkSpeed;
