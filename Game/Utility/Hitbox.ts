@@ -28,7 +28,6 @@ namespace Game {
       let y: number = this.mtxWorld.translation.y;
       let width: number = this.cmpTransform.local.scaling.x;
       let height: number = this.cmpTransform.local.scaling.y;
-      this.rectangle = new fudge.Rectangle(x, y, width, height, fudge.ORIGIN2D.CENTER);
       let detectedEnemys: Character[] = [];
       if (this.parentNode.constructor.name == "Goblin") {
         if (this.collideWith(Util.getInstance().level.player)) {

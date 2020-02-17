@@ -14,7 +14,8 @@ namespace Game {
 
     private teleportCooldown = 150;
     private currentTeleportCooldown = 0;
-    private dropChance: number = 0.4;
+    private shotcount = 0;
+
 
     private teleportDirection: DIRECTION = DIRECTION.LEFT;
 
@@ -38,9 +39,6 @@ namespace Game {
     }
 
     public die(): void {
-      if (Math.random() < this.dropChance) {
-        this.dropItem();
-      }
       this.showOneTime(CHARACTERSTATE.DEATH);
       this.isDead = true;
 
@@ -50,14 +48,7 @@ namespace Game {
        }, 200);
     }
 
-    public dropItem(): void {
-      let possibleItemsArray: Item[] = Util.getInstance().level.possibleItemsArray;
-      let randomItem: number = Util.getInstance().getRandomRange(0, possibleItemsArray.length);
-      let item: Item = possibleItemsArray[randomItem];
-      item.cmpTransform.local.translation = this.cmpTransform.local.translation;
-      Util.getInstance().level.appendToRoot(item);
-      Util.getInstance().level.itemArray.push(item);
-    }
+   
 
     public attack(): void {
       if (this.attackCooldown == 0 && !Util.getInstance().level.player.finished) {
@@ -69,6 +60,7 @@ namespace Game {
       }
     }
 
+
     public ki(): void {
       let player: Player = Util.getInstance().level.player;
 
@@ -79,6 +71,7 @@ namespace Game {
           if(this.currentTeleportCooldown == this.teleportCooldown)
           {
             this.teleport(this.teleportDirection);
+            this.currentTeleportCooldown = 0;
           }else
           {
             this.currentTeleportCooldown++;
@@ -112,33 +105,55 @@ namespace Game {
       }
     }
 
-    private randomDirection(): void {
-      let randomnum: number = Util.getInstance().getRandomRange(1, 3);
-      if (randomnum == 1) {
-        this.teleportDirection = DIRECTION.RIGHT;
-      } else {
-        this.teleportDirection = DIRECTION.LEFT;
+    private setDirection(): void {
+   
+      switch(this.teleportDirection)
+      {
+        case DIRECTION.LEFT: {
+          this.teleportDirection = DIRECTION.RIGHT;
+          break;
+        }
+
+        case DIRECTION.RIGHT: {
+          this.teleportDirection = DIRECTION.LEFT;
+          break;
+        } 
+
       }
+
     }
-
     private shoot(){
-
+      
+      
+        fudge.Debug.log("shoot")
+        let spells: WizzardSpell = new WizzardSpell("spell" + this.shotcount, ENVIRONMENTTYPE.PLATFORM, "default", this.cmpTransform.local.translation.x , this.cmpTransform.local.translation.y - 0.3, 0.5,0.5);
+        spells.shotdirection = this.teleportDirection ;
+        Util.getInstance().level.addWizardSpell(spells);
+        this.shotcount++;
+      
     }
 
     private teleport(direction: DIRECTION)
     {
+      let posX = this.cmpTransform.local.translation.x;
+      let posY = this.cmpTransform.local.translation.y;
+
+    
       switch (direction) {
         case DIRECTION.LEFT: {
-          this.cmpTransform.local.translateX(-10);
+          this.cmpTransform.local.translation = new fudge.Vector3(posX - 5, posY+ 0.5, 0)
+          this.setDirection();
+           this.shoot();
           break;
         }
         case DIRECTION.RIGHT: {
-          this.cmpTransform.local.translateX(+10);
+          this.cmpTransform.local.translation = new fudge.Vector3(posX + 5, posY+ 0.5, 0)
+          this.setDirection();
+          this.shoot();
           break;
         }
       }
-      this.randomDirection();
-      this.shoot();
+      
 
     }
 

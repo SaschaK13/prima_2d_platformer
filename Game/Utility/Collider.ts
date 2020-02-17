@@ -9,6 +9,7 @@ namespace Game {
 
   export enum COLLISIONTYPE {
     ENVIRONMENT = "Platform", 
+    WIZZARDSPELL = "WizzardSpell",
     ENEMY = "Enemy",
     PLAYER = "Player",
     ITEM = "Item",
@@ -111,6 +112,9 @@ namespace Game {
         }
         case"Blob": {
           return COLLISIONTYPE.ENEMY;
+        }
+        case"WizzardSpell": {
+          return COLLISIONTYPE.WIZZARDSPELL;
         }
         case"Wizzard": {
           return COLLISIONTYPE.ENEMY;

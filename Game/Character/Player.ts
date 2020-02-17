@@ -82,6 +82,13 @@ namespace Game {
             break;
           }
 
+          case COLLISIONTYPE.WIZZARDSPELL: {
+            if(!this.finished)
+            {
+              this.takeDmg(1);
+            }
+          }
+
           case COLLISIONTYPE.ITEM: {
             let item: Item = collisionObject.object as Item;
             Util.getInstance().pickUpSound.play();

@@ -69,6 +69,11 @@ var Game;
                         }
                         break;
                     }
+                    case Game.COLLISIONTYPE.WIZZARDSPELL: {
+                        if (!this.finished) {
+                            this.takeDmg(1);
+                        }
+                    }
                     case Game.COLLISIONTYPE.ITEM: {
                         let item = collisionObject.object;
                         Game.Util.getInstance().pickUpSound.play();

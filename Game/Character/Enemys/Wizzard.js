@@ -8,7 +8,7 @@ var Game;
             this.attacksPlayer = false;
             this.teleportCooldown = 150;
             this.currentTeleportCooldown = 0;
-            this.dropChance = 0.4;
+            this.shotcount = 0;
             this.teleportDirection = Game.DIRECTION.LEFT;
             this.behavior = (_event) => {
                 if (!this.isDead && this.isLoaded) {
@@ -28,23 +28,12 @@ var Game;
             fudge.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, this.behavior);
         }
         die() {
-            if (Math.random() < this.dropChance) {
-                this.dropItem();
-            }
             this.showOneTime(Game.CHARACTERSTATE.DEATH);
             this.isDead = true;
             setTimeout(() => {
                 this.getParent().removeChild(this);
                 Game.Util.getInstance().level.deleteEnemy(this);
             }, 200);
-        }
-        dropItem() {
-            let possibleItemsArray = Game.Util.getInstance().level.possibleItemsArray;
-            let randomItem = Game.Util.getInstance().getRandomRange(0, possibleItemsArray.length);
-            let item = possibleItemsArray[randomItem];
-            item.cmpTransform.local.translation = this.cmpTransform.local.translation;
-            Game.Util.getInstance().level.appendToRoot(item);
-            Game.Util.getInstance().level.itemArray.push(item);
         }
         attack() {
             if (this.attackCooldown == 0 && !Game.Util.getInstance().level.player.finished) {
@@ -61,6 +50,7 @@ var Game;
                 if (this.currentPlatform.name == player.currentPlatform.name) {
                     if (this.currentTeleportCooldown == this.teleportCooldown) {
                         this.teleport(this.teleportDirection);
+                        this.currentTeleportCooldown = 0;
                     }
                     else {
                         this.currentTeleportCooldown++;
@@ -90,30 +80,42 @@ var Game;
                 }
             }
         }
-        randomDirection() {
-            let randomnum = Game.Util.getInstance().getRandomRange(1, 3);
-            if (randomnum == 1) {
-                this.teleportDirection = Game.DIRECTION.RIGHT;
-            }
-            else {
-                this.teleportDirection = Game.DIRECTION.LEFT;
-            }
-        }
-        shoot() {
-        }
-        teleport(direction) {
-            switch (direction) {
+        setDirection() {
+            switch (this.teleportDirection) {
                 case Game.DIRECTION.LEFT: {
-                    this.cmpTransform.local.translateX(-10);
+                    this.teleportDirection = Game.DIRECTION.RIGHT;
                     break;
                 }
                 case Game.DIRECTION.RIGHT: {
-                    this.cmpTransform.local.translateX(+10);
+                    this.teleportDirection = Game.DIRECTION.LEFT;
                     break;
                 }
             }
-            this.randomDirection();
-            this.shoot();
+        }
+        shoot() {
+            fudge.Debug.log("shoot");
+            let spells = new Game.WizzardSpell("spell" + this.shotcount, Game.ENVIRONMENTTYPE.PLATFORM, "default", this.cmpTransform.local.translation.x, this.cmpTransform.local.translation.y - 0.3, 0.5, 0.5);
+            spells.shotdirection = this.teleportDirection;
+            Game.Util.getInstance().level.addWizardSpell(spells);
+            this.shotcount++;
+        }
+        teleport(direction) {
+            let posX = this.cmpTransform.local.translation.x;
+            let posY = this.cmpTransform.local.translation.y;
+            switch (direction) {
+                case Game.DIRECTION.LEFT: {
+                    this.cmpTransform.local.translation = new fudge.Vector3(posX - 5, posY + 0.5, 0);
+                    this.setDirection();
+                    this.shoot();
+                    break;
+                }
+                case Game.DIRECTION.RIGHT: {
+                    this.cmpTransform.local.translation = new fudge.Vector3(posX + 5, posY + 0.5, 0);
+                    this.setDirection();
+                    this.shoot();
+                    break;
+                }
+            }
         }
     }
     Game.Wizzard = Wizzard;

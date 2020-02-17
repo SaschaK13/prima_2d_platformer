@@ -7,6 +7,8 @@
   "player": {"name": "player", "spriteName": "player", "positionX": 0, "positionY": 0, "scaleX": 1, "scaleY": 1},
 
   "platformArray": [
+    {"name": "Platform1", "spriteName": "default", "type": "Platform", "positionX": -6, "positionY": -3.7, "scaleX": 2, "scaleY": 1},
+    {"name": "Platform1", "spriteName": "default", "type": "Platform", "positionX": -3, "positionY": -3.7, "scaleX": 2, "scaleY": 1},
     {"name": "Platform1", "spriteName": "default", "type": "Platform", "positionX": 0, "positionY": -3.7, "scaleX": 2, "scaleY": 1},
     {"name": "Platform1", "spriteName": "default", "type": "Platform", "positionX": 3, "positionY": -3.7, "scaleX": 2, "scaleY": 1},
     {"name": "Platform1", "spriteName": "default", "type": "Platform", "positionX": 6, "positionY": -3.7, "scaleX": 2, "scaleY": 1},

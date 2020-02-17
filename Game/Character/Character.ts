@@ -13,8 +13,8 @@ namespace Game {
   }
 
   export enum DIRECTION {
-    RIGHT = "right",
-    LEFT = "left"
+    RIGHT = 1,
+    LEFT = -1
   }
 
   export interface CharacterStats {

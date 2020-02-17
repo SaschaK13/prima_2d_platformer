@@ -8,6 +8,7 @@ var Game;
             this.enemyArray = [];
             this.itemArray = [];
             this.possibleItemsArray = [];
+            this.wizzardSpells = [];
         }
         setRoot(root) {
             this.root = root;
@@ -33,6 +34,20 @@ var Game;
             }
             Game.Util.getInstance().level.itemArray = newItemArray;
         }
+        addWizardSpell(spell) {
+            this.wizzardSpells.push(spell);
+            this.root.appendChild(spell);
+        }
+        removeWizzardSpell(spell) {
+            let newSpellArray = [];
+            for (var i = 0; i < this.wizzardSpells.length; i++) {
+                if (!(this.wizzardSpells[i].name == spell.name)) {
+                    newSpellArray.push(this.wizzardSpells[i]);
+                }
+            }
+            Game.Util.getInstance().level.wizzardSpells = newSpellArray;
+            this.root.removeChild(spell);
+        }
         getCollidableObjects() {
             let collidableNodes = [];
             for (var i = 0; i < this.platformArray.length; i++) {
@@ -44,6 +59,9 @@ var Game;
                 if (this.enemyArray[i].isLoaded) {
                     collidableNodes.push(this.enemyArray[i]);
                 }
+            }
+            for (var i = 0; i < this.wizzardSpells.length; i++) {
+                collidableNodes.push(this.wizzardSpells[i]);
             }
             for (var i = 0; i < this.itemArray.length; i++) {
                 collidableNodes.push(this.itemArray[i]);
