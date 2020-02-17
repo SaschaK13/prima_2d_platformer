@@ -72,7 +72,7 @@ namespace Game {
         this.levelObject.platformArray.push(platform);
       }
 
-      let enemyArray: Character[] = this.data["enemyArray"]
+      let enemyArray: Character[] = this.data["enemyArray"];
       for (var i: number = 0; i < enemyArray.length; i++) {
         let current: Character = enemyArray[i];
         switch (current.spriteName) {
@@ -81,8 +81,16 @@ namespace Game {
             this.levelObject.enemyArray.push(enemy);
             break;
           } 
+
           case "goblin": {
             let enemy: Goblin = new Goblin(current.name, current.spriteName, current.positionX, current.positionY, current.scaleX, current.scaleY);
+            this.levelObject.enemyArray.push(enemy);
+            break;
+          }
+
+          case "wizzard": {
+            fudge.Debug.log("created wizzard");
+            let enemy: Wizzard = new Wizzard(current.name, current.spriteName, current.positionX, current.positionY, current.scaleX, current.scaleY);
             this.levelObject.enemyArray.push(enemy);
             break;
           }

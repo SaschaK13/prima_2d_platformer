@@ -74,6 +74,12 @@ var Game;
                         this.levelObject.enemyArray.push(enemy);
                         break;
                     }
+                    case "wizzard": {
+                        fudge.Debug.log("created wizzard");
+                        let enemy = new Game.Wizzard(current.name, current.spriteName, current.positionX, current.positionY, current.scaleX, current.scaleY);
+                        this.levelObject.enemyArray.push(enemy);
+                        break;
+                    }
                 }
             }
             let itemArray = this.data["itemArray"];

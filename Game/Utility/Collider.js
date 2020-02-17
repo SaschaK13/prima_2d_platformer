@@ -95,6 +95,9 @@ var Game;
                 case "Blob": {
                     return COLLISIONTYPE.ENEMY;
                 }
+                case "Wizzard": {
+                    return COLLISIONTYPE.ENEMY;
+                }
                 case "Goblin": {
                     return COLLISIONTYPE.ENEMY;
                 }
