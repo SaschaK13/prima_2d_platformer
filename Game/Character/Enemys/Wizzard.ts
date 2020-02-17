@@ -1,3 +1,4 @@
+
 namespace Game {
 
   import fudge = FudgeCore;
@@ -9,10 +10,13 @@ namespace Game {
     public positionY: number;
     public scaleX: number;
     public scaleY: number;
+
+
+    private teleportCooldown = 150;
+    private currentTeleportCooldown = 0;
     private dropChance: number = 0.4;
-    private lookAroundCooldown: number = 50;
-    private currentLookAroundCooldown: number = 0;
-    private moveDirection: DIRECTION = DIRECTION.RIGHT;
+
+    private teleportDirection: DIRECTION = DIRECTION.LEFT;
 
     constructor(name: string, spriteName: string, positionX: number, positionY: number, scaleX: number, scaleY: number) {
       super(name);
@@ -66,6 +70,21 @@ namespace Game {
     }
 
     public ki(): void {
+      let player: Player = Util.getInstance().level.player;
+
+      if(this.currentPlatform && player.currentPlatform)
+      {
+        if(this.currentPlatform.name == player.currentPlatform.name)
+        {
+          if(this.currentTeleportCooldown == this.teleportCooldown)
+          {
+            this.teleport(this.teleportDirection);
+          }else
+          {
+            this.currentTeleportCooldown++;
+          }
+        }
+      }
     }
 
     public reactToCollison(): void {
@@ -93,24 +112,36 @@ namespace Game {
       }
     }
 
-    private lookAround(): void {
-      if (this.currentLookAroundCooldown == this.lookAroundCooldown) {
-        this.randomDirection();
-        this.look(this.moveDirection);
-        this.currentLookAroundCooldown = 0;
-      } else {
-        this.currentLookAroundCooldown ++;
-      }
-    }
-
     private randomDirection(): void {
       let randomnum: number = Util.getInstance().getRandomRange(1, 3);
       if (randomnum == 1) {
-        this.moveDirection = DIRECTION.RIGHT;
+        this.teleportDirection = DIRECTION.RIGHT;
       } else {
-        this.moveDirection = DIRECTION.LEFT;
+        this.teleportDirection = DIRECTION.LEFT;
       }
     }
+
+    private shoot(){
+
+    }
+
+    private teleport(direction: DIRECTION)
+    {
+      switch (direction) {
+        case DIRECTION.LEFT: {
+          this.cmpTransform.local.translateX(-10);
+          break;
+        }
+        case DIRECTION.RIGHT: {
+          this.cmpTransform.local.translateX(+10);
+          break;
+        }
+      }
+      this.randomDirection();
+      this.shoot();
+
+    }
+
 
     private behavior = (_event: fudge.Eventƒ): void => {
       if (!this.isDead && this.isLoaded) {

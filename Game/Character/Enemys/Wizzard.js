@@ -6,10 +6,10 @@ var Game;
         constructor(name, spriteName, positionX, positionY, scaleX, scaleY) {
             super(name);
             this.attacksPlayer = false;
+            this.teleportCooldown = 150;
+            this.currentTeleportCooldown = 0;
             this.dropChance = 0.4;
-            this.lookAroundCooldown = 50;
-            this.currentLookAroundCooldown = 0;
-            this.moveDirection = Game.DIRECTION.RIGHT;
+            this.teleportDirection = Game.DIRECTION.LEFT;
             this.behavior = (_event) => {
                 if (!this.isDead && this.isLoaded) {
                     this.ki();
@@ -56,6 +56,17 @@ var Game;
             }
         }
         ki() {
+            let player = Game.Util.getInstance().level.player;
+            if (this.currentPlatform && player.currentPlatform) {
+                if (this.currentPlatform.name == player.currentPlatform.name) {
+                    if (this.currentTeleportCooldown == this.teleportCooldown) {
+                        this.teleport(this.teleportDirection);
+                    }
+                    else {
+                        this.currentTeleportCooldown++;
+                    }
+                }
+            }
         }
         reactToCollison() {
             let collisionObjects = this.collider.getCollisionObjects();
@@ -79,24 +90,30 @@ var Game;
                 }
             }
         }
-        lookAround() {
-            if (this.currentLookAroundCooldown == this.lookAroundCooldown) {
-                this.randomDirection();
-                this.look(this.moveDirection);
-                this.currentLookAroundCooldown = 0;
-            }
-            else {
-                this.currentLookAroundCooldown++;
-            }
-        }
         randomDirection() {
             let randomnum = Game.Util.getInstance().getRandomRange(1, 3);
             if (randomnum == 1) {
-                this.moveDirection = Game.DIRECTION.RIGHT;
+                this.teleportDirection = Game.DIRECTION.RIGHT;
             }
             else {
-                this.moveDirection = Game.DIRECTION.LEFT;
+                this.teleportDirection = Game.DIRECTION.LEFT;
             }
+        }
+        shoot() {
+        }
+        teleport(direction) {
+            switch (direction) {
+                case Game.DIRECTION.LEFT: {
+                    this.cmpTransform.local.translateX(-10);
+                    break;
+                }
+                case Game.DIRECTION.RIGHT: {
+                    this.cmpTransform.local.translateX(+10);
+                    break;
+                }
+            }
+            this.randomDirection();
+            this.shoot();
         }
     }
     Game.Wizzard = Wizzard;
