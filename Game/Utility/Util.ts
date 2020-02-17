@@ -137,10 +137,7 @@ namespace Game {
     }
 
     public setVolume(musicVol: number, soundVol: number) {
-      fudge.Debug.log(musicVol + "music")
-      fudge.Debug.log(soundVol + "sound")
       this.themeSound.volume = this.numberToOneDecimal(musicVol);
-
       this.hurtSound.volume = this.numberToOneDecimal(soundVol);
       this.jumpSound.volume = this.numberToOneDecimal(soundVol);
       this.pickUpSound.volume = this.numberToOneDecimal(soundVol);

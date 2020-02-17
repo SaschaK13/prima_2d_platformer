@@ -31,10 +31,14 @@ var Game;
     }
     function start() {
         select.play();
+        musicValue = music.value;
+        soundsValue = sounds.value;
         window.open("game?musicVol=" + musicValue + "&soundVol=" + soundsValue, "_self", "fullscreen=yes", true);
     }
     function loadButton() {
         select.play();
+        musicValue = music.value;
+        soundsValue = sounds.value;
         load();
     }
     function openSettings() {
@@ -58,11 +62,11 @@ var Game;
     }
     function handleInputMusic() {
         select.play();
-        musicValue = music.value;
+        theme.volume = Game.Util.getInstance().numberToOneDecimal((parseInt(music.value) / 100));
     }
     function handleInputSounds() {
         select.play();
-        soundsValue = sounds.value;
+        select.volume = Game.Util.getInstance().numberToOneDecimal((parseInt(sounds.value) / 100));
     }
     function fetchAudios() {
         select = new Audio();

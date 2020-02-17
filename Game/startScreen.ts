@@ -43,11 +43,15 @@ namespace Game {
 
   function start(): void {
     select.play();
+    musicValue = music.value;
+    soundsValue = sounds.value;
     window.open("game?musicVol=" + musicValue + "&soundVol=" + soundsValue, "_self" , "fullscreen=yes" , true);
   }
 
   function loadButton(): void {
     select.play();
+    musicValue = music.value;
+    soundsValue = sounds.value;
     load();
   }
 
@@ -75,12 +79,13 @@ namespace Game {
 
   function handleInputMusic(): void {
     select.play();
-    musicValue = music.value;
+    theme.volume = Util.getInstance().numberToOneDecimal((parseInt(music.value)/100));
+    
   }
 
   function handleInputSounds(): void {
     select.play();
-    soundsValue = sounds.value;
+    select.volume = Util.getInstance().numberToOneDecimal((parseInt(sounds.value)/100));
   }
 
   function fetchAudios(): void {
