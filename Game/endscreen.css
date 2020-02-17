@@ -1,0 +1,33 @@
+@font-face {
+  font-family: '8bit_wondernominal';
+  src: url('Assets/font/8-bit_wonder-webfont.woff2') format('woff2'),
+       url('Assets/font/8-bit_wonder-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  background: url("Assets/menu/menu.png");
+}
+
+.center {
+  font-family: "8bit_wondernominal";
+  color: white;
+  margin: auto;
+  width: 50%;
+  margin-top: 18%;
+  font-size: 100%;;
+}
+
+#backToMenu {
+  font-family: "8bit_wondernominal";
+  color: white;
+  text-align: center;
+  font-size: 100%;
+  cursor: pointer;
+  outline: none;
+}
+
+#backToMenu:hover {
+  color:rgb(180, 180, 180);
+}
