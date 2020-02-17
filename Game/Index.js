@@ -27,7 +27,7 @@ var Game;
     }
     function start() {
         select.play();
-        window.open("http://localhost:5000/Game/game?musicVol=" + musicValue + "&soundVol=" + soundsValue, "_self", "fullscreen=yes", true);
+        window.open("game?musicVol=" + musicValue + "&soundVol=" + soundsValue, "_self", "fullscreen=yes", true);
     }
     function loadButton() {
         select.play();
@@ -77,7 +77,7 @@ var Game;
         for (let filename in map) {
             let content = map[filename];
             fudge.FileIoBrowserLocal.removeEventListener("fileLoaded" /* FILE_LOADED */, handleContentLoaded);
-            window.open("http://localhost:5000/Game/game?musicVol=" + musicValue + "&soundVol=" + soundsValue + "&saveGamejson=" + content, "_self", "fullscreen=yes", true);
+            window.open("game?musicVol=" + musicValue + "&soundVol=" + soundsValue + "&saveGamejson=" + content, "_self", "fullscreen=yes", true);
         }
     }
 })(Game || (Game = {}));

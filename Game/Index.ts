@@ -38,7 +38,7 @@ namespace Game {
 
   function start(): void {
     select.play();
-    window.open("http://localhost:5000/Game/game?musicVol=" + musicValue + "&soundVol=" + soundsValue, "_self" , "fullscreen=yes" , true);
+    window.open("game?musicVol=" + musicValue + "&soundVol=" + soundsValue, "_self" , "fullscreen=yes" , true);
   }
 
   function loadButton(): void {
@@ -101,7 +101,7 @@ namespace Game {
     for (let filename in map) {
       let content: string = map[filename];
       fudge.FileIoBrowserLocal.removeEventListener(fudge.EVENT.FILE_LOADED, handleContentLoaded);
-      window.open("http://localhost:5000/Game/game?musicVol=" + musicValue + "&soundVol=" + soundsValue + "&saveGamejson=" + content, "_self" , "fullscreen=yes" , true);
+      window.open("game?musicVol=" + musicValue + "&soundVol=" + soundsValue + "&saveGamejson=" + content, "_self" , "fullscreen=yes" , true);
     }
   }
 }
