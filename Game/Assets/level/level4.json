@@ -1,6 +1,6 @@
 {
   "levelNumber": 4,
-  "levelLength": 15,
+  "levelLength": 30,
   "theme": "level4",
 
 
@@ -10,18 +10,18 @@
     {"name": "Platform1", "spriteName": "default", "type": "Platform", "positionX": -6, "positionY": -3.7, "scaleX": 2, "scaleY": 1},
     {"name": "Platform1", "spriteName": "default", "type": "Platform", "positionX": -3, "positionY": -3.7, "scaleX": 2, "scaleY": 1},
     {"name": "Platform1", "spriteName": "default", "type": "Platform", "positionX": 0, "positionY": -3.7, "scaleX": 2, "scaleY": 1},
-    {"name": "Platform1", "spriteName": "default", "type": "Platform", "positionX": 3, "positionY": -3.7, "scaleX": 2, "scaleY": 1},
-    {"name": "Platform1", "spriteName": "default", "type": "Platform", "positionX": 6, "positionY": -3.7, "scaleX": 2, "scaleY": 1},
-    {"name": "Platform1", "spriteName": "default", "type": "Platform", "positionX": 9, "positionY": -3.7, "scaleX": 2, "scaleY": 1},
-    {"name": "Platform1", "spriteName": "default", "type": "Platform", "positionX": 12, "positionY": -3.7, "scaleX": 2, "scaleY": 1},
-    {"name": "Platform1", "spriteName": "default", "type": "Platform", "positionX": 15, "positionY": -3.7, "scaleX": 2, "scaleY": 1}
+    {"name": "Platform2", "spriteName": "default", "type": "Platform", "positionX": 3, "positionY": -3.7, "scaleX": 2, "scaleY": 1},
+    {"name": "Platform2", "spriteName": "default", "type": "Platform", "positionX": 6, "positionY": -3.7, "scaleX": 2, "scaleY": 1},
+    {"name": "Platform2", "spriteName": "default", "type": "Platform", "positionX": 9, "positionY": -3.7, "scaleX": 2, "scaleY": 1},
+    {"name": "Platform2", "spriteName": "default", "type": "Platform", "positionX": 12, "positionY": -3.7, "scaleX": 2, "scaleY": 1},
+    {"name": "Platform2", "spriteName": "default", "type": "Platform", "positionX": 15, "positionY": -3.7, "scaleX": 2, "scaleY": 1}
   ],
 
   "background": {"name": "backgroundend", "spriteName": "backgroundend", "type": "Background", "length": 15},
 
   "finish": {"name": "finish", "spriteName": "finish", "type": "Platform"},
 
-  "enemyArray": [    {"name": "Enemy1", "spriteName": "wizzard",  "positionX": 3, "positionY": 1, "scaleX": 1, "scaleY": 1}
+  "enemyArray": [    {"name": "Enemy1", "spriteName": "wizzard",  "positionX": 10, "positionY": 1, "scaleX": 1, "scaleY": 1}
 
   ],
 
