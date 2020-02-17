@@ -83,7 +83,7 @@ var Game;
             }
             else {
                 util.lvlGenerator = new Game.LevelGenerator(util.collidableNode);
-                util.lvlGenerator.getDataFromFile("level4");
+                util.lvlGenerator.getDataFromFile("level1");
             }
         }
         function loadLevel(saveGamejson) {
