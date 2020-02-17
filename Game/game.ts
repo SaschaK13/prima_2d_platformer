@@ -11,10 +11,10 @@ namespace Game {
     let safe: HTMLElement = document.getElementById("safe");
     let nextLevel: HTMLElement = document.getElementById("nextLevel");
 
-    let restart_menu = document.getElementById("restart_menu");
-    let backToMenu_menu = document.getElementById("backToMenu_menu");
-    let controls_menu = document.getElementById("controls_menu");
-    let goBackButton = document.getElementById("back");
+    let restart_menu: HTMLElement = document.getElementById("restart_menu");
+    let backToMenu_menu: HTMLElement = document.getElementById("backToMenu_menu");
+    let controls_menu: HTMLElement = document.getElementById("controls_menu");
+    let goBackButton: HTMLElement = document.getElementById("back");
 
     restart.addEventListener("click", reload);
     backToMenu.addEventListener("click", goBack);
@@ -25,7 +25,7 @@ namespace Game {
     restart_menu.addEventListener("click", reload);
     backToMenu_menu.addEventListener("click", goBack);
     controls_menu.addEventListener("click", openControls);
-    goBackButton.addEventListener("click", closeControls)
+    goBackButton.addEventListener("click", closeControls);
 
     function reload(): void {
       Util.getInstance().selectSound.play();

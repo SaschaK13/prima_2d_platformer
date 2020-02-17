@@ -7,10 +7,18 @@ var Game;
         let backToMenu = document.getElementById("backToMenu");
         let safe = document.getElementById("safe");
         let nextLevel = document.getElementById("nextLevel");
+        let restart_menu = document.getElementById("restart_menu");
+        let backToMenu_menu = document.getElementById("backToMenu_menu");
+        let controls_menu = document.getElementById("controls_menu");
+        let goBackButton = document.getElementById("back");
         restart.addEventListener("click", reload);
         backToMenu.addEventListener("click", goBack);
         safe.addEventListener("click", safeGame);
         nextLevel.addEventListener("click", next);
+        restart_menu.addEventListener("click", reload);
+        backToMenu_menu.addEventListener("click", goBack);
+        controls_menu.addEventListener("click", openControls);
+        goBackButton.addEventListener("click", closeControls);
         function reload() {
             Game.Util.getInstance().selectSound.play();
             location.reload();
@@ -29,6 +37,12 @@ var Game;
             Game.Util.getInstance().selectSound.play();
             document.getElementById("safeGame").style.visibility = "hidden";
             Game.Util.getInstance().loadNextLevel();
+        }
+        function openControls() {
+            document.getElementById("ingameControls").style.visibility = "visible";
+        }
+        function closeControls() {
+            document.getElementById("ingameControls").style.visibility = "hidden";
         }
     }
 })(Game || (Game = {}));
