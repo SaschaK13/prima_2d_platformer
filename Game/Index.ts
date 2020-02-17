@@ -7,6 +7,12 @@ namespace Game {
   let select: HTMLAudioElement;
   let theme: HTMLAudioElement;
 
+  let music: HTMLElement;
+  let sounds: HTMLElement;
+
+  let musicValue: number;
+  let soundsValue: number;
+
   function addEventlisteners(): void {
 
     fetchAudios();
@@ -15,12 +21,29 @@ namespace Game {
     let newGame: HTMLElement = document.getElementById("newGame");
     let loadGame: HTMLElement = document.getElementById("loadGame");
     let settings: HTMLElement = document.getElementById("settings");
-    let closeSettings: HTMLElement = document.getElementById("closeSettings"); 
+    let closeSettings: HTMLElement = document.getElementById("closeSettings");
 
     newGame.addEventListener("click", start);
     loadGame.addEventListener("click", loadButton);
     settings.addEventListener("click", openSettings);
     closeSettings.addEventListener("click", close);
+
+    music = document.getElementById("music");
+    sounds = document.getElementById("sounds");
+
+    music.addEventListener("click", handleInputMusic);
+    sounds.addEventListener("click", handleInputSounds);
+
+    /*
+    music.oninput = function (): void {
+      alert(music.Value);
+    };
+
+    sounds.oninput = function (): void {
+      alert(sounds.nodeValue);
+    };
+    */
+
   }
 
   function start(): void {
@@ -39,6 +62,15 @@ namespace Game {
   function close(): void {
     document.getElementById("settingsBox").style.visibility = "hidden";
   }
+
+  function handleInputMusic(): void {
+    musicValue = music.value;
+  }
+
+  function handleInputSounds(): void {
+    soundsValue = sounds.value;
+  }
+
 
   function fetchAudios(): void {
     select = new Audio();
