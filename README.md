@@ -52,3 +52,9 @@ Die Steuerung wird im Menü unter: "Controls" erklärt.</br>
     * Level2-Theme: [La Calahorra - by Rolemusic](https://freemusicarchive.org/search?sort=track_date_published&d=1&quicksearch=La+Calahorra)
     * Level3-Theme: [Juglar Street - by Rolemusic](https://freemusicarchive.org/search?sort=track_date_published&d=1&quicksearch=juglar+street)
     * Level4-Theme: [Kinetic Sands - by Azureflux](https://freemusicarchive.org/music/Azureflux/Bit_Bops/06_azureflux_-_kinetic_sands)
+    
+2. Code/Ideen
+      * Christian Cappa
+      * Sascha Könninger
+      * Jonas Kern
+
