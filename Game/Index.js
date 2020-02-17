@@ -16,10 +16,14 @@ var Game;
         let loadGame = document.getElementById("loadGame");
         let settings = document.getElementById("settings");
         let closeSettings = document.getElementById("closeSettings");
+        let controls = document.getElementById("controls");
+        let closeControls = document.getElementById("controlsBox");
+        controls.addEventListener("click", openControls);
         newGame.addEventListener("click", start);
         loadGame.addEventListener("click", loadButton);
         settings.addEventListener("click", openSettings);
         closeSettings.addEventListener("click", close);
+        closeControls.addEventListener("click", close);
         music = document.getElementById("music");
         sounds = document.getElementById("sounds");
         music.addEventListener("click", handleInputMusic);
@@ -34,11 +38,17 @@ var Game;
         load();
     }
     function openSettings() {
+        select.play();
         document.getElementById("settingsBox").style.visibility = "visible";
+    }
+    function openControls() {
+        select.play();
+        document.getElementById("controlsBox").style.visibility = "visible";
     }
     function close() {
         select.play();
         document.getElementById("settingsBox").style.visibility = "hidden";
+        document.getElementById("controlsBox").style.visibility = "hidden";
     }
     function handleInputMusic() {
         select.play();

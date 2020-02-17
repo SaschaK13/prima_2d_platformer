@@ -51,7 +51,7 @@ body {
   outline: none;
 }
 
-#settingsBox {
+#settingsBox, #controlsBox {
   position: absolute;
   text-align: center;
   border: 5px solid black;
@@ -67,7 +67,7 @@ body {
   padding: 5%;
 }
 
-#closeSettings {
+#closeSettings, #closeControls {
   background-image: url("./Assets/menu/closeButton.png");
   border-radius: 8px;
   font-size: x-large;
