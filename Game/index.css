@@ -26,6 +26,7 @@ body {
   animation-iteration-count: infinite;
   animation-direction: alternate;
   cursor: pointer;
+  outline: none;
 }
 
 
