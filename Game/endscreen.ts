@@ -8,6 +8,12 @@ namespace Game {
     
     let backToMenu = document.getElementById("backToMenu");
 
+    let theme = new Audio();
+    theme.src = "Assets/sounds/endscreen.wav";
+    theme.load();
+    theme.loop = true;
+    theme.play();
+
     backToMenu.addEventListener("click", goBack);
   }
 
