@@ -6,7 +6,7 @@ var Game;
         constructor(name, spriteName, positionX, positionY, scaleX, scaleY) {
             super(name);
             this.attacksPlayer = false;
-            this.teleportCooldown = 150;
+            this.teleportCooldown = 100;
             this.currentTeleportCooldown = 0;
             this.shotcount = 0;
             this.teleportDirection = Game.DIRECTION.LEFT;
@@ -21,7 +21,7 @@ var Game;
             this.cmpTransform.local.scaling = new fudge.Vector3(scaleX, scaleY, 0);
             // let material: fudge.Material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(1, 0, 1, 1)));
             // this.addComponent(new fudge.ComponentMaterial(material));
-            this.setStats({ hp: 3, dmg: 0, walkSpeed: 2, jumpHeight: 0, attackSpeed: 100 });
+            this.setStats({ hp: 10, dmg: 0, walkSpeed: 2, jumpHeight: 0, attackSpeed: 100 });
             //this.movementDuration = Util.getInstance().getRandomRange(2, 3);
             //this.randomDirection();
             super.addSpriteListener();
@@ -104,12 +104,14 @@ var Game;
             let posY = this.cmpTransform.local.translation.y;
             switch (direction) {
                 case Game.DIRECTION.LEFT: {
+                    this.look(this.teleportDirection);
                     this.cmpTransform.local.translation = new fudge.Vector3(posX - 5, posY + 0.5, 0);
                     this.setDirection();
                     this.shoot();
                     break;
                 }
                 case Game.DIRECTION.RIGHT: {
+                    this.look(this.teleportDirection);
                     this.cmpTransform.local.translation = new fudge.Vector3(posX + 5, posY + 0.5, 0);
                     this.setDirection();
                     this.shoot();

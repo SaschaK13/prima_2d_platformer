@@ -12,7 +12,7 @@ namespace Game {
     public scaleY: number;
 
 
-    private teleportCooldown = 150;
+    private teleportCooldown = 100;
     private currentTeleportCooldown = 0;
     private shotcount = 0;
 
@@ -29,7 +29,7 @@ namespace Game {
       // let material: fudge.Material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(1, 0, 1, 1)));
       // this.addComponent(new fudge.ComponentMaterial(material));
       
-      this.setStats({ hp: 3, dmg: 0, walkSpeed: 2, jumpHeight: 0, attackSpeed: 100 });
+      this.setStats({ hp: 10, dmg: 0, walkSpeed: 2, jumpHeight: 0, attackSpeed: 100 });
 
       //this.movementDuration = Util.getInstance().getRandomRange(2, 3);
       //this.randomDirection();
@@ -139,13 +139,15 @@ namespace Game {
     
       switch (direction) {
         case DIRECTION.LEFT: {
-          this.cmpTransform.local.translation = new fudge.Vector3(posX - 5, posY+ 0.5, 0)
+          this.look(this.teleportDirection);
+          this.cmpTransform.local.translation = new fudge.Vector3(posX - 5, posY + 0.5, 0);
           this.setDirection();
-           this.shoot();
+          this.shoot();
           break;
         }
         case DIRECTION.RIGHT: {
-          this.cmpTransform.local.translation = new fudge.Vector3(posX + 5, posY+ 0.5, 0)
+          this.look(this.teleportDirection);
+          this.cmpTransform.local.translation = new fudge.Vector3(posX + 5, posY+ 0.5, 0);
           this.setDirection();
           this.shoot();
           break;
