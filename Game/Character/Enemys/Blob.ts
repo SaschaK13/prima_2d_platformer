@@ -59,7 +59,7 @@ namespace Game {
           this.walk(this.moveDirection);
           
         } else {
-          switch(this.moveDirection){
+          switch (this.moveDirection) {
             case DIRECTION.LEFT: {
               this.moveDirection = DIRECTION.RIGHT;
               this.walk(this.moveDirection);

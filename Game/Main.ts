@@ -21,6 +21,7 @@ namespace Game {
     const queryString: string = window.location.search;
     const urlParams: URLSearchParams = new URLSearchParams(queryString);
 
+
     //camera
     let cmpCamera: fudge.ComponentCamera = new fudge.ComponentCamera();
     cmpCamera.pivot.translateZ(15);
@@ -83,23 +84,27 @@ namespace Game {
     }
 
     function loadGame(): void {
-      Util.getInstance().collidableNode = new fudge.Node("collidable"); 
-      Util.getInstance().rootNode = root;
-      root.appendChild(Util.getInstance().collidableNode);
+      let util: Util = Util.getInstance();
+      util.collidableNode = new fudge.Node("collidable"); 
+      util.rootNode = root;
+      root.appendChild(util.collidableNode);
 
-      Util.getInstance().fetchAudios();
+      util.fetchAudios();
+
+      util.musicVol = (parseInt(urlParams.get('musicVol'))/100);
+      util.soundVol = (parseInt(urlParams.get('soundVol'))/100);
 
       loadSprites();
 
       let gui: Gui = new Gui();
-      Util.getInstance().gui = gui;
+      util.gui = gui;
 
       saveGameName = urlParams.get('saveGamejson');
       if (saveGameName) {
         loadLevel(saveGameName);
       } else {
-        Util.getInstance().lvlGenerator = new LevelGenerator(Util.getInstance().collidableNode);
-        Util.getInstance().lvlGenerator.getDataFromFile("level1");
+        util.lvlGenerator = new LevelGenerator(util.collidableNode);
+        util.lvlGenerator.getDataFromFile("level1");
       }
 
     
