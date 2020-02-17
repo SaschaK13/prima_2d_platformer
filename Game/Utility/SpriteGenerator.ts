@@ -157,7 +157,8 @@ namespace Game {
     "backgroundend",
     "healpotion",
     "sword",
-    "boots"
+    "boots",
+    "spell"
   ];
   
   let states: string[] = [
@@ -286,24 +287,24 @@ namespace Game {
             sprite.generateByGrid(textureImage, fudge.Rectangle.GET(17, 11, 40, 60), 10, new fudge.Vector2(40, 0), 32, fudge.ORIGIN2D.CENTER);
             return sprite;
           }
-          case CHARACTERSTATE.WALK: { 
-            let sprite: Sprite = new Sprite(spriteName + "_" + stateName);
-            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(50, 60, 50, 50), 8, new fudge.Vector2(100, 0), 32, fudge.ORIGIN2D.CENTER);
-            return sprite;
-          }
           case CHARACTERSTATE.ATTACK: { 
             let sprite: Sprite = new Sprite(spriteName + "_" + stateName);
-            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(50, 60, 50, 50), 8, new fudge.Vector2(100, 0), 32, fudge.ORIGIN2D.CENTER);
+            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(5, 9, 40, 65), 6, new fudge.Vector2(46, 0), 32, fudge.ORIGIN2D.CENTER);
+            return sprite;
+          }
+          case CHARACTERSTATE.WALK: { 
+            let sprite: Sprite = new Sprite(spriteName + "_" + stateName);
+            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(17, 11, 40, 60), 6, new fudge.Vector2(40, 0), 32, fudge.ORIGIN2D.CENTER);
             return sprite;
           }
           case CHARACTERSTATE.HIT: { 
             let sprite: Sprite = new Sprite(spriteName + "_" + stateName);
-            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(50, 60, 50, 50), 4, new fudge.Vector2(100, 0), 32, fudge.ORIGIN2D.CENTER);
+            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(17, 11, 40, 60), 2, new fudge.Vector2(40, 0), 32, fudge.ORIGIN2D.CENTER);
             return sprite;
           }
           case CHARACTERSTATE.DEATH: { 
             let sprite: Sprite = new Sprite(spriteName + "_" + stateName);
-            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(50, 60, 50, 50), 4, new fudge.Vector2(100, 0), 32, fudge.ORIGIN2D.CENTER);
+            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(17, 11, 40, 70), 10, new fudge.Vector2(40, 0), 32, fudge.ORIGIN2D.CENTER);
             return sprite;
           }
         }
@@ -407,7 +408,16 @@ namespace Game {
             return sprite;
           }
         }
-      }      
+      }
+      case "spell": {
+        switch (stateName) { 
+          case CHARACTERSTATE.DEFAULT: { 
+            let sprite: Sprite = new Sprite(spriteName + "_" + stateName);
+            sprite.generateByGrid(textureImage, fudge.Rectangle.GET(0, 0, 20, 20), 1, new fudge.Vector2(0, 0), 32, fudge.ORIGIN2D.CENTER);
+            return sprite;
+          }
+        }
+      }       
     }
   }
 }

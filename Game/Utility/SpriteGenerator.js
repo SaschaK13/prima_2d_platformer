@@ -124,7 +124,8 @@ var Game;
         "backgroundend",
         "healpotion",
         "sword",
-        "boots"
+        "boots",
+        "spell"
     ];
     let states = [
         "default",
@@ -248,24 +249,24 @@ var Game;
                         sprite.generateByGrid(textureImage, fudge.Rectangle.GET(17, 11, 40, 60), 10, new fudge.Vector2(40, 0), 32, fudge.ORIGIN2D.CENTER);
                         return sprite;
                     }
-                    case Game.CHARACTERSTATE.WALK: {
-                        let sprite = new Sprite(spriteName + "_" + stateName);
-                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(50, 60, 50, 50), 8, new fudge.Vector2(100, 0), 32, fudge.ORIGIN2D.CENTER);
-                        return sprite;
-                    }
                     case Game.CHARACTERSTATE.ATTACK: {
                         let sprite = new Sprite(spriteName + "_" + stateName);
-                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(50, 60, 50, 50), 8, new fudge.Vector2(100, 0), 32, fudge.ORIGIN2D.CENTER);
+                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(5, 9, 40, 65), 6, new fudge.Vector2(46, 0), 32, fudge.ORIGIN2D.CENTER);
+                        return sprite;
+                    }
+                    case Game.CHARACTERSTATE.WALK: {
+                        let sprite = new Sprite(spriteName + "_" + stateName);
+                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(17, 11, 40, 60), 6, new fudge.Vector2(40, 0), 32, fudge.ORIGIN2D.CENTER);
                         return sprite;
                     }
                     case Game.CHARACTERSTATE.HIT: {
                         let sprite = new Sprite(spriteName + "_" + stateName);
-                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(50, 60, 50, 50), 4, new fudge.Vector2(100, 0), 32, fudge.ORIGIN2D.CENTER);
+                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(17, 11, 40, 60), 2, new fudge.Vector2(40, 0), 32, fudge.ORIGIN2D.CENTER);
                         return sprite;
                     }
                     case Game.CHARACTERSTATE.DEATH: {
                         let sprite = new Sprite(spriteName + "_" + stateName);
-                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(50, 60, 50, 50), 4, new fudge.Vector2(100, 0), 32, fudge.ORIGIN2D.CENTER);
+                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(17, 11, 40, 70), 10, new fudge.Vector2(40, 0), 32, fudge.ORIGIN2D.CENTER);
                         return sprite;
                     }
                 }
@@ -365,6 +366,15 @@ var Game;
                     case Game.CHARACTERSTATE.DEFAULT: {
                         let sprite = new Sprite(spriteName + "_" + stateName);
                         sprite.generateByGrid(textureImage, fudge.Rectangle.GET(0, 0, 30, 30), 1, new fudge.Vector2(0, 0), 32, fudge.ORIGIN2D.CENTER);
+                        return sprite;
+                    }
+                }
+            }
+            case "spell": {
+                switch (stateName) {
+                    case Game.CHARACTERSTATE.DEFAULT: {
+                        let sprite = new Sprite(spriteName + "_" + stateName);
+                        sprite.generateByGrid(textureImage, fudge.Rectangle.GET(0, 0, 20, 20), 1, new fudge.Vector2(0, 0), 32, fudge.ORIGIN2D.CENTER);
                         return sprite;
                     }
                 }

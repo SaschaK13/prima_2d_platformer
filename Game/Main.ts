@@ -108,7 +108,7 @@ namespace Game {
         loadLevel(saveGameName);
       } else {
         util.lvlGenerator = new LevelGenerator(util.collidableNode);
-        util.lvlGenerator.getDataFromFile("level1");
+        util.lvlGenerator.getDataFromFile("level4");
       }
 
     

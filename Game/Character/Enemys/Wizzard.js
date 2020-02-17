@@ -19,8 +19,8 @@ var Game;
             this.spriteName = spriteName;
             this.cmpTransform.local.translation = new fudge.Vector3(positionX, positionY, 0);
             this.cmpTransform.local.scaling = new fudge.Vector3(scaleX, scaleY, 0);
-            let material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(1, 0, 1, 1)));
-            this.addComponent(new fudge.ComponentMaterial(material));
+            // let material: fudge.Material = new fudge.Material("test", fudge.ShaderUniColor, new fudge.CoatColored(new fudge.Color(1, 0, 1, 1)));
+            // this.addComponent(new fudge.ComponentMaterial(material));
             this.setStats({ hp: 3, dmg: 0, walkSpeed: 2, jumpHeight: 0, attackSpeed: 100 });
             //this.movementDuration = Util.getInstance().getRandomRange(2, 3);
             //this.randomDirection();
@@ -33,7 +33,7 @@ var Game;
             setTimeout(() => {
                 this.getParent().removeChild(this);
                 Game.Util.getInstance().level.deleteEnemy(this);
-            }, 200);
+            }, 400);
         }
         attack() {
             if (this.attackCooldown == 0 && !Game.Util.getInstance().level.player.finished) {
@@ -93,8 +93,8 @@ var Game;
             }
         }
         shoot() {
-            fudge.Debug.log("shoot");
-            let spells = new Game.WizzardSpell("spell" + this.shotcount, Game.ENVIRONMENTTYPE.PLATFORM, "default", this.cmpTransform.local.translation.x, this.cmpTransform.local.translation.y - 0.3, 0.5, 0.5);
+            this.showOneTime(Game.CHARACTERSTATE.ATTACK);
+            let spells = new Game.WizzardSpell("spell" + this.shotcount, Game.ENVIRONMENTTYPE.PLATFORM, "spell", this.cmpTransform.local.translation.x, this.cmpTransform.local.translation.y - 0.3, 0.5, 0.5);
             spells.shotdirection = this.teleportDirection;
             Game.Util.getInstance().level.addWizardSpell(spells);
             this.shotcount++;
