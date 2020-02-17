@@ -38,6 +38,7 @@ var Game;
             let randomItem = Game.Util.getInstance().getRandomRange(0, possibleItemsArray.length);
             let item = possibleItemsArray[randomItem];
             item.cmpTransform.local.translation = this.cmpTransform.local.translation;
+            item.cmpTransform.local.scaling = new fudge.Vector3(this.cmpTransform.local.scaling.x / 1.5, this.cmpTransform.local.scaling.y / 1.5, 0);
             Game.Util.getInstance().level.appendToRoot(item);
             Game.Util.getInstance().level.itemArray.push(item);
         }
